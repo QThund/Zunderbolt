@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\ZTime\DateTime.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTime\STimeZoneFactory.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTime\TimeModuleDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTime\TimeSpan.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTime\TimeZone.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\ZTime\DateTime.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTime\DstInformation.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTime\STimeZoneFactory.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTime\TimeSpan.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTime\TimeZone.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTime\TimeZoneDatabase.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTime\Workarounds\Boost_ThrowException.cpp">
+      <Filter>Workarounds</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Workarounds">
+      <UniqueIdentifier>{48b124eb-b092-418a-961e-eb46999efd9d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

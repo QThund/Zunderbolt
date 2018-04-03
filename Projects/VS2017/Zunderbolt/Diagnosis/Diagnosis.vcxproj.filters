@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Workarounds">
+      <UniqueIdentifier>{7030d0a8-be53-4cf7-8f5d-182cd901ebaa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\Workarounds\Boost_ThrowException.cpp">
+      <Filter>Workarounds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\AbstractCallStackTracePrinter.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\ArgumentTrace.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\CallStackTrace.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\CallStackTraceConsolePrinter.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\CallStackTracePlainTextFormatter.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\CallStackTracer.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\CallTrace.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\ICallStackTraceFormatter.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZDiagnosis\ScopedCallTraceNotifier.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\AbstractCallStackTracePrinter.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\ArgumentTrace.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\CallStackTrace.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\CallStackTraceConsolePrinter.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\CallStackTracePlainTextFormatter.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\CallStackTracer.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\CallStackTracingDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\CallTrace.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\DiagnosisModuleDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\ICallStackTraceFormatter.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\ScopedCallTraceNotifier.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\TypeWithGetType.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZDiagnosis\TypeWithToString.h" />
+  </ItemGroup>
+</Project>

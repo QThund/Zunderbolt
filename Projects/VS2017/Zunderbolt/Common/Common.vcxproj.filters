@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DataTypes">
+      <UniqueIdentifier>{70413bc8-e013-44ba-ad73-81df634e02f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{5e9c6b74-99f2-447a-bb49-3a445a4d12f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Internals">
+      <UniqueIdentifier>{17b5050a-2ecb-4588-b8e2-6dd7021901e1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\Assertions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\Configuration.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\Endianness.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\InternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\LoggingUtilities.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\RTTIDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\CrossPlatformBasicTypes.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\StringsDefinitions.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\Internals\DelegateInternals.h">
+      <Filter>Internals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\CommonModuleDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\DataTypesDefinitions.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\ArrayBasic.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\ArrayResult.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\CharUnicode.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\StringUnicode.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\Type.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\SAnyTypeToStringConverter.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\SBoolean.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\SFloat.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\SInteger.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\SVF32.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\ETextEncoding.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\ENormalizationForm.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\DataTypes\EComparisonType.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\Exceptions\AssertException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\EAssertionType.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\Delegate.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\ReferenceWrapper.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\SInternalLogger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\Assertions.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\CharUnicode.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\CharIterator.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\ConstCharIterator.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\StringUnicode.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\Type.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\SAnyTypeToStringConverter.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\SBoolean.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\SFloat.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\SInteger.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\SVF32.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\ETextEncoding.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\ENormalizationForm.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\EComparisonType.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\Exceptions\AssertException.cpp">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\EAssertionType.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZCommon\SInternalLogger.cpp" />
+  </ItemGroup>
+</Project>

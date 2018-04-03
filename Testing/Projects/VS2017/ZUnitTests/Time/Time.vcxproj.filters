@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{9db66cd7-5975-43cc-b98d-531a9138caa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestSystem %28shared%29">
+      <UniqueIdentifier>{fd7e9de1-b34f-4b96-b5a0-43c630e384fd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\TestSystem\CommonTestConfig.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\TestSystem\ETestType.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\TestSystem\SimpleConfigLoader.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Time\DateTime_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Time\DstInformation_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Time\STimeZoneFactory_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Time\TimeSpan_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Time\TimeZone_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Time\TestModule_Time.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\TestSystem\CommonConfigDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\CommonTestConfig.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\ETestType.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\PerformanceTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\SimpleConfigLoader.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\TestingExternalDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\TestingHelperDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\UnitTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\ZunderboltFixtures.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\TestSystem\UnitTestTemplate.txt">
+      <Filter>TestSystem %28shared%29</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{9db66cd7-5975-43cc-b98d-531a9138caa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestSystem %28shared%29">
+      <UniqueIdentifier>{fd7e9de1-b34f-4b96-b5a0-43c630e384fd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\TestSystem\UnitTestTemplate.txt">
+      <Filter>TestSystem %28shared%29</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseDualQuaternion_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseHexahedron_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseLineSegment_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseMatrix2x2_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseMatrix3x3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseMatrix3x4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseMatrix4x3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseMatrix4x4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseOrb_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BasePlane_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseQuadrilateral_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseQuaternion_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseRay_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseTriangle_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseVector2_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseVector3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseVector4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Circle_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\DualQuaternion_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Hexahedron_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\LineSegment_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\LineSegment2D_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\LineSegment3D_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Matrix2x2_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Matrix3x3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Matrix3x4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Matrix4x3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Matrix4x4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Orb_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Plane_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Quadrilateral_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Quaternion_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Ray_QVector4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Ray_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Ray2D_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Ray3D_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\RotationMatrix3x3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\SAngle_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\ScalingMatrix3x3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\SpaceConversionMatrix_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Sphere_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\SPoint_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TransformationMatrix_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TransformationMatrix3x3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TranslationMatrix_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Triangle_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Triangle2D_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Triangle3D_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Vector2_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Vector3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Vector4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\TestSystem\CommonTestConfig.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\TestSystem\ETestType.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\TestSystem\SimpleConfigLoader.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TestModule_Math.cpp" />
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\BaseRay_Vector4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Tests\Unit\TestModule_Math\LineSegmentWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Tests\Unit\TestModule_Math\TransformationMatrixWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\CommonConfigDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\CommonTestConfig.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\ETestType.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\PerformanceTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\SimpleConfigLoader.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\TestingExternalDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\TestingHelperDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\UnitTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TestSystem\ZunderboltFixtures.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

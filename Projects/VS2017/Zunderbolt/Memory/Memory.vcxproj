@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugDynamic|Win32">
+      <Configuration>DebugDynamic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugDynamic|x64">
+      <Configuration>DebugDynamic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugStatic|Win32">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugStatic|x64">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\ZMemory\Alignment.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMemory\AllocationOperators.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMemory\LinearAllocator.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMemory\MemoryModuleDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMemory\PoolAllocator.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMemory\StackAllocator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\ZMemory\Alignment.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMemory\AllocationOperators.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMemory\BlockHeader.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMemory\LinearAllocator.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMemory\Mark.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMemory\PoolAllocator.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMemory\StackAllocator.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0CF79915-17E6-4D6A-9A9D-32F0D8B05C82}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Common</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugStatic|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win32\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win32\$(TargetName)\</IntDir>
+    <TargetName>Zunderbolt$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|x64'">
+    <TargetName>Zunderbolt$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <OutDir>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win64\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win32\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win32\$(TargetName)\</IntDir>
+    <TargetName>Zunderbolt$(ProjectName)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|x64'">
+    <TargetName>Zunderbolt$(ProjectName)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win64\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win32\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Headers;$(SolutionDir)..\..\..\ThirdParty\Boost\include;$(SolutionDir)..\..\..\ThirdParty\ICU\include\i18n;$(SolutionDir)..\..\..\ThirdParty\ICU\include\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_DLL;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <DisableSpecificWarnings>4530;4541;</DisableSpecificWarnings>
+      <ExceptionHandling>false</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|x64'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win64\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Headers;$(SolutionDir)..\..\..\ThirdParty\ICU\include\i18n;$(SolutionDir)..\..\..\ThirdParty\ICU\include\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>_DLL;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <DisableSpecificWarnings>4530;4541;4595</DisableSpecificWarnings>
+      <ExceptionHandling>false</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win32\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Headers;$(SolutionDir)..\..\..\ThirdParty\Boost\include;$(SolutionDir)..\..\..\ThirdParty\ICU\include\common;$(SolutionDir)..\..\..\ThirdParty\ICU\include\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_DLL;_DEBUG;_WINDOWS;Z_PREPROCESSOR_EXPORTLIB_MEMORY;BOOST_NO_RTTI;BOOST_NO_TYPEID;BOOST_NO_EXCEPTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <ExceptionHandling>false</ExceptionHandling>
+      <DisableSpecificWarnings>4530;4541;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
+      <Version>
+      </Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|x64'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win64\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Headers;$(SolutionDir)..\..\..\ThirdParty\ICU\include\common;$(SolutionDir)..\..\..\ThirdParty\ICU\include\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>_DLL;_DEBUG;_WINDOWS;Z_PREPROCESSOR_EXPORTLIB_MEMORY;Z_PREPROCESSOR_IMPORTLIB_COMMON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <ExceptionHandling>false</ExceptionHandling>
+      <DisableSpecificWarnings>4530;4541;4595</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
+      <Version>
+      </Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ZunderboltCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugDynamic|Win32">
+      <Configuration>DebugDynamic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugDynamic|x64">
+      <Configuration>DebugDynamic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugStatic|Win32">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugStatic|x64">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseDualQuaternion.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseHexahedron.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseLineSegment.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseMatrix2x2.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseMatrix3x4.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseMatrix4x3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseMatrix4x4.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseOrb.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BasePlane.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseQuadrilateral.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseQuaternion.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseRay.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseTriangle.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseVector2.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseVector3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\BaseVector4.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Circle.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\DualQuaternion.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\EIntersections.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\ESpaceRelation.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Hexahedron.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\LineSegment.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\LineSegment2D.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\LineSegment3D.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\MathDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\MathModuleDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Matrix2x2.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Matrix3x3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Matrix3x4.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Matrix4x3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Matrix4x4.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Orb.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Plane.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Quadrilateral.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Quaternion.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Ray.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Ray2D.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Ray3D.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\RotationMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\SAngle.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\ScalingMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\SpaceConversionMatrix.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Sphere.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\SPoint.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\TransformationMatrix.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\TransformationMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\TranslationMatrix.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Triangle.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Triangle2D.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Triangle3D.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Vector2.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Vector3.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\Vector4.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseDualQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseHexahedron.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseLineSegment.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseMatrix2x2.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseMatrix3x4.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseMatrix4x3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseMatrix4x4.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseOrb.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BasePlane.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseQuadrilateral.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseRay.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseTriangle.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseVector2.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseVector3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\BaseVector4.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Circle.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\DualQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\EIntersections.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\ESpaceRelation.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Hexahedron.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\LineSegment.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\LineSegment2D.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\LineSegment3D.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Matrix2x2.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Matrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Matrix3x4.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Matrix4x3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Matrix4x4.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Orb.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Plane.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Quadrilateral.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Quaternion.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Ray.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Ray2D.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Ray3D.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\RotationMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\SAngle.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\ScalingMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\SpaceConversionMatrix.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Sphere.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\SPoint.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\TransformationMatrix.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\TransformationMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\TranslationMatrix.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Triangle.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Triangle2D.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Triangle3D.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Vector2.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Vector3.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\Vector4.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{474F81D2-2BFC-4E12-B0F6-9F927B08A33B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Common</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugStatic|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win32\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win32\$(TargetName)\</IntDir>
+    <TargetName>Zunderbolt$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|x64'">
+    <TargetName>Zunderbolt$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <OutDir>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win64\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win32\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win32\$(TargetName)\</IntDir>
+    <TargetName>Zunderbolt$(ProjectName)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|x64'">
+    <TargetName>Zunderbolt$(ProjectName)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win64\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win32\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Headers;$(SolutionDir)..\..\..\ThirdParty\Boost\include;$(SolutionDir)..\..\..\ThirdParty\ICU\include\i18n;$(SolutionDir)..\..\..\ThirdParty\ICU\include\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_DLL;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <DisableSpecificWarnings>4530;4541;</DisableSpecificWarnings>
+      <ExceptionHandling>false</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugStatic|x64'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win64\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Headers;$(SolutionDir)..\..\..\ThirdParty\ICU\include\i18n;$(SolutionDir)..\..\..\ThirdParty\ICU\include\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>_DLL;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <DisableSpecificWarnings>4530;4541;4595</DisableSpecificWarnings>
+      <ExceptionHandling>false</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win32\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Headers;$(SolutionDir)..\..\..\ThirdParty\Boost\include;$(SolutionDir)..\..\..\ThirdParty\ICU\include\common;$(SolutionDir)..\..\..\ThirdParty\ICU\include\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_DLL;_DEBUG;_WINDOWS;Z_PREPROCESSOR_EXPORTLIB_MATH;Z_PREPROCESSOR_IMPORTLIB_MEMORY;Z_EXPORT_MATH_TEMPLATE_SPECIALIZATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <ExceptionHandling>false</ExceptionHandling>
+      <DisableSpecificWarnings>4530;4541;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
+      <Version>
+      </Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamic|x64'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\Garbage\VS2017\$(Configuration)Win64\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Headers;$(SolutionDir)..\..\..\ThirdParty\ICU\include\common;$(SolutionDir)..\..\..\ThirdParty\ICU\include\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>_DLL;_DEBUG;_WINDOWS;Z_PREPROCESSOR_EXPORTLIB_MATH;Z_EXPORT_MATH_TEMPLATE_SPECIALIZATION;Z_PREPROCESSOR_IMPORTLIB_COMMON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <ExceptionHandling>false</ExceptionHandling>
+      <DisableSpecificWarnings>4530;4541;4595</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
+      <Version>
+      </Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\Bin\VS2017\$(Configuration)Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ZunderboltCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

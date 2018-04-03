@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\ZContainers\EIterationDirection.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZContainers\ETreeTraversalOrder.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZContainers\SStringHashProvider.cpp">
+      <Filter>HashProviders</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\ArrayDynamic.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\ArrayFixed.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\BinarySearchTree.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\ContainersModuleDefinitions.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\Dictionary.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\EIterationDirection.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\ETreeTraversalOrder.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\Event.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\Hashtable.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\KeyValuePair.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\List.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\NTree.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\SStringHashProvider.h">
+      <Filter>HashProviders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\SIntegerHashProvider.h">
+      <Filter>HashProviders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\SNoComparator.h">
+      <Filter>Comparators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\SKeyValuePairComparator.h">
+      <Filter>Comparators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\SEqualityComparator.h">
+      <Filter>Comparators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZContainers\SComparatorDefault.h">
+      <Filter>Comparators</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="HashProviders">
+      <UniqueIdentifier>{72eb2eb3-c792-4407-a22d-c4feb9902202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Comparators">
+      <UniqueIdentifier>{5ca7859f-3547-4996-a4c0-5b87e1ac4cb3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

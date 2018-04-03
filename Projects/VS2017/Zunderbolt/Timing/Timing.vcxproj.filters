@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Workarounds">
+      <UniqueIdentifier>{a3d8be73-5a4a-489a-ad5c-72652dd88e70}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\ZTiming\Workarounds\WinBase_Workarounds.h">
+      <Filter>Workarounds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\ZTiming\DateTimeNow.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTiming\EStopwatchEnclosedBehavior.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTiming\LocalTimeZone.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTiming\Stopwatch.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTiming\StopwatchEnclosed.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZTiming\TimingModuleDefinitions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\ZTiming\DateTimeNow.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTiming\EStopwatchEnclosedBehavior.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTiming\LocalTimeZone.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTiming\Stopwatch.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZTiming\StopwatchEnclosed.cpp" />
+  </ItemGroup>
+</Project>
