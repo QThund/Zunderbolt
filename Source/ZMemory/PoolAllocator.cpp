@@ -85,14 +85,10 @@ PoolAllocator::PoolAllocator(const puint_z uSize, const puint_z uBlockSize, cons
     Z_ASSERT_ERROR( 0 != uBlockSize, "Block size cannot be zero" );
     Z_ASSERT_ERROR( 0 != pBuffer, "Pointer to buffer cannot be null" );
 
-    // Calculates needed memory address offset (adjustment) for the chunk starts at multiple of alignment
-    puint_z uAdjustment = m_uAlignment - ((puint_z)pBuffer & (m_uAlignment - 1));
-    if(uAdjustment == m_uAlignment )
-        uAdjustment = 0;
-
-    m_pAllocatedMemory = (void**)((puint_z)pBuffer + uAdjustment);
+    m_pAllocatedMemory = (void**)align_z(pBuffer, m_uAlignment);
     m_pFirst = m_pAllocatedMemory;
 
+    puint_z uAdjustment = alignment_offset_z(pBuffer, m_uAlignment);
     m_uBlocksCount = (m_uPoolSize - uAdjustment) / uBlockSize;
 
     this->AllocateFreeBlocksList();
@@ -109,13 +105,10 @@ PoolAllocator::PoolAllocator(const puint_z uSize, const puint_z uBlockSize, cons
     Z_ASSERT_ERROR( 0 != uBlockSize, "Block size cannot be zero" );
     Z_ASSERT_ERROR( 0 != pBuffer, "Pointer to buffer cannot be null" );
 
-    puint_z uAdjustment = alignment - ((puint_z)pBuffer & (alignment - 1));
-
-    if(uAdjustment == alignment )
-        uAdjustment = 0;
-
-    m_pAllocatedMemory = (void**)((puint_z)pBuffer + uAdjustment);
+    m_pAllocatedMemory = (void**)align_z(pBuffer, m_uAlignment);
     m_pFirst = m_pAllocatedMemory;
+
+    puint_z uAdjustment = alignment_offset_z(pBuffer, m_uAlignment);
     m_uPoolSize -= uAdjustment; // Some free space is lost
 
     m_uBlocksCount = m_uPoolSize / uBlockSize;
@@ -293,8 +286,7 @@ void PoolAllocator::Reallocate(const puint_z uNewSize, const void* pNewLocation)
     if(uNewSize > m_uPoolSize && pNewLocation != null_z)
     {
         puint_z uNewLocationAddress = (puint_z)pNewLocation;
-        puint_z uAlignmentOffset = m_uAlignment - (uNewLocationAddress % m_uAlignment);
-        void* pAdjustedNewLocation = (void*)((puint_z)pNewLocation + uAlignmentOffset);
+        void* pAdjustedNewLocation = (void*)align_z(pNewLocation, m_uAlignment);
 
         this->InternalReallocate(uNewSize, pAdjustedNewLocation);
 

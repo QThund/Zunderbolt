@@ -101,6 +101,8 @@ const unsigned int Z_VERSION_REVISION = 0;
 
 // --------------------------------------------------------------------------------------------------------
 // Casting operators: Wrappers for every casting operator to make them shorter and configurable.
+// -object: An instance of an object of a valid type.
+// -type: A type to cast the instance to.
 // --------------------------------------------------------------------------------------------------------
 #define rcast_z(object, type) reinterpret_cast<type>(object)
 #define scast_z(object, type) static_cast<type>(object)
@@ -111,12 +113,30 @@ const unsigned int Z_VERSION_REVISION = 0;
 // --------------------------------------------------------------------------------------------------------
 // Alignment calculation functions: Alias for every compiler's alignment calculation function.
 // Note: There is a difference between GCC and MSVC functions, it is not possible to use objects in MSVC's version.
+// -type: A type name.
 // --------------------------------------------------------------------------------------------------------
 #if   defined(Z_COMPILER_MSVC)
     #define alignof_z( type ) __alignof(type)
 #elif defined(Z_COMPILER_GCC)
     #define alignof_z( type ) __alignof__(type)
 #endif
+
+
+// --------------------------------------------------------------------------------------------------------
+// Calculates the offset, in bytes, that would be necessary to add to a memory address in order to align it to 
+// the next aligned address.
+// -startingPointer: The memory address from which to start searching.
+// -alignment: The alignment of the searched memory address. I must be power of 2.
+// --------------------------------------------------------------------------------------------------------
+#define alignment_offset_z(startingPointer, alignment) puint_z(startingPointer) - (puint_z(startingPointer) & ~(alignment-1))
+
+
+// --------------------------------------------------------------------------------------------------------
+// Calculates the next memory addres that fits into the alignment.
+// -startingPointer: The memory address from which to start searching.
+// -alignment: The alignment of the searched memory address. I must be power of 2.
+// --------------------------------------------------------------------------------------------------------
+#define align_z(startingPointer, alignment) (void*)(puint_z(startingPointer) + alignment_offset_z(startingPointer, alignment))
 
 
 // --------------------------------------------------------------------------------------------------------

@@ -659,7 +659,10 @@ public:
         // Creates a key-value by copying the data without calling any constructor (which will be called by the internal binary tree)
         u8_z pKeyValueBlock[sizeof(KeyValuePairType)];
         memcpy(pKeyValueBlock, &key, sizeof(KeyT));
-        memcpy(pKeyValueBlock + sizeof(KeyT) + ((alignof_z(KeyValuePairType) - sizeof(KeyT)) % alignof_z(KeyValuePairType)), &value, sizeof(ValueT));
+
+        void* pValue = (void*)align_z(pKeyValueBlock + sizeof(KeyT), alignof_z(ValueT));
+        memcpy(pValue, &value, sizeof(ValueT));
+
         KeyValuePairType* pKeyValue = rcast_z(pKeyValueBlock, KeyValuePairType*);
 
         typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Add(*pKeyValue, ETreeTraversalOrder::E_DepthFirstInOrder);

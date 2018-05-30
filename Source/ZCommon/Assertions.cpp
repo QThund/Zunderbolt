@@ -65,7 +65,7 @@ void Z_TRACE_FAILED_ASSERT(const string_z &strExpression,
             break;
     }
 
-    strLogText.Append(" QE ASSERTION FAILED !! : \"");
+    strLogText.Append(" Z ASSERTION FAILED !! : \"");
     strLogText.Append(strErrorMessage);
     strLogText.Append(string_z("\" at "));
     strLogText.Append(strFileName);

@@ -124,15 +124,10 @@ StackAllocator::StackAllocator(const puint_z uPreallocationSize, void* pMemAddre
         
     // If necessary, adjust the address of the stack base to make it to point to the first address, starting from
     // the input address, that has the given alignment.
-    puint_z  uAmountMisalignedBytes = (rcast_z(m_pBase, puint_z)) & (uAlignment - 1U);
-    if (uAmountMisalignedBytes > 0)
-    {
-        puint_z  uAddressResult = (rcast_z(m_pBase, puint_z)) + uAmountMisalignedBytes;
-        m_pBase = rcast_z(uAddressResult, void*);
-    }
+    m_pBase = (void*)align_z(m_pBase, alignment);
 
     m_pTop  = m_pPrevious = m_pBase;
-    m_uSize = uPreallocationSize - uAmountMisalignedBytes;
+    m_uSize = (puint_z)m_pBase + uPreallocationSize - (puint_z)m_pBase; // Takes into account the allignment offset, which makes the actual usable size smaller
 }
 
 //##################=======================================================##################
