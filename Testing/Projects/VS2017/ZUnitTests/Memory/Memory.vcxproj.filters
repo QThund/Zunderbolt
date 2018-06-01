@@ -18,12 +18,6 @@
     <ClCompile Include="..\..\..\..\TestSystem\SimpleConfigLoader.cpp">
       <Filter>TestSystem %28shared%29</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Memory\Alignment_Test.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Memory\AllocationOperators_Test.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Memory\BlockHeader_Test.cpp">
       <Filter>Tests</Filter>
     </ClCompile>

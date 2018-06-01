@@ -25,7 +25,7 @@
 //-------------------------------------------------------------------------------//
 
 
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 
 #include "ZCommon/Assertions.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"

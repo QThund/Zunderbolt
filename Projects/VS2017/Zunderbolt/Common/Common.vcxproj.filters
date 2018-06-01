@@ -78,6 +78,8 @@
     <ClInclude Include="..\..\..\..\Headers\ZCommon\Delegate.h" />
     <ClInclude Include="..\..\..\..\Headers\ZCommon\ReferenceWrapper.h" />
     <ClInclude Include="..\..\..\..\Headers\ZCommon\SInternalLogger.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\Alignment.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\AllocationOperators.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\ZCommon\Assertions.cpp" />
@@ -125,5 +127,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\ZCommon\EAssertionType.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZCommon\SInternalLogger.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZCommon\Alignment.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZCommon\AllocationOperators.cpp" />
   </ItemGroup>
 </Project>

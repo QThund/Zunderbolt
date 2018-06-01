@@ -26,13 +26,13 @@
     <ClInclude Include="..\..\..\..\Headers\ZTime\TimeZone.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\Workarounds\Boost_ThrowException.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZTime\DateTime.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZTime\DstInformation.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZTime\STimeZoneFactory.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZTime\TimeSpan.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZTime\TimeZone.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZTime\TimeZoneDatabase.cpp" />
-    <ClCompile Include="..\..\..\..\Source\ZTime\Workarounds\Boost_ThrowException.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF69FEEF-C996-4CDD-AB97-97CDC15DFD32}</ProjectGuid>

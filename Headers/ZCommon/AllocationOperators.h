@@ -30,7 +30,7 @@
 #include <new>
 #include "ZCommon/DataTypes/StringsDefinitions.h"
 #include "ZCommon/CommonModuleDefinitions.h"
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 #include "ZCommon/Assertions.h"
 
 
@@ -136,11 +136,11 @@ inline void* aligned_alloc_z (const z::puint_z uSize, const z::Alignment& alignm
 /// <returns>
 /// A memory block of the specified size.
 /// </returns>
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
 void* operator new (const size_t uSize) throw(std::bad_alloc)
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 {
     Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
@@ -162,11 +162,11 @@ void* operator new (const size_t uSize) throw(std::bad_alloc)
 /// <returns>
 /// A memory block of the specified size.
 /// </returns>
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
 void* operator new (const size_t uSize, const std::nothrow_t& nothrow_value) throw()
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 {
     Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
@@ -187,11 +187,11 @@ void* operator new (const size_t uSize, const std::nothrow_t& nothrow_value) thr
 /// <returns>
 /// A memory block of the specified size.
 /// </returns>
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
 void* operator new[] (const size_t uSize) throw(std::bad_alloc)
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 {
     Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
@@ -213,11 +213,11 @@ void* operator new[] (const size_t uSize) throw(std::bad_alloc)
 /// <returns>
 /// A memory block of the specified size.
 /// </returns>
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
 void* operator new[] (const size_t uSize, const std::nothrow_t& nothrow_value) throw()
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 {
     Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
@@ -235,11 +235,11 @@ void* operator new[] (const size_t uSize, const std::nothrow_t& nothrow_value) t
 /// Frees a memory block. Overrides the delete operator provided by the CRT libraries.
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
 void operator delete (void* pMemoryBlock) throw()
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 {
     free(pMemoryBlock);
 }
@@ -252,11 +252,11 @@ void operator delete (void* pMemoryBlock) throw()
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
 /// <param name="nothrow_constant">[IN] Parameter used to specify that no exceptions should be thrown.</param>
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
 void operator delete (void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 {
     free(pMemoryBlock);
 }
@@ -268,11 +268,11 @@ void operator delete (void* pMemoryBlock, const std::nothrow_t& nothrow_constant
 /// Frees a memory block. Overrides the delete array operator provided by the CRT libraries.
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
 void operator delete[] (void* pMemoryBlock) throw()
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 {
     free(pMemoryBlock);
 }
@@ -285,11 +285,11 @@ void operator delete[] (void* pMemoryBlock) throw()
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
 /// <param name="nothrow_constant">[IN] Parameter used to specify that no exceptions should be thrown.</param>
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
 void operator delete[] (void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
-#ifndef Z_PREPROCESSOR_EXPORTLIB_MEMORY
+#ifndef Z_PREPROCESSOR_EXPORTLIB_COMMON
 {
     free(pMemoryBlock);
 }
@@ -305,7 +305,7 @@ void operator delete[] (void* pMemoryBlock, const std::nothrow_t& nothrow_consta
 /// <returns>
 /// An aligned memory block of the specified size.
 /// </returns>
-Z_LAYER_MEMORY_SYMBOLS void* operator new (const size_t uSize, const z::Alignment& alignment);
+Z_LAYER_COMMON_SYMBOLS void* operator new (const size_t uSize, const z::Alignment& alignment);
 
 /// <summary>
 /// Overload for new[] operator to get dynamic allocation of aligned memory blocks.
@@ -315,21 +315,21 @@ Z_LAYER_MEMORY_SYMBOLS void* operator new (const size_t uSize, const z::Alignmen
 /// <returns>
 /// An aligned memory block of the specified size.
 /// </returns>
-Z_LAYER_MEMORY_SYMBOLS void* operator new[] (const size_t uSize, const z::Alignment& alignment);
+Z_LAYER_COMMON_SYMBOLS void* operator new[] (const size_t uSize, const z::Alignment& alignment);
 
 /// <summary>
 /// Overload for delete operator to get dynamic deallocation of aligned memory blocks.
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the aligned memory block to be deallocated.</param>
 /// <param name="alignment">[IN] The data alignment value (must be always a power of two).</param>
-Z_LAYER_MEMORY_SYMBOLS void operator delete (void* pMemoryBlock, const z::Alignment& alignment);
+Z_LAYER_COMMON_SYMBOLS void operator delete (void* pMemoryBlock, const z::Alignment& alignment);
 
 /// <summary>
 /// Overload for delete[] operator to get dynamic deallocation aligned memory blocks, grouped as arrays.
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the first aligned memory block of the whole to be deallocated.</param>
 /// <param name="alignment">[IN] The data alignment value (must be always a power of two).</param>
-Z_LAYER_MEMORY_SYMBOLS void operator delete[] (void* pMemoryBlock, const z::Alignment& alignment);
+Z_LAYER_COMMON_SYMBOLS void operator delete[] (void* pMemoryBlock, const z::Alignment& alignment);
 
 
 #endif // __ALLOCATIONOPERATORS__

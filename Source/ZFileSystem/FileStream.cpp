@@ -27,7 +27,7 @@
 #include "ZFileSystem/FileStream.h"
 
 #include "ZFileSystem/SFile.h"
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 #include "ZCommon/DataTypes/SInteger.h"
 #include "ZCommon/DataTypes/ETextEncoding.h"
 #include <cstring>

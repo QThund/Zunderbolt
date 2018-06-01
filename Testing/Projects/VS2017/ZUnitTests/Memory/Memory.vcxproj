@@ -22,8 +22,6 @@
     <ClCompile Include="..\..\..\..\TestSystem\CommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\TestSystem\ETestType.cpp" />
     <ClCompile Include="..\..\..\..\TestSystem\SimpleConfigLoader.cpp" />
-    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Memory\Alignment_Test.cpp" />
-    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Memory\AllocationOperators_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Memory\BlockHeader_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Memory\LinearAllocator_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Memory\MarkMocked.cpp" />

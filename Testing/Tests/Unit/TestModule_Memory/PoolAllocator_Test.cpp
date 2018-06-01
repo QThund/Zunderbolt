@@ -32,7 +32,7 @@ using namespace boost::unit_test;
 
 #include "ZMemory/PoolAllocator.h"
 #include "PoolAllocatorWhiteBox.h"
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 #include "ZCommon/Exceptions/AssertException.h"
 
 using z::Test::PoolAllocatorWhiteBox;

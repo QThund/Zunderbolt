@@ -30,10 +30,10 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "ZMemory/AllocationOperators.h"
+#include "ZCommon/AllocationOperators.h"
 #include "ZMemory/StackAllocator.h"
 #include "StackAllocatorWhiteBox.h"
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 #include "AlignmentMocked.h"
 #include "ZCommon/Exceptions/AssertException.h"
 

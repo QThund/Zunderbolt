@@ -19,16 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Headers\ZMemory\Alignment.h" />
-    <ClInclude Include="..\..\..\..\Headers\ZMemory\AllocationOperators.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMemory\LinearAllocator.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMemory\MemoryModuleDefinitions.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMemory\PoolAllocator.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMemory\StackAllocator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Source\ZMemory\Alignment.cpp" />
-    <ClCompile Include="..\..\..\..\Source\ZMemory\AllocationOperators.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZMemory\BlockHeader.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZMemory\LinearAllocator.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZMemory\Mark.cpp" />

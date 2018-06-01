@@ -82,6 +82,12 @@
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Common\TestModule_Common.cpp" />
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Common\Alignment_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Common\AllocationOperators_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Tests\Unit\TestModule_Common\CommonTestDefinitions.h">

@@ -28,7 +28,7 @@
 #define __ALIGNMENT__
 
 #include "ZCommon/DataTypes/DataTypesDefinitions.h"
-#include "ZMemory/MemoryModuleDefinitions.h"
+#include "ZCommon/CommonModuleDefinitions.h"
 
 
 namespace z
@@ -40,7 +40,7 @@ namespace z
 /// <remarks>
 /// Alignments must be always a power of 2.
 /// </remarks>
-class Z_LAYER_MEMORY_SYMBOLS Alignment
+class Z_LAYER_COMMON_SYMBOLS Alignment
 {
 
     // CONSTRUCTORS

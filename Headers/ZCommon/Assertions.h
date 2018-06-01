@@ -34,9 +34,10 @@
 
 #include "ZCommon/EAssertionType.h"
 
-// This forward declaration is necessry to avoid mutual inclusion with string types
+
 namespace z 
 { 
+    // This forward declaration is necessary to avoid mutual inclusion with string types
     class StringUnicode; 
 
 #if Z_CONFIG_CHARACTERSET_DEFAULT == Z_CONFIG_CHARACTERSET_ASCII

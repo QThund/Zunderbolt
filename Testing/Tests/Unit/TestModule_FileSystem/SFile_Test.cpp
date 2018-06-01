@@ -39,7 +39,7 @@ using namespace boost::unit_test;
 #include "ZTiming/Stopwatch.h"
 #include "ZCommon/DataTypes/ArrayResult.h"
 #include "ZCommon/DataTypes/ETextEncoding.h"
-#include "Threading/SThisThread.h"
+#include "ZThreading/SThisThread.h"
 #include "ZFileSystem/SDirectory.h"
 #include <fstream>
 

@@ -31,7 +31,7 @@
 
 #include "ZCommon/Assertions.h"
 #include "ZMemory/PoolAllocator.h"
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 #include "ZContainers/SComparatorDefault.h"
 #include "ZContainers/ETreeTraversalOrder.h"
 #include "ZContainers/EIterationDirection.h"

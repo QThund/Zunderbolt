@@ -22,6 +22,8 @@
     <ClCompile Include="..\..\..\..\TestSystem\CommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\TestSystem\ETestType.cpp" />
     <ClCompile Include="..\..\..\..\TestSystem\SimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Common\Alignment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Common\AllocationOperators_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Common\ArrayBasic_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Common\ArrayResult_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Common\AssertException_Test.cpp" />

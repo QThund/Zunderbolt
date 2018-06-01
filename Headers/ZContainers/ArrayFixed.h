@@ -32,9 +32,9 @@
 #include "ZCommon/Assertions.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"
 #include "ZMemory/PoolAllocator.h"
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 #include "ZContainers/SComparatorDefault.h"
-#include "ZMemory/AllocationOperators.h"
+#include "ZCommon/AllocationOperators.h"
 #include "ZContainers/EIterationDirection.h"
 
 

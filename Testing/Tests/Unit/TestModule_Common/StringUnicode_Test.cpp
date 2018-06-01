@@ -40,7 +40,7 @@ using namespace boost::unit_test;
 #include "ZCommon/DataTypes/ETextEncoding.h"
 #include "ZCommon/DataTypes/EComparisonType.h"
 #include "ZCommon/DataTypes/ENormalizationForm.h"
-#include "ZMemory/AllocationOperators.h"
+#include "ZCommon/AllocationOperators.h"
 #include "ZCommon/Exceptions/AssertException.h"
 
 typedef boost::mpl::list<i8_z, i16_z, i32_z, i64_z, u8_z, u16_z, u32_z, u64_z> TTemplateTypes;

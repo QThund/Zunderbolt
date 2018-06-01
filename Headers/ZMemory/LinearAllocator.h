@@ -29,7 +29,8 @@
 
 #include "ZCommon/CommonModuleDefinitions.h"
 #include "ZCommon/DataTypes/DataTypesDefinitions.h"
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
+#include "ZMemory/MemoryModuleDefinitions.h"
 
 
 

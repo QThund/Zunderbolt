@@ -28,7 +28,7 @@
 #define __ALIGNMENTMOCKED__
 
 
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 #include "ZCommon/CommonModuleDefinitions.h"
 #include "ZMemory/MemoryModuleDefinitions.h"
 

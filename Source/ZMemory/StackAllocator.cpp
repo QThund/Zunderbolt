@@ -27,7 +27,7 @@
 #include "ZMemory/StackAllocator.h"
 
 #include <cstring>                  // memcpy
-#include "ZMemory/AllocationOperators.h"
+#include "ZCommon/AllocationOperators.h"
 #include "ZCommon/Assertions.h"
 
 

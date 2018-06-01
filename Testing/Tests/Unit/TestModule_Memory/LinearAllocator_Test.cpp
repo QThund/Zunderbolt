@@ -33,7 +33,7 @@ using namespace boost::unit_test;
 #include "ZMemory/LinearAllocator.h"
 
 #include "ZCommon/Exceptions/AssertException.h"
-#include "ZMemory/AllocationOperators.h"
+#include "ZCommon/AllocationOperators.h"
 
 
 ZTEST_SUITE_BEGIN( LinearAllocator_TestSuite )

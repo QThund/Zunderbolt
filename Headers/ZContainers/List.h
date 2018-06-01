@@ -31,9 +31,9 @@
 #include "ZMath/MathModuleDefinitions.h"
 #include "ZCommon/Assertions.h"
 #include "ZMemory/PoolAllocator.h"
-#include "ZMemory/Alignment.h"
+#include "ZCommon/Alignment.h"
 #include "SComparatorDefault.h"
-#include "ZMemory/AllocationOperators.h"
+#include "ZCommon/AllocationOperators.h"
 #include "ZContainers/EIterationDirection.h"
 
 

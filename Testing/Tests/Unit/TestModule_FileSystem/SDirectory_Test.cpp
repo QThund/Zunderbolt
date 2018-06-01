@@ -40,7 +40,7 @@ using namespace boost::unit_test;
 #include "ZCommon/DataTypes/ArrayResult.h"
 #include "ZCommon/DataTypes/ETextEncoding.h"
 #include "ZFileSystem/SFile.h"
-#include "Threading/SThisThread.h"
+#include "ZThreading/SThisThread.h"
 #include "ZContainers/ArrayDynamic.h"
 #include "ZCommon/Exceptions/AssertException.h"
 #include <fstream>

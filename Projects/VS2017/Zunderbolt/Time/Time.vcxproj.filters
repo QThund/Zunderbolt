@@ -14,7 +14,7 @@
     <ClCompile Include="..\..\..\..\Source\ZTime\TimeSpan.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZTime\TimeZone.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZTime\TimeZoneDatabase.cpp" />
-    <ClCompile Include="..\..\..\..\Source\ZTime\Workarounds\Boost_ThrowException.cpp">
+    <ClCompile Include="..\..\..\..\Source\Workarounds\Boost_ThrowException.cpp">
       <Filter>Workarounds</Filter>
     </ClCompile>
   </ItemGroup>

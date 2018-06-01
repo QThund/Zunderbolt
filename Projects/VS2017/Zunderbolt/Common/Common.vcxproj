@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\Alignment.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZCommon\AllocationOperators.h" />
     <ClInclude Include="..\..\..\..\Headers\ZCommon\Assertions.h" />
     <ClInclude Include="..\..\..\..\Headers\ZCommon\CommonModuleDefinitions.h" />
     <ClInclude Include="..\..\..\..\Headers\ZCommon\Configuration.h" />
@@ -51,6 +53,8 @@
     <ClInclude Include="..\..\..\..\Headers\ZCommon\SInternalLogger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\ZCommon\Alignment.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZCommon\AllocationOperators.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZCommon\Assertions.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\EComparisonType.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZCommon\DataTypes\ENormalizationForm.cpp" />

@@ -24,7 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "ZMemory/AllocationOperators.h"
+#include "ZCommon/AllocationOperators.h"
 
 
 void* operator new(const size_t uSize, const z::Alignment& alignment)
@@ -96,7 +96,7 @@ void* operator new(const size_t uSize) throw(std::bad_alloc)
 
     void* p = malloc(uSize);
 
-    Z_ASSERT_ERROR(p != z::null_z, "Fatal error: No memory could be allocated");
+    Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -107,7 +107,7 @@ void* operator new(const size_t uSize, const std::nothrow_t& nothrow_value) thro
 
     void* p = malloc(uSize);
 
-    Z_ASSERT_ERROR(p != z::null_z, "Fatal error: No memory could be allocated");
+    Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -118,7 +118,7 @@ void* operator new[](const size_t uSize) throw(std::bad_alloc)
 
     void* p = malloc(uSize);
 
-    Z_ASSERT_ERROR(p != z::null_z, "Fatal error: No memory could be allocated");
+    Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -129,7 +129,7 @@ void* operator new[](const size_t uSize, const std::nothrow_t& nothrow_value) th
 
     void* p = malloc(uSize);
 
-    Z_ASSERT_ERROR(p != z::null_z, "Fatal error: No memory could be allocated");
+    Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
 
     return p;
 }
