@@ -33,7 +33,8 @@
 // Version: Defines the Zunderbolt's current version.
 // How to use it: Version format is Major version + Minor version + Revision ("##.####.####").
 // --------------------------------------------------------------------------------------------------------
-const char Z_VERSION[13] = "0.0.0";
+const int Z_VERSION_LENGTH = 13;
+const char Z_VERSION[Z_VERSION_LENGTH] = "0.0.0";
 const unsigned int Z_VERSION_MAJOR = 0;
 const unsigned int Z_VERSION_MINOR = 0;
 const unsigned int Z_VERSION_REVISION = 0;

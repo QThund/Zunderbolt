@@ -50,7 +50,7 @@ namespace z
 /// This class is thread-safe.<br/>
 /// It is a wrapper for the condition_variable_any class, from Boost libraries.
 /// </remarks>
-class Z_LAYER_THREADING_SYMBOLS ConditionVariable
+class Z_THREADING_MODULE_SYMBOLS ConditionVariable
 {
     // METHODS
     // ---------------

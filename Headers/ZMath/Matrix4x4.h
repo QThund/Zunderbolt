@@ -52,7 +52,7 @@ namespace z
 /// <br/>
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\\ a_{30} & a_{31} & a_{32} & a_{33}\end{bmatrix}\f$
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Matrix4x4 : public BaseMatrix4x4
+class Z_MATH_MODULE_SYMBOLS Matrix4x4 : public BaseMatrix4x4
 {
     // FRIENDS
     // ---------------
@@ -66,7 +66,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend Matrix4x4 Z_LAYER_MATH_SYMBOLS operator*(const float_z fScalar, const Matrix4x4 &matrix);
+    friend Matrix4x4 Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const Matrix4x4 &matrix);
 
 
      // CONSTRUCTORS

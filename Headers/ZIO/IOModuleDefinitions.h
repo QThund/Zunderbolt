@@ -48,16 +48,19 @@
 // In order to simplify the process for final users, a client application or library has only to use one macro, Z_PREPROCESSOR_IMPORTLIB_ZUNDERBOLT,
 // to import the symbols of all the Zunderbolt libraries linked.
 #ifdef Z_PREPROCESSOR_EXPORTLIB_IO // Specified as a preprocessor definition when compiling as a dynamic link library
-    #define Z_LAYER_IO_SYMBOLS Z_EXPORT_SYMBOLS
-    #define Z_LAYER_IO_EXTERN Z_EXPORT_SYMBOLS_EXTERN
-    #define Z_IO_TEMPLATE_SPECIALIZATION_SYMBOLS
+    #define Z_IO_MODULE_SYMBOLS Z_EXPORT_SYMBOLS
+    #define Z_IO_MODULE_EXTERN Z_EXPORT_SYMBOLS_EXTERN
+    #define Z_IO_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
+    #define Z_IO_MODULE_IS_DYNAMIC 1
 #elif defined(Z_PREPROCESSOR_IMPORTLIB_IO) || defined(Z_PREPROCESSOR_IMPORTLIB_ZUNDERBOLT) // Specified as a preprocessor definition when compiling the client system
-    #define Z_LAYER_IO_SYMBOLS Z_IMPORT_SYMBOLS
-    #define Z_LAYER_IO_EXTERN Z_IMPORT_SYMBOLS_EXTERN
-    #define Z_IO_TEMPLATE_SPECIALIZATION_SYMBOLS
+    #define Z_IO_MODULE_SYMBOLS Z_IMPORT_SYMBOLS
+    #define Z_IO_MODULE_EXTERN Z_IMPORT_SYMBOLS_EXTERN
+    #define Z_IO_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
+    #define Z_IO_MODULE_IS_DYNAMIC 1
 #else // Static library
-    #define Z_LAYER_IO_SYMBOLS
-    #define Z_LAYER_IO_EXTERN
+    #define Z_IO_MODULE_SYMBOLS
+    #define Z_IO_MODULE_EXTERN
+    #define Z_IO_MODULE_IS_STATIC 1
 #endif
 
 

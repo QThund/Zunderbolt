@@ -39,7 +39,7 @@ namespace z
 /// <summary>
 /// Represents a hash provider that generates hash keys from integer numbers.
 /// </summary>
-class Z_LAYER_CONTAINERS_SYMBOLS SIntegerHashProvider
+class Z_CONTAINERS_MODULE_SYMBOLS SIntegerHashProvider
 {
 
     // CONSTRUCTORS

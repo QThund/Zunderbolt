@@ -56,7 +56,7 @@ SpaceConversionMatrix operator*(const float_z fScalar, const SpaceConversionMatr
 /// <remarks>
 /// It adds functionality to change to view, projection and world spaces.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS SpaceConversionMatrix : public Matrix4x4
+class Z_MATH_MODULE_SYMBOLS SpaceConversionMatrix : public Matrix4x4
 {
     // CONSTRUCTORS
     // ---------------

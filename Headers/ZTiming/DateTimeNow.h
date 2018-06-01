@@ -47,7 +47,7 @@ namespace z
 /// It is wall-clock time, not monotonic, so it is affected by time zone and DST delays besides operating system settings.<br/>
 /// The resolution of the clock depends on the operating system, being it between several microseconds and 100 nanoseconds.
 /// </remarks>
-class Z_LAYER_TIMING_SYMBOLS DateTimeNow : public DateTime
+class Z_TIMING_MODULE_SYMBOLS DateTimeNow : public DateTime
 {
 
     // CONSTRUCTORS

@@ -47,7 +47,7 @@ namespace z
 /// -Memory blocks will be allocated into a continuous block of memory, so it is always necessary
 /// to pass to the constructors, at least, the size for this preallocated memory block.
 /// </remarks>
-class Z_LAYER_MEMORY_SYMBOLS StackAllocator
+class Z_MEMORY_MODULE_SYMBOLS StackAllocator
 {
 
     // INTERNAL CLASSES
@@ -63,7 +63,7 @@ public:
     /// speed up by deleting them at once (the stack shall decrease until the position pointed by the mark) instead of deleting
     /// the blocks one by one.
     /// </remarks>
-    class Z_LAYER_MEMORY_SYMBOLS Mark
+    class Z_MEMORY_MODULE_SYMBOLS Mark
     {
 
 	    // CONSTRUCTORS
@@ -115,7 +115,7 @@ protected:
     /// making the block to be aligned according to its alignment value, and the amount of bytes necessary to roll the stack back
     /// to the previous block header.
     /// </remarks>
-    class Z_LAYER_MEMORY_SYMBOLS BlockHeader
+    class Z_MEMORY_MODULE_SYMBOLS BlockHeader
     {
 	    // CONSTRUCTORS
 	    // ---------------

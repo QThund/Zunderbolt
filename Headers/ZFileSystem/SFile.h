@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// Provides functionalities to manage files in the file system.
 /// </summary>
-class Z_LAYER_FILESYSTEM_SYMBOLS SFile
+class Z_FILESYSTEM_MODULE_SYMBOLS SFile
 {
     // CONSTRUCTORS
     // ---------------

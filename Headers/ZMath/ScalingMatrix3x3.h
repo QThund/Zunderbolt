@@ -56,7 +56,7 @@ ScalingMatrix3x3 operator*(const float_z fScalar, const ScalingMatrix3x3 &matrix
 /// It's a diagonal matrix where element \f$ a_{00}\f$ stores the scaling value in X direction, element \f$ a_{11}\f$ stores it
 /// in Y direction and element \f$ a_{22}\f$ does it in Z direction.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS ScalingMatrix3x3 : public Matrix3x3
+class Z_MATH_MODULE_SYMBOLS ScalingMatrix3x3 : public Matrix3x3
 {
 
     // CONSTRUCTORS

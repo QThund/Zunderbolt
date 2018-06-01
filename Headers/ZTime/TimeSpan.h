@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// Represents a time span with an accuracy of hundreds of nanoseconds.
 /// </summary>
-class Z_LAYER_TIME_SYMBOLS TimeSpan
+class Z_TIME_MODULE_SYMBOLS TimeSpan
 {
 
     // CONSTANTS

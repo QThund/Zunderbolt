@@ -57,7 +57,7 @@ namespace z
 /// This allows us to compute the special case of transformatios, where 4th column has the values (0, 0, 0, 1), and
 /// we can ignore it in some cases.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Matrix4x3 : public BaseMatrix4x3
+class Z_MATH_MODULE_SYMBOLS Matrix4x3 : public BaseMatrix4x3
 {
     // FRIENDS
     // ---------------
@@ -71,7 +71,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend Matrix4x3 Z_LAYER_MATH_SYMBOLS operator*(const float_z fScalar, const Matrix4x3 &matrix);
+    friend Matrix4x3 Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const Matrix4x3 &matrix);
 
 
      // CONSTRUCTORS

@@ -51,7 +51,7 @@ class TransformationMatrix3x3;
 /// <remarks>
 /// The direction symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Ray2D : public Ray<Vector2, Vector2>
+class Z_MATH_MODULE_SYMBOLS Ray2D : public Ray<Vector2, Vector2>
 {
     // BASE CLASS USINGS
     // ------------------

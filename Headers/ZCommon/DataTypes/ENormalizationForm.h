@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// Enumeration of the existing Unicode normalization forms.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS ENormalizationForm
+class Z_COMMON_MODULE_SYMBOLS ENormalizationForm
 {
     // ENUMERATIONS
     // ---------------

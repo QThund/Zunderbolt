@@ -42,7 +42,7 @@ namespace z
 /// <summary>
 /// Provides functionalities to manage directories in the file system.
 /// </summary>
-class Z_LAYER_FILESYSTEM_SYMBOLS SDirectory
+class Z_FILESYSTEM_MODULE_SYMBOLS SDirectory
 {
 
     // CONSTRUCTORS

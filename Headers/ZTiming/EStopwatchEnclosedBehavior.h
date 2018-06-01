@@ -40,7 +40,7 @@ namespace z
 /// <summary>
 /// The behavior of the algorithm used by an enclosed stopwatch to calculate the proportion time passed with respect to a defined time lapse.
 /// </summary>
-class Z_LAYER_TIMING_SYMBOLS EStopwatchEnclosedBehavior
+class Z_TIMING_MODULE_SYMBOLS EStopwatchEnclosedBehavior
 {
     // ENUMERATIONS
     // ---------------

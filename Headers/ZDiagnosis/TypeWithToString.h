@@ -39,7 +39,7 @@ namespace z
 /// Overload selectors are intended to be instanced in the function call and passed as argument so the compiler calls the desired
 /// overload based on the type of the parameters.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS TypeWithToString
+class Z_DIAGNOSIS_MODULE_SYMBOLS TypeWithToString
 {
 };
 

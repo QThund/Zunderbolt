@@ -40,7 +40,7 @@ namespace z
 /// <remarks>
 /// This kind of packs are used in SIMD operations.
 /// </remarks>
-class Z_LAYER_COMMON_SYMBOLS SVF32
+class Z_COMMON_MODULE_SYMBOLS SVF32
 {
 
     // CONSTRUCTORS

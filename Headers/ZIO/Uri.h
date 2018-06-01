@@ -55,7 +55,7 @@ namespace z
 /// <br/>
 /// For more information about URIs, read: http://www.ietf.org/rfc/rfc3986.txt .
 /// </remarks>
-class Z_LAYER_IO_SYMBOLS Uri
+class Z_IO_MODULE_SYMBOLS Uri
 {
     // TYPEDEFS
     // ---------------

@@ -40,7 +40,7 @@ namespace z
 /// Helper class that offers functionality related to floating point (IEEE 754) types.<br/>
 /// Use these constants and static methods extensively in your code, as far as you can.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS SFloat
+class Z_COMMON_MODULE_SYMBOLS SFloat
 {
     // CONSTANTS
     // ---------------

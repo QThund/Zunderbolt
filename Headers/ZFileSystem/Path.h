@@ -55,7 +55,7 @@ namespace z
 /// - RFC 1123: http://tools.ietf.org/html/rfc1123#page-13
 /// - RFC 952: http://tools.ietf.org/html/rfc952
 /// </remarks>
-class Z_LAYER_FILESYSTEM_SYMBOLS Path
+class Z_FILESYSTEM_MODULE_SYMBOLS Path
 {
     // CONSTANTS
     // ---------------

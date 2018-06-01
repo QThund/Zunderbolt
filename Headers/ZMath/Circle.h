@@ -42,7 +42,7 @@ namespace z
 /// <remarks>
 /// A circle is the collection of all points that are equidistant from other point known as "Center".
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Circle : public Orb<Vector2>
+class Z_MATH_MODULE_SYMBOLS Circle : public Orb<Vector2>
 {
 
     // BASE CLASS USINGS

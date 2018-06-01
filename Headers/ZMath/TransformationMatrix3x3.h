@@ -46,7 +46,7 @@ TransformationMatrix3x3 operator*(const float_z fScalar, const TransformationMat
 /// It represents a 3x3 matrix containing spatial transformations relating to translation, rotation and scaling,
 /// applying them to 2D space points.
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS TransformationMatrix3x3 : public Matrix3x3
+class Z_MATH_MODULE_SYMBOLS TransformationMatrix3x3 : public Matrix3x3
 {
 
     // CONSTRUCTORS

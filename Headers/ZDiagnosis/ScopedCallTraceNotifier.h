@@ -39,7 +39,7 @@ namespace z
 /// Adds or removes call traces from the calling thread's call stack trace. It is intended to be instanced at the very beginning of a function body so it adds
 /// a trace through the call stack tracer; when the control flow leaves the function and the instance is destroyed, the last registered trace is removed.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS ScopedCallTraceNotifier
+class Z_DIAGNOSIS_MODULE_SYMBOLS ScopedCallTraceNotifier
 {
     // CONSTRUCTORS
     // ---------------

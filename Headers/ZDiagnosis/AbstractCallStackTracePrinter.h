@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// Represents a component whose job is to send the content of a call stack trace to an output channel, depending on the implementation.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS AbstractCallStackTracePrinter
+class Z_DIAGNOSIS_MODULE_SYMBOLS AbstractCallStackTracePrinter
 {
     Z_RTTI_SUPPORT_ABSTRACT_CLASS(AbstractCallStackTracePrinter);
     

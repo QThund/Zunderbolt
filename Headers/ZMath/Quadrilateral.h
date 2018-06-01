@@ -45,7 +45,7 @@ class LineSegment2D;
 /// <remarks>
 /// The quadrilateral is defined by four consecutive vertices A, B, C, D, being the edges AB, BC, CD and DA segments.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Quadrilateral : public BaseQuadrilateral
+class Z_MATH_MODULE_SYMBOLS Quadrilateral : public BaseQuadrilateral
 {
 
     // CONSTRUCTORS

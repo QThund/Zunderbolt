@@ -50,7 +50,7 @@ namespace z
 ///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} \\ a_{10} & a_{11} \end{bmatrix}\f$
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Matrix2x2 : public BaseMatrix2x2
+class Z_MATH_MODULE_SYMBOLS Matrix2x2 : public BaseMatrix2x2
 {
     // FRIENDS
     // ---------------
@@ -64,7 +64,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend Matrix2x2 Z_LAYER_MATH_SYMBOLS operator*(const float_z fScalar, const Matrix2x2 &matrix);
+    friend Matrix2x2 Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const Matrix2x2 &matrix);
 
 
     // CONSTRUCTORS

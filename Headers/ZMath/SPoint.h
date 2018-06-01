@@ -55,7 +55,7 @@ class TransformationMatrix3x3;
 /// <summary>
 /// Helper class that will be used to perform transformations related to arrays of points (2D, 3D or 4D).
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS SPoint
+class Z_MATH_MODULE_SYMBOLS SPoint
 {
 
     // CONSTRUCTORS

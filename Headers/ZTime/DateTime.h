@@ -51,7 +51,7 @@ class TimeZone;
 /// Instances are undefined by default until they are assigned a value.<br/>
 /// This class is not immutable, although only the assignment operator can modify an instance once it is created.
 /// </remarks>
-class Z_LAYER_TIME_SYMBOLS DateTime
+class Z_TIME_MODULE_SYMBOLS DateTime
 {
     // CONSTANTS
     // ---------------

@@ -42,7 +42,7 @@ namespace z
 ///    A vector is a geometric object that has both a magnitude (or length) and a direction.
 /// The fourth component may equal 0, if the vector represents a normal in 3D space, or 1, if it represents a point.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS BaseVector4
+class Z_MATH_MODULE_SYMBOLS BaseVector4
 {
     // CONSTRUCTORS
     // ---------------

@@ -39,7 +39,7 @@ namespace z
 /// <summary>
 /// Represents a stopwatch that allows calculating, given the length of a time lapse, the amount of time passed in proportion to that time lapse.
 /// </summary>
-class Z_LAYER_TIMING_SYMBOLS StopwatchEnclosed : public Stopwatch
+class Z_TIMING_MODULE_SYMBOLS StopwatchEnclosed : public Stopwatch
 {
 
     // CONSTRUCTORS

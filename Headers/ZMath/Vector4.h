@@ -60,7 +60,7 @@ class BaseVector3;
 /// The fourth component may equal 0, if the vector represents a normal in 3D space, or 1, if it represents a point.
 /// This is important when applying transformations to the vector.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Vector4 : public BaseVector4
+class Z_MATH_MODULE_SYMBOLS Vector4 : public BaseVector4
 {
     // FRIENDS
     // ---------------
@@ -74,7 +74,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    friend Vector4 Z_LAYER_MATH_SYMBOLS operator*(const float_z fScalar, const Vector4 &vVector);
+    friend Vector4 Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const Vector4 &vVector);
 
 
     // CONSTRUCTORS

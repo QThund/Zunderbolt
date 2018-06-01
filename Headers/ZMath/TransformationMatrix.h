@@ -1038,12 +1038,12 @@ private:
 
 // SPECIALIZATION EXPORTATIONS
 // -----------------------------
-#ifdef Z_MATH_TEMPLATE_SPECIALIZATION_SYMBOLS
+#ifdef Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
 
-template class Z_LAYER_MATH_SYMBOLS TransformationMatrix<Matrix4x3>;
-template class Z_LAYER_MATH_SYMBOLS TransformationMatrix<Matrix4x4>;
+template class Z_MATH_MODULE_SYMBOLS TransformationMatrix<Matrix4x3>;
+template class Z_MATH_MODULE_SYMBOLS TransformationMatrix<Matrix4x4>;
 
-#endif // Z_MATH_TEMPLATE_SPECIALIZATION_SYMBOLS
+#endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
 
 
 // Note: The following global operators have been defined this way in order to avoid a mutual inclusion between TranslationMatrix and TransformationMatrix

@@ -37,7 +37,7 @@ namespace z
 /// <summary>
 /// Helper class that offers functionality related to integer types.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS SInteger
+class Z_COMMON_MODULE_SYMBOLS SInteger
 {
     // CONSTANTS
     // ---------------

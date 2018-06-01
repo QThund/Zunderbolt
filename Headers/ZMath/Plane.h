@@ -65,7 +65,7 @@ class Matrix4x4;
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from
 /// plane to the origin, when the normal is normalized.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Plane : public BasePlane
+class Z_MATH_MODULE_SYMBOLS Plane : public BasePlane
 {
     // FRIENDS
     // ---------------
@@ -82,7 +82,7 @@ public:
     /// <returns>
     /// A plane that is the result of the product.
     /// </returns>
-    friend Plane Z_LAYER_MATH_SYMBOLS operator*(const float_z fScalar, const Plane &plane);
+    friend Plane Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const Plane &plane);
 
 
     // CONSTRUCTORS

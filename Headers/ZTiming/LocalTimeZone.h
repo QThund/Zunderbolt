@@ -53,7 +53,7 @@ namespace z
 /// When it is instanced, it asks the operative system for the configuration about the time zone and stores an equivalent TimeZone instance.
 /// From that moment, it acts just as an envelope of that instance.
 /// </remarks>
-class Z_LAYER_TIMING_SYMBOLS LocalTimeZone
+class Z_TIMING_MODULE_SYMBOLS LocalTimeZone
 {
 
 	// CONSTRUCTORS

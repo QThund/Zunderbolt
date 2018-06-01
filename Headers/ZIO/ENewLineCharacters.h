@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// The character or combination of characters that mark the end of a line.
 /// </summary>
-class Z_LAYER_IO_SYMBOLS ENewLineCharacters
+class Z_IO_MODULE_SYMBOLS ENewLineCharacters
 {
     // ENUMERATIONS
     // ---------------

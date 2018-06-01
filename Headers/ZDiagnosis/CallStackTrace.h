@@ -39,7 +39,7 @@ namespace z
 /// <summary>
 /// A call stack trace, which stores information about function calls and is associated to a concrete thread.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS CallStackTrace
+class Z_DIAGNOSIS_MODULE_SYMBOLS CallStackTrace
 {
 
     // CONSTRUCTORS

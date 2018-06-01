@@ -36,7 +36,7 @@ namespace z
 /// <summary>
 /// Helper class that offers functionality related to boolean types. Currently it is empty but it is expected to grow.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS SBoolean
+class Z_COMMON_MODULE_SYMBOLS SBoolean
 {
     // CONSTRUCTORS
     // ---------------

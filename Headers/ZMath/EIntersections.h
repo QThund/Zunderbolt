@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// Enumerates the number of intersections between objects or entities.
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS EIntersections
+class Z_MATH_MODULE_SYMBOLS EIntersections
 {
     // ENUMERATIONS
     // ---------------

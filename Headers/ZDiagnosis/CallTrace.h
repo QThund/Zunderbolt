@@ -37,7 +37,7 @@ namespace z
 /// <summary>
 /// Represents a data structure that stores some information about the context of a function call.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS CallTrace
+class Z_DIAGNOSIS_MODULE_SYMBOLS CallTrace
 {
 
     // CONSTRUCTORS

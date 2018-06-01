@@ -40,7 +40,7 @@ namespace z
 /// Represents a custom allocator that works as a pool, providing a limited set of fixed-size and fixed-alignment blocks
 /// that are occupied and released as demanded.
 /// </summary>
-class Z_LAYER_MEMORY_SYMBOLS PoolAllocator
+class Z_MEMORY_MODULE_SYMBOLS PoolAllocator
 {
     // CONSTRUCTORS
     // ---------------

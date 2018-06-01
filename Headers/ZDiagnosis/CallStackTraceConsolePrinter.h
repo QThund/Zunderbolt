@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// A call stack trace printer implementation that sends text to a console.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS CallStackTraceConsolePrinter : public AbstractCallStackTracePrinter
+class Z_DIAGNOSIS_MODULE_SYMBOLS CallStackTraceConsolePrinter : public AbstractCallStackTracePrinter
 {
     Z_RTTI_SUPPORT_DERIVED_FROM_1_CLASS(CallStackTraceConsolePrinter, AbstractCallStackTracePrinter);
 

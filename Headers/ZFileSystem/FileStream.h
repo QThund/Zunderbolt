@@ -63,7 +63,7 @@ namespace z
 /// 64-bits compilations allow up to 16 EB.<br/>
 /// A file stream can be reutilized after it is closed, to operate with either the same file or another one.
 /// </remarks>
-class Z_LAYER_FILESYSTEM_SYMBOLS FileStream
+class Z_FILESYSTEM_MODULE_SYMBOLS FileStream
 {
     // TYPEDEFS
     // ---------------

@@ -47,7 +47,7 @@ class BaseQuadrilateral;
 /// except for the unit line (see below). However, some transforming methods will rotate the segment using A
 /// by default as the pivot point.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS LineSegment2D : public LineSegment<Vector2>
+class Z_MATH_MODULE_SYMBOLS LineSegment2D : public LineSegment<Vector2>
 {
     // BASE CLASS USINGS
     // ------------------

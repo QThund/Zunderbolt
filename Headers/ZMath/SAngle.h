@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// Helper class that offers functionality related to angles (radians and degrees).
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS SAngle
+class Z_MATH_MODULE_SYMBOLS SAngle
 {
     // CONSTANTS
     // ---------------

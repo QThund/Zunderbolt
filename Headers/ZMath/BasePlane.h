@@ -41,7 +41,7 @@ namespace z
 /// <remarks>
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from plane to the origin.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS BasePlane
+class Z_MATH_MODULE_SYMBOLS BasePlane
 {
     // CONSTRUCTORS
     // ---------------

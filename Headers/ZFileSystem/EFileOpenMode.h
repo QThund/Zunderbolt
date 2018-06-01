@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// Specifies how a file has to be opened.
 /// </summary>
-class Z_LAYER_FILESYSTEM_SYMBOLS EFileOpenMode
+class Z_FILESYSTEM_MODULE_SYMBOLS EFileOpenMode
 {
     // ENUMERATIONS
     // ---------------

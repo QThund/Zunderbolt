@@ -39,7 +39,7 @@ namespace z
 /// <summary>
 /// Represents a component whose job is to convert call stack traces to text with a concrete format, depending on the implementation.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS ICallStackTraceFormatter
+class Z_DIAGNOSIS_MODULE_SYMBOLS ICallStackTraceFormatter
 {
 public:
 

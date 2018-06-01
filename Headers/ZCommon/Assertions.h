@@ -59,7 +59,7 @@ namespace z
     /// <param name="nLineNumber">[IN] The number of the line of code where the failed assertion is.</param>
     /// <param name="strFileName">[IN] The file name of the source code file where the assertion failed.</param>
     /// <param name="uAssertionType">[IN] The type of assertion, depending its purpose.</param>
-    Z_LAYER_COMMON_SYMBOLS void Z_TRACE_FAILED_ASSERT(const string_z &strExpression, 
+    Z_COMMON_MODULE_SYMBOLS void Z_TRACE_FAILED_ASSERT(const string_z &strExpression, 
                                                       const string_z &strErrorMessage,
                                                       const int nLineNumber, 
                                                       const string_z &strFileName,
@@ -72,7 +72,7 @@ namespace z
     /// <param name="strErrorMessage">[IN] The error message provided by the user in the assertion.</param>
     /// <param name="nLineNumber">[IN] The number of the line of code where the failed assertion is.</param>
     /// <param name="strFileName">[IN] The file name of the source code file where the assertion failed.</param>
-    Z_LAYER_COMMON_SYMBOLS void Z_THROW_FAILED_ASSERT(const string_z &strExpression, 
+    Z_COMMON_MODULE_SYMBOLS void Z_THROW_FAILED_ASSERT(const string_z &strExpression, 
                                                       const string_z &strErrorMessage,
                                                       const int nLineNumber, 
                                                       const string_z &strFileName);

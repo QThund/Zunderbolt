@@ -60,7 +60,7 @@ class BaseVector4;
 /// <remarks>
 ///    A vector is a geometric object that has both a magnitude (or length) and a direction.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Vector3 : public BaseVector3
+class Z_MATH_MODULE_SYMBOLS Vector3 : public BaseVector3
 {
     // FRIENDS
     // ---------------
@@ -74,7 +74,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    friend Vector3 Z_LAYER_MATH_SYMBOLS operator*(const float_z fScalar, const Vector3 &vVector);
+    friend Vector3 Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const Vector3 &vVector);
 
 
     // CONSTRUCTORS

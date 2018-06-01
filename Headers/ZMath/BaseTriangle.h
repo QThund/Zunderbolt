@@ -164,13 +164,13 @@ public:
 
 // SPECIALIZATION EXPORTATIONS
 // -----------------------------
-#ifdef Z_MATH_TEMPLATE_SPECIALIZATION_SYMBOLS
+#ifdef Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
 
-template class Z_LAYER_MATH_SYMBOLS BaseTriangle<Vector2>;
-template class Z_LAYER_MATH_SYMBOLS BaseTriangle<Vector3>;
-template class Z_LAYER_MATH_SYMBOLS BaseTriangle<Vector4>;
+template class Z_MATH_MODULE_SYMBOLS BaseTriangle<Vector2>;
+template class Z_MATH_MODULE_SYMBOLS BaseTriangle<Vector3>;
+template class Z_MATH_MODULE_SYMBOLS BaseTriangle<Vector4>;
 
-#endif // Z_MATH_TEMPLATE_SPECIALIZATION_SYMBOLS
+#endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
 
 } // namespace z
 

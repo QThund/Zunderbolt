@@ -41,7 +41,7 @@ namespace z
 /// <remarks>
 ///    A vector is a geometric object that has both a magnitude (or length) and a direction.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS BaseVector3
+class Z_MATH_MODULE_SYMBOLS BaseVector3
 {
 
     // CONSTRUCTORS

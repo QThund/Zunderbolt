@@ -44,7 +44,7 @@ namespace z
 /// <summary>
 /// Small component used to trace all the information about a function argument.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS ArgumentTrace
+class Z_DIAGNOSIS_MODULE_SYMBOLS ArgumentTrace
 {
     // CONSTANTS
     // ---------------
@@ -626,7 +626,7 @@ protected:
 /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
 /// <param name="pArgument">[IN] The argument to be traced.</param>
 template<>
-Z_LAYER_DIAGNOSIS_SYMBOLS void ArgumentTrace::_FillTypeName(void* pArgument);
+Z_DIAGNOSIS_MODULE_SYMBOLS void ArgumentTrace::_FillTypeName(void* pArgument);
 
 /// <summary>
 /// Constructor that receives a function argument.
@@ -653,7 +653,7 @@ Z_LAYER_DIAGNOSIS_SYMBOLS void ArgumentTrace::_FillTypeName(void* pArgument);
 /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
 /// <param name="pArgument">[IN] The argument to be traced.</param>
 template<>
-Z_LAYER_DIAGNOSIS_SYMBOLS void ArgumentTrace::_FillTypeName(const void* pArgument);
+Z_DIAGNOSIS_MODULE_SYMBOLS void ArgumentTrace::_FillTypeName(const void* pArgument);
 
 
 } // namespace z

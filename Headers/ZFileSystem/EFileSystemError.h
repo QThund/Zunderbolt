@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// Errors produced as a result of a file system operation.
 /// </summary>
-class Z_LAYER_FILESYSTEM_SYMBOLS EFileSystemError
+class Z_FILESYSTEM_MODULE_SYMBOLS EFileSystemError
 {
     // ENUMERATIONS
     // ---------------

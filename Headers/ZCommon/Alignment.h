@@ -40,7 +40,7 @@ namespace z
 /// <remarks>
 /// Alignments must be always a power of 2.
 /// </remarks>
-class Z_LAYER_COMMON_SYMBOLS Alignment
+class Z_COMMON_MODULE_SYMBOLS Alignment
 {
 
     // CONSTRUCTORS

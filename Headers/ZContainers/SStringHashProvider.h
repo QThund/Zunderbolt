@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// Represents a hash provider that generates hash keys from strings.
 /// </summary>
-class Z_LAYER_CONTAINERS_SYMBOLS SStringHashProvider
+class Z_CONTAINERS_MODULE_SYMBOLS SStringHashProvider
 {
 
     // CONSTRUCTORS

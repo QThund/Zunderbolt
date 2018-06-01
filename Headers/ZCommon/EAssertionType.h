@@ -40,7 +40,7 @@ namespace z
 /// <summary>
 /// The type of assertion.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS EAssertionType
+class Z_COMMON_MODULE_SYMBOLS EAssertionType
 {
     // ENUMERATIONS
     // ---------------

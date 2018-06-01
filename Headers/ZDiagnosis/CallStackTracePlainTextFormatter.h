@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// A call stack trace formatter implementation that generates plain text, without using any existing markup language nor standard format.
 /// </summary>
-class Z_LAYER_DIAGNOSIS_SYMBOLS CallStackTracePlainTextFormatter : public ICallStackTraceFormatter
+class Z_DIAGNOSIS_MODULE_SYMBOLS CallStackTracePlainTextFormatter : public ICallStackTraceFormatter
 {
 public:
 

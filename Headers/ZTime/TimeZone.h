@@ -52,7 +52,7 @@ namespace z
 /// 10000 (due to a Boost's limitation).<br/>
 /// This class is immutable.
 /// </remarks>
-class Z_LAYER_TIME_SYMBOLS TimeZone
+class Z_TIME_MODULE_SYMBOLS TimeZone
 {
     // INTERNAL CLASSES
     // ---------------
@@ -67,7 +67,7 @@ public:
     /// apply can be either positive or negative.<br/>
     /// This class is immutable.
     /// </remarks>
-    class Z_LAYER_TIME_SYMBOLS DstInformation
+    class Z_TIME_MODULE_SYMBOLS DstInformation
     {
         // CONSTRUCTORS
         // ---------------

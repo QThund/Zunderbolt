@@ -47,7 +47,7 @@ class TimeZone;
 /// (http://www.iana.org/time-zones). The internal database is not initialized until the first time the user gets a time zone.
 /// Note that the internal copy of the database may not be 100% complete and does not take into account historical DST changes.
 /// </remarks>
-class Z_LAYER_TIME_SYMBOLS STimeZoneFactory
+class Z_TIME_MODULE_SYMBOLS STimeZoneFactory
 {
 
     // CONSTRUCTORS

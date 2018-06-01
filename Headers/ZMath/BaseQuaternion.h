@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// It represents the basic form of a quaternion with its four components: x, y, z and w.
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS BaseQuaternion
+class Z_MATH_MODULE_SYMBOLS BaseQuaternion
 {
 
     // CONSTRUCTORS

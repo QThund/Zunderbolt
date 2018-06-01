@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// The direction of the iteration, wither forward or backward.
 /// </summary>
-class Z_LAYER_CONTAINERS_SYMBOLS EIterationDirection
+class Z_CONTAINERS_MODULE_SYMBOLS EIterationDirection
 {
     // ENUMERATIONS
     // ---------------

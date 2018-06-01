@@ -58,7 +58,7 @@ class BaseVector4;
 /// <br/>
 /// (Text extracted from: Flipcode.)
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS Quaternion : public BaseQuaternion
+class Z_MATH_MODULE_SYMBOLS Quaternion : public BaseQuaternion
 {
     // FRIENDS
     // ---------------
@@ -75,7 +75,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    friend Quaternion Z_LAYER_MATH_SYMBOLS operator*(const float_z fScalar, const Quaternion &qQuat);
+    friend Quaternion Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const Quaternion &qQuat);
 
 
     // CONSTRUCTORS

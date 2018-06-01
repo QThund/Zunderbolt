@@ -49,7 +49,7 @@ namespace z
 /// any instance unless you are defining a new class.<br/>
 /// This class is immutable and it is not intended to be derived.
 /// </remarks>
-class Z_LAYER_COMMON_SYMBOLS Type
+class Z_COMMON_MODULE_SYMBOLS Type
 {
 
     // CONSTRUCTORS
@@ -270,7 +270,7 @@ private:
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<bool>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<bool>();
 
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -281,7 +281,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<bool>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<u8_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<u8_z>();
 
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -292,7 +292,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<u8_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<i8_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<i8_z>();
 
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -303,7 +303,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<i8_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<u16_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<u16_z>();
     
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -314,7 +314,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<u16_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<i16_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<i16_z>();
     
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -325,7 +325,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<i16_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<u32_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<u32_z>();
 
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -336,7 +336,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<u32_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<i32_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<i32_z>();
 
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -347,7 +347,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<i32_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<u64_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<u64_z>();
 
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -358,7 +358,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<u64_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<i64_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<i64_z>();
 
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -369,7 +369,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<i64_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<f32_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<f32_z>();
 
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -380,7 +380,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<f32_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<f64_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<f64_z>();
     
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -391,7 +391,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<f64_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<vf32_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<vf32_z>();
     
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -402,7 +402,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<vf32_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<string_z>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<string_z>();
     
 /// <summary>
 /// Obtains the type information of a given basic data type or string.
@@ -413,7 +413,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<string_z>();
 /// A constant unique instance of Type. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<void>();
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType<void>();
 
 /// <summary>
 /// Gets the type information of an object.
@@ -428,7 +428,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType<void>();
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const bool &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const bool &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -443,7 +443,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const bool &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const u8_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const u8_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -458,7 +458,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const u8_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const u16_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const u16_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -473,7 +473,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const u16_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const u32_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const u32_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -488,7 +488,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const u32_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const u64_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const u64_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -503,7 +503,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const u64_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const i8_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const i8_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -518,7 +518,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const i8_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const i16_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const i16_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -533,7 +533,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const i16_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const i32_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const i32_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -548,7 +548,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const i32_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const i64_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const i64_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -563,7 +563,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const i64_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const f32_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const f32_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -578,7 +578,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const f32_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const f64_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const f64_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -593,7 +593,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const f64_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const vf32_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const vf32_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -608,7 +608,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const vf32_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const string_z &object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const string_z &object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -623,7 +623,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const string_z &object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(void* object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(void* object);
 
 /// <summary>
 /// Gets the type information of an object.
@@ -638,7 +638,7 @@ Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(void* object);
 /// A pointer to a unique instance of Type that contains information about the type. The pointer is null if the type is not recognized.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS const Type* Type::FindType(const void* object);
+Z_COMMON_MODULE_SYMBOLS const Type* Type::FindType(const void* object);
 
 
 } // namespace z

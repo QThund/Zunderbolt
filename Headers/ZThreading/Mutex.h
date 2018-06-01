@@ -47,7 +47,7 @@ namespace z
 /// This class is thread-safe.<br/>
 /// It is a wrapper for the mutex class, from Boost libraries.
 /// </remarks>
-class Z_LAYER_THREADING_SYMBOLS Mutex
+class Z_THREADING_MODULE_SYMBOLS Mutex
 {
     // TYPEDEFS
     // ---------------

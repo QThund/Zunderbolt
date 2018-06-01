@@ -56,7 +56,7 @@ class BaseVector4;
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br/>
 /// This class has been included for experimental purposes only. Use it at your own risk.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS DualQuaternion : public BaseDualQuaternion
+class Z_MATH_MODULE_SYMBOLS DualQuaternion : public BaseDualQuaternion
 {
     // FRIENDS
     // ---------------
@@ -70,7 +70,7 @@ public:
     /// <returns>
     /// The resultant dual quaternion.
     /// </returns>
-    friend DualQuaternion Z_LAYER_MATH_SYMBOLS operator*(const float_z fScalar, const DualQuaternion &dualQuat);
+    friend DualQuaternion Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const DualQuaternion &dualQuat);
 
 
     // CONSTRUCTORS

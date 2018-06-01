@@ -40,7 +40,7 @@ namespace z
 /// <summary>
 /// Stores information about a file in the file system.
 /// </summary>
-class Z_LAYER_FILESYSTEM_SYMBOLS FileInfo
+class Z_FILESYSTEM_MODULE_SYMBOLS FileInfo
 {
     // CONSTRUCTORS
     // ---------------

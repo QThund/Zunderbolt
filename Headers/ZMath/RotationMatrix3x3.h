@@ -51,7 +51,7 @@ RotationMatrix3x3 operator*(const float_z fScalar, const RotationMatrix3x3 &matr
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a rotation.
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS RotationMatrix3x3 : public Matrix3x3
+class Z_MATH_MODULE_SYMBOLS RotationMatrix3x3 : public Matrix3x3
 {
 
     // CONSTRUCTORS

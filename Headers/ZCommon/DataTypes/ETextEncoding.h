@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// Enumeration of all the text encodings supported by the string management classes.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS ETextEncoding
+class Z_COMMON_MODULE_SYMBOLS ETextEncoding
 {
     // ENUMERATIONS
     // ---------------

@@ -44,7 +44,7 @@ typedef u32_z codepoint_z; // A code point, which is represented by a 32 bits un
 /// <summary>
 /// Represents a character in the Unicode code space.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS CharUnicode
+class Z_COMMON_MODULE_SYMBOLS CharUnicode
 {
 
     // CONSTRUCTORS

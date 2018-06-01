@@ -41,7 +41,7 @@ namespace z
 /// Represents an allocator that stores memory blocks of arbitrary sizes in a linear/contiguous way. It grows until the preallocated memory is filled and 
 /// never diminishes, although it can be emptied completely.
 /// </summary>
-class Z_LAYER_MEMORY_SYMBOLS LinearAllocator
+class Z_MEMORY_MODULE_SYMBOLS LinearAllocator
 {
 
     // CONSTRUCTORS

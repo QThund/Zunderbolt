@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// The priority the operating system gives to a thread.
 /// </summary>
-class Z_LAYER_THREADING_SYMBOLS EThreadPriority
+class Z_THREADING_MODULE_SYMBOLS EThreadPriority
 {
     // ENUMERATIONS
     // ---------------

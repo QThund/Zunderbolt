@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// Enumerates the different supported algorithms to traverse across a tree data structure.
 /// </summary>
-class Z_LAYER_CONTAINERS_SYMBOLS ETreeTraversalOrder
+class Z_CONTAINERS_MODULE_SYMBOLS ETreeTraversalOrder
 {
     // ENUMERATIONS
     // ---------------

@@ -41,7 +41,7 @@ namespace z
 /// Enumerated type that represents a space relation between a geometric element (a point, a triangle, a line, etc.) and another one,
 /// normally a plane.
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS ESpaceRelation
+class Z_MATH_MODULE_SYMBOLS ESpaceRelation
 {
     // ENUMERATIONS
     // ---------------

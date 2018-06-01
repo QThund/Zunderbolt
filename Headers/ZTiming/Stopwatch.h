@@ -57,7 +57,7 @@ namespace z
 /// Depending on the operating system, the resolution of the time counter may vary (from 100ns to 1ns).<br/>
 /// Internal time counter is not affected by thread interruptions nor by system adjustments.
 /// </remarks>
-class Z_LAYER_TIMING_SYMBOLS Stopwatch
+class Z_TIMING_MODULE_SYMBOLS Stopwatch
 {
     // CONSTRUCTORS
     // ---------------

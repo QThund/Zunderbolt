@@ -50,7 +50,7 @@ namespace z
 /// <remarks>
 /// This class acts as an extended wrapper of the Boost's this_thread namespace.
 /// </remarks>
-class Z_LAYER_THREADING_SYMBOLS SThisThread
+class Z_THREADING_MODULE_SYMBOLS SThisThread
 {
 
     // CONSTRUCTORS

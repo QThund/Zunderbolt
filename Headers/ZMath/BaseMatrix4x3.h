@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// Base class to represent a matrix of floating point values with 4 rows and 3 columns.
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS BaseMatrix4x3
+class Z_MATH_MODULE_SYMBOLS BaseMatrix4x3
 {
     // CONSTRUCTORS
     // ---------------

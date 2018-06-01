@@ -39,7 +39,7 @@ namespace z
 /// <summary>
 /// Stores information about a directory in the file system.
 /// </summary>
-class Z_LAYER_FILESYSTEM_SYMBOLS DirectoryInfo
+class Z_FILESYSTEM_MODULE_SYMBOLS DirectoryInfo
 {
     // CONSTRUCTORS
     // ---------------

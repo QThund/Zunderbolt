@@ -48,7 +48,7 @@ namespace z
 /// It is a singleton.<br/>
 /// It is thread-safe.
 /// </remarks>
-class Z_LAYER_DIAGNOSIS_SYMBOLS CallStackTracer
+class Z_DIAGNOSIS_MODULE_SYMBOLS CallStackTracer
 {
     // CONSTRUCTORS
     // ---------------

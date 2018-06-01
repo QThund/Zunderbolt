@@ -52,7 +52,7 @@ namespace z
 /// It is not possible to set another thread to sleep, use SThisThread::Sleep method so the thread sets to sleep itself.<br/>
 /// This class acts as an extended wrapper of the Boost's thread class.
 /// </remarks>
-class Z_LAYER_THREADING_SYMBOLS Thread
+class Z_THREADING_MODULE_SYMBOLS Thread
 {
     // TYPEDEFS
     // ---------------

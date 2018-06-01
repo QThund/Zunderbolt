@@ -48,7 +48,7 @@ namespace z
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br/>
 /// This class is experimental and therefore subject to changes.
 /// </remarks>
-class Z_LAYER_MATH_SYMBOLS BaseDualQuaternion
+class Z_MATH_MODULE_SYMBOLS BaseDualQuaternion
 {
 
     // CONSTRUCTORS

@@ -37,7 +37,7 @@ namespace z
 /// <summary>
 /// Class which represents a four-sided polygon. The quadrilateral is defined by its four vertices.
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS BaseQuadrilateral
+class Z_MATH_MODULE_SYMBOLS BaseQuadrilateral
 {
 
     // CONSTRUCTORS

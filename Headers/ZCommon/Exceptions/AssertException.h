@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// Exception used for testing purposes only. It stores information about a failed assertion.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS AssertException
+class Z_COMMON_MODULE_SYMBOLS AssertException
 {
     // CONSTRUCTORS
     // ---------------

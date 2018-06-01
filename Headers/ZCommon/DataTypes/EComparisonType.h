@@ -41,7 +41,7 @@ namespace z
 /// <summary>
 /// The type of comparison performed between two Unicode strings.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS EComparisonType
+class Z_COMMON_MODULE_SYMBOLS EComparisonType
 {
     // ENUMERATIONS
     // ---------------

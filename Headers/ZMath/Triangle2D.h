@@ -44,7 +44,7 @@ class TransformationMatrix3x3;
 /// <summary>
 /// Class which represents a triangle in 2D.
 /// </summary>
-class Z_LAYER_MATH_SYMBOLS Triangle2D : public Triangle<Vector2>
+class Z_MATH_MODULE_SYMBOLS Triangle2D : public Triangle<Vector2>
 {
 
     // CONSTRUCTORS

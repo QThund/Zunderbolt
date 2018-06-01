@@ -57,7 +57,7 @@ namespace z
 /// Instances of this class are mutable, this means, the same instance can take different values during its lifecycle.<br/>
 /// Instances of this class are not thread-safe.
 /// </remarks>
-class Z_LAYER_COMMON_SYMBOLS StringUnicode
+class Z_COMMON_MODULE_SYMBOLS StringUnicode
 {
     // INTERNAL CLASSES
     // ------------------
@@ -72,7 +72,7 @@ public:
     /// Iterators can be invalid, this means, they may not point to an existing position of the string.<br/>
     /// The position before the first character or after the last one (end positions) are considered as valid positions.
     /// </remarks>
-    class Z_LAYER_COMMON_SYMBOLS ConstCharIterator
+    class Z_COMMON_MODULE_SYMBOLS ConstCharIterator
     {
         friend class StringUnicode; // This is necessary while the internal implementation is based on ICU
 
@@ -327,7 +327,7 @@ public:
     /// Iterators can be invalid, this means, they may not point to an existing position of the string.<br/>
     /// The position before the first character or after the last one (end positions) are considered as valid positions.
     /// </remarks>
-    class Z_LAYER_COMMON_SYMBOLS CharIterator : public StringUnicode::ConstCharIterator
+    class Z_COMMON_MODULE_SYMBOLS CharIterator : public StringUnicode::ConstCharIterator
     {
         // CONSTRUCTORS
         // ---------------
@@ -1563,7 +1563,7 @@ private:
 /// The string that represents the number.
 /// </returns>
 template<>
-StringUnicode Z_LAYER_COMMON_SYMBOLS StringUnicode::FromInteger<u8_z>(const u8_z value);
+StringUnicode Z_COMMON_MODULE_SYMBOLS StringUnicode::FromInteger<u8_z>(const u8_z value);
 
 /// <summary>
 /// Converts an integer number to a readable character string that represents it.
@@ -1573,7 +1573,7 @@ StringUnicode Z_LAYER_COMMON_SYMBOLS StringUnicode::FromInteger<u8_z>(const u8_z
 /// The string that represents the number.
 /// </returns>
 template<>
-StringUnicode Z_LAYER_COMMON_SYMBOLS StringUnicode::FromInteger<i8_z>(const i8_z value);
+StringUnicode Z_COMMON_MODULE_SYMBOLS StringUnicode::FromInteger<i8_z>(const i8_z value);
 
 
 } // namespace z

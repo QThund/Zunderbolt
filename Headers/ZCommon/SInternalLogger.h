@@ -49,7 +49,7 @@ namespace z
 /// produced by lower layer libraries to external loggers. Using a delegate, upper layers can set it to call any function,
 /// for example a logger instance's method. Lower layers will call that delegate, whatever function it points to.
 /// </remarks>
-class Z_LAYER_COMMON_SYMBOLS SInternalLogger
+class Z_COMMON_MODULE_SYMBOLS SInternalLogger
 {
 	// CONSTRUCTORS
 	// ---------------

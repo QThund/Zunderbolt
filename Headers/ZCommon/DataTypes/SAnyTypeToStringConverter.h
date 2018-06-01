@@ -38,7 +38,7 @@ namespace z
 /// <summary>
 /// Provides utilities to convert any data type to its representation as string.
 /// </summary>
-class Z_LAYER_COMMON_SYMBOLS SAnyTypeToStringConverter
+class Z_COMMON_MODULE_SYMBOLS SAnyTypeToStringConverter
 {
 
     // CONSTRUCTORS
@@ -168,7 +168,7 @@ public:
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const bool &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const bool &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -183,7 +183,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const bool &o
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u8_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u8_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -198,7 +198,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u8_z &o
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u16_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u16_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -213,7 +213,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u16_z &
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u32_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u32_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -228,7 +228,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u32_z &
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u64_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u64_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -243,7 +243,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const u64_z &
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i8_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i8_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -258,7 +258,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i8_z &o
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i16_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i16_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -273,7 +273,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i16_z &
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i32_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i32_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -288,7 +288,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i32_z &
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i64_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i64_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -303,7 +303,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const i64_z &
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const f32_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const f32_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -318,7 +318,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const f32_z &
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const f64_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const f64_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -333,7 +333,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const f64_z &
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const vf32_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const vf32_z &object);
 
 /// <summary>
 /// Converts an instance of any type to its corresponding representation as string.
@@ -348,7 +348,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const vf32_z 
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const string_z &object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const string_z &object);
 
 /// <summary>
 /// Converts a pointer-to-constant-type to its corresponding representation as string.
@@ -368,7 +368,7 @@ Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const string_
 /// The string that contains the representation of the object.
 /// </returns>
 template<>
-Z_LAYER_COMMON_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const void* object);
+Z_COMMON_MODULE_SYMBOLS string_z SAnyTypeToStringConverter::Convert(const void* object);
 
 
 } // namespace z
