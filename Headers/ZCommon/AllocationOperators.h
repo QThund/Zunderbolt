@@ -136,9 +136,6 @@ inline void* aligned_alloc_z (const z::puint_z uSize, const z::Alignment& alignm
 /// <returns>
 /// A memory block of the specified size.
 /// </returns>
-#if Z_COMMON_MODULE_IS_STATIC
-inline
-#endif
 void* operator new (const size_t uSize) throw(std::bad_alloc)
 #if Z_COMMON_MODULE_IS_STATIC
 {
@@ -162,9 +159,6 @@ void* operator new (const size_t uSize) throw(std::bad_alloc)
 /// <returns>
 /// A memory block of the specified size.
 /// </returns>
-#if Z_COMMON_MODULE_IS_STATIC
-inline
-#endif
 void* operator new (const size_t uSize, const std::nothrow_t& nothrow_value) throw()
 #if Z_COMMON_MODULE_IS_STATIC
 {
@@ -187,9 +181,6 @@ void* operator new (const size_t uSize, const std::nothrow_t& nothrow_value) thr
 /// <returns>
 /// A memory block of the specified size.
 /// </returns>
-#if Z_COMMON_MODULE_IS_STATIC
-inline
-#endif
 void* operator new[] (const size_t uSize) throw(std::bad_alloc)
 #if Z_COMMON_MODULE_IS_STATIC
 {
@@ -213,9 +204,6 @@ void* operator new[] (const size_t uSize) throw(std::bad_alloc)
 /// <returns>
 /// A memory block of the specified size.
 /// </returns>
-#if Z_COMMON_MODULE_IS_STATIC
-inline
-#endif
 void* operator new[] (const size_t uSize, const std::nothrow_t& nothrow_value) throw()
 #if Z_COMMON_MODULE_IS_STATIC
 {
@@ -235,9 +223,6 @@ void* operator new[] (const size_t uSize, const std::nothrow_t& nothrow_value) t
 /// Frees a memory block. Overrides the delete operator provided by the CRT libraries.
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
-#if Z_COMMON_MODULE_IS_STATIC
-inline
-#endif
 void operator delete (void* pMemoryBlock) throw()
 #if Z_COMMON_MODULE_IS_STATIC
 {
@@ -252,9 +237,6 @@ void operator delete (void* pMemoryBlock) throw()
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
 /// <param name="nothrow_constant">[IN] Parameter used to specify that no exceptions should be thrown.</param>
-#if Z_COMMON_MODULE_IS_STATIC
-inline
-#endif
 void operator delete (void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
 #if Z_COMMON_MODULE_IS_STATIC
 {
@@ -268,9 +250,6 @@ void operator delete (void* pMemoryBlock, const std::nothrow_t& nothrow_constant
 /// Frees a memory block. Overrides the delete array operator provided by the CRT libraries.
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
-#if Z_COMMON_MODULE_IS_STATIC
-inline
-#endif
 void operator delete[] (void* pMemoryBlock) throw()
 #if Z_COMMON_MODULE_IS_STATIC
 {
@@ -285,9 +264,6 @@ void operator delete[] (void* pMemoryBlock) throw()
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
 /// <param name="nothrow_constant">[IN] Parameter used to specify that no exceptions should be thrown.</param>
-#if Z_COMMON_MODULE_IS_STATIC
-inline
-#endif
 void operator delete[] (void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
 #if Z_COMMON_MODULE_IS_STATIC
 {
