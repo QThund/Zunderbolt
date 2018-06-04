@@ -44,6 +44,7 @@ using namespace boost::unit_test;
 #include "ZMath/SAngle.h"
 #include "ZCommon/DataTypes/SVF32.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 
 ZTEST_SUITE_BEGIN( Vector3_TestSuite )
@@ -63,25 +64,6 @@ ZTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByVector_Test )
 
 	// [Execution]
     Vector3 vVectorUT = SCALAR * VECTOR;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
-}
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
-{
-    // [Preparation]
-    const float_z EXPECTED_VALUE_FOR_X = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_Y = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_Z = SFloat::_0;
-
-	// [Execution]
-    Vector3 vVectorUT;
 
     // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -120,7 +102,7 @@ ZTEST_CASE ( Constructor3_VectorComponentsAreCopiedToRightComponents_Test )
     const float_z EXPECTED_VALUE_FOR_Y = SFloat::_2;
     const float_z EXPECTED_VALUE_FOR_Z = SFloat::_3;
 
-    BaseVector3 BASEVECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
+    Vector3 BASEVECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
 
 	// [Execution]
     Vector3 vVectorUT(BASEVECTOR);
@@ -285,7 +267,7 @@ ZTEST_CASE ( Constructor9_VectorComponentsAreCopiedIntoCorrectComponents_Test )
     const float_z EXPECTED_VALUE_FOR_Y = SFloat::_2;
     const float_z EXPECTED_VALUE_FOR_Z = SFloat::_3;
 
-	BaseVector3 INPUT_VECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
+	Vector3 INPUT_VECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
 
 	// [Execution]
 	Vector3 vVectorUT(INPUT_VECTOR);
@@ -306,7 +288,7 @@ ZTEST_CASE ( Constructor10_VectorComponentsAreCopiedIntoCorrectComponents_Test )
     const float_z EXPECTED_VALUE_FOR_Y = SFloat::_2;
     const float_z EXPECTED_VALUE_FOR_Z = SFloat::_3;
 
-	BaseVector4 INPUT_VECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, SFloat::_0);
+	Vector4 INPUT_VECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, SFloat::_0);
 
 	// [Execution]
 	Vector3 vVectorUT(INPUT_VECTOR);
@@ -467,6 +449,110 @@ ZTEST_CASE ( GetUnitVectorInvZ_ReturnsAUnitVectorThatPointsToNegativeDirectionOf
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Vector3 LEFT_OPERAND(SFloat::Epsilon);
+    const Vector3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const Vector3 LEFT_OPERAND(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5);
+    const Vector3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const Vector3 LEFT_OPERAND(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5);
+    const Vector3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Vector3 LEFT_OPERAND(SFloat::Epsilon);
+    const Vector3 RIGHT_OPERAND(SFloat::Epsilon);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Vector3 LEFT_OPERAND(SFloat::Epsilon);
+    const Vector3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const Vector3 LEFT_OPERAND(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5);
+    const Vector3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const Vector3 LEFT_OPERAND(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5);
+    const Vector3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Vector3 LEFT_OPERAND(SFloat::Epsilon);
+    const Vector3 RIGHT_OPERAND(SFloat::Epsilon);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
 /// <summary>
@@ -648,7 +734,7 @@ ZTEST_CASE ( OperatorProduct3_VectorIsCorrectlyMultipliedByMatrix3x3_Test )
     const float_z EXPECTED_VALUE_FOR_Z = (float_z)36.0;
 
 
-    const BaseMatrix3x3 MATRIX = BaseMatrix3x3(SFloat::_0, SFloat::_1, SFloat::_2,
+    const Matrix3x3 MATRIX = Matrix3x3(SFloat::_0, SFloat::_1, SFloat::_2,
                                                  SFloat::_3, SFloat::_4, SFloat::_5,
                                                  SFloat::_6, SFloat::_7, SFloat::_8);
 
@@ -674,14 +760,14 @@ ZTEST_CASE ( OperatorProduct4_VectorIsCorrectlyMultipliedByMatrix3x4_Test )
     const float_z EXPECTED_VALUE_FOR_Z = (float_z)44.0;
     const float_z EXPECTED_VALUE_FOR_W = (float_z)50.0;
 
-    const BaseMatrix3x4 MATRIX = BaseMatrix3x4(SFloat::_0, SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x4 MATRIX = Matrix3x4(SFloat::_0, SFloat::_1, SFloat::_2, SFloat::_3,
                                                  SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7,
                                                  SFloat::_8, SFloat::_9, (float_z)10, (float_z)11);
 
     const Vector3 VECTOR = Vector3(SFloat::_1, SFloat::_2, SFloat::_3);
 
 	// [Execution]
-    BaseVector4 vVectorUT = VECTOR * MATRIX;
+    Vector4 vVectorUT = VECTOR * MATRIX;
 
     // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -1132,7 +1218,7 @@ ZTEST_CASE ( OperatorProductAssignation3_VectorIsCorrectlyMultipliedByMatrix3x3_
     const float_z EXPECTED_VALUE_FOR_Z = 36;
 
 
-    const BaseMatrix3x3 MATRIX = BaseMatrix3x3(SFloat::_0, SFloat::_1, SFloat::_2,
+    const Matrix3x3 MATRIX = Matrix3x3(SFloat::_0, SFloat::_1, SFloat::_2,
                                                  SFloat::_3, SFloat::_4, SFloat::_5,
                                                  SFloat::_6, SFloat::_7, SFloat::_8);
 

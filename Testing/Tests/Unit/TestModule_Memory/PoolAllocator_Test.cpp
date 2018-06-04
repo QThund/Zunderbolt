@@ -185,7 +185,7 @@ ZTEST_CASE( Constructor2_PreAllocatedMemoryIsOnPassedBuffer_Test )
     void* pBuffer = malloc(POOL_SIZE);
 
     // [Execution]
-    PoolAllocatorWhiteBox pool(POOL_SIZE, BLOCK_SIZE, pBuffer);
+   PoolAllocatorWhiteBox pool(POOL_SIZE, BLOCK_SIZE, pBuffer);
 
     // [Verification]
     BOOST_CHECK_EQUAL((puint_z)pool.GetpAllocatedMemory(), (puint_z)pBuffer );

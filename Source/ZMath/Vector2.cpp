@@ -29,9 +29,10 @@
 #include "ZCommon/Assertions.h"
 #include "ZMath/SAngle.h"
 #include "ZMath/TransformationMatrix3x3.h"
-#include "ZMath/BaseMatrix2x2.h"
+#include "ZMath/Matrix2x2.h"
 #include "ZCommon/DataTypes/SFloat.h"
 #include "ZMath/MathDefinitions.h"
+#include "ZCommon/DataTypes/SVF32.h"
 
 
 
@@ -52,28 +53,29 @@ Vector2::Vector2()
 {
 }
 
-Vector2::Vector2(const Vector2 &vVector) : BaseVector2(vVector)
+Vector2::Vector2(const float_z fValueX, const float_z fValueY) : x(fValueX), y(fValueY)
 {
 }
 
-Vector2::Vector2(const BaseVector2 &vVector) : BaseVector2(vVector)
+Vector2::Vector2(const float_z fValueAll) : x(fValueAll), y(fValueAll)
 {
 }
 
-Vector2::Vector2(const float_z fValueX, const float_z fValueY) : BaseVector2(fValueX, fValueY)
+Vector2::Vector2(const float_z* arValues)
 {
+    // Null pointer checkout
+    Z_ASSERT_ERROR(arValues != null_z, "The input array must not be null");
+
+    // Assignments
+    x = arValues[0];
+    y = arValues[1];
 }
 
-Vector2::Vector2(const float_z fValueAll) : BaseVector2(fValueAll)
+Vector2::Vector2(const vf32_z value)
 {
-}
+    float_z fAux;
 
-Vector2::Vector2(const float_z* arValues) : BaseVector2(arValues)
-{
-}
-
-Vector2::Vector2(const vf32_z value) : BaseVector2 (value)
-{
+    SVF32::Unpack(value, this->x, this->y, fAux, fAux);
 }
 
 
@@ -86,17 +88,27 @@ Vector2::Vector2(const vf32_z value) : BaseVector2 (value)
 //##################                                                       ##################
 //##################=======================================================##################
 
+bool Vector2::operator==(const Vector2 &vVector) const
+{
+    return ( SFloat::AreEqual(vVector.x, this->x) && SFloat::AreEqual(vVector.y, this->y) );
+}
+
+bool Vector2::operator!=(const Vector2 &vVector) const
+{
+    return !(*this == vVector);
+}
+
 Vector2 Vector2::operator-() const
 {
     return Vector2(-this->x, -this->y);
 }
 
-Vector2 Vector2::operator+(const BaseVector2 &vVector) const
+Vector2 Vector2::operator+(const Vector2 &vVector) const
 {
     return Vector2(this->x + vVector.x, this->y + vVector.y);
 }
 
-Vector2 Vector2::operator-(const BaseVector2 &vVector) const
+Vector2 Vector2::operator-(const Vector2 &vVector) const
 {
     return Vector2(this->x - vVector.x, this->y - vVector.y);
 }
@@ -106,12 +118,12 @@ Vector2 Vector2::operator*(const float_z fScalar) const
     return Vector2(this->x * fScalar, this->y * fScalar);
 }
 
-Vector2 Vector2::operator*(const BaseVector2 &vVector) const
+Vector2 Vector2::operator*(const Vector2 &vVector) const
 {
     return Vector2(this->x * vVector.x, this->y * vVector.y);
 }
 
-Vector2 Vector2::operator*(const BaseMatrix2x2 &matrix) const
+Vector2 Vector2::operator*(const Matrix2x2 &matrix) const
 {
     return Vector2(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0],
                     this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1]);
@@ -127,7 +139,7 @@ Vector2 Vector2::operator/(const float_z fScalar) const
     return Vector2(this->x * fDivisor, this->y * fDivisor);
 }
 
-Vector2 Vector2::operator/(const BaseVector2 &vVector) const
+Vector2 Vector2::operator/(const Vector2 &vVector) const
 {
     // Checkout to avoid division by 0
     Z_ASSERT_WARNING(vVector.x != SFloat::_0 && vVector.y != SFloat::_0, "Input vector must not be null");
@@ -135,7 +147,7 @@ Vector2 Vector2::operator/(const BaseVector2 &vVector) const
     return Vector2(this->x / vVector.x, this->y / vVector.y);
 }
 
-Vector2& Vector2::operator+=(const BaseVector2 &vVector)
+Vector2& Vector2::operator+=(const Vector2 &vVector)
 {
     this->x += vVector.x;
     this->y += vVector.y;
@@ -143,7 +155,7 @@ Vector2& Vector2::operator+=(const BaseVector2 &vVector)
     return *this;
 }
 
-Vector2& Vector2::operator-=(const BaseVector2 &vVector)
+Vector2& Vector2::operator-=(const Vector2 &vVector)
 {
     this->x -= vVector.x;
     this->y -= vVector.y;
@@ -159,7 +171,7 @@ Vector2& Vector2::operator*=(const float_z fScalar)
     return *this;
 }
 
-Vector2& Vector2::operator*=(const BaseMatrix2x2 &matrix)
+Vector2& Vector2::operator*=(const Matrix2x2 &matrix)
 {
     float_z fValueX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0];
     float_z fValueY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1];
@@ -170,7 +182,7 @@ Vector2& Vector2::operator*=(const BaseMatrix2x2 &matrix)
     return *this;
 }
 
-Vector2& Vector2::operator*=(const BaseVector2 &vVector)
+Vector2& Vector2::operator*=(const Vector2 &vVector)
 {
     this->x *= vVector.x;
     this->y *= vVector.y;
@@ -191,7 +203,7 @@ Vector2& Vector2::operator/=(const float_z fScalar)
     return *this;
 }
 
-Vector2& Vector2::operator/=(const BaseVector2 &vVector)
+Vector2& Vector2::operator/=(const Vector2 &vVector)
 {
     // Checkout to avoid division by 0
     Z_ASSERT_WARNING (vVector.x != SFloat::_0 && vVector.y != SFloat::_0, "Input vector must not be null");
@@ -200,12 +212,6 @@ Vector2& Vector2::operator/=(const BaseVector2 &vVector)
     this->y /= vVector.y;
 
 
-    return *this;
-}
-
-Vector2& Vector2::operator=(const BaseVector2 &vVector)
-{
-    BaseVector2::operator=(vVector);
     return *this;
 }
 
@@ -299,7 +305,7 @@ float_z Vector2::AngleBetween(const Vector2 &vVector) const
     return fAngle;
 }
 
-Vector2 Vector2::Lerp(const float_z fProportion, const BaseVector2 &vVector) const
+Vector2 Vector2::Lerp(const float_z fProportion, const Vector2 &vVector) const
 {
     return Vector2(this->x * (SFloat::_1 - fProportion) + vVector.x * fProportion,
                     this->y * (SFloat::_1 - fProportion) + vVector.y * fProportion);

@@ -24,10 +24,10 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __ZUATERNION__
-#define __ZUATERNION__
+#ifndef __QUATERNION__
+#define __QUATERNION__
 
-#include "BaseQuaternion.h"
+#include "ZMath/MathModuleDefinitions.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"
 
 
@@ -35,17 +35,25 @@
 namespace z
 {
 
-// Forward declarations
+// FORWARD DECLARATIONS
+// ----------------------
 class Matrix4x3;
 class Matrix4x4;
-template<class MatrixT> class TransformationMatrix;
 class RotationMatrix3x3;
-class BaseVector3;
-class BaseVector4;
+class Vector3;
+class Vector4;
+
+namespace Internals
+{
+    template<class MatrixT> class TransformationMatrix;
+}
+
+typedef Internals::TransformationMatrix<Matrix4x3> TransformationMatrix4x3;
+typedef Internals::TransformationMatrix<Matrix4x4> TransformationMatrix4x4;
 
 
 /// <summary>
-/// A Quaternion is defined using four floating point values |X Y Z W|. 
+/// A quaternion is defined using four floating point values |X Y Z W|. 
 /// These are calculated from the combination of the three coordinates
 /// of the rotation axis and the rotation angle.
 /// </summary>
@@ -53,12 +61,12 @@ class BaseVector4;
 /// Quaternions extend the concept of rotation in three dimensions to rotation in four dimensions.
 /// This avoids the problem of "gimbal-lock"
 /// and allows for the implementation of smooth and continuous rotation.<br/>
-/// In effect, they may be considered to add a additional rotation angle
+/// In effect, they may be considered to add an additional rotation angle
 /// to spherical coordinates ie. Longitude, Latitude and Rotation angles.<br/>
 /// <br/>
 /// (Text extracted from: Flipcode.)
 /// </remarks>
-class Z_MATH_MODULE_SYMBOLS Quaternion : public BaseQuaternion
+class Z_MATH_MODULE_SYMBOLS Quaternion
 {
     // FRIENDS
     // ---------------
@@ -83,21 +91,9 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Quaternion();
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="qQuat">[IN] The quaternion from which we want to create a copy in the resident quaternion.</param>
-    Quaternion(const Quaternion &qQuat);
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="qQuat">[IN] The quaternion in which we want resident quaternion to be based.</param>
-    Quaternion(const BaseQuaternion &qQuat);
 
     /// <summary>
     /// Constructor that receives 3 angles, one for each Euler angle, to represent a spacial rotation as a quaternion.
@@ -148,7 +144,7 @@ public:
     /// </remarks>
     /// <param name="vRotationAxis">[IN] Normalined vector in the direction of the spin axis.</param>
     /// <param name="fRotationAngle">[IN] Angle of rotation.</param>
-    Quaternion(const BaseVector3 &vRotationAxis, const float_z fRotationAngle);
+    Quaternion(const Vector3 &vRotationAxis, const float_z fRotationAngle);
 
     /// <summary>
     /// Constructor that receives a rotation angle and a normalized vector in the direction of the spin axis.
@@ -162,7 +158,7 @@ public:
     /// </remarks>
     /// <param name="vRotationAxis">[IN] Normalized vector in the direction of the spin axis.</param>
     /// <param name="fRotationAngle">[IN] Angle of rotation.</param>
-    Quaternion(const BaseVector4 &vRotationAxis, const float_z fRotationAngle);
+    Quaternion(const Vector4 &vRotationAxis, const float_z fRotationAngle);
 
     /// <summary>
     /// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
@@ -173,7 +169,7 @@ public:
     /// This method produces a normalized quaternion.
     /// </remarks>
     /// <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
-    explicit Quaternion(const TransformationMatrix<Matrix4x3> &transformation);
+    explicit Quaternion(const TransformationMatrix4x3 &transformation);
 
     /// <summary>
     /// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
@@ -184,7 +180,7 @@ public:
     /// This method produces a normalized quaternion.
     /// </remarks>
     /// <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
-    explicit Quaternion(const TransformationMatrix<Matrix4x4> &transformation);
+    explicit Quaternion(const TransformationMatrix4x4 &transformation);
 
     /// <summary>
     /// Constructor that receives a 3x3 rotation matrix.
@@ -203,7 +199,7 @@ private:
     /// <typeparam name="MatrixT">Allowed types: Matrix4x3, Matrix4x4.</typeparam>
     /// <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
     template <class MatrixT>
-    void QuaternionImp(const TransformationMatrix<MatrixT> &transformation);
+    void QuaternionImp(const Internals::TransformationMatrix<MatrixT> &transformation);
 
 
     // PROPERTIES
@@ -217,11 +213,37 @@ public:
     /// The identity quaternion.
     /// </returns>
     static const Quaternion& GetIdentity();
+    
+    /// <summary>
+    /// Gets a quaternion whose components equal zero.
+    /// </summary>
+    /// <returns>
+    /// A null quaternion.
+    /// </returns>
+    static const Quaternion& GetNullQuaternion();
 
 
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Equality operator. Compares two quaternions.
+    /// </summary>
+    /// <param name="qQuat">[IN] The quaternion to compare to.</param>
+    /// <returns>
+    /// If quaternions are equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator==(const Quaternion &qQuat) const;
+
+    /// <summary>
+    /// Inequality operator. Compares two quaternions.
+    /// </summary>
+    /// <param name="qQuat">[IN] The quaternion to compare to.</param>
+    /// <returns>
+    /// If quaternions are not equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator!=(const Quaternion &qQuat) const;
 
     /// <summary>
     /// Add operator. Each input quaternion's component is added to the corresponding quaternion's.
@@ -233,7 +255,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    Quaternion operator+(const BaseQuaternion &qQuat) const;
+    Quaternion operator+(const Quaternion &qQuat) const;
 
     /// <summary>
     /// Subtract operator. Each input quaternion's component is subtracted to the corresponding quaternion's.
@@ -245,7 +267,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    Quaternion operator-(const BaseQuaternion &qQuat) const;
+    Quaternion operator-(const Quaternion &qQuat) const;
 
     /// <summary>
     /// Multiply operator. The quaternion is multipled by the input one and the result is returned.
@@ -262,7 +284,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    Quaternion operator*(const BaseQuaternion &qQuat) const;// [DOC] Thund: Update the documentation (formula changed)
+    Quaternion operator*(const Quaternion &qQuat) const;// [DOC] Thund: Update the documentation (formula changed)
 
     /// <summary>
     /// Multiply by scalar operator. All quaternion's components are multiplied by the scalar.
@@ -287,7 +309,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    Quaternion operator*(const BaseVector3 &vVector) const;
+    Quaternion operator*(const Vector3 &vVector) const;
 
     /// <summary>
     /// Multiply by 4D vector operator.<br/>
@@ -300,7 +322,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    Quaternion operator*(const BaseVector4 &vVector) const;
+    Quaternion operator*(const Vector4 &vVector) const;
 
     /// <summary>
     /// Division operator. The quaternion is divided by the input one.
@@ -316,7 +338,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    Quaternion operator/(const BaseQuaternion &qQuat) const;
+    Quaternion operator/(const Quaternion &qQuat) const;
 
     /// <summary>
     /// Divide by scalar operator. All quaternion's components are divided by the scalar.
@@ -340,7 +362,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    Quaternion& operator+=(const BaseQuaternion &qQuat);
+    Quaternion& operator+=(const Quaternion &qQuat);
 
     /// <summary>
     /// Subtract and assign operator. Each input quaternion's component is subtracted to the corresponding quaternion's.
@@ -352,7 +374,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    Quaternion& operator-=(const BaseQuaternion &qQuat);
+    Quaternion& operator-=(const Quaternion &qQuat);
 
     /// <summary>
     /// Multiply and assign operator. The quaternion is multipled by the input one.
@@ -369,7 +391,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    Quaternion& operator*=(const BaseQuaternion &qQuat);
+    Quaternion& operator*=(const Quaternion &qQuat);
 
     /// <summary>
     /// Multiply by scalar and assign operator. All quaternion's components are multiplied by the scalar.
@@ -394,7 +416,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    Quaternion& operator*=(const BaseVector3 &vVector);
+    Quaternion& operator*=(const Vector3 &vVector);
 
     /// <summary>
     /// Multiply by 4D vector and assign operator.<br/>
@@ -407,7 +429,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    Quaternion& operator*=(const BaseVector4 &vVector);
+    Quaternion& operator*=(const Vector4 &vVector);
 
     /// <summary>
     /// Division and assign operator. The quaternion is divided by the input one.
@@ -423,7 +445,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    Quaternion& operator/=(const BaseQuaternion &qQuat);
+    Quaternion& operator/=(const Quaternion &qQuat);
 
     /// <summary>
     /// Divide by scalar and assign operator. All quaternion's components are divided by the scalar.
@@ -436,15 +458,6 @@ public:
     /// The modified quaternion.
     /// </returns>
     Quaternion& operator/=(const float_z fScalar);
-
-    /// <summary>
-    /// Assignation operator. Assigns the provided quaternion to the resident quaternion.
-    /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified quaternion.
-    /// </returns>
-    Quaternion& operator=(const BaseQuaternion &qQuat);
 
     /// <summary>
     /// Unary minus operator. Obtains a copy of the resident quaternion which has each component multiplied by -1.
@@ -521,7 +534,7 @@ public:
     /// <br/>
     /// (half the angle between quaternions, when using normalized quaternions).
     /// </returns>
-    float_z DotProduct(const BaseQuaternion &qQuat) const;
+    float_z DotProduct(const Quaternion &qQuat) const;
 
     /// <summary>
     /// Calculates the angle between resident quaternion and the provided quaternion, via dot product.
@@ -680,7 +693,7 @@ public:
     /// </remarks>
     /// <param name="vRotationAxis">Vector to store the spin axis.</param>
     /// <param name="fRotationAngle">Angle of rotation.</param>
-    void ToAxisAngle(BaseVector3 &vRotationAxis, float_z &fRotationAngle) const;
+    void ToAxisAngle(Vector3 &vRotationAxis, float_z &fRotationAngle) const;
 
     /// <summary>
     /// Obtains the angle of rotation and the spin axis contained in the resident quaternion.
@@ -692,7 +705,7 @@ public:
     /// </remarks>
     /// <param name="vRotationAxis">Vector to store the spin axis.</param>
     /// <param name="fRotationAngle">Angle of rotation.</param>
-    void ToAxisAngle(BaseVector4 &vRotationAxis, float_z &fRotationAngle) const;
+    void ToAxisAngle(Vector4 &vRotationAxis, float_z &fRotationAngle) const;
 
     /// <summary>
     /// Gets a character string that represents the quaternion values.
@@ -706,9 +719,34 @@ public:
     /// The string with the format specified.
     /// </returns>
     string_z ToString() const;
+    
+
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Quaternion's x component.
+    /// </summary>
+    float_z x;
+
+    /// <summary>
+    /// Quaternion's y component.
+    /// </summary>
+    float_z y;
+
+    /// <summary>
+    /// Quaternion's z component.
+    /// </summary>
+    float_z z;
+
+    /// <summary>
+    /// Quaternion's w component.
+    /// </summary>
+    float_z w;
 };
 
 } // namespace z
 
 
-#endif // __ZUATERNION__
+#endif // __QUATERNION__

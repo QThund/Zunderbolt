@@ -37,34 +37,13 @@ using namespace boost::unit_test;
 #include "ZMath/Vector4.h"
 #include "ZMath/SAngle.h"
 #include "ZCommon/Exceptions/AssertException.h"
+#include "ZCommon/DataTypes/SVF32.h"
+using namespace z::Internals;
 
 typedef boost::mpl::list<Vector2, Vector3, Vector4> TTemplateTypes;
 
 
 ZTEST_SUITE_BEGIN( Triangle_TestSuite )
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TTemplateTypes )
-{
-    // [Preparation]
-    float_z VECTOR_COMPONENTS_A[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-    float_z VECTOR_COMPONENTS_B[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-    float_z VECTOR_COMPONENTS_C[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-
-	const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
-    const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
-    const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
-
-	// [Execution]
-    Triangle<T> triangleUT;
-
-    // [Verification]
-    BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
-    BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
-    BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
-}
 
 /// <summary>
 /// Checks if copy constructor sets triangle's points properly.
@@ -105,7 +84,7 @@ ZTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TTemplateTypes 
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-    const BaseTriangle<T> EXPECTED_TRIANGLE(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
+    const Triangle<T> EXPECTED_TRIANGLE(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
 	// [Execution]
     Triangle<T> triangleUT(EXPECTED_TRIANGLE);
@@ -256,6 +235,110 @@ ZTEST_CASE_TEMPLATE ( Constructor6_ValuesAreSetProperly_Test, TTemplateTypes )
 }
 
 /// <summary>
+/// Checks if the operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Triangle<T> LEFT_OPERAND = Triangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
+    const Triangle<T> RIGHT_OPERAND = Triangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Triangle<T> LEFT_OPERAND = Triangle<T>( T(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5), T(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5), T(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5));
+    const Triangle<T> RIGHT_OPERAND = Triangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Triangle<T> LEFT_OPERAND = Triangle<T>( T(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5), T(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5), T(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5) );
+    const Triangle<T> RIGHT_OPERAND = Triangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Triangle<T> LEFT_OPERAND = Triangle<T>( T(SFloat::Epsilon), T(SFloat::Epsilon), T(SFloat::Epsilon) );
+    const Triangle<T> RIGHT_OPERAND = Triangle<T>( T(SFloat::Epsilon), T(SFloat::Epsilon), T(SFloat::Epsilon) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Triangle<T> LEFT_OPERAND =  Triangle<T>( T(SFloat::Epsilon), T(SFloat::Epsilon), T(SFloat::Epsilon) );
+    const Triangle<T> RIGHT_OPERAND = Triangle<T>( T(SFloat::Epsilon), T(SFloat::Epsilon), T(SFloat::Epsilon) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Triangle<T> LEFT_OPERAND = Triangle<T>( T(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5), T(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5), T(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5) );
+    const Triangle<T> RIGHT_OPERAND = Triangle<T>( T(SFloat::Epsilon), T(SFloat::Epsilon), T(SFloat::Epsilon) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Triangle<T> LEFT_OPERAND = Triangle<T>( T(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5), T(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5), T(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5) );
+    const Triangle<T> RIGHT_OPERAND = Triangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Triangle<T> LEFT_OPERAND = Triangle<T>( T(SFloat::Epsilon), T(SFloat::Epsilon), T(SFloat::Epsilon) );
+    const Triangle<T> RIGHT_OPERAND = Triangle<T>( T(SFloat::Epsilon), T(SFloat::Epsilon), T(SFloat::Epsilon) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
 /// Checks that a triangle is correctly assigned to another triangle.
 /// </summary>
 ZTEST_CASE_TEMPLATE ( OperatorAssignation_TriangleIsAssignedProperlyToAnother_Test, TTemplateTypes )
@@ -269,7 +352,7 @@ ZTEST_CASE_TEMPLATE ( OperatorAssignation_TriangleIsAssignedProperlyToAnother_Te
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-    const BaseTriangle<T> OTHER_TRIANGLE = BaseTriangle<T>(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
+    const Triangle<T> OTHER_TRIANGLE = Triangle<T>(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
 	// [Execution]
     Triangle<T> triangleUT;

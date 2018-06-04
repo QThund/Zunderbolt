@@ -27,7 +27,7 @@
 #ifndef __VECTOR4__
 #define __VECTOR4__
 
-#include "ZMath/BaseVector4.h"
+#include "ZMath/MathModuleDefinitions.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"
 
 
@@ -36,20 +36,30 @@ namespace z
 {
 
 // Forward declarations
-class BaseMatrix3x3;
-class BaseMatrix3x4;
-class BaseMatrix4x3;
-class BaseMatrix4x4;
+class Matrix3x3;
+class Matrix3x4;
 class Matrix4x3;
 class Matrix4x4;
-template<class MatrixT> class TranslationMatrix;
+class Matrix4x3;
+class Matrix4x4;
 class Quaternion;
 class DualQuaternion;
-template<class MatrixT> class TransformationMatrix;
 class SpaceConversionMatrix;
 class RotationMatrix3x3;
 class ScalingMatrix3x3;
-class BaseVector3;
+class Vector3;
+
+namespace Internals
+{
+    template<class MatrixT> class TransformationMatrix;
+    template<class MatrixT> class TranslationMatrix;
+}
+
+typedef Internals::TranslationMatrix<Matrix4x3> TranslationMatrix4x3;
+typedef Internals::TranslationMatrix<Matrix4x4> TranslationMatrix4x4;
+typedef Internals::TransformationMatrix<Matrix4x3> TransformationMatrix4x3;
+typedef Internals::TransformationMatrix<Matrix4x4> TransformationMatrix4x4;
+
 
 
 /// <summary>
@@ -60,7 +70,7 @@ class BaseVector3;
 /// The fourth component may equal 0, if the vector represents a normal in 3D space, or 1, if it represents a point.
 /// This is important when applying transformations to the vector.
 /// </remarks>
-class Z_MATH_MODULE_SYMBOLS Vector4 : public BaseVector4
+class Z_MATH_MODULE_SYMBOLS Vector4
 {
     // FRIENDS
     // ---------------
@@ -82,37 +92,22 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
-    /// <remarks>
-    ///    By default, all the components are set to zero.
-    /// </remarks>
     Vector4();
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-    Vector4(const Vector4 &vVector);
-
-    /// <summary>
-    /// Constructor that receives an instance of the base type.
-    /// </summary>
-    /// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-    Vector4(const BaseVector4 &vVector);
 
     /// <summary>
     /// Constructor that receives 3D vector. The W component is set to zero.
     /// </summary>
     /// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-    explicit Vector4(const BaseVector3 &vVector);
+    explicit Vector4(const Vector3 &vVector);
 
     /// <summary>
     /// Constructor that receives a vector and a scalar to fill the W component.
     /// </summary>
     /// <param name="vVector">[IN] The vector to copy its components.</param>
     /// <param name="fValue">[IN] Scalar value representing the W component.</param>
-    explicit Vector4(const BaseVector3 &vVector, const float_z &fValue);
+    explicit Vector4(const Vector3 &vVector, const float_z &fValue);
 
     /// <summary>
     /// Constructor that receives the value of every vector's component.
@@ -152,7 +147,7 @@ public:
     /// The W component is set to one.
     /// </remarks>
     /// <param name="translation">[IN] The translation matrix from which to obtain the translation vector.</param>
-    explicit Vector4(const TranslationMatrix<Matrix4x3> &translation);
+    explicit Vector4(const TranslationMatrix4x3 &translation);
 
     /// <summary>
     /// Constructor that receives a 4x3 translation matrix from which to extract the translation vector.
@@ -162,7 +157,7 @@ public:
     /// The W component is set to one.
     /// </remarks>
     /// <param name="translation">[IN] The translation matrix from which to obtain the translation vector.</param>
-    explicit Vector4(const TranslationMatrix<Matrix4x4> &translation);
+    explicit Vector4(const TranslationMatrix4x4 &translation);
 
 
     // PROPERTIES
@@ -245,6 +240,24 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Checks if two vectors are equal.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to which to compare.</param>
+    /// <returns>
+    /// True if vectors are the same; False otherwise.
+    /// </returns>
+    bool operator==(const Vector4 &vVector) const;
+
+    /// <summary>
+    /// Checks if two vectors are not equal.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to which to compare.</param>
+    /// <returns>
+    /// True if vectors are not the same; False otherwise.
+    /// </returns>
+    bool operator!=(const Vector4 &vVector) const;
 
     /// <summary>
     /// Adds two vectors by adding each component.
@@ -253,7 +266,7 @@ public:
     /// <returns>
     /// A vector that is the result of the addition.
     /// </returns>
-    Vector4 operator+(const BaseVector4 &vVector) const;
+    Vector4 operator+(const Vector4 &vVector) const;
 
     /// <summary>
     /// Adds two vectors by adding each component. The W component does not change.
@@ -262,7 +275,7 @@ public:
     /// <returns>
     /// A vector that is the result of the addition.
     /// </returns>
-    Vector4 operator+(const BaseVector3 &vVector) const;
+    Vector4 operator+(const Vector3 &vVector) const;
 
     /// <summary>
     /// Substracts two vectors by substracting each component.
@@ -271,7 +284,7 @@ public:
     /// <returns>
     /// A vector that is the result of the subtraction.
     /// </returns>
-    Vector4 operator-(const BaseVector4 &vVector) const;
+    Vector4 operator-(const Vector4 &vVector) const;
 
     /// <summary>
     /// Substracts two vectors by substracting each component. The W component does not change.
@@ -280,7 +293,7 @@ public:
     /// <returns>
     /// A vector that is the result of the subtraction.
     /// </returns>
-    Vector4 operator-(const BaseVector3 &vVector) const;
+    Vector4 operator-(const Vector3 &vVector) const;
 
     /// <summary>
     /// Multiplies the vector by a scalar.
@@ -298,7 +311,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    Vector4 operator*(const BaseVector4 &vVector) const;
+    Vector4 operator*(const Vector4 &vVector) const;
 
     /// <summary>
     /// Multiplies the vector by a 4x4 matrix.
@@ -310,7 +323,7 @@ public:
     /// <returns>
     /// A 4D vector that is the result of the product.
     /// </returns>
-    Vector4 operator*(const BaseMatrix4x4 &matrix) const;
+    Vector4 operator*(const Matrix4x4 &matrix) const;
 
     /// <summary>
     /// Multiplies the vector by a 4x3 matrix.
@@ -322,7 +335,7 @@ public:
     /// <returns>
     /// A 3D vector that is the result of the product.
     /// </returns>
-    BaseVector3 operator*(const BaseMatrix4x3 &matrix) const;
+    Vector3 operator*(const Matrix4x3 &matrix) const;
 
     /// <summary>
     /// Divides the vector by a scalar.
@@ -340,7 +353,7 @@ public:
     /// <returns>
     /// A vector that is the result of the division.
     /// </returns>
-    Vector4 operator/(const BaseVector4 &vVector) const;
+    Vector4 operator/(const Vector4 &vVector) const;
 
     /// <summary>
     /// Adds a vector to the resident vector. The resident vector is set to the result.
@@ -349,7 +362,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the addition.
     /// </returns>
-    Vector4& operator+=(const BaseVector4 &vVector);
+    Vector4& operator+=(const Vector4 &vVector);
 
     /// <summary>
     /// Adds a vector to the resident vector, without changing the W component. The resident vector is set to the result.
@@ -358,7 +371,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the addition.
     /// </returns>
-    Vector4& operator+=(const BaseVector3 &vVector);
+    Vector4& operator+=(const Vector3 &vVector);
 
     /// <summary>
     /// Subtracts a vector to the resident vector. The resident vector is set to the result.
@@ -367,7 +380,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the subtraction.
     /// </returns>
-    Vector4& operator-=(const BaseVector4 &vVector);
+    Vector4& operator-=(const Vector4 &vVector);
 
     /// <summary>
     /// Subtracts a vector to the resident vector, without changing the W component. The resident vector is set to the result.
@@ -376,7 +389,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the subtraction.
     /// </returns>
-    Vector4& operator-=(const BaseVector3 &vVector);
+    Vector4& operator-=(const Vector3 &vVector);
 
     /// <summary>
     /// Multiplies the resident vector by a scalar. The resident vector is set to the result.
@@ -394,7 +407,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the product.
     /// </returns>
-    Vector4& operator*=(const BaseVector4 &vVector);
+    Vector4& operator*=(const Vector4 &vVector);
 
     /// <summary>
     /// Multiplies the resident vector by a 4x4 matrix. The resident vector is set to the result.
@@ -406,7 +419,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the product.
     /// </returns>
-    Vector4& operator*=(const BaseMatrix4x4 &matrix);
+    Vector4& operator*=(const Matrix4x4 &matrix);
 
     /// <summary>
     /// Divides the vector by a scalar. The resident vector is set to the result.
@@ -424,16 +437,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the division.
     /// </returns>
-    Vector4& operator/=(const BaseVector4 &vVector);
-
-    /// <summary>
-    /// Assigns the provided vector to the resident vector.
-    /// </summary>
-    /// <param name="vVector">[IN] The vector to be assigned.</param>
-    /// <returns>
-    /// A reference to the resident vector.
-    /// </returns>
-    Vector4& operator=(const BaseVector4 &vVector);
+    Vector4& operator/=(const Vector4 &vVector);
 
     /// <summary>
     /// Negates the vector by negating each component.
@@ -515,7 +519,7 @@ public:
     /// <returns>
     /// A scalar whose value equals the result of dot product.
     /// </returns>
-    float_z DotProduct(const BaseVector4 &vVector) const;
+    float_z DotProduct(const Vector4 &vVector) const;
 
     /// <summary>
     /// Calculates the smaller angle between two vectors.
@@ -527,7 +531,7 @@ public:
     /// <returns>
     /// A scalar whose value equals the angle between the vectors.
     /// </returns>
-    float_z AngleBetween(const BaseVector4 &vVector) const;
+    float_z AngleBetween(const Vector4 &vVector) const;
 
     /// <summary>
     /// Calculates the cross product between two vectors.
@@ -542,7 +546,7 @@ public:
     /// <returns>
     /// The resultant vector.
     /// </returns>
-    Vector4 CrossProduct(const BaseVector4 &vVector) const;
+    Vector4 CrossProduct(const Vector4 &vVector) const;
 
     /// <summary>
     /// Calculates the linear interpolation between two vectors.
@@ -554,7 +558,7 @@ public:
     /// <returns>
     /// A vector that is the result of the interpolation.
     /// </returns>
-    Vector4 Lerp(const float_z fProportion, const BaseVector4 &vVector) const;
+    Vector4 Lerp(const float_z fProportion, const Vector4 &vVector) const;
 
     /// <summary>
     /// Calculates the distance between two vectors (two points).
@@ -566,7 +570,7 @@ public:
     /// <returns>
     /// A positive value that equals the distance between both vectors.
     /// </returns>
-    float_z Distance(const BaseVector4 &vVector) const;
+    float_z Distance(const Vector4 &vVector) const;
 
     /// <summary>
     /// Homogenizes the vector by dividing all its componentes by the W component so it is in homogeneus coordinates.
@@ -651,7 +655,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-    Vector4 Transform(const TranslationMatrix<Matrix4x3> &translation) const;
+    Vector4 Transform(const TranslationMatrix4x3 &translation) const;
 
     /// <summary>
     /// Applies a translation to the resident vector by multiplying the vector by a translation matrix.
@@ -667,7 +671,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-    Vector4 Transform(const TranslationMatrix<Matrix4x4> &translation) const;
+    Vector4 Transform(const TranslationMatrix4x4 &translation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation,a translation or a combination of them 
@@ -684,7 +688,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-    Vector4 Transform(const TransformationMatrix<Matrix4x3> &transformation) const;
+    Vector4 Transform(const TransformationMatrix4x3 &transformation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation,a translation or a combination of them 
@@ -701,7 +705,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-    Vector4 Transform(const TransformationMatrix<Matrix4x4> &transformation) const;
+    Vector4 Transform(const TransformationMatrix4x4 &transformation) const;
 
     /// <summary>
     /// Applies a transformation to the resident vector by multiplying the vector by a space conversion matrix. This produces
@@ -747,7 +751,7 @@ private:
     /// The transformed vector.
     /// </returns>
     template <class MatrixT>
-    Vector4 TransformImp(const TranslationMatrix<MatrixT> &translation) const;
+    Vector4 TransformImp(const Internals::TranslationMatrix<MatrixT> &translation) const;
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix
@@ -761,7 +765,32 @@ private:
     /// The transformed vector.
     /// </returns>
     template <class MatrixT>
-    Vector4 TransformImp(const TransformationMatrix<MatrixT> &transformation) const;
+    Vector4 TransformImp(const Internals::TransformationMatrix<MatrixT> &transformation) const;
+    
+
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Vector's X coordinate.
+    /// </summary>
+    float_z x;
+
+    /// <summary>
+    /// Vector's Y coordinate.
+    /// </summary>
+    float_z y;
+
+    /// <summary>
+    /// Vector's Z coordinate.
+    /// </summary>
+    float_z z;
+
+    /// <summary>
+    /// Vector's W coordinate.
+    /// </summary>
+    float_z w;
 };
 
 } // namespace z

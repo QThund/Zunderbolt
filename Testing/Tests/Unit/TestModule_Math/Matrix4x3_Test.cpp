@@ -32,8 +32,7 @@ using namespace boost::unit_test;
 
 #include "ZMath/Matrix4x3.h"
 
-#include "ZMath/BaseMatrix4x4.h"
-#include "ZMath/BaseMatrix4x3.h"
+#include "ZMath/Matrix4x4.h"
 #include "ZCommon/DataTypes/SVF32.h"
 #include "ZCommon/DataTypes/SFloat.h"
 #include "ZCommon/Exceptions/AssertException.h"
@@ -86,32 +85,6 @@ ZTEST_CASE ( FriendOperatorProduct_EveryElementIsMultipliedByTheScalar_Test )
     BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE_FOR_32);
 }
 
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
-{
-    // [Preparation]
-    const float_z EXPECTED_VALUE_FOR_ALL = SFloat::_0;
-
-    // [Execution]
-    Matrix4x3 matrixUT;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][0], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][1], EXPECTED_VALUE_FOR_ALL);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE_FOR_ALL);
-}
-
 /// Checks if copy constructor copies every matrix element properly.
 /// </summary>
 ZTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
@@ -159,7 +132,7 @@ ZTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 ZTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // [Preparation]
-    const BaseMatrix4x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix4x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
                                         SFloat::_4, SFloat::_5, SFloat::_6,
                                         SFloat::_7, SFloat::_8, SFloat::_9,
                                         SFloat::_10, (float_z)11.0, (float_z)12.0);
@@ -428,6 +401,131 @@ ZTEST_CASE ( GetIdentity_AllElementsEqualZeroAndDiagonalEqualsOne_Test )
 }
 
 /// <summary>
+/// Checks if the equality operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Matrix4x3 LEFT_OPERAND(SFloat::Epsilon);
+    const Matrix4x3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the equality operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z HALF_TOLERANCE = SFloat::Epsilon * SFloat::_0_5;
+
+    const Matrix4x3 LEFT_OPERAND(HALF_TOLERANCE);
+    const Matrix4x3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the equality operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z ONE_AND_A_HALF_TOLERANCE = SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5;
+
+    const Matrix4x3 LEFT_OPERAND(ONE_AND_A_HALF_TOLERANCE);
+    const Matrix4x3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the equality operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Matrix4x3 LEFT_OPERAND(SFloat::_1, SFloat::_2, SFloat::_3,
+                                      SFloat::_4, SFloat::_5, SFloat::_6,
+                                      SFloat::_7, SFloat::_8, SFloat::_9,
+                                      SFloat::_10, SFloat::_10 + SFloat::_1, SFloat::_10 + SFloat::_2);
+
+    const Matrix4x3 RIGHT_OPERAND(SFloat::_1, SFloat::_2, SFloat::_3,
+                                       SFloat::_4, SFloat::_5, SFloat::_6,
+                                       SFloat::_7, SFloat::_8, SFloat::_9,
+                                       SFloat::_10, SFloat::_10 + SFloat::_1, SFloat::_10 + SFloat::_2);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the inequality operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Matrix4x3 LEFT_OPERAND(SFloat::Epsilon);
+    const Matrix4x3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the inequality operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
+{
+    const float_z HALF_TOLERANCE = SFloat::Epsilon * SFloat::_0_5;
+
+   // [Preparation]
+    const Matrix4x3 LEFT_OPERAND(HALF_TOLERANCE);
+    const Matrix4x3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the inequality operator returns true when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z ONE_AND_A_HALF_TOLERANCE = SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5;
+
+    const Matrix4x3 LEFT_OPERAND(ONE_AND_A_HALF_TOLERANCE);
+    const Matrix4x3 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the inequality operator returns false when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Matrix4x3 LEFT_OPERAND(SFloat::_1, SFloat::_2, SFloat::_3,
+                                      SFloat::_4, SFloat::_5, SFloat::_6,
+                                      SFloat::_7, SFloat::_8, SFloat::_9,
+                                      SFloat::_10, SFloat::_10 + SFloat::_1, SFloat::_10 + SFloat::_2);
+
+    const Matrix4x3 RIGHT_OPERAND(SFloat::_1, SFloat::_2, SFloat::_3,
+                                       SFloat::_4, SFloat::_5, SFloat::_6,
+                                       SFloat::_7, SFloat::_8, SFloat::_9,
+                                       SFloat::_10, SFloat::_10 + SFloat::_1, SFloat::_10 + SFloat::_2);
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND));
+}
+
+/// <summary>
 /// Checks if every element of the matrix is correctly multiplied by the scalar.
 /// </summary>
 ZTEST_CASE ( OperatorProduct1_EveryElementIsMultipliedByTheScalar_Test )
@@ -483,7 +581,7 @@ ZTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
                               SFloat::_7,  SFloat::_8,    SFloat::_9,
                               SFloat::_10, (float_z)11.0, (float_z)12.0);
 
-    const BaseMatrix3x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
+    const Matrix3x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
                                   (float_z)16.0, (float_z)17.0, (float_z)18.0,
                                   (float_z)19.0, (float_z)20.0, (float_z)21.0);
 
@@ -529,7 +627,7 @@ ZTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
                              SFloat::_7,  SFloat::_8,    SFloat::_9,
                              SFloat::_10, (float_z)11.0, (float_z)12.0);
 
-    const BaseMatrix3x4 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0,
+    const Matrix3x4 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0,
                                  (float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
                                  (float_z)21.0, (float_z)22.0, (float_z)23.0, (float_z)24.0);
 
@@ -551,7 +649,7 @@ ZTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
     const float_z EXPECTED_VALUE_FOR_33 = (float_z)668.0;
 
     // [Execution]
-    BaseMatrix4x4 matrixUT = OPERAND1 * OPERAND2;
+    Matrix4x4 matrixUT = OPERAND1 * OPERAND2;
 
     // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
@@ -680,7 +778,7 @@ ZTEST_CASE ( OperatorProductAssignation2_CommonMatricesAreCorrectlyMultiplied_Te
                              SFloat::_7,  SFloat::_8,    SFloat::_9,
                              SFloat::_10, (float_z)11.0, (float_z)12.0);
 
-    const BaseMatrix3x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
+    const Matrix3x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
                                  (float_z)16.0, (float_z)17.0, (float_z)18.0,
                                  (float_z)19.0, (float_z)20.0, (float_z)21.0);
 
@@ -800,7 +898,7 @@ ZTEST_CASE ( OperatorAddition_CommonMatricesAreCorrectlyAdded_Test )
                              SFloat::_7,  SFloat::_8,    SFloat::_9,
                              SFloat::_10, (float_z)11.0, (float_z)12.0);
 
-    const BaseMatrix4x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
+    const Matrix4x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
                                  (float_z)16.0, (float_z)17.0, (float_z)18.0,
                                  (float_z)19.0, (float_z)20.0, (float_z)21.0,
                                  (float_z)22.0, (float_z)23.0, (float_z)24.0);
@@ -847,7 +945,7 @@ ZTEST_CASE ( OperatorSubtraction_CommonMatricesAreCorrectlySubtracted_Test )
                              (float_z)26.0, (float_z)28.0, (float_z)30.0,
                              (float_z)32.0, (float_z)34.0, (float_z)36.0);
 
-    const BaseMatrix4x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
+    const Matrix4x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
                                  (float_z)16.0, (float_z)17.0, (float_z)18.0,
                                  (float_z)19.0, (float_z)20.0, (float_z)21.0,
                                  (float_z)22.0, (float_z)23.0, (float_z)24.0);
@@ -1019,7 +1117,7 @@ ZTEST_CASE ( OperatorAdditionAssignation_CommonMatricesAreCorrectlyAdded_Test )
                              SFloat::_7,  SFloat::_8,    SFloat::_9,
                              SFloat::_10, (float_z)11.0, (float_z)12.0);
 
-    const BaseMatrix4x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
+    const Matrix4x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
                                  (float_z)16.0, (float_z)17.0, (float_z)18.0,
                                  (float_z)19.0, (float_z)20.0, (float_z)21.0,
                                  (float_z)22.0, (float_z)23.0, (float_z)24.0);
@@ -1067,7 +1165,7 @@ ZTEST_CASE ( OperatorSubtractionAssignation_CommonMatricesAreCorrectlySubtracted
                               (float_z)26.0, (float_z)28.0, (float_z)30.0,
                               (float_z)32.0, (float_z)34.0, (float_z)36.0);
 
-    const BaseMatrix4x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
+    const Matrix4x3 OPERAND2((float_z)13.0, (float_z)14.0, (float_z)15.0,
                                   (float_z)16.0, (float_z)17.0, (float_z)18.0,
                                   (float_z)19.0, (float_z)20.0, (float_z)21.0,
                                   (float_z)22.0, (float_z)23.0, (float_z)24.0);
@@ -1102,7 +1200,7 @@ ZTEST_CASE ( OperatorSubtractionAssignation_CommonMatricesAreCorrectlySubtracted
 ZTEST_CASE ( OperatorAssignation_EveryElementIsAssignedToRightTargetElement_Test )
 {
     // [Preparation]
-    const BaseMatrix4x3 EXPECTED_VALUE(SFloat::_1,  SFloat::_2,    SFloat::_3,
+    const Matrix4x3 EXPECTED_VALUE(SFloat::_1,  SFloat::_2,    SFloat::_3,
                                         SFloat::_4,  SFloat::_5,    SFloat::_6,
                                         SFloat::_7,  SFloat::_8,    SFloat::_9,
                                         SFloat::_10, (float_z)11.0, (float_z)12.0);
@@ -1132,7 +1230,7 @@ ZTEST_CASE ( OperatorAssignation_EveryElementIsAssignedToRightTargetElement_Test
 ZTEST_CASE ( ResetToZero_AllElementsEqualZero_Test )
 {
     // [Preparation]
-    const BaseMatrix4x3 MATRIX(SFloat::_1,  SFloat::_2,    SFloat::_3,
+    const Matrix4x3 MATRIX(SFloat::_1,  SFloat::_2,    SFloat::_3,
                                 SFloat::_4,  SFloat::_5,    SFloat::_6,
                                 SFloat::_7,  SFloat::_8,    SFloat::_9,
                                 SFloat::_10, (float_z)11.0, (float_z)12.0);
@@ -1203,12 +1301,12 @@ ZTEST_CASE ( Transpose_TheRowAndColumOfElementsAreSwapped_Test )
                             SFloat::_7,  SFloat::_8,    SFloat::_9,
                             SFloat::_10, (float_z)11.0, (float_z)12.0);
 
-    const BaseMatrix3x4 EXPECTED_VALUE(SFloat::_1,  SFloat::_4, SFloat::_7, SFloat::_10,
+    const Matrix3x4 EXPECTED_VALUE(SFloat::_1,  SFloat::_4, SFloat::_7, SFloat::_10,
                                         SFloat::_2,  SFloat::_5, SFloat::_8, (float_z)11.0,
                                         SFloat::_3,  SFloat::_6, SFloat::_9, (float_z)12.0);
 
     // [Execution]
-    BaseMatrix3x4 matrixUT = MATRIX.Transpose();
+    Matrix3x4 matrixUT = MATRIX.Transpose();
 
     // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);

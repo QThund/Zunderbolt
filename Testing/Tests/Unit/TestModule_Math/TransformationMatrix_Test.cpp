@@ -43,6 +43,7 @@ using namespace boost::unit_test;
 #include "ZMath/ScalingMatrix3x3.h"
 #include "ZMath/SAngle.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 using z::Test::TransformationMatrixWhiteBox;
 
@@ -91,33 +92,6 @@ static void CheckFourthColumnIfExists(const Matrix4x4 &matrixA, const Matrix4x4 
     BOOST_CHECK( SFloat::AreEqual( matrixA.ij[1][3], matrixB.ij[1][3] ));
     BOOST_CHECK( SFloat::AreEqual( matrixA.ij[2][3], matrixB.ij[2][3] ));
     BOOST_CHECK( SFloat::AreEqual( matrixA.ij[3][3], matrixB.ij[3][3] ));
-}
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaventChanged_Test, TTemplateTypes )
-{
-    // [Preparation]
-    const T EXPECTED_VALUE(TransformationMatrix<T>::GetIdentity());
-
-    // [Execution]
-    TransformationMatrix<T> matrixUT;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]);
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -216,9 +190,9 @@ ZTEST_CASE_TEMPLATE ( Constructor4_TransformationIsCorrectlyBuiltFromCommonTrans
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const BaseQuaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
-    const BaseVector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
+    const Vector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Quaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
+    const Vector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)-968.0;
@@ -268,9 +242,9 @@ ZTEST_CASE_TEMPLATE ( Constructor4_IdentityIsObtainedWhenNeutralTransformationsA
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
@@ -299,9 +273,9 @@ ZTEST_CASE_TEMPLATE ( Constructor4_IdentityIsObtainedWhenNeutralTransformationsA
 ZTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     T EXPECTED_VALUE = T::GetIdentity();
     EXPECTED_VALUE.ij[3][0] = TRANSLATION.x;
@@ -333,9 +307,9 @@ ZTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsTranslat
 ZTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)0.13333333333333353;
@@ -377,9 +351,9 @@ ZTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation
 ZTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsScale_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
 
     T EXPECTED_VALUE = T::GetIdentity();
     EXPECTED_VALUE.ij[0][0] = SCALE.x;
@@ -412,9 +386,9 @@ ZTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsScale_Te
 ZTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseVector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
 
     T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
@@ -444,10 +418,10 @@ ZTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 ZTEST_CASE_TEMPLATE ( Constructor4_ResultIsDifferentDependingOnQuaternionNormalization_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
     const Quaternion NOT_NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     // [Execution]
     TransformationMatrix<T> matrixFromNormalizedQuaternionUT(TRANSLATION, NORMALIZED_QUATERNION, SCALE);
@@ -559,9 +533,9 @@ ZTEST_CASE_TEMPLATE ( Constructor5_TransformationIsCorrectlyBuiltFromCommonTrans
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector4 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_1);
-    const BaseQuaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
-    const BaseVector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
+    const Vector4 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_1);
+    const Quaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
+    const Vector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)-968.0;
@@ -611,9 +585,9 @@ ZTEST_CASE_TEMPLATE ( Constructor5_IdentityIsObtainedWhenNeutralTransformationsA
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
@@ -642,9 +616,9 @@ ZTEST_CASE_TEMPLATE ( Constructor5_IdentityIsObtainedWhenNeutralTransformationsA
 ZTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector4 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_1);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_1);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     T EXPECTED_VALUE = T::GetIdentity();
     EXPECTED_VALUE.ij[3][0] = TRANSLATION.x;
@@ -676,9 +650,9 @@ ZTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsTranslat
 ZTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
     const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)0.13333333333333353;
@@ -720,9 +694,9 @@ ZTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation
 ZTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsScale_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
 
     T EXPECTED_VALUE = T::GetIdentity();
     EXPECTED_VALUE.ij[0][0] = SCALE.x;
@@ -755,9 +729,9 @@ ZTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsScale_Te
 ZTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseVector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
 
     T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
@@ -787,10 +761,10 @@ ZTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 ZTEST_CASE_TEMPLATE ( Constructor5_ResultIsDifferentDependingOnQuaternionNormalization_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
     const Quaternion NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
     const Quaternion NOT_NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     // [Execution]
     TransformationMatrix<T> matrixFromNormalizedQuaternionUT(TRANSLATION, NORMALIZED_QUATERNION, SCALE);
@@ -894,10 +868,10 @@ ZTEST_CASE_TEMPLATE ( Constructor5_CompositionOrderIsScaleRotationTranslation_Te
 ZTEST_CASE_TEMPLATE ( Constructor5_FourthComponentOfTranslationVectorDoesntMatter_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector4 TRANSLATION_W_ONE(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_1);
-    const BaseVector4 TRANSLATION_W_ZERO(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
-    const BaseVector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
+    const Vector4 TRANSLATION_W_ONE(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_1);
+    const Vector4 TRANSLATION_W_ZERO(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
+    const Vector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     // [Execution]
     TransformationMatrix<T> matrixVectorWOneUT(TRANSLATION_W_ONE, ROTATION, SCALE);
@@ -933,9 +907,9 @@ ZTEST_CASE_TEMPLATE ( Constructor6_TransformationIsCorrectlyBuiltFromCommonTrans
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const BaseQuaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
-    const BaseVector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
+    const Vector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Quaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
+    const Vector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)-968.0;
@@ -987,9 +961,9 @@ ZTEST_CASE_TEMPLATE ( Constructor6_IdentityIsObtainedWhenNeutralTransformationsA
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
@@ -1020,9 +994,9 @@ ZTEST_CASE_TEMPLATE ( Constructor6_IdentityIsObtainedWhenNeutralTransformationsA
 ZTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     T EXPECTED_VALUE = T::GetIdentity();
     EXPECTED_VALUE.ij[3][0] = TRANSLATION.x;
@@ -1056,9 +1030,9 @@ ZTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsTranslat
 ZTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsRotation_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)0.13333333333333353;
@@ -1102,9 +1076,9 @@ ZTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsRotation
 ZTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsScale_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
 
     T EXPECTED_VALUE = T::GetIdentity();
     EXPECTED_VALUE.ij[0][0] = SCALE.x;
@@ -1139,9 +1113,9 @@ ZTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsScale_Te
 ZTEST_CASE_TEMPLATE ( Constructor6_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseVector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
 
     T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
@@ -1173,10 +1147,10 @@ ZTEST_CASE_TEMPLATE ( Constructor6_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 ZTEST_CASE_TEMPLATE ( Constructor6_ResultIsDifferentDependingOnQuaternionNormalization_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
     const Quaternion NOT_NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     // [Execution]
     TransformationMatrix<T> matrixFromNormalizedQuaternionUT(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
@@ -1307,7 +1281,7 @@ ZTEST_CASE_TEMPLATE ( Constructor7_TransformationIsCorrectlyBuiltFromCommonTrans
 {
     // [Preparation]
     const TranslationMatrix<Matrix4x3> TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const RotationMatrix3x3 ROTATION(BaseQuaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
+    const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
     const ScalingMatrix3x3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     T EXPECTED_VALUE;
@@ -1576,7 +1550,7 @@ ZTEST_CASE_TEMPLATE ( Constructor7_CompositionOrderIsScaleRotationTranslation_Te
 {
     // [Preparation]
     const TranslationMatrix<Matrix4x3> TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const RotationMatrix3x3 ROTATION(BaseQuaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
+    const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
     const ScalingMatrix3x3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     const T NEUTRAL_TRANSLATION = T::GetNullMatrix();
@@ -1615,7 +1589,7 @@ ZTEST_CASE_TEMPLATE ( Constructor8_TransformationIsCorrectlyBuiltFromCommonTrans
 {
     // [Preparation]
     const TranslationMatrix<Matrix4x4> TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const RotationMatrix3x3 ROTATION(BaseQuaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
+    const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
     const ScalingMatrix3x3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     T EXPECTED_VALUE;
@@ -1884,7 +1858,7 @@ ZTEST_CASE_TEMPLATE ( Constructor8_CompositionOrderIsScaleRotationTranslation_Te
 {
     // [Preparation]
     const TranslationMatrix<Matrix4x4> TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const RotationMatrix3x3 ROTATION(BaseQuaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
+    const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
     const ScalingMatrix3x3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     const T NEUTRAL_TRANSLATION = T::GetNullMatrix();
@@ -3446,10 +3420,10 @@ ZTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesAreCorrectlyExtractedFrom
     MATRIX.ij[3][2] = (float_z)12.0;
     FillFourthColumnIfExists(MATRIX, (float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0);
 
-    const BaseVector3 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2]);
+    const Vector3 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2]);
 
     // [Execution]
-    BaseVector3 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1);
+    Vector3 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1);
     MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -3466,10 +3440,10 @@ ZTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesEqualZeroWhenMatrixIsIden
     // [Preparation]
     TransformationMatrix<T> MATRIX = T::GetIdentity();
 
-    const BaseVector3 EXPECTED_VALUE(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 EXPECTED_VALUE(SFloat::_0, SFloat::_0, SFloat::_0);
 
     // [Execution]
-    BaseVector3 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1);
+    Vector3 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1);
     MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -3499,10 +3473,10 @@ ZTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesAreCorrectlyExtractedFrom
     MATRIX.ij[3][2] = (float_z)12.0;
     FillFourthColumnIfExists(MATRIX, (float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0);
 
-    const BaseVector4 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2], SFloat::_0);
+    const Vector4 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2], SFloat::_0);
 
     // [Execution]
-    BaseVector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
+    Vector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
     MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -3519,10 +3493,10 @@ ZTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesEqualZeroWhenMatrixIsIden
     // [Preparation]
     TransformationMatrix<T> MATRIX = T::GetIdentity();
 
-    const BaseVector4 EXPECTED_VALUE(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 EXPECTED_VALUE(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     // [Execution]
-    BaseVector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
+    Vector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
     MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -3691,7 +3665,7 @@ ZTEST_CASE_TEMPLATE ( GetScale1_ReturnedScaleIsAlwaysPositive_Test, TTemplateTyp
 ZTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixContainsRotationAndScale_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Vector3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3);
 
     const RotationMatrix3x3 ROTATION(SFloat::_4, SFloat::_5, SFloat::_6);
     const ScalingMatrix3x3 SCALE(EXPECTED_VALUE.x, EXPECTED_VALUE.y, EXPECTED_VALUE.z);
@@ -3713,7 +3687,7 @@ ZTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixContainsRot
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vScale;
+    Vector3 vScale;
 
     TransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(vScale);
@@ -3730,7 +3704,7 @@ ZTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixContainsRot
 ZTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Vector3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3);
 
     const RotationMatrix3x3 ROTATION(SFloat::_4, SFloat::_5, SFloat::_6);
     const ScalingMatrix3x3 SCALE(EXPECTED_VALUE.x, EXPECTED_VALUE.y, EXPECTED_VALUE.z);
@@ -3752,7 +3726,7 @@ ZTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixOnlyContain
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vScale;
+    Vector3 vScale;
 
     TransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(vScale);
@@ -3769,12 +3743,12 @@ ZTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixOnlyContain
 ZTEST_CASE_TEMPLATE ( GetScale2_ValuesEqualOneWhenMatrixIsIdentity_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_VALUE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 EXPECTED_VALUE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const TransformationMatrix<T> TRANSFORMATION = TransformationMatrix<T>::GetIdentity();
 
     // [Execution]
-    BaseVector3 vScale;
+    Vector3 vScale;
 
     TransformationMatrix<T> matrix = TRANSFORMATION;
     matrix.GetScale(vScale);
@@ -3791,7 +3765,7 @@ ZTEST_CASE_TEMPLATE ( GetScale2_ValuesEqualOneWhenMatrixIsIdentity_Test, TTempla
 ZTEST_CASE_TEMPLATE ( GetScale2_ReturnedScaleIsAlwaysPositive_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Vector3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3);
 
     const RotationMatrix3x3 ROTATION(SFloat::_4, SFloat::_5, SFloat::_6);
     const ScalingMatrix3x3 SCALE(-EXPECTED_VALUE.x, -EXPECTED_VALUE.y, EXPECTED_VALUE.z);
@@ -3813,7 +3787,7 @@ ZTEST_CASE_TEMPLATE ( GetScale2_ReturnedScaleIsAlwaysPositive_Test, TTemplateTyp
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vScale;
+    Vector3 vScale;
 
     TransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(vScale);
@@ -4249,7 +4223,7 @@ ZTEST_CASE_TEMPLATE ( GetRotation3_RotationIsCorrectlyExtractedWhenMatrixContain
 
     const Vector3 EXPECTED_AXIS = Vector3(SFloat::_1, SFloat::_2, SFloat::_3).Normalize();
 
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)0.53571428571428581,  (float_z)0.76579364625798496,   (float_z)-0.35576719274341861,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)0.53571428571428581,  (float_z)0.76579364625798496,   (float_z)-0.35576719274341861,
                                                      (float_z)-0.62293650340084217, (float_z)0.64285714285714302,   (float_z)0.4457407392288521,
                                                      (float_z)0.5700529070291328,   (float_z)-0.017169310657423609, (float_z)0.8214285714285714));
 
@@ -4297,7 +4271,7 @@ ZTEST_CASE_TEMPLATE ( GetRotation3_RotationDoesntEqualOriginalValueWhenMatrixCon
 
     const Vector3 EXPECTED_AXIS = Vector3(SFloat::_1, SFloat::_2, SFloat::_3).Normalize();
 
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)0.53571427,  (float_z)0.76579368,   (float_z)-0.35576719,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)0.53571427,  (float_z)0.76579368,   (float_z)-0.35576719,
                                                      (float_z)-0.62293649, (float_z)0.64285713,   (float_z)0.44574076,
                                                      (float_z)0.57005292,  (float_z)-0.017169312, (float_z)0.82142854));
 
@@ -4456,9 +4430,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_TransformationsAreCorrectlyExtractedFromCommonM
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Vector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
     const Quaternion EXPECTED_ROTATION(ROTATION_X, ROTATION_Y, ROTATION_Z);
-    const BaseVector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
+    const Vector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
@@ -4481,9 +4455,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_TransformationsAreCorrectlyExtractedFromCommonM
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationUT;
+    Vector3 vTranslationUT;
     Quaternion qRotationUT;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationUT, qRotationUT, vScaleUT);
 
     // [Verification]
@@ -4505,14 +4479,14 @@ ZTEST_CASE_TEMPLATE ( Decompose1_TransformationsAreCorrectlyExtractedFromCommonM
 ZTEST_CASE_TEMPLATE ( Decompose1_TranslationVectorIsNullWhenMatrixIsIdentity_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
 
     const TransformationMatrix<T> TRANSFORMATION = TransformationMatrix<T>::GetIdentity();
 
     // [Execution]
-    BaseVector3 vTranslationUT;
+    Vector3 vTranslationUT;
     Quaternion qRotationAux;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     TRANSFORMATION.Decompose(vTranslationUT, qRotationAux, vScaleAux);
 
     // [Verification]
@@ -4532,9 +4506,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_RotationQuaternionEqualsIdentityWhenMatrixIsIde
     const TransformationMatrix<T> TRANSFORMATION = TransformationMatrix<T>::GetIdentity();
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationUT;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
     // [Verification]
@@ -4550,14 +4524,14 @@ ZTEST_CASE_TEMPLATE ( Decompose1_RotationQuaternionEqualsIdentityWhenMatrixIsIde
 ZTEST_CASE_TEMPLATE ( Decompose1_ScalingVectorComponentsEqualOneWhenMatrixIsIdentity_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 EXPECTED_SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const TransformationMatrix<T> TRANSFORMATION = TransformationMatrix<T>::GetIdentity();
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationAux;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
     // [Verification]
@@ -4582,9 +4556,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_RotationDoesntEqualOriginalValueWhenMatrixConta
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Vector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
     const Quaternion EXPECTED_ROTATION(ROTATION_X, ROTATION_Y, ROTATION_Z);
-    const BaseVector3 EXPECTED_SCALE(-SFloat::_4, -SFloat::_5, -SFloat::_6);
+    const Vector3 EXPECTED_SCALE(-SFloat::_4, -SFloat::_5, -SFloat::_6);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
@@ -4607,9 +4581,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_RotationDoesntEqualOriginalValueWhenMatrixConta
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationUT;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
     // [Verification]
@@ -4635,9 +4609,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector3 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion EXPECTED_ROTATION(ROTATION_X, ROTATION_Y, ROTATION_Z);
-    const BaseVector3 EXPECTED_SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 EXPECTED_SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
@@ -4660,9 +4634,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationUT;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
     // [Verification]
@@ -4688,13 +4662,13 @@ ZTEST_CASE_TEMPLATE ( Decompose1_ReturnedScaleIsAlwaysPositive_Test, TTemplateTy
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Vector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
     const Quaternion EXPECTED_ROTATION(ROTATION_X, ROTATION_Y, ROTATION_Z);
-    const BaseVector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
+    const Vector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
-    const ScalingMatrix3x3 SCALE(BaseVector3(-SFloat::_4, -SFloat::_5, -SFloat::_6));
+    const ScalingMatrix3x3 SCALE(Vector3(-SFloat::_4, -SFloat::_5, -SFloat::_6));
 
     const TransformationMatrix<Matrix4x4> TRANSFORMATION = SCALE * ROTATION * TRANSLATION;
     TransformationMatrix<T> ADAPTED_TRANSFORMATION; // Adaptation to matrix type
@@ -4713,9 +4687,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_ReturnedScaleIsAlwaysPositive_Test, TTemplateTy
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationAux;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
     // [Verification]
@@ -4730,9 +4704,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_ReturnedScaleIsAlwaysPositive_Test, TTemplateTy
 ZTEST_CASE_TEMPLATE ( Decompose1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion EXPECTED_ROTATION = Quaternion::GetIdentity();
-    const BaseVector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
+    const Vector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
@@ -4755,9 +4729,9 @@ ZTEST_CASE_TEMPLATE ( Decompose1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContai
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationAux;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
     // [Verification]
@@ -4782,11 +4756,11 @@ ZTEST_CASE_TEMPLATE ( Decompose2_TransformationsAreCorrectlyExtractedFromCommonM
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector4 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_0);
+    const Vector4 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_0);
     const Quaternion EXPECTED_ROTATION(ROTATION_X, ROTATION_Y, ROTATION_Z);
-    const BaseVector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
+    const Vector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
 
-    const TranslationMatrix<Matrix4x4> TRANSLATION(BaseVector4(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4));
+    const TranslationMatrix<Matrix4x4> TRANSLATION(Vector4(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4));
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
     const ScalingMatrix3x3 SCALE(EXPECTED_SCALE);
 
@@ -4807,9 +4781,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_TransformationsAreCorrectlyExtractedFromCommonM
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector4 vTranslationUT;
+    Vector4 vTranslationUT;
     Quaternion qRotationUT;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationUT, qRotationUT, vScaleUT);
 
     // [Verification]
@@ -4832,14 +4806,14 @@ ZTEST_CASE_TEMPLATE ( Decompose2_TransformationsAreCorrectlyExtractedFromCommonM
 ZTEST_CASE_TEMPLATE ( Decompose2_TranslationVectorIsNullWhenMatrixIsIdentity_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector4 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     const TransformationMatrix<T> TRANSFORMATION = TransformationMatrix<T>::GetIdentity();
 
     // [Execution]
-    BaseVector4 vTranslationUT;
+    Vector4 vTranslationUT;
     Quaternion qRotationAux;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     TRANSFORMATION.Decompose(vTranslationUT, qRotationAux, vScaleAux);
 
     // [Verification]
@@ -4859,9 +4833,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_RotationQuaternionEqualsIdentityWhenMatrixIsIde
     const TransformationMatrix<T> TRANSFORMATION = TransformationMatrix<T>::GetIdentity();
 
     // [Execution]
-    BaseVector4 vTranslationAux;
+    Vector4 vTranslationAux;
     Quaternion qRotationUT;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
     // [Verification]
@@ -4877,14 +4851,14 @@ ZTEST_CASE_TEMPLATE ( Decompose2_RotationQuaternionEqualsIdentityWhenMatrixIsIde
 ZTEST_CASE_TEMPLATE ( Decompose2_ScalingVectorComponentsEqualOneWhenMatrixIsIdentity_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 EXPECTED_SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const TransformationMatrix<T> TRANSFORMATION = TransformationMatrix<T>::GetIdentity();
 
     // [Execution]
-    BaseVector4 vTranslationAux;
+    Vector4 vTranslationAux;
     Quaternion qRotationAux;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
     // [Verification]
@@ -4909,9 +4883,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_RotationDoesntEqualOriginalValueWhenMatrixConta
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector4 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector4 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
     const Quaternion EXPECTED_ROTATION(ROTATION_X, ROTATION_Y, ROTATION_Z);
-    const BaseVector3 EXPECTED_SCALE(-SFloat::_4, -SFloat::_5, -SFloat::_6);
+    const Vector3 EXPECTED_SCALE(-SFloat::_4, -SFloat::_5, -SFloat::_6);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
@@ -4934,9 +4908,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_RotationDoesntEqualOriginalValueWhenMatrixConta
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector4 vTranslationAux;
+    Vector4 vTranslationAux;
     Quaternion qRotationUT;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
     // [Verification]
@@ -4962,9 +4936,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector4 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion EXPECTED_ROTATION(ROTATION_X, ROTATION_Y, ROTATION_Z);
-    const BaseVector3 EXPECTED_SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 EXPECTED_SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
@@ -4987,9 +4961,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector4 vTranslationAux;
+    Vector4 vTranslationAux;
     Quaternion qRotationUT;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
     // [Verification]
@@ -5015,13 +4989,13 @@ ZTEST_CASE_TEMPLATE ( Decompose2_ReturnedScaleIsAlwaysPositive_Test, TTemplateTy
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector4 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector4 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
     const Quaternion EXPECTED_ROTATION(ROTATION_X, ROTATION_Y, ROTATION_Z);
-    const BaseVector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
+    const Vector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
-    const ScalingMatrix3x3 SCALE(BaseVector3(-SFloat::_4, -SFloat::_5, -SFloat::_6));
+    const ScalingMatrix3x3 SCALE(Vector3(-SFloat::_4, -SFloat::_5, -SFloat::_6));
 
     const TransformationMatrix<Matrix4x4> TRANSFORMATION = SCALE * ROTATION * TRANSLATION;
     TransformationMatrix<T> ADAPTED_TRANSFORMATION; // Adaptation to matrix type
@@ -5040,9 +5014,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_ReturnedScaleIsAlwaysPositive_Test, TTemplateTy
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector4 vTranslationAux;
+    Vector4 vTranslationAux;
     Quaternion qRotationAux;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
     // [Verification]
@@ -5057,9 +5031,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_ReturnedScaleIsAlwaysPositive_Test, TTemplateTy
 ZTEST_CASE_TEMPLATE ( Decompose2_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector4 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion EXPECTED_ROTATION = Quaternion::GetIdentity();
-    const BaseVector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
+    const Vector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
 
     const TranslationMatrix<Matrix4x4> TRANSLATION(EXPECTED_TRANSLATION);
     const RotationMatrix3x3 ROTATION(EXPECTED_ROTATION);
@@ -5082,9 +5056,9 @@ ZTEST_CASE_TEMPLATE ( Decompose2_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector4 vTranslationAux;
+    Vector4 vTranslationAux;
     Quaternion qRotationAux;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
     // [Verification]
@@ -6077,11 +6051,11 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_MatrixHandConventionIsCorrectlySwitch
         const float_z ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const BaseVector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, -SFloat::_3); // Z-axis is inverted
+    const Vector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, -SFloat::_3); // Z-axis is inverted
     const Quaternion EXPECTED_ROTATION = Quaternion(ROTATION_X, ROTATION_Y, ROTATION_Z).Invert(); // Rotations are all inverted
-    const BaseVector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6); // Scale remains the same
+    const Vector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6); // Scale remains the same
 
-    const TranslationMatrix<Matrix4x4> TRANSLATION(BaseVector3(SFloat::_1, SFloat::_2, SFloat::_3));
+    const TranslationMatrix<Matrix4x4> TRANSLATION(Vector3(SFloat::_1, SFloat::_2, SFloat::_3));
     const RotationMatrix3x3 ROTATION(Quaternion(ROTATION_X, ROTATION_Y, ROTATION_Z));
     const ScalingMatrix3x3 SCALE(SFloat::_4, SFloat::_5, SFloat::_6);
 
@@ -6102,9 +6076,9 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_MatrixHandConventionIsCorrectlySwitch
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationUT;
+    Vector3 vTranslationUT;
     Quaternion qRotationUT;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationUT, qRotationUT, vScaleUT);
 
     // [Verification]
@@ -6126,9 +6100,9 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_MatrixHandConventionIsCorrectlySwitch
 ZTEST_CASE_TEMPLATE ( SwitchHandConvention_TranslationZComponentIsInverted_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, -SFloat::_3); // Z-axis is inverted
+    const Vector3 EXPECTED_TRANSLATION(SFloat::_1, SFloat::_2, -SFloat::_3); // Z-axis is inverted
 
-    const TranslationMatrix<Matrix4x4> TRANSLATION(BaseVector3(SFloat::_1, SFloat::_2, SFloat::_3));
+    const TranslationMatrix<Matrix4x4> TRANSLATION(Vector3(SFloat::_1, SFloat::_2, SFloat::_3));
     const RotationMatrix3x3 ROTATION = RotationMatrix3x3::GetIdentity();
     const ScalingMatrix3x3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
@@ -6149,9 +6123,9 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_TranslationZComponentIsInverted_Test,
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationUT;
+    Vector3 vTranslationUT;
     Quaternion qRotationAux;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationUT, qRotationAux, vScaleAux);
 
     // [Verification]
@@ -6178,7 +6152,7 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_RotationsAreInverted_Test, TTemplateT
 
     const Quaternion EXPECTED_ROTATION = Quaternion(ROTATION_X, ROTATION_Y, ROTATION_Z).Invert(); // Rotations are all inverted
 
-    const TranslationMatrix<Matrix4x4> TRANSLATION(BaseVector3(SFloat::_0, SFloat::_0, SFloat::_0));
+    const TranslationMatrix<Matrix4x4> TRANSLATION(Vector3(SFloat::_0, SFloat::_0, SFloat::_0));
     const RotationMatrix3x3 ROTATION(Quaternion(ROTATION_X, ROTATION_Y, ROTATION_Z));
     const ScalingMatrix3x3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
@@ -6199,9 +6173,9 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_RotationsAreInverted_Test, TTemplateT
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationUT;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
     // [Verification]
@@ -6217,9 +6191,9 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_RotationsAreInverted_Test, TTemplateT
 ZTEST_CASE_TEMPLATE ( SwitchHandConvention_ScaleDoesntChange_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6); // Scale remains the same
+    const Vector3 EXPECTED_SCALE(SFloat::_4, SFloat::_5, SFloat::_6); // Scale remains the same
 
-    const TranslationMatrix<Matrix4x4> TRANSLATION(BaseVector3(SFloat::_0, SFloat::_0, SFloat::_0));
+    const TranslationMatrix<Matrix4x4> TRANSLATION(Vector3(SFloat::_0, SFloat::_0, SFloat::_0));
     const RotationMatrix3x3 ROTATION = RotationMatrix3x3::GetIdentity();
     const ScalingMatrix3x3 SCALE(EXPECTED_SCALE);
 
@@ -6240,9 +6214,9 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_ScaleDoesntChange_Test, TTemplateType
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationAux;
-    BaseVector3 vScaleUT;
+    Vector3 vScaleUT;
     ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
     // [Verification]
@@ -6271,7 +6245,7 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_AssertionFailsWhenScaleEqualsZero_Tes
 
     const bool EXPECTED_VALUE = true;
 
-    const TranslationMatrix<Matrix4x4> TRANSLATION(BaseVector3(SFloat::_1, SFloat::_2, SFloat::_3));
+    const TranslationMatrix<Matrix4x4> TRANSLATION(Vector3(SFloat::_1, SFloat::_2, SFloat::_3));
     const RotationMatrix3x3 ROTATION(Quaternion(ROTATION_X, ROTATION_Y, ROTATION_Z));
     const ScalingMatrix3x3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
 
@@ -6292,9 +6266,9 @@ ZTEST_CASE_TEMPLATE ( SwitchHandConvention_AssertionFailsWhenScaleEqualsZero_Tes
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
     // [Execution]
-    BaseVector3 vTranslationAux;
+    Vector3 vTranslationAux;
     Quaternion qRotationAux;
-    BaseVector3 vScaleAux;
+    Vector3 vScaleAux;
     bool bAssertionFailed = false;
 
     try
@@ -6448,9 +6422,9 @@ ZTEST_CASE_TEMPLATE ( Initialize_TransformationIsCorrectlyBuiltFromCommonTransfo
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const BaseQuaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
-    const BaseVector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
+    const Vector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Quaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
+    const Vector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)-968.0;
@@ -6503,9 +6477,9 @@ ZTEST_CASE_TEMPLATE ( Initialize_IdentityIsObtainedWhenNeutralTransformationsAre
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
@@ -6537,9 +6511,9 @@ ZTEST_CASE_TEMPLATE ( Initialize_IdentityIsObtainedWhenNeutralTransformationsAre
 ZTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     T EXPECTED_VALUE = T::GetIdentity();
     EXPECTED_VALUE.ij[3][0] = TRANSLATION.x;
@@ -6574,9 +6548,9 @@ ZTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsTranslatio
 ZTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsRotation_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)0.13333333333333353;
@@ -6621,9 +6595,9 @@ ZTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsRotation_T
 ZTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsScale_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
 
     T EXPECTED_VALUE = T::GetIdentity();
     EXPECTED_VALUE.ij[0][0] = SCALE.x;
@@ -6659,9 +6633,9 @@ ZTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsScale_Test
 ZTEST_CASE_TEMPLATE ( Initialize_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseVector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
 
     T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
@@ -6694,10 +6668,10 @@ ZTEST_CASE_TEMPLATE ( Initialize_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, T
 ZTEST_CASE_TEMPLATE ( Initialize_ResultIsDifferentDependingOnQuaternionNormalization_Test, TTemplateTypes )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
     const Quaternion NOT_NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     // [Execution]
     TransformationMatrixWhiteBox<T> matrixFromNormalizedQuaternionUT;

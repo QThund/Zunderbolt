@@ -40,6 +40,7 @@ using namespace boost::unit_test;
 #include "ZMath/RotationMatrix3x3.h"
 #include "ZMath/ScalingMatrix3x3.h"
 #include "ZCommon/DataTypes/SVF32.h"
+using namespace z::Internals;
 
 typedef boost::mpl::list<Matrix4x3, Matrix4x4> TTemplateTypes;
 
@@ -80,33 +81,6 @@ static void CheckFourthColumnIfExists(const Matrix4x4 &matrixA, const Matrix4x4 
     BOOST_CHECK( SFloat::AreEqual( matrixA.ij[1][3], matrixB.ij[1][3] ));
     BOOST_CHECK( SFloat::AreEqual( matrixA.ij[2][3], matrixB.ij[2][3] ));
     BOOST_CHECK( SFloat::AreEqual( matrixA.ij[3][3], matrixB.ij[3][3] ));
-}
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaventChanged_Test, TTemplateTypes )
-{
-    // [Preparation]
-    const T EXPECTED_VALUE(TranslationMatrix<T>::GetIdentity());
-
-    // [Execution]
-    TranslationMatrix<T> matrixUT;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]);
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -223,7 +197,7 @@ ZTEST_CASE_TEMPLATE ( Constructor4_TranslationMatrixCorrectlyBuiltFrom3DVector_T
 {
     // [Preparation]
     T EXPECTED_VALUE;
-    const BaseVector3 TRANSLATION(SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector3 TRANSLATION(SFloat::_2, SFloat::_3, SFloat::_4);
 
     EXPECTED_VALUE.ij[0][0] = SFloat::_1;
     EXPECTED_VALUE.ij[0][1] = SFloat::_0;
@@ -293,7 +267,7 @@ ZTEST_CASE_TEMPLATE ( Constructor5_TranslationMatrixCorrectlyBuiltFrom4DVector_T
 {
     // [Preparation]
     T EXPECTED_VALUE;
-    const BaseVector4 TRANSLATION(SFloat::_2, SFloat::_3, SFloat::_4, SFloat::_5);
+    const Vector4 TRANSLATION(SFloat::_2, SFloat::_3, SFloat::_4, SFloat::_5);
 
     EXPECTED_VALUE.ij[0][0] = SFloat::_1;
     EXPECTED_VALUE.ij[0][1] = SFloat::_0;
@@ -362,8 +336,8 @@ ZTEST_CASE_TEMPLATE ( Constructor5_IdentityMatrixObtainedWhen4DVectorIsZeroVecto
 ZTEST_CASE_TEMPLATE ( Constructor5_WValueFrom4DVectorDoesNotParticipate_Test, TTemplateTypes )
 {
 	// [Preparation]
-    const BaseVector4 TRANSLATIONA(SFloat::_2, SFloat::_3, SFloat::_4, SFloat::_5);
-	const BaseVector4 TRANSLATIONB(SFloat::_2, SFloat::_3, SFloat::_4, SFloat::_9);
+    const Vector4 TRANSLATIONA(SFloat::_2, SFloat::_3, SFloat::_4, SFloat::_5);
+	const Vector4 TRANSLATIONB(SFloat::_2, SFloat::_3, SFloat::_4, SFloat::_9);
 
     // [Execution]
     TranslationMatrix<T> matrixAUT(TRANSLATIONA);
@@ -1676,10 +1650,10 @@ ZTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesAreCorrectlyExtractedFrom
     MATRIX.ij[3][2] = SFloat::_5;
     FillFourthColumnIfExists(MATRIX, SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
 
-    const BaseVector3 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2]);
+    const Vector3 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2]);
 
     // [Execution]
-    BaseVector3 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1);
+    Vector3 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1);
     MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -1696,10 +1670,10 @@ ZTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesEqualZeroWhenMatrixIsIden
     // [Preparation]
     TranslationMatrix<T> MATRIX = T::GetIdentity();
 
-    const BaseVector3 EXPECTED_VALUE(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 EXPECTED_VALUE(SFloat::_0, SFloat::_0, SFloat::_0);
 
     // [Execution]
-    BaseVector3 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1);
+    Vector3 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1);
     MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -1729,10 +1703,10 @@ ZTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesAreCorrectlyExtractedFrom
     MATRIX.ij[3][2] = SFloat::_5;
     FillFourthColumnIfExists(MATRIX, SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
 
-    const BaseVector4 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2], SFloat::_0);
+    const Vector4 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2], SFloat::_0);
 
     // [Execution]
-    BaseVector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
+    Vector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
     MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -1771,11 +1745,11 @@ ZTEST_CASE_TEMPLATE ( GetTranslation3_WValueIsAlwaysZero_Test, TTemplateTypes )
     const float_z EXPECTED_VALUE = SFloat::_0;
 
     // [Execution]
-    BaseVector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
+    Vector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
     MATRIX.GetTranslation(vTranslationUT);
     float_z fWValue = vTranslationUT.w;
 
-    BaseVector4 vTranslationUT2(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6);
+    Vector4 vTranslationUT2(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6);
     MATRIX2.GetTranslation(vTranslationUT2);
     float_z fWValue2 = vTranslationUT2.w;
 
@@ -1792,10 +1766,10 @@ ZTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesEqualZeroWhenMatrixIsIden
     // [Preparation]
     TranslationMatrix<T> MATRIX = T::GetIdentity();
 
-    const BaseVector4 EXPECTED_VALUE(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 EXPECTED_VALUE(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     // [Execution]
-    BaseVector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
+    Vector4 vTranslationUT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_2);
     MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]

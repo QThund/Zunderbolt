@@ -27,7 +27,7 @@
 #ifndef __MATRIX2X2__
 #define __MATRIX2X2__
 
-#include "BaseMatrix2x2.h"
+#include "ZMath/MathModuleDefinitions.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"
 
 
@@ -50,7 +50,7 @@ namespace z
 ///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} \\ a_{10} & a_{11} \end{bmatrix}\f$
 /// </remarks>
-class Z_MATH_MODULE_SYMBOLS Matrix2x2 : public BaseMatrix2x2
+class Z_MATH_MODULE_SYMBOLS Matrix2x2
 {
     // FRIENDS
     // ---------------
@@ -72,21 +72,9 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Matrix2x2();
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="matrix">[IN] The 2x2 matrix from which we want to create a copy in the resident matrix.</param>
-    Matrix2x2(const Matrix2x2 &matrix);
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="matrix">[IN] The 2x2 base matrix in which we want the resident matrix to be based.</param>
-    Matrix2x2(const BaseMatrix2x2 &matrix);
 
     /// <summary>
     /// Constructor from a floating point value which with fill all matrix's elements.
@@ -151,6 +139,24 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Equality operator. Compares two [2x2] matrices.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
+    /// <returns>
+    /// If matrices are equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator==(const Matrix2x2 &matrix) const;
+
+    /// <summary>
+    /// Inequality operator. Compares two [2x2] matrices.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
+    /// <returns>
+    /// If matrices are not equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator!=(const Matrix2x2 &matrix) const;
 
     /// <summary>
     /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
@@ -180,7 +186,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    Matrix2x2 operator*(const BaseMatrix2x2 &matrix) const;
+    Matrix2x2 operator*(const Matrix2x2 &matrix) const;
 
     /// <summary>
     /// Divides current matrix by a floating point value.
@@ -199,7 +205,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    Matrix2x2 operator+(const BaseMatrix2x2 &matrix) const;
+    Matrix2x2 operator+(const Matrix2x2 &matrix) const;
 
     /// <summary>
     /// Subtracts a 2x2 matrix to the resident matrix.
@@ -208,7 +214,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    Matrix2x2 operator-(const BaseMatrix2x2 &matrix) const;
+    Matrix2x2 operator-(const Matrix2x2 &matrix) const;
 
     /// <summary>
     /// Product and assign operator. 
@@ -232,7 +238,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix2x2& operator*=(const BaseMatrix2x2 &matrix);
+    Matrix2x2& operator*=(const Matrix2x2 &matrix);
 
     /// <summary>
     /// Division and assign operator.
@@ -257,7 +263,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix2x2& operator+=(const BaseMatrix2x2 &matrix);
+    Matrix2x2& operator+=(const Matrix2x2 &matrix);
 
     /// <summary>
     /// Subtraction and assign operator.
@@ -269,19 +275,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix2x2& operator-=(const BaseMatrix2x2 &matrix);
-
-    /// <summary>
-    /// Assignation operator.
-    /// </summary>
-    /// <remarks>
-    /// Assigns the provided matrix to the resident matrix.
-    /// </remarks>
-    /// <param name="matrix">[IN] The matrix to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified matrix.
-    /// </returns>
-    Matrix2x2& operator=(const BaseMatrix2x2 &matrix);
+    Matrix2x2& operator-=(const Matrix2x2 &matrix);
 
     /// <summary>
     /// Resets all matrix elements to 0.
@@ -397,6 +391,16 @@ public:
     /// </remarks>
     /// <returns>The string with the format specified.</returns>
     string_z ToString() const;
+
+
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Array that holds the matrix.
+    /// </summary>
+    float_z ij[2][2];
 };
 
 } // namespace z

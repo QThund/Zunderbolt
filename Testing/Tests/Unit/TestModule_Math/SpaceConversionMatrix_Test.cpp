@@ -38,43 +38,13 @@ using namespace boost::unit_test;
 #include "ZMath/TransformationMatrix.h"
 #include "ZMath/SAngle.h"
 #include "ZMath/Matrix4x3.h"
-#include "ZMath/BaseVector3.h"
+#include "ZMath/Vector3.h"
 #include "ZMath/Vector4.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 
 ZTEST_SUITE_BEGIN( SpaceConversionMatrix_TestSuite )
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
-{
-    // [Preparation]
-
-    const Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetIdentity();
-
-    // [Execution]
-    SpaceConversionMatrix matrixUT;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]);
-}
 
 /// Checks if copy constructor copies every matrix element properly.
 /// </summary>
@@ -98,7 +68,7 @@ ZTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
     const float_z EXPECTED_VALUE_FOR_32 = SFloat::_10+SFloat::_5;
     const float_z EXPECTED_VALUE_FOR_33 = SFloat::_10+SFloat::_6;
 
-    const BaseMatrix4x4 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02, EXPECTED_VALUE_FOR_03,
+    const Matrix4x4 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02, EXPECTED_VALUE_FOR_03,
                                         EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12, EXPECTED_VALUE_FOR_13,
                                         EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22, EXPECTED_VALUE_FOR_23,
                                         EXPECTED_VALUE_FOR_30, EXPECTED_VALUE_FOR_31, EXPECTED_VALUE_FOR_32, EXPECTED_VALUE_FOR_33);
@@ -133,7 +103,7 @@ ZTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 ZTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // [Preparation]
-    const BaseMatrix4x4 EXPECTED_VALUE(SFloat::_0, SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix4x4 EXPECTED_VALUE(SFloat::_0, SFloat::_1, SFloat::_2, SFloat::_3,
                                         SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7,
                                         SFloat::_8, SFloat::_9, SFloat::_10, (float_z)11.0,
                                         (float_z)12.0, (float_z)13.0, (float_z)14.0, (float_z)15.0);
@@ -166,7 +136,7 @@ ZTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 ZTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test )
 {
     // [Preparation]
-    const BaseMatrix4x4 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4, 
+    const Matrix4x4 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4, 
                                         SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8, 
                                         SFloat::_9, SFloat::_10, (float)11.0, (float)12.0,
                                         (float)13.0, (float)14.0, (float)15.0, (float)16.0);
@@ -200,12 +170,12 @@ ZTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test
 ZTEST_CASE ( OperatorProduct_CommonMatricesAreCorrectlyMultiplied_Test )
 {
     // [Preparation]
-    const SpaceConversionMatrix OPERAND1(BaseMatrix4x4(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
+    const SpaceConversionMatrix OPERAND1(Matrix4x4(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
                                                          SFloat::_5,    SFloat::_6,    SFloat::_7,    SFloat::_8,
                                                          SFloat::_9,    SFloat::_10,   (float_z)11.0, (float_z)12.0,
                                                          (float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0));
 
-    const SpaceConversionMatrix OPERAND2(BaseMatrix4x4((float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
+    const SpaceConversionMatrix OPERAND2(Matrix4x4((float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
                                                          (float_z)21.0, (float_z)22.0, (float_z)23.0, (float_z)24.0,
                                                          (float_z)25.0, (float_z)26.0, (float_z)27.0, (float_z)28.0,
                                                          (float_z)29.0, (float_z)30.0, (float_z)31.0, (float_z)32.0));
@@ -255,12 +225,12 @@ ZTEST_CASE ( OperatorProduct_CommonMatricesAreCorrectlyMultiplied_Test )
 ZTEST_CASE ( OperatorProduct_ProductIsNotCommutative_Test )
 {
     // [Preparation]
-    const SpaceConversionMatrix OPERAND1(BaseMatrix4x4(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
+    const SpaceConversionMatrix OPERAND1(Matrix4x4(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
                                                          SFloat::_5,    SFloat::_6,    SFloat::_7,    SFloat::_8,
                                                          SFloat::_9,    SFloat::_10,   (float_z)11.0, (float_z)12.0,
                                                          (float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0));
 
-    const SpaceConversionMatrix OPERAND2(BaseMatrix4x4((float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
+    const SpaceConversionMatrix OPERAND2(Matrix4x4((float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
                                                          (float_z)21.0, (float_z)22.0, (float_z)23.0, (float_z)24.0,
                                                          (float_z)25.0, (float_z)26.0, (float_z)27.0, (float_z)28.0,
                                                          (float_z)29.0, (float_z)30.0, (float_z)31.0, (float_z)32.0));
@@ -279,12 +249,12 @@ ZTEST_CASE ( OperatorProduct_ProductIsNotCommutative_Test )
 ZTEST_CASE ( OperatorProductAssignation_CommonMatricesAreCorrectlyMultiplied_Test )
 {
     // [Preparation]
-    const BaseMatrix4x4 OPERAND1(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
+    const Matrix4x4 OPERAND1(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
                                   SFloat::_5,    SFloat::_6,    SFloat::_7,    SFloat::_8,
                                   SFloat::_9,    SFloat::_10,   (float_z)11.0, (float_z)12.0,
                                   (float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0);
 
-    const SpaceConversionMatrix OPERAND2(BaseMatrix4x4((float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
+    const SpaceConversionMatrix OPERAND2(Matrix4x4((float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
                                                          (float_z)21.0, (float_z)22.0, (float_z)23.0, (float_z)24.0,
                                                          (float_z)25.0, (float_z)26.0, (float_z)27.0, (float_z)28.0,
                                                          (float_z)29.0, (float_z)30.0, (float_z)31.0, (float_z)32.0));
@@ -335,12 +305,12 @@ ZTEST_CASE ( OperatorProductAssignation_CommonMatricesAreCorrectlyMultiplied_Tes
 ZTEST_CASE ( OperatorProductAssignation_ProductIsNotCommutative_Test )
 {
     // [Preparation]
-    const SpaceConversionMatrix OPERAND1(BaseMatrix4x4(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
+    const SpaceConversionMatrix OPERAND1(Matrix4x4(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
                                                          SFloat::_5,    SFloat::_6,    SFloat::_7,    SFloat::_8,
                                                          SFloat::_9,    SFloat::_10,   (float_z)11.0, (float_z)12.0,
                                                          (float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0));
 
-    const SpaceConversionMatrix OPERAND2(BaseMatrix4x4((float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
+    const SpaceConversionMatrix OPERAND2(Matrix4x4((float_z)17.0, (float_z)18.0, (float_z)19.0, (float_z)20.0,
                                                          (float_z)21.0, (float_z)22.0, (float_z)23.0, (float_z)24.0,
                                                          (float_z)25.0, (float_z)26.0, (float_z)27.0, (float_z)28.0,
                                                          (float_z)29.0, (float_z)30.0, (float_z)31.0, (float_z)32.0));
@@ -361,7 +331,7 @@ ZTEST_CASE ( OperatorProductAssignation_ProductIsNotCommutative_Test )
 ZTEST_CASE ( OperatorProductAssignation_MatrixObjectIsCorrectlyMultipliedAndAssignedToItself_Test )
 {
     // [Preparation]
-    const SpaceConversionMatrix OPERAND(BaseMatrix4x4(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
+    const SpaceConversionMatrix OPERAND(Matrix4x4(SFloat::_1,    SFloat::_2,    SFloat::_3,    SFloat::_4,
                              SFloat::_5,    SFloat::_6,    SFloat::_7,    SFloat::_8,
                              SFloat::_9,    SFloat::_10,   (float_z)11.0, (float_z)12.0,
                              (float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0));
@@ -390,9 +360,9 @@ ZTEST_CASE( SetWorldSpaceMatrix1_TransformationIsCorrectlyBuiltFromCommonTransfo
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const BaseQuaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
-    const BaseVector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
+    const Vector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Quaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
+    const Vector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     Matrix4x4 EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)-968.0;
@@ -449,9 +419,9 @@ ZTEST_CASE( SetWorldSpaceMatrix1_IdentityIsObtainedWhenNeutralTransformationsAre
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetIdentity();
 
@@ -484,9 +454,9 @@ ZTEST_CASE( SetWorldSpaceMatrix1_IdentityIsObtainedWhenNeutralTransformationsAre
 ZTEST_CASE( SetWorldSpaceMatrix1_CorrectResultObtainedWhenOnlyContainsTranslation_Test )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetIdentity();
     EXPECTED_VALUE.ij[3][0] = TRANSLATION.x;
@@ -522,9 +492,9 @@ ZTEST_CASE( SetWorldSpaceMatrix1_CorrectResultObtainedWhenOnlyContainsTranslatio
 ZTEST_CASE ( SetWorldSpaceMatrix1_CorrectResultObtainedWhenOnlyContainsRotation_Test )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     Matrix4x4 EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)0.13333333333333353;
@@ -573,9 +543,9 @@ ZTEST_CASE ( SetWorldSpaceMatrix1_CorrectResultObtainedWhenOnlyContainsRotation_
 ZTEST_CASE ( SetWorldSpaceMatrix1_CorrectResultObtainedWhenOnlyContainsScale_Test )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
 
     Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetIdentity();
     EXPECTED_VALUE.ij[0][0] = SCALE.x;
@@ -611,9 +581,9 @@ ZTEST_CASE ( SetWorldSpaceMatrix1_CorrectResultObtainedWhenOnlyContainsScale_Tes
 ZTEST_CASE( SetWorldSpaceMatrix1_ZeroMatrixWhoseElement33EqualsOneIsObtainedWhenInputsEqualZero_Test )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseVector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
 
     Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetNullMatrix();
     EXPECTED_VALUE.ij[3][3] = SFloat::_1;
@@ -647,10 +617,10 @@ ZTEST_CASE( SetWorldSpaceMatrix1_ZeroMatrixWhoseElement33EqualsOneIsObtainedWhen
 ZTEST_CASE( SetWorldSpaceMatrix1_ResultIsDifferentDependingOnQuaternionNormalization_Test )
 {
     // [Preparation]
-    const BaseVector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
     const Quaternion NOT_NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     // [Execution]
     SpaceConversionMatrix matrixFromNormalizedQuaternionUT;
@@ -775,9 +745,9 @@ ZTEST_CASE( SetWorldSpaceMatrix2_TransformationIsCorrectlyBuiltFromCommonTransfo
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector4 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseQuaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
-    const BaseVector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
+    const Vector4 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Quaternion ROTATION(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7);
+    const Vector3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     Matrix4x4 EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)-968.0;
@@ -835,9 +805,9 @@ ZTEST_CASE( SetWorldSpaceMatrix2_IdentityIsObtainedWhenNeutralTransformationsAre
     // D3DXMatrixScaling(&scale, 8, 9, 10);
     // transformation = scale * rotation * translation;
 
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     const Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetIdentity();
 
@@ -871,9 +841,9 @@ ZTEST_CASE( SetWorldSpaceMatrix2_CorrectResultObtainedWhenOnlyContainsTranslatio
 {
     // [Preparation]
 
-    const BaseVector4 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetIdentity();
     EXPECTED_VALUE.ij[3][0] = TRANSLATION.x;
@@ -910,9 +880,9 @@ ZTEST_CASE ( SetWorldSpaceMatrix2_CorrectResultObtainedWhenOnlyContainsRotation_
 {
     // [Preparation]
 
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     Matrix4x4 EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)0.13333333333333353;
@@ -962,9 +932,9 @@ ZTEST_CASE ( SetWorldSpaceMatrix2_CorrectResultObtainedWhenOnlyContainsScale_Tes
 {
     // [Preparation]
 
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 SCALE(SFloat::_2, SFloat::_3, SFloat::_4);
 
     Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetIdentity();
     EXPECTED_VALUE.ij[0][0] = SCALE.x;
@@ -1001,9 +971,9 @@ ZTEST_CASE( SetWorldSpaceMatrix2_ZeroMatrixWhoseElement33EqualsOneIsObtainedWhen
 {
     // [Preparation]
 
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseQuaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
-    const BaseVector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector3 SCALE(SFloat::_0, SFloat::_0, SFloat::_0);
 
     Matrix4x4 EXPECTED_VALUE = Matrix4x4::GetNullMatrix();
     EXPECTED_VALUE.ij[3][3] = SFloat::_1;
@@ -1038,10 +1008,10 @@ ZTEST_CASE( SetWorldSpaceMatrix2_ResultIsDifferentDependingOnQuaternionNormaliza
 {
     // [Preparation]
 
-    const BaseVector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Vector4 TRANSLATION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
     const Quaternion NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
     const Quaternion NOT_NORMALIZED_QUATERNION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
     // [Execution]
     SpaceConversionMatrix matrixFromNormalizedQuaternionUT;
@@ -1158,10 +1128,10 @@ ZTEST_CASE( SetWorldSpaceMatrix3_TransformationIsCorrectlyBuiltFromCommonTransfo
 {
     // [Preparation]
     const TranslationMatrix<Matrix4x3> TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const RotationMatrix3x3 ROTATION(BaseQuaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
+    const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
     const ScalingMatrix3x3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
-    BaseMatrix4x4 EXPECTED_VALUE;
+    Matrix4x4 EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)-968.0;
     EXPECTED_VALUE.ij[0][1] = (float_z)992.0;
     EXPECTED_VALUE.ij[0][2] = (float_z)-176.0;
@@ -1285,7 +1255,7 @@ ZTEST_CASE( SetWorldSpaceMatrix3_CorrectResultObtainedWhenOnlyContainsRotation_T
     const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize());
     const ScalingMatrix3x3 SCALE(SFloat::_1, SFloat::_1, SFloat::_1);
 
-    BaseMatrix4x4 EXPECTED_VALUE;
+    Matrix4x4 EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_z)0.13333333333333353;
     EXPECTED_VALUE.ij[0][1] = (float_z)0.93333333333333324;
     EXPECTED_VALUE.ij[0][2] = (float_z)-0.33333333333333326;
@@ -1459,7 +1429,7 @@ ZTEST_CASE( SetWorldSpaceMatrix3_CompositionOrderIsScaleRotationTranslation_Test
 {
     // [Preparation]
     const TranslationMatrix<Matrix4x3> TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const RotationMatrix3x3 ROTATION(BaseQuaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
+    const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
     const ScalingMatrix3x3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     const Matrix4x4 NEUTRAL_TRANSLATION = Matrix4x4::GetNullMatrix();
@@ -1505,7 +1475,7 @@ ZTEST_CASE( SetWorldSpaceMatrix4_TransformationIsCorrectlyBuiltFromCommonTransfo
 {
     // [Preparation]
     const TranslationMatrix<Matrix4x4> TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const RotationMatrix3x3 ROTATION(BaseQuaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
+    const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
     const ScalingMatrix3x3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     Matrix4x4 EXPECTED_VALUE;
@@ -1806,7 +1776,7 @@ ZTEST_CASE( SetWorldSpaceMatrix4_CompositionOrderIsScaleRotationTranslation_Test
 {
     // [Preparation]
     const TranslationMatrix<Matrix4x4> TRANSLATION(SFloat::_1, SFloat::_2, SFloat::_3);
-    const RotationMatrix3x3 ROTATION(BaseQuaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
+    const RotationMatrix3x3 ROTATION(Quaternion(SFloat::_4, SFloat::_5, SFloat::_6, SFloat::_7));
     const ScalingMatrix3x3 SCALE(SFloat::_8, SFloat::_9, SFloat::_10);
 
     const Matrix4x4 NEUTRAL_TRANSLATION = Matrix4x4::GetNullMatrix();
@@ -2208,7 +2178,7 @@ ZTEST_CASE( SetViewSpaceMatrix1_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     // D3DXMATRIX viewMatrix;
     // D3DXMatrixLookAtLH(&viewMatrix, &vEye, &vTarget, &vUp);
 
-    const SpaceConversionMatrix EXPECTED_VALUE(BaseMatrix4x4((float_z)-0.40824829046386302, (float_z)-0.70710678118654746, (float_z)0.57735026918962573, SFloat::_0,
+    const SpaceConversionMatrix EXPECTED_VALUE(Matrix4x4((float_z)-0.40824829046386302, (float_z)-0.70710678118654746, (float_z)0.57735026918962573, SFloat::_0,
                                                                (float_z)0.81649658092772603,  SFloat::_0,                   (float_z)0.57735026918962573, SFloat::_0,
                                                                (float_z)-0.40824829046386302, (float_z)0.70710678118654746,  (float_z)0.57735026918962573, SFloat::_0,
                                                                SFloat::_0,                   (float_z)-1.4142135623730949,  (float_z)-8.6602540378443855, SFloat::_1));
@@ -2315,7 +2285,7 @@ ZTEST_CASE( SetViewSpaceMatrix2_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     // D3DXMATRIX viewMatrix;
     // D3DXMatrixLookAtLH(&viewMatrix, &vEye, &vTarget, &vUp);
 
-    const SpaceConversionMatrix EXPECTED_VALUE(BaseMatrix4x4((float_z)-0.40824829046386302, (float_z)-0.70710678118654746, (float_z)0.57735026918962573, SFloat::_0,
+    const SpaceConversionMatrix EXPECTED_VALUE(Matrix4x4((float_z)-0.40824829046386302, (float_z)-0.70710678118654746, (float_z)0.57735026918962573, SFloat::_0,
                                                                (float_z)0.81649658092772603,  SFloat::_0,                   (float_z)0.57735026918962573, SFloat::_0,
                                                                (float_z)-0.40824829046386302, (float_z)0.70710678118654746,  (float_z)0.57735026918962573, SFloat::_0,
                                                                SFloat::_0,                   (float_z)-1.4142135623730949,  (float_z)-8.6602540378443855, SFloat::_1));
@@ -2429,7 +2399,7 @@ ZTEST_CASE( SetProjectionSpaceMatrix_ProjectionMatrixIsCorrectlyBuiltFromCommonI
     // D3DXMATRIX projectionMatrix;
     // D3DXMatrixPerspectiveFovLH(&projectionMatrix, fVerticalFOV, fAspectRatio, fNearClipPlane, fFarClipPlane);
 
-    const SpaceConversionMatrix EXPECTED_VALUE(BaseMatrix4x4((float_z)0.017728711075663112, SFloat::_0,                   SFloat::_0,  SFloat::_0,
+    const SpaceConversionMatrix EXPECTED_VALUE(Matrix4x4((float_z)0.017728711075663112, SFloat::_0,                   SFloat::_0,  SFloat::_0,
                                                                (float_z)SFloat::_0,          (float_z)0.070914844302652449, SFloat::_0,  SFloat::_0,
                                                                SFloat::_0,                   SFloat::_0,                   SFloat::_2,  SFloat::_1,
                                                                SFloat::_0,                   SFloat::_0,                   -SFloat::_2, SFloat::_0));
@@ -2663,7 +2633,7 @@ ZTEST_CASE( SwitchHandConventionViewSpaceMatrix_HandRulesAreCorrectlySwitched_Te
     SpaceConversionMatrix ORIGINAL_VALUE;
     ORIGINAL_VALUE.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
 
-    const SpaceConversionMatrix EXPECTED_VALUE(BaseMatrix4x4((float_z)0.40824829046386296,  (float_z)-0.70710678118654735, (float_z)-0.57735026918962573, SFloat::_0,
+    const SpaceConversionMatrix EXPECTED_VALUE(Matrix4x4((float_z)0.40824829046386296,  (float_z)-0.70710678118654735, (float_z)-0.57735026918962573, SFloat::_0,
                                                              (float_z)-0.81649658092772592, SFloat::_0,                   (float_z)-0.57735026918962573, SFloat::_0,
                                                              (float_z)0.40824829046386296,  (float_z)0.70710678118654735,  (float_z)-0.57735026918962573, SFloat::_0,
                                                              SFloat::_0,                   (float_z)-1.414213562373094,   (float_z)8.6602540378443837,   SFloat::_1));
@@ -2706,13 +2676,13 @@ ZTEST_CASE( SwitchHandConventionViewSpaceMatrix_SwitchingIsReversible_Test )
     ORIGINAL_VALUE.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
 
     #if Z_CONFIG_PRECISION_DEFAULT == Z_CONFIG_PRECISION_SIMPLE
-        const SpaceConversionMatrix EXPECTED_VALUE(BaseMatrix4x4(-0.40824845f, -0.70710713f, 0.57735032f, SFloat::_0,
+        const SpaceConversionMatrix EXPECTED_VALUE(Matrix4x4(-0.40824845f, -0.70710713f, 0.57735032f, SFloat::_0,
                                                                    0.81649691f,  SFloat::_0,  0.57735032f, SFloat::_0,
                                                                    -0.40824845f, 0.70710713f,  0.57735032f, SFloat::_0,
                                                                    SFloat::_0,  -1.4142156f,  -8.6602573f, SFloat::_1));
 
     #elif Z_CONFIG_PRECISION_DEFAULT == Z_CONFIG_PRECISION_DOUBLE
-        const SpaceConversionMatrix EXPECTED_VALUE(BaseMatrix4x4(-0.40824829046386291, -0.70710678118654724, 0.57735026918962573, SFloat::_0,
+        const SpaceConversionMatrix EXPECTED_VALUE(Matrix4x4(-0.40824829046386291, -0.70710678118654724, 0.57735026918962573, SFloat::_0,
                                                                    0.81649658092772581,  SFloat::_0,          0.57735026918962573, SFloat::_0,
                                                                    -0.40824829046386291, 0.70710678118654724,  0.57735026918962573, SFloat::_0,
                                                                    SFloat::_0,          -1.4142135623730927,  -8.6602540378443837, SFloat::_1));
@@ -2767,7 +2737,7 @@ ZTEST_CASE( SwitchHandConventionProjectionSpaceMatrix_HandRulesAreCorrectlySwitc
     SpaceConversionMatrix ORIGINAL_VALUE;
     ORIGINAL_VALUE.SetProjectionSpaceMatrix(NEAR_CLIP_PLANE, FAR_CLIP_PLANE, ASPECT_RATIO, VERTICAL_FOV);
 
-    const SpaceConversionMatrix EXPECTED_VALUE(BaseMatrix4x4((float_z)0.017728711075663112, SFloat::_0,                   SFloat::_0,  SFloat::_0,
+    const SpaceConversionMatrix EXPECTED_VALUE(Matrix4x4((float_z)0.017728711075663112, SFloat::_0,                   SFloat::_0,  SFloat::_0,
                                                                (float_z)SFloat::_0,          (float_z)0.070914844302652449, SFloat::_0,  SFloat::_0,
                                                                SFloat::_0,                   SFloat::_0,                   -SFloat::_2, -SFloat::_1,
                                                                SFloat::_0,                   SFloat::_0,                   -SFloat::_2, SFloat::_0));

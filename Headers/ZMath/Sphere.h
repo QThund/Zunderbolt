@@ -40,6 +40,8 @@
 
 namespace z
 {
+namespace Internals
+{
 
 /// <summary>
 /// Class which represents a sphere in space.
@@ -65,7 +67,7 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Sphere()
     {
@@ -83,7 +85,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="orb">[IN] The sphere in which we want resident sphere to be based.</param>
-    Sphere(const BaseOrb<VectorT> &orb) : Orb<VectorT>(orb)
+    Sphere(const Orb<VectorT> &orb) : Orb<VectorT>(orb)
     {
     }
 
@@ -125,9 +127,9 @@ public:
     /// <returns>
     /// A reference to the modified orb.
     /// </returns>
-    Sphere<VectorT>& operator=(const BaseOrb<VectorT> &sphere)
+    Sphere<VectorT>& operator=(const Orb<VectorT> &sphere)
     {
-        BaseOrb<VectorT>::operator=(sphere);
+        Orb<VectorT>::operator=(sphere);
         return *this;
     }
 
@@ -452,7 +454,7 @@ public:
     /// - Negative Side
     /// - Both Sides (intersects with the plane).
     /// </returns>
-    ESpaceRelation SpaceRelation(const BasePlane &plane) const
+    ESpaceRelation SpaceRelation(const Plane &plane) const
     {
         // The plane should not be null
         Z_ASSERT_WARNING( !(SFloat::IsZero(plane.a) && SFloat::IsZero(plane.b) && SFloat::IsZero(plane.c)), "The plane should not be null" );
@@ -508,6 +510,15 @@ template class Z_MATH_MODULE_SYMBOLS Sphere<Vector3>;
 template class Z_MATH_MODULE_SYMBOLS Sphere<Vector4>;
 
 #endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
+
+} // namespace Internals
+
+
+// TYPEDEFS
+// ----------
+typedef Internals::Sphere<Vector3> Sphere3;
+typedef Internals::Sphere<Vector4> Sphere4;
+
 
 } // namespace z
 

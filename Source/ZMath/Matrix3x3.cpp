@@ -29,7 +29,7 @@
 
 #include "ZCommon/Assertions.h"
 #include "ZCommon/DataTypes/SFloat.h"
-
+#include "ZCommon/DataTypes/SVF32.h"
 
 
 namespace z
@@ -50,31 +50,50 @@ Matrix3x3::Matrix3x3()
 {
 }
 
-Matrix3x3::Matrix3x3(const Matrix3x3 &matrix) : BaseMatrix3x3(matrix)
+Matrix3x3::Matrix3x3(const float_z fValueAll)
 {
-}
-
-Matrix3x3::Matrix3x3(const BaseMatrix3x3 &matrix) : BaseMatrix3x3(matrix)
-{
-}
-
-Matrix3x3::Matrix3x3(const float_z fValueAll) : BaseMatrix3x3(fValueAll)
-{
+    ij[0][0] = ij[0][1] = ij[0][2] =
+    ij[1][0] = ij[1][1] = ij[1][2] =
+    ij[2][0] = ij[2][1] = ij[2][2] = fValueAll;
 }
 
 Matrix3x3::Matrix3x3(const float_z f00, const float_z f01, const float_z f02,
-                       const float_z f10, const float_z f11, const float_z f12,
-                       const float_z f20, const float_z f21, const float_z f22) :
-                          BaseMatrix3x3(f00, f01, f02, f10, f11, f12, f20, f21, f22)
+                     const float_z f10, const float_z f11, const float_z f12,
+                     const float_z f20, const float_z f21, const float_z f22)
 {
+    ij[0][0] = f00;
+    ij[0][1] = f01;
+    ij[0][2] = f02;
+    ij[1][0] = f10;
+    ij[1][1] = f11;
+    ij[1][2] = f12;
+    ij[2][0] = f20;
+    ij[2][1] = f21;
+    ij[2][2] = f22;
 }
 
-Matrix3x3::Matrix3x3(const float_z *arValues) : BaseMatrix3x3(arValues)
+Matrix3x3::Matrix3x3(const float_z *arValues)
 {
+    Z_ASSERT_ERROR(arValues != null_z, "The input array must not be null");
+
+    ij[0][0] = arValues[0];
+    ij[0][1] = arValues[1];
+    ij[0][2] = arValues[2];
+    ij[1][0] = arValues[3];
+    ij[1][1] = arValues[4];
+    ij[1][2] = arValues[5];
+    ij[2][0] = arValues[6];
+    ij[2][1] = arValues[7];
+    ij[2][2] = arValues[8];
 }
 
-Matrix3x3::Matrix3x3(const vf32_z row0, const vf32_z row1, const vf32_z row2) : BaseMatrix3x3(row0, row1, row2)
+Matrix3x3::Matrix3x3(const vf32_z row0, const vf32_z row1, const vf32_z row2)
 {
+    float_z fAux;
+
+    SVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], fAux);
+    SVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], fAux);
+    SVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], fAux);
 }
 
 
@@ -86,6 +105,24 @@ Matrix3x3::Matrix3x3(const vf32_z row0, const vf32_z row1, const vf32_z row2) : 
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
+
+bool Matrix3x3::operator==(const Matrix3x3 &matrix) const
+{
+    return SFloat::AreEqual(this->ij[0][0], matrix.ij[0][0]) &&
+           SFloat::AreEqual(this->ij[0][1], matrix.ij[0][1]) &&
+           SFloat::AreEqual(this->ij[0][2], matrix.ij[0][2]) &&
+           SFloat::AreEqual(this->ij[1][0], matrix.ij[1][0]) &&
+           SFloat::AreEqual(this->ij[1][1], matrix.ij[1][1]) &&
+           SFloat::AreEqual(this->ij[1][2], matrix.ij[1][2]) &&
+           SFloat::AreEqual(this->ij[2][0], matrix.ij[2][0]) &&
+           SFloat::AreEqual(this->ij[2][1], matrix.ij[2][1]) &&
+           SFloat::AreEqual(this->ij[2][2], matrix.ij[2][2]);
+}
+
+bool Matrix3x3::operator!=(const Matrix3x3 &matrix) const
+{
+    return  !(*this == matrix);
+}
 
 Matrix3x3 Matrix3x3::operator*(const float_z fScalar) const
 {
@@ -122,7 +159,7 @@ Matrix3x3 operator*(const float_z fScalar, const Matrix3x3 &matrix)
     return aux;
 }
 
-Matrix3x3 Matrix3x3::operator*(const BaseMatrix3x3 &matrix) const
+Matrix3x3 Matrix3x3::operator*(const Matrix3x3 &matrix) const
 {
     Matrix3x3 aux;
 
@@ -141,9 +178,9 @@ Matrix3x3 Matrix3x3::operator*(const BaseMatrix3x3 &matrix) const
     return aux;
 }
 
-BaseMatrix3x4 Matrix3x3::operator*(const BaseMatrix3x4& matrix) const
+Matrix3x4 Matrix3x3::operator*(const Matrix3x4& matrix) const
 {
-    BaseMatrix3x4 aux;
+    Matrix3x4 aux;
 
     aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0] + this->ij[0][1] * matrix.ij[1][0] + this->ij[0][2] * matrix.ij[2][0];
     aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1] + this->ij[0][1] * matrix.ij[1][1] + this->ij[0][2] * matrix.ij[2][1];
@@ -201,7 +238,7 @@ Matrix3x3 Matrix3x3::operator/(const float_z fScalar) const
     return aux;
 }
 
-Matrix3x3 Matrix3x3::operator+(const BaseMatrix3x3 &matrix) const
+Matrix3x3 Matrix3x3::operator+(const Matrix3x3 &matrix) const
 {
     Matrix3x3 aux;
 
@@ -218,7 +255,7 @@ Matrix3x3 Matrix3x3::operator+(const BaseMatrix3x3 &matrix) const
     return aux;
 }
 
-Matrix3x3 Matrix3x3::operator-(const BaseMatrix3x3 &matrix) const
+Matrix3x3 Matrix3x3::operator-(const Matrix3x3 &matrix) const
 {
     Matrix3x3 aux;
 
@@ -235,7 +272,7 @@ Matrix3x3 Matrix3x3::operator-(const BaseMatrix3x3 &matrix) const
     return aux;
 }
 
-Matrix3x3& Matrix3x3::operator*=(const BaseMatrix3x3 &matrix)
+Matrix3x3& Matrix3x3::operator*=(const Matrix3x3 &matrix)
 {
     Matrix3x3 aux;
 
@@ -275,7 +312,7 @@ Matrix3x3& Matrix3x3::operator/=(const float_z fScalar)
     return *this;
 }
 
-Matrix3x3& Matrix3x3::operator+=(const BaseMatrix3x3 &matrix)
+Matrix3x3& Matrix3x3::operator+=(const Matrix3x3 &matrix)
 {
     this->ij[0][0] += matrix.ij[0][0];
     this->ij[0][1] += matrix.ij[0][1];
@@ -290,7 +327,7 @@ Matrix3x3& Matrix3x3::operator+=(const BaseMatrix3x3 &matrix)
     return *this;
 }
 
-Matrix3x3& Matrix3x3::operator-=(const BaseMatrix3x3 &matrix)
+Matrix3x3& Matrix3x3::operator-=(const Matrix3x3 &matrix)
 {
     this->ij[0][0] -= matrix.ij[0][0];
     this->ij[0][1] -= matrix.ij[0][1];
@@ -302,12 +339,6 @@ Matrix3x3& Matrix3x3::operator-=(const BaseMatrix3x3 &matrix)
     this->ij[2][1] -= matrix.ij[2][1];
     this->ij[2][2] -= matrix.ij[2][2];
 
-    return *this;
-}
-
-Matrix3x3& Matrix3x3::operator=(const BaseMatrix3x3 &matrix)
-{
-    BaseMatrix3x3::operator=(matrix);
     return *this;
 }
 

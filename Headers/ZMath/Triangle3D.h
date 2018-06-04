@@ -39,6 +39,8 @@
 
 namespace z
 {
+namespace Internals
+{
 
 /// <summary>
 /// Class which represents a triangle in 3D.
@@ -53,7 +55,7 @@ class Triangle3D : public Triangle<VectorT>
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Triangle3D()
     {
@@ -71,7 +73,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="triangle">[IN] The 3D triangle in which we want resident 3D triangle to be based.</param>
-    Triangle3D(const BaseTriangle<VectorT> &triangle) : Triangle<VectorT>(triangle)
+    Triangle3D(const Triangle<VectorT> &triangle) : Triangle<VectorT>(triangle)
     {
     }
 
@@ -122,9 +124,9 @@ public:
     /// <returns>
     /// A reference to the triangle.
     /// </returns>
-    Triangle3D<VectorT>& operator=(const BaseTriangle<VectorT> &triangle)
+    Triangle3D<VectorT>& operator=(const Triangle<VectorT> &triangle)
     {
-        BaseTriangle<VectorT>::operator=(triangle);
+        Triangle<VectorT>::operator=(triangle);
         return *this;
     }
 
@@ -187,7 +189,7 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    Triangle3D<VectorT> Translate(const BaseVector3 &vTranslation) const
+    Triangle3D<VectorT> Translate(const Vector3 &vTranslation) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
         SPoint::Translate(vTranslation, rcast_z(&auxTriangle, VectorT*), 3);
@@ -290,7 +292,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    Triangle3D<VectorT> Scale(const BaseVector3 &vScale) const
+    Triangle3D<VectorT> Scale(const Vector3 &vScale) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
         SPoint::Scale(vScale, rcast_z(&auxTriangle, VectorT*), 3);
@@ -336,7 +338,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    Triangle3D<VectorT> ScaleWithPivot(const BaseVector3 &vScale, const VectorT &vPivot) const
+    Triangle3D<VectorT> ScaleWithPivot(const Vector3 &vScale, const VectorT &vPivot) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
         SPoint::ScaleWithPivot(vScale, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
@@ -490,7 +492,7 @@ public:
     /// - Negative Side
     /// - Both Sides (intersects the plane).
     /// </returns>
-    ESpaceRelation SpaceRelation(const BasePlane &plane) const
+    ESpaceRelation SpaceRelation(const Plane &plane) const
     {
         // The plane should not be null
         Z_ASSERT_WARNING( !(SFloat::IsZero(plane.a) && SFloat::IsZero(plane.b) && SFloat::IsZero(plane.c)), "Input plane should not be null" );
@@ -587,6 +589,14 @@ template class Z_MATH_MODULE_SYMBOLS Triangle3D<Vector3>;
 template class Z_MATH_MODULE_SYMBOLS Triangle3D<Vector4>;
 
 #endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
+
+} // namespace Internals
+
+
+// TYPEDEFS
+// ----------
+typedef Internals::Triangle<Vector3> Triangle3;
+typedef Internals::Triangle<Vector4> Triangle4;
 
 } // namespace z
 

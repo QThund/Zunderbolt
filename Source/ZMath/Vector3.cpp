@@ -34,10 +34,10 @@
 #include "ZMath/SpaceConversionMatrix.h"
 #include "ZMath/TranslationMatrix.h"
 #include "ZMath/TransformationMatrix.h"
-#include "ZMath/BaseVector4.h"
+#include "ZMath/Vector4.h"
 #include "ZMath/SAngle.h"
 #include "ZMath/MathDefinitions.h"
-
+#include "ZCommon/DataTypes/SVF32.h"
 
 
 namespace z
@@ -57,41 +57,43 @@ Vector3::Vector3()
 {
 }
 
-Vector3::Vector3(const Vector3 &vVector) : BaseVector3(vVector)
+Vector3::Vector3(const Vector4 &vVector) : x(vVector.x), y(vVector.y), z(vVector.z)
 {
 }
 
-Vector3::Vector3(const BaseVector3 &vVector) : BaseVector3(vVector)
+Vector3::Vector3(const float_z fValueX, const float_z fValueY, const float_z fValueZ) : x(fValueX), y(fValueY), z(fValueZ)
 {
 }
 
-Vector3::Vector3(const BaseVector4 &vVector) : BaseVector3(vVector.x, vVector.y, vVector.z)
+Vector3::Vector3(const float_z fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll)
 {
 }
 
-Vector3::Vector3(const float_z fValueX, const float_z fValueY, const float_z fValueZ) : BaseVector3(fValueX, fValueY, fValueZ)
+Vector3::Vector3(const float_z* arValues)
+{
+    // Null pointer checkout
+    Z_ASSERT_ERROR(arValues != null_z, "The input array must not be null");
+
+    // Assignments
+    this->x = arValues[0];
+    this->y = arValues[1];
+    this->z = arValues[2];
+}
+
+Vector3::Vector3(const vf32_z value)
+{
+    float_z fAux;
+
+    SVF32::Unpack(value, this->x, this->y, this->z, fAux);
+}
+
+Vector3::Vector3(const TranslationMatrix4x3 &translation) :
+                       Vector3(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2])
 {
 }
 
-Vector3::Vector3(const float_z fValueAll) : BaseVector3(fValueAll)
-{
-}
-
-Vector3::Vector3(const float_z* arValues) : BaseVector3(arValues)
-{
-}
-
-Vector3::Vector3(const vf32_z value) : BaseVector3(value)
-{
-}
-
-Vector3::Vector3(const TranslationMatrix<Matrix4x3> &translation) :
-                       BaseVector3(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2])
-{
-}
-
-Vector3::Vector3(const TranslationMatrix<Matrix4x4> &translation) :
-                       BaseVector3(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2])
+Vector3::Vector3(const TranslationMatrix4x4 &translation) :
+                       Vector3(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2])
 {
 }
 
@@ -105,12 +107,22 @@ Vector3::Vector3(const TranslationMatrix<Matrix4x4> &translation) :
 //##################                                                       ##################
 //##################=======================================================##################
 
-Vector3 Vector3::operator+(const BaseVector3 &vVector) const
+bool Vector3::operator==(const Vector3 &vVector) const
+{
+    return ( SFloat::AreEqual(vVector.x, this->x) && SFloat::AreEqual(vVector.y, this->y) && SFloat::AreEqual(vVector.z, this->z) );
+}
+
+bool Vector3::operator!=(const Vector3 &vVector) const
+{
+    return !(*this == vVector);
+}
+
+Vector3 Vector3::operator+(const Vector3 &vVector) const
 {
     return Vector3(this->x + vVector.x, this->y + vVector.y, this->z + vVector.z);
 }
 
-Vector3 Vector3::operator-(const BaseVector3 &vVector) const
+Vector3 Vector3::operator-(const Vector3 &vVector) const
 {
     return Vector3(this->x - vVector.x, this->y - vVector.y, this->z - vVector.z);
 }
@@ -120,12 +132,12 @@ Vector3 Vector3::operator*(const float_z fScalar) const
     return Vector3(this->x * fScalar, this->y * fScalar, this->z * fScalar);
 }
 
-Vector3 Vector3::operator*(const BaseVector3 &vVector) const
+Vector3 Vector3::operator*(const Vector3 &vVector) const
 {
     return Vector3(this->x * vVector.x, this->y * vVector.y, this->z * vVector.z);
 }
 
-Vector3 Vector3::operator*(const BaseMatrix3x3 &matrix) const
+Vector3 Vector3::operator*(const Matrix3x3 &matrix) const
 {
     return Vector3(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + this->z * matrix.ij[2][0],
                     this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + this->z * matrix.ij[2][1],
@@ -133,9 +145,9 @@ Vector3 Vector3::operator*(const BaseMatrix3x3 &matrix) const
 
 }
 
-BaseVector4 Vector3::operator*(const BaseMatrix3x4 &matrix) const
+Vector4 Vector3::operator*(const Matrix3x4 &matrix) const
 {
-    return BaseVector4(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + this->z * matrix.ij[2][0],
+    return Vector4(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + this->z * matrix.ij[2][0],
                         this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + this->z * matrix.ij[2][1],
                         this->x * matrix.ij[0][2] + this->y * matrix.ij[1][2] + this->z * matrix.ij[2][2],
                         this->x * matrix.ij[0][3] + this->y * matrix.ij[1][3] + this->z * matrix.ij[2][3]);
@@ -152,7 +164,7 @@ Vector3 Vector3::operator/(const float_z fScalar) const
     return Vector3(this->x * DIVISOR, this->y * DIVISOR, this->z * DIVISOR);
 }
 
-Vector3 Vector3::operator/(const BaseVector3 &vVector) const
+Vector3 Vector3::operator/(const Vector3 &vVector) const
 {
     // Checkout to avoid division by 0
     Z_ASSERT_WARNING (vVector.x != SFloat::_0 && vVector.y != SFloat::_0 && vVector.z != SFloat::_0, "Input vector must not be null");
@@ -160,7 +172,7 @@ Vector3 Vector3::operator/(const BaseVector3 &vVector) const
     return Vector3(this->x / vVector.x, this->y / vVector.y, this->z / vVector.z);
 }
 
-Vector3& Vector3::operator+=(const BaseVector3 &vVector)
+Vector3& Vector3::operator+=(const Vector3 &vVector)
 {
     this->x += vVector.x;
     this->y += vVector.y;
@@ -169,7 +181,7 @@ Vector3& Vector3::operator+=(const BaseVector3 &vVector)
     return *this;
 }
 
-Vector3& Vector3::operator-=(const BaseVector3 &vVector)
+Vector3& Vector3::operator-=(const Vector3 &vVector)
 {
     this->x -= vVector.x;
     this->y -= vVector.y;
@@ -187,7 +199,7 @@ Vector3& Vector3::operator*=(const float_z fScalar)
     return *this;
 }
 
-Vector3& Vector3::operator*=(const BaseVector3 &vVector)
+Vector3& Vector3::operator*=(const Vector3 &vVector)
 {
     this->x *= vVector.x;
     this->y *= vVector.y;
@@ -196,7 +208,7 @@ Vector3& Vector3::operator*=(const BaseVector3 &vVector)
     return *this;
 }
 
-Vector3& Vector3::operator*=(const BaseMatrix3x3 &matrix)
+Vector3& Vector3::operator*=(const Matrix3x3 &matrix)
 {
     Vector3 vAux( this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + this->z * matrix.ij[2][0],
                    this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + this->z * matrix.ij[2][1],
@@ -228,7 +240,7 @@ Vector3& Vector3::operator/=(const float_z fScalar)
     return *this;
 }
 
-Vector3& Vector3::operator/=(const BaseVector3 &vVector)
+Vector3& Vector3::operator/=(const Vector3 &vVector)
 {
     // Checkout to avoid division by 0
     Z_ASSERT_WARNING(vVector.x != SFloat::_0 && vVector.y != SFloat::_0 && vVector.z != SFloat::_0, "Input vector must not be null");
@@ -237,12 +249,6 @@ Vector3& Vector3::operator/=(const BaseVector3 &vVector)
     this->y /= vVector.y;
     this->z /= vVector.z;
 
-    return *this;
-}
-
-Vector3& Vector3::operator=(const BaseVector3 &vVector)
-{
-    BaseVector3::operator=(vVector);
     return *this;
 }
 
@@ -297,7 +303,7 @@ bool Vector3::IsVectorOfOnes() const
     return SFloat::AreEqual(this->x, SFloat::_1) && SFloat::AreEqual(this->y, SFloat::_1) && SFloat::AreEqual(this->z, SFloat::_1);
 }
 
-float_z Vector3::DotProduct(const BaseVector3 &vVector) const
+float_z Vector3::DotProduct(const Vector3 &vVector) const
 {
     return(this->x * vVector.x + this->y * vVector.y + this->z * vVector.z);
 }
@@ -330,7 +336,7 @@ float_z Vector3::AngleBetween(const Vector3 &vVector) const
     return fAngle;
 }
 
-Vector3 Vector3::CrossProduct(const BaseVector3 &vVector) const
+Vector3 Vector3::CrossProduct(const Vector3 &vVector) const
 {
     return Vector3(this->y * vVector.z - this->z * vVector.y,
                     this->z * vVector.x - this->x * vVector.z,
@@ -344,7 +350,7 @@ Vector3 Vector3::Lerp(const float_z fProportion, const Vector3 &vVector) const
                     this->z * (SFloat::_1 - fProportion) + vVector.z * fProportion);
 }
 
-float_z Vector3::Distance(const BaseVector3 &vVector) const
+float_z Vector3::Distance(const Vector3 &vVector) const
 {
     return (*this - vVector).GetLength();
 }
@@ -361,8 +367,8 @@ Vector3 Vector3::Transform(const Quaternion &qRotation) const
 
 Vector3 Vector3::Transform(const DualQuaternion &transformation) const
 {
-    DualQuaternion dqAux(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
-                          BaseQuaternion(this->x, this->y, this->z, SFloat::_0));
+    DualQuaternion dqAux(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
+                          Quaternion(this->x, this->y, this->z, SFloat::_0));
     DualQuaternion dqConj = transformation.DoubleConjugate();
 
     dqAux = (transformation * dqAux ) * dqConj;
@@ -387,22 +393,22 @@ Vector3 Vector3::Transform(const ScalingMatrix3x3 &scale) const
     return Vector3(this->x * scale.ij[0][0], this->y * scale.ij[1][1], this->z * scale.ij[2][2]);
 }
 
-Vector3 Vector3::Transform(const TranslationMatrix<Matrix4x3> &translation) const
+Vector3 Vector3::Transform(const TranslationMatrix4x3 &translation) const
 {
     return TransformImp(translation);
 }
 
-Vector3 Vector3::Transform(const TranslationMatrix<Matrix4x4> &translation) const
+Vector3 Vector3::Transform(const TranslationMatrix4x4 &translation) const
 {
     return TransformImp(translation);
 }
 
-Vector3 Vector3::Transform(const TransformationMatrix<Matrix4x3> &transformation) const
+Vector3 Vector3::Transform(const TransformationMatrix4x3 &transformation) const
 {
     return TransformImp(transformation);
 }
 
-Vector3 Vector3::Transform(const TransformationMatrix<Matrix4x4> &transformation) const
+Vector3 Vector3::Transform(const TransformationMatrix4x4 &transformation) const
 {
     return TransformImp(transformation);
 }
@@ -425,17 +431,17 @@ string_z Vector3::ToString() const
 }
 
 template <class MatrixT>
-Vector3 Vector3::TransformImp(const TranslationMatrix<MatrixT> &translation) const
+Vector3 Vector3::TransformImp(const Internals::TranslationMatrix<MatrixT> &translation) const
 {
     return Vector3(this->x + translation.ij[3][0], this->y + translation.ij[3][1], this->z + translation.ij[3][2]);
 }
 
 template <class MatrixT>
-Vector3 Vector3::TransformImp(const TransformationMatrix<MatrixT> &transformation) const
+Vector3 Vector3::TransformImp(const Internals::TransformationMatrix<MatrixT> &transformation) const
 {
     return Vector3(this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0] + transformation.ij[3][0],
-                    this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + transformation.ij[3][1],
-                    this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2] + transformation.ij[3][2]);
+                   this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + transformation.ij[3][1],
+                   this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2] + transformation.ij[3][2]);
 }
 
 

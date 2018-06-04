@@ -29,7 +29,7 @@
 #include <algorithm>
 #include "ZCommon/Assertions.h"
 #include "ZMath/Vector3.h"
-#include "ZMath/BaseQuaternion.h"
+#include "ZMath/Quaternion.h"
 #include "ZMath/TranslationMatrix.h"
 #include "ZMath/ScalingMatrix3x3.h"
 #include "ZMath/TransformationMatrix.h"
@@ -56,14 +56,13 @@ namespace z
    
 RotationMatrix3x3::RotationMatrix3x3()
 {
-    this->ResetToIdentity();
 }
 
 RotationMatrix3x3::RotationMatrix3x3(const RotationMatrix3x3 &rotation) : Matrix3x3(rotation)
 {
 }
 
-RotationMatrix3x3::RotationMatrix3x3(const BaseMatrix3x3 &rotation) : Matrix3x3(rotation)
+RotationMatrix3x3::RotationMatrix3x3(const Matrix3x3 &rotation) : Matrix3x3(rotation)
 {
 }
 
@@ -107,7 +106,7 @@ RotationMatrix3x3::RotationMatrix3x3(const float_z fRotationAngleX, const float_
     ij[2][2]  =  fA * fC;
 }
 
-RotationMatrix3x3::RotationMatrix3x3 (const float_z fRotationAngle, const BaseVector3 &vRotationAxis)
+RotationMatrix3x3::RotationMatrix3x3 (const float_z fRotationAngle, const Vector3 &vRotationAxis)
 {
     // Taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
     // but changing factors affected by sinus to get a left handed matrix.
@@ -148,7 +147,7 @@ RotationMatrix3x3::RotationMatrix3x3 (const float_z fRotationAngle, const BaseVe
     this->ij[2][2] = fA + (SFloat::_1 - fA) * vRotationAxis.z * vRotationAxis.z;
 }
 
-RotationMatrix3x3::RotationMatrix3x3(const BaseQuaternion &qRotation)
+RotationMatrix3x3::RotationMatrix3x3(const Quaternion &qRotation)
 {
     // Taken from http://osdir.com/ml/games.devel.algorithms/2002-11/msg00318.html
 
@@ -206,19 +205,19 @@ RotationMatrix3x3 RotationMatrix3x3::operator*(const RotationMatrix3x3 &matrix) 
     return aux;
 }
 
-TransformationMatrix<Matrix4x4> RotationMatrix3x3::operator*(const TranslationMatrix<Matrix4x4> &matrix) const
+TransformationMatrix4x4 RotationMatrix3x3::operator*(const TranslationMatrix4x4 &matrix) const
 {
     return this->ProductOperatorImp<Matrix4x4>(matrix);
 }
 
-TransformationMatrix<Matrix4x3> RotationMatrix3x3::operator*(const TranslationMatrix<Matrix4x3> &matrix) const
+TransformationMatrix4x3 RotationMatrix3x3::operator*(const TranslationMatrix4x3 &matrix) const
 {
     return this->ProductOperatorImp<Matrix4x3>(matrix);
 }
 
-TransformationMatrix<Matrix4x4> RotationMatrix3x3::operator*(const ScalingMatrix3x3 &matrix) const
+TransformationMatrix4x4 RotationMatrix3x3::operator*(const ScalingMatrix3x3 &matrix) const
 {
-    TransformationMatrix<Matrix4x4> aux;
+    TransformationMatrix4x4 aux;
 
     aux.ResetToIdentity();
 
@@ -237,19 +236,19 @@ TransformationMatrix<Matrix4x4> RotationMatrix3x3::operator*(const ScalingMatrix
     return aux;
 }
 
-TransformationMatrix<Matrix4x4> RotationMatrix3x3::operator*(const TransformationMatrix<Matrix4x4> &matrix) const
+TransformationMatrix4x4 RotationMatrix3x3::operator*(const TransformationMatrix4x4 &matrix) const
 {
     return this->ProductOperatorImp<Matrix4x4>(matrix);
 }
 
-TransformationMatrix<Matrix4x3> RotationMatrix3x3::operator*(const TransformationMatrix<Matrix4x3> &matrix) const
+TransformationMatrix4x3 RotationMatrix3x3::operator*(const TransformationMatrix4x3 &matrix) const
 {
     return this->ProductOperatorImp<Matrix4x3>(matrix);
 }
 
-RotationMatrix3x3& RotationMatrix3x3::operator=(const BaseMatrix3x3 &matrix)
+RotationMatrix3x3& RotationMatrix3x3::operator=(const Matrix3x3 &matrix)
 {
-    BaseMatrix3x3::operator=(matrix);
+    Matrix3x3::operator=(matrix);
     return *this;
 }
 
@@ -313,7 +312,7 @@ void RotationMatrix3x3::GetRotation(float_z &fRotationAngleX, float_z &fRotation
     #endif
 }
 
-void RotationMatrix3x3::GetRotation(BaseQuaternion &qRotation) const
+void RotationMatrix3x3::GetRotation(Quaternion &qRotation) const
 {
     // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/christian.htm
 
@@ -331,7 +330,7 @@ void RotationMatrix3x3::GetRotation(BaseQuaternion &qRotation) const
     SFloat::CopySign(this->ij[0][1] - this->ij[1][0], qRotation.z);
 }
 
-void RotationMatrix3x3::GetRotation(float_z &fRotationAngle, BaseVector3 &vRotationAxis) const
+void RotationMatrix3x3::GetRotation(float_z &fRotationAngle, Vector3 &vRotationAxis) const
 {
     // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
     // Source: http://en.wikipedia.org/wiki/Rotation_representation_%28mathematics%29#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
@@ -453,9 +452,9 @@ float_z RotationMatrix3x3::GetDeterminant() const
 }
 
 template <class MatrixT>
-TransformationMatrix<MatrixT> RotationMatrix3x3::ProductOperatorImp(const TranslationMatrix<MatrixT> &matrix) const
+Internals::TransformationMatrix<MatrixT> RotationMatrix3x3::ProductOperatorImp(const Internals::TranslationMatrix<MatrixT> &matrix) const
 {
-    TransformationMatrix<MatrixT> aux(TransformationMatrix<MatrixT>::GetIdentity());
+    Internals::TransformationMatrix<MatrixT> aux(Internals::TransformationMatrix<MatrixT>::GetIdentity());
 
     aux.ij[3][0] = matrix.ij[3][0];
     aux.ij[3][1] = matrix.ij[3][1];
@@ -477,9 +476,9 @@ TransformationMatrix<MatrixT> RotationMatrix3x3::ProductOperatorImp(const Transl
 }
 
 template <class MatrixT>
-TransformationMatrix<MatrixT> RotationMatrix3x3::ProductOperatorImp(const TransformationMatrix<MatrixT> &matrix) const
+Internals::TransformationMatrix<MatrixT> RotationMatrix3x3::ProductOperatorImp(const Internals::TransformationMatrix<MatrixT> &matrix) const
 {
-    TransformationMatrix<MatrixT> aux(TransformationMatrix<MatrixT>::GetIdentity());
+    Internals::TransformationMatrix<MatrixT> aux(Internals::TransformationMatrix<MatrixT>::GetIdentity());
 
     aux.ij[3][0] = matrix.ij[3][0];
     aux.ij[3][1] = matrix.ij[3][1];

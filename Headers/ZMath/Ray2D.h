@@ -37,12 +37,19 @@
 namespace z
 {
 
-// Forward declarations
-template<class VectorT> class BaseLineSegment;
-class LineSegment2D;
-template<class VectorT> class BaseTriangle;
-class BaseQuadrilateral;
+
+// FORWARD DECLARATIONS
+// ---------------------
 class TransformationMatrix3x3;
+
+
+namespace Internals
+{
+
+
+// FORWARD DECLARATIONS
+// ---------------------
+template<class VectorT> class Triangle;
 
 
 /// <summary>
@@ -66,7 +73,7 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Ray2D();
 
@@ -80,7 +87,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="ray">[IN] The 2D ray in which we want resident 2D ray to be based.</param>
-    Ray2D(const BaseRay<Vector2, Vector2> &ray);
+    Ray2D(const Ray<Vector2, Vector2> &ray);
 
     /// <summary>
     /// Constructor that receives the ray's position and direction.
@@ -133,46 +140,8 @@ public:
     /// <returns>
     /// A reference to this ray, after assignation.
     /// </returns>
-    Ray2D& operator=(const BaseRay<Vector2, Vector2> &ray);
-
-    /// <summary>
-    /// Checks if the ray intersects with another one.
-    /// </summary>
-    /// <remarks>
-    /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
-    /// <br/>
-    /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$<br/>
-    /// <br/>
-    /// \f$ P \equiv P_2 + \lambda_2 \cdot D_2 \f$<br/>
-    /// <br/>
-    /// These ecuations can be decomposed by components, obtaining  two equalities:<br/>
-    /// <br/>
-    /// 1) \f$ P_{1x} + \lambda_1 \cdot D_{1x} = P_{2x} + \lambda_2 \cdot D_{2x}\f$<br/>
-    /// <br/>
-    /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$<br/>
-    /// <br/>
-    /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
-    /// ensure that the ray's direction is being followed.<br/>
-    /// When rays' direction vector are parallel, one ray containing the other ray origin point is checked.
-    /// </remarks>
-    /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
-    /// <returns>
-    /// A boolean value that indicates whether the rays intersect or not.<br/>
-    /// <br/>
-    /// <b>True</b><br/>
-    /// The rays intersect, including the following cases:
-    /// - The rays intersect in one point.
-    /// - Tha rays are the same.
-    /// - One ray's origin is contained in the other ray.
-    /// - The rays share the same origin.
-    /// - One ray is contained in the other.
-    /// - Both rays point to the origin of the other, coinciding partially.
-    ///
-    /// <b>False</b><br/>
-    /// The rays do not intersect.
-    /// </returns>
-    bool Intersection(const Ray2D &ray) const;
-
+    Ray2D& operator=(const Ray<Vector2, Vector2> &ray);
+    
     /// <summary>
     /// Checks if the ray intersects with the provided triangle.
     /// </summary>
@@ -195,80 +164,9 @@ public:
     /// <b>False</b><br/>
     /// The ray and the triangle do not intersect.
     /// </returns>
-    bool Intersection(const BaseTriangle<Vector2> &triangle) const;
+    bool Intersection(const Triangle<Vector2> &triangle) const;
 
-    /// <summary>
-    /// Checks if the ray intersects with the provided quadrilateral.
-    /// </summary>
-    /// <remarks>
-    /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.
-    /// </remarks>
-    /// <param name="quad">[IN] The quadrilateral whose intersection with the ray will be checked. If any of its vertices coincide, 
-    /// the result is undefined.</param>
-    /// <returns>
-    /// A boolean value that indicates whether the ray and the quadrilateral intersect or not.<br/>
-    /// <br/>
-    /// <b>True</b><br/>
-    /// The ray and the quadrilateral intersect, including the following cases:
-    /// - The ray intersects with two edges of the quadrilateral.
-    /// - The origin of the ray belongs to an edge of the quadrilateral.
-    /// - The ray intersects with a vertex of the quadrilateral.
-    /// - The origin of the ray is contained in the quadrilateral.
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray points to a vertex of the same edge.
-    /// - The ray intersects with two vertices of the quadrilateral.
-    ///
-    /// <b>False</b><br/>
-    /// The ray and the quadrilateral do not intersect.
-    /// </returns>
-    bool Intersection(const BaseQuadrilateral &quad) const;
-
-    /// <summary>
-    /// Computes the intersection point between resident and provided ray.
-    /// </summary>
-    /// <remarks>
-    /// If there are not intersection points or if there are infinite,
-    /// the output parameter used for storing that point won't be modified.<br/>
-    /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
-    /// <br/>
-    /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$<br/>
-    /// <br/>
-    /// \f$ P \equiv P_2 + \lambda_2 \cdot D_2 \f$<br/>
-    /// <br/>
-    /// These ecuations can be decomposed by components, obtaining two equalities:<br/>
-    /// <br/>
-    /// 1) \f$ P_{1x} + \lambda_1 \cdot D_{1x} = P_{2x} + \lambda_2 \cdot D_{2x}\f$<br/>
-    /// <br/>
-    /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$<br/>
-    /// <br/>
-    /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
-    /// ensure that the ray's direction is being followed.<br/>
-    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
-    /// </remarks>
-    /// <param name="ray">[IN] The ray whose intersection with the resident ray will be checked.</param>
-    /// <param name="vIntersection">[OUT] The closest intersection point to the resident ray's origin.</param>
-    /// <returns>
-    /// An enumerated value that indicates how many intersections were found:<br/>
-    /// <br/>
-    /// <b>None</b><br/>
-    /// There are no intersections.<br/>
-    ///
-    /// <b>One</b><br/>
-    /// There is one intersection.<br/>
-    /// - The rays intersect in one point.
-    /// - The origin of one ray is contained in the other ray.
-    /// - The origin of both rays coincide.
-    /// - One ray is contained in the other.
-    ///
-    /// <b>Two</b><br/>
-    /// There are two intersections.<br/>
-    /// - Both rays point to each other.
-    ///
-    /// <b>Infinite</b><br/>
-    /// There are infinite intersections.<br/>
-    /// - The rays are the same.
-    /// </returns>
-    EIntersections IntersectionPoint(const Ray2D &ray, BaseVector2 &vIntersection) const;
-    
+    /*
     /// <summary>
     /// Computes the intersection point between the ray and provided triangle.
     /// </summary>
@@ -300,7 +198,7 @@ public:
     /// - The origin of the ray belongs to an edge and the ray intersects with a vertex of the same edge.
     /// - The ray intersects with two vertices of the triangle.
     /// </returns>
-    EIntersections IntersectionPoint(const BaseTriangle<Vector2> &triangle, BaseVector2 &vIntersection) const;
+    EIntersections IntersectionPoint(const Triangle<Vector2> &triangle, Vector2 &vIntersection) const;
 
     /// <summary>
     /// Computes the intersection point between the ray and provided triangle.
@@ -334,157 +232,8 @@ public:
     /// - The origin of the ray belongs to an edge and the ray intersects with a vertex of the same edge.
     /// - The ray intersects with two vertices of the triangle.
     /// </returns>
-    EIntersections IntersectionPoint(const BaseTriangle<Vector2> &triangle, BaseVector2 &vIntersection1, BaseVector2 &vIntersection2) const;
-
-    /// <summary>
-    /// Computes the intersection point between the ray and provided quadrilateral.
-    /// </summary>
-    /// <remarks>
-    /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.<br/>
-    /// If there's no intersection point, the output parameter won't be modified.
-    /// </remarks>
-    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
-    /// the result is undefined.</param>
-    /// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
-    /// <returns>
-    /// An enumerated value that indicates how many intersections were found:<br/>
-    /// <br/>
-    /// <b>None</b><br/>
-    /// There are no intersections.<br/>
-    ///
-    /// <b>One</b><br/>
-    /// There is one intersection.<br/>
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the quadrilateral.
-    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the quadrilateral.
-    /// - The ray intersects with only one vertex of the quadrilateral.
-    /// - The origin of the ray is contained in the quadrilateral.
-    ///
-    /// <b>Two</b><br/>
-    /// There are two intersections.<br/>
-    /// - The ray intersects with two edges of the quadrilateral.
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with another edge.
-    /// - The origin of the ray coincides with a vertex of the quadrilateral and the ray intersects with another edge.
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with a vertex of the edge.
-    /// - The ray intersects with two vertices of the quadrilateral.
-    /// </returns>
-    EIntersections IntersectionPoint(const BaseQuadrilateral &quad, BaseVector2 &vIntersection) const;
-
-    /// <summary>
-    /// Computes the intersection point between the ray and provided quadrilateral.
-    /// </summary>
-    /// <remarks>
-    /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.<br/>
-    /// If there's no intersection point, the output parameters won't be modified.
-    /// </remarks>
-    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
-    /// the result is undefined.</param>
-    /// <param name="vIntersection1">[OUT] Closest intersection point to ray origin point, if it exists.</param>
-    /// <param name="vIntersection2">[OUT] Furthest intersection point to ray origin point, if it exists.</param>
-    /// <returns>
-    /// An enumerated value that indicates how many intersections were found:<br/>
-    /// <br/>
-    /// <b>None</b><br/>
-    /// There are no intersections.<br/>
-    ///
-    /// <b>One</b><br/>
-    /// There is one intersection.<br/>
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the quadrilateral.
-    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the quadrilateral.
-    /// - The ray intersects with only one vertex of the quadrilateral.
-    /// - The origin of the ray is contained in the quadrilateral.
-    ///
-    /// <b>Two</b><br/>
-    /// There are two intersections.<br/>
-    /// - The ray intersects with two edges of the quadrilateral.
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with another edge.
-    /// - The origin of the ray coincides with a vertex of the quadrilateral and the ray intersects with another edge.
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with a vertex of the edge.
-    /// - The ray intersects with two vertices of the quadrilateral.
-    /// </returns>
-    EIntersections IntersectionPoint(const BaseQuadrilateral &quad, BaseVector2 &vIntersection1, BaseVector2 &vIntersection2) const;
-
-    /// <summary>
-    /// Checks if the ray and the provided line segment intersect.
-    /// </summary>
-    /// <remarks>
-    /// If the direction of the ray is null the result is undefined.
-    /// </remarks>
-    /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
-    /// <returns>
-    /// A boolean value that indicates whether the ray and the line segment intersect or not.<br/>
-    /// <br/>
-    /// <b>True</b><br/>
-    /// The ray and the line segment intersect, including the following cases:
-    /// - The ray intersects with the segment, between endpoints A and B.
-    /// - The origin of the ray coincides with an endpoint of the line and the ray intersects with the other endpoint.
-    /// - The origin of the ray belongs to the line segment.
-    /// - The origin of the ray coincides with an endpoint of the line and the ray does not point to the othe endpoint.
-    /// - The ray intersects with only one endpoint of the segment.
-    ///
-    /// <b>False</b><br/>
-    /// The ray and the line segment do not intersect.
-    /// </returns>
-    bool Intersection(const BaseLineSegment<Vector2> &segment) const;
-
-    /// <summary>
-    /// Computes the intersection point between the ray and provided line segment, if it exists.
-    /// </summary>
-    /// <remarks>
-    /// If the direction of the ray is null the result is undefined.<br/>
-    /// If there's no intersection point, the output parameters won't be modified.
-    /// </remarks>
-    /// <param name="segment">[IN] The line segment whose intersection with the ray will be checked.</param>
-    /// <param name="vIntersection">[OUT] Closest intersection point to the ray's origin point, if it exists.</param>
-    /// <returns>
-    /// An enumerated value that indicates how many intersections were found:<br/>
-    /// <br/>
-    /// <b>None</b><br/>
-    /// There are no intersections.<br/>
-    ///
-    /// <b>One</b><br/>
-    /// There is one intersection.<br/>
-    /// - The ray intersects with the line segment, between the endpoints A and B.
-    /// - The origin of the ray belongs to the line segment.
-    /// - The origin of the ray coincides with an endpoint of the line.
-    /// - The ray intersects with only one endpoint of the line.
-    ///
-    /// <b>Two</b><br/>
-    /// There are two intersections.<br/>
-    /// - The origin of the ray coincides with an endpoint of the line and contains the line.
-    /// - The ray contains the line segment.
-    /// </returns>
-    EIntersections IntersectionPoint(const BaseLineSegment<Vector2> &segment, BaseVector2 &vIntersection) const;
-
-    /// <summary>
-    /// Computes the intersection point between the ray and provided line segment, if it exists.
-    /// </summary>
-    /// <remarks>
-    /// If the direction of the ray is null the result is undefined.<br/>
-    /// If there's no intersection point, the output parameters won't be modified.
-    /// </remarks>
-    /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
-    /// <param name="vIntersection1">[OUT] Closest intersection point to the ray's origin point, if it exists.</param>
-    /// <param name="vIntersection2">[OUT] Furthest intersection point to the ray's origin point, if it exists.</param>
-    /// <returns>
-    /// An enumerated value that indicates how many intersections were found:<br/>
-    /// <br/>
-    /// <b>None</b><br/>
-    /// There are no intersections.<br/>
-    ///
-    /// <b>One</b><br/>
-    /// There is one intersection.<br/>
-    /// - The ray intersects with the line segment, between the endpoints A and B.
-    /// - The origin of the ray belongs to the line segment.
-    /// - The origin of the ray coincides with an endpoint of the line.
-    /// - The ray intersects with only one endpoint of the line.
-    ///
-    /// <b>Two</b><br/>
-    /// There are two intersections.<br/>
-    /// - The origin of the ray coincides with an endpoint of the line and contains the line.
-    /// - The ray contains the line segment.
-    /// </returns>
-    EIntersections IntersectionPoint(const BaseLineSegment<Vector2> &segment, BaseVector2 &vIntersection1, BaseVector2 &vIntersection2) const;
-
+    EIntersections IntersectionPoint(const Triangle<Vector2> &triangle, Vector2 &vIntersection1, Vector2 &vIntersection2) const;
+    
     /// <summary>
     /// Computes a ray that is the result of resident ray reflection on the line segment provided.
     /// </summary>
@@ -497,7 +246,7 @@ public:
     /// </remarks>
     /// <param name="segment">[IN] The line segment which acts as mirror. If the length of the segment equals zero, the result is undefined.</param>
     /// <param name="ray">[OUT] The reflected ray.</param>
-    void Reflection(const BaseLineSegment<Vector2> &segment, BaseRay<Vector2, Vector2> &ray) const;
+    void Reflection(const BaseLineSegment<Vector2> &segment, Ray<Vector2, Vector2> &ray) const;
 
     /// <summary>
     /// Computes a vector that is the resultant direction of resident ray reflection on the line segment provided.
@@ -511,8 +260,8 @@ public:
     /// </remarks>
     /// <param name="segment">[IN] The line segment which acts as mirror. If the length of the segment equals zero, the result is undefined.</param>
     /// <param name="vDirection">[OUT] The direction of the reflected ray.</param>
-    void Reflection(const BaseLineSegment<Vector2> &segment, BaseVector2 &vDirection) const;
-
+    void Reflection(const BaseLineSegment<Vector2> &segment, Vector2 &vDirection) const;
+    */
     /// <summary>
     /// Applies the transformation given by the matrix provided to resident ray.
     /// </summary>
@@ -526,7 +275,7 @@ public:
     /// <returns>
     /// The transformed ray.
     /// </returns>
-    Ray2D Transform(const TransformationMatrix3x3 &transformation) const;
+    Ray2D Transform(const z::TransformationMatrix3x3 &transformation) const;
 
     /// <summary>
     /// This method rotates the resident ray the provided angle around the coordinate axis centre.
@@ -545,7 +294,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-    Ray2D RotateWithPivot(const float_z fRotationAngle, const BaseVector2 &vPivot) const;
+    Ray2D RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot) const;
 
     /// <summary>
     /// This method translates the resident ray by the translation contained in the provided vector.
@@ -554,7 +303,7 @@ public:
     /// <returns>
     /// The translated ray.
     /// </returns>
-    Ray2D Translate(const BaseVector2 &vTranslation) const;
+    Ray2D Translate(const Vector2 &vTranslation) const;
 
     /// <summary>
     /// This method translates the resident ray by the provided amounts for every axis.
@@ -577,7 +326,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-    Ray2D Scale(const BaseVector2 &vScale) const;
+    Ray2D Scale(const Vector2 &vScale) const;
 
     /// <summary>
     /// This method scales the resident ray by the amounts provided for every axis.
@@ -606,7 +355,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-    Ray2D ScaleWithPivot(const BaseVector2 &vScale, const BaseVector2 &vPivot) const;
+    Ray2D ScaleWithPivot(const Vector2 &vScale, const Vector2 &vPivot) const;
 
     /// <summary>
     /// This method scales the resident ray by the amounts provided for every axis from
@@ -622,7 +371,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-    Ray2D ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const BaseVector2 &vPivot) const;
+    Ray2D ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const Vector2 &vPivot) const;
 
     /// <summary>
     /// This method applies the transformation contained in the provided transformation matrix from
@@ -637,7 +386,7 @@ public:
     /// <returns>
     /// The transformed ray.
     /// </returns>
-    Ray2D TransformWithPivot(const TransformationMatrix3x3 &transformation, const BaseVector2 &vPivot) const;
+    Ray2D TransformWithPivot(const z::TransformationMatrix3x3 &transformation, const Vector2 &vPivot) const;
 
 protected:
     
@@ -660,7 +409,7 @@ protected:
     /// <returns>
     /// True if the point belongs to the triangle; False otherwise.
     /// </returns>
-    bool PointInsideTriangle(const BaseTriangle<Vector2>& triangle, const Vector2& vPoint) const;
+    bool PointInsideTriangle(const Triangle<Vector2>& triangle, const Vector2& vPoint) const;
 
     /// <summary>
     /// Check if two points are in the same side of a line.
@@ -674,18 +423,14 @@ protected:
     /// </returns>
     bool PointsInSameSideOfLine(const Vector2 &vP1, const Vector2 &vP2, const Vector2 &vLine1, const Vector2 &vLine2) const;
 
-    // [TODO] jwladi: Replace by the Quadrilateral Contains method, when it exists.
-
-    /// <summary>
-    /// Checks if a point is inside a quadrilateral.
-    /// </summary>
-    /// <param name="quad">[IN] The quadrilateral that may contain or not the point.</param>
-    /// <param name="vPoint">[IN] The point that may be inside or not of the quadrilateral.</param>
-    /// <returns>
-    /// True if the point belongs to the quadrilateral; False otherwise.
-    /// </returns>
-    bool PointInsideQuadrilateral(const BaseQuadrilateral& quad, const Vector2& vPoint) const;
 };
+
+} // namespace Internals
+
+
+// TYPEDEFS
+// ----------
+typedef Internals::Ray2D Ray2;
 
 } // namespace z
 

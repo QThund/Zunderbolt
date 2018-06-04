@@ -129,7 +129,7 @@ const unsigned int Z_VERSION_REVISION = 0;
 // -startingPointer: The memory address from which to start searching.
 // -alignment: The alignment of the searched memory address. I must be power of 2.
 // --------------------------------------------------------------------------------------------------------
-#define alignment_offset_z(startingPointer, alignment) puint_z(startingPointer) - (puint_z(startingPointer) & ~(alignment-1))
+#define alignment_offset_z(startingPointer, alignment) ((alignment - (puint_z(startingPointer) & (alignment - 1))) & (alignment - 1))
 
 
 // --------------------------------------------------------------------------------------------------------

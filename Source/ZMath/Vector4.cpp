@@ -36,8 +36,9 @@
 #include "ZMath/ScalingMatrix3x3.h"
 #include "ZMath/TransformationMatrix.h"
 #include "ZMath/SpaceConversionMatrix.h"
-#include "ZMath/BaseVector3.h"
+#include "ZMath/Vector3.h"
 #include "ZMath/SAngle.h"
+#include "ZCommon/DataTypes/SVF32.h"
 
 
 
@@ -59,46 +60,47 @@ Vector4::Vector4()
 {
 }
 
-Vector4::Vector4(const Vector4 &vVector) : BaseVector4(vVector)
+Vector4::Vector4(const Vector3 &vVector) : x(vVector.x), y(vVector.y), z(vVector.z), w(SFloat::_0)
 {
 }
 
-Vector4::Vector4(const BaseVector4 &vVector) : BaseVector4(vVector)
+Vector4::Vector4(const Vector3 &vVector, const float_z &fValue) : x(vVector.x), y(vVector.y), z(vVector.z), w(fValue)
 {
 }
 
-Vector4::Vector4(const BaseVector3 &vVector) : BaseVector4(vVector.x, vVector.y, vVector.z, SFloat::_0)
+Vector4::Vector4(const float_z fValueX, const float_z fValueY, const float_z fValueZ, const float_z fValueW) : 
+                                                                x(fValueX), y(fValueY), z(fValueZ), w(fValueW)
 {
 }
 
-Vector4::Vector4(const BaseVector3 &vVector, const float_z &fValue) : BaseVector4(vVector.x, vVector.y, vVector.z, fValue)
+Vector4::Vector4(const float_z fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll), w(fValueAll)
 {
 }
 
-Vector4::Vector4(const float_z fValueX, const float_z fValueY, const float_z fValueZ, const float_z fValueW) :
-                    BaseVector4(fValueX, fValueY, fValueZ, fValueW)
+Vector4::Vector4(const float_z* arValues)
+{
+    // Null pointer checkout
+    Z_ASSERT_ERROR(arValues != null_z, "Input array must not be null");
+
+    // Assignments
+    x = arValues[0];
+    y = arValues[1];
+    z = arValues[2];
+    w = arValues[3];
+}
+
+Vector4::Vector4(const vf32_z value)
+{
+    SVF32::Unpack(value, this->x, this->y, this->z, this->w);
+}
+
+Vector4::Vector4(const TranslationMatrix4x3 &translation) :
+                       Vector4(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2], SFloat::_1)
 {
 }
 
-Vector4::Vector4(const float_z fValueAll) : BaseVector4(fValueAll)
-{
-}
-
-Vector4::Vector4(const float_z* arValues) : BaseVector4(arValues)
-{
-}
-
-Vector4::Vector4(const vf32_z value) : BaseVector4(value)
-{
-}
-
-Vector4::Vector4(const TranslationMatrix<Matrix4x3> &translation) :
-                       BaseVector4(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2], SFloat::_1)
-{
-}
-
-Vector4::Vector4(const TranslationMatrix<Matrix4x4> &translation) :
-                       BaseVector4(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2], SFloat::_1)
+Vector4::Vector4(const TranslationMatrix4x4 &translation) :
+                       Vector4(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2], SFloat::_1)
 {
 }
 
@@ -112,22 +114,33 @@ Vector4::Vector4(const TranslationMatrix<Matrix4x4> &translation) :
 //##################                                                       ##################
 //##################=======================================================##################
 
-Vector4 Vector4::operator+(const BaseVector4 &vVector) const
+bool Vector4::operator==(const Vector4 &vVector) const
+{
+    return SFloat::AreEqual(vVector.x, this->x) && SFloat::AreEqual(vVector.y, this->y) &&
+           SFloat::AreEqual(vVector.z, this->z) && SFloat::AreEqual(vVector.w, this->w);
+}
+
+bool Vector4::operator!=(const Vector4 &vVector) const
+{
+    return !(*this == vVector);
+}
+
+Vector4 Vector4::operator+(const Vector4 &vVector) const
 {
     return Vector4(this->x + vVector.x, this->y + vVector.y, this->z + vVector.z, this->w + vVector.w);
 }
 
-Vector4 Vector4::operator+(const BaseVector3 &vVector) const
+Vector4 Vector4::operator+(const Vector3 &vVector) const
 {
     return Vector4(this->x + vVector.x, this->y + vVector.y, this->z + vVector.z, this->w);
 }
 
-Vector4 Vector4::operator-(const BaseVector4 &vVector) const
+Vector4 Vector4::operator-(const Vector4 &vVector) const
 {
     return Vector4(this->x - vVector.x, this->y - vVector.y, this->z - vVector.z, this->w - vVector.w);
 }
 
-Vector4 Vector4::operator-(const BaseVector3 &vVector) const
+Vector4 Vector4::operator-(const Vector3 &vVector) const
 {
     return Vector4(this->x - vVector.x, this->y - vVector.y, this->z - vVector.z, this->w);
 }
@@ -137,24 +150,24 @@ Vector4 Vector4::operator*(const float_z fScalar) const
     return Vector4(this->x * fScalar, this->y * fScalar, this->z * fScalar, this->w * fScalar);
 }
 
-Vector4 Vector4::operator*(const BaseVector4 &vVector) const
+Vector4 Vector4::operator*(const Vector4 &vVector) const
 {
     return Vector4(this->x * vVector.x, this->y * vVector.y, this->z * vVector.z, this->w * vVector.w);
 }
 
-Vector4 Vector4::operator*(const BaseMatrix4x4 &matrix) const
+Vector4 Vector4::operator*(const Matrix4x4 &matrix) const
 {
     return Vector4(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + this->z * matrix.ij[2][0] + this->w * matrix.ij[3][0],
-                    this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + this->z * matrix.ij[2][1] + this->w * matrix.ij[3][1],
-                    this->x * matrix.ij[0][2] + this->y * matrix.ij[1][2] + this->z * matrix.ij[2][2] + this->w * matrix.ij[3][2],
-                    this->x * matrix.ij[0][3] + this->y * matrix.ij[1][3] + this->z * matrix.ij[2][3] + this->w * matrix.ij[3][3]);
+                   this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + this->z * matrix.ij[2][1] + this->w * matrix.ij[3][1],
+                   this->x * matrix.ij[0][2] + this->y * matrix.ij[1][2] + this->z * matrix.ij[2][2] + this->w * matrix.ij[3][2],
+                   this->x * matrix.ij[0][3] + this->y * matrix.ij[1][3] + this->z * matrix.ij[2][3] + this->w * matrix.ij[3][3]);
 }
 
-BaseVector3 Vector4::operator*(const BaseMatrix4x3 &matrix) const
+Vector3 Vector4::operator*(const Matrix4x3 &matrix) const
 {
-    return BaseVector3(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + this->z * matrix.ij[2][0] + this->w * matrix.ij[3][0],
-                        this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + this->z * matrix.ij[2][1] + this->w * matrix.ij[3][1],
-                        this->x * matrix.ij[0][2] + this->y * matrix.ij[1][2] + this->z * matrix.ij[2][2] + this->w * matrix.ij[3][2]);
+    return Vector3(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + this->z * matrix.ij[2][0] + this->w * matrix.ij[3][0],
+                   this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + this->z * matrix.ij[2][1] + this->w * matrix.ij[3][1],
+                   this->x * matrix.ij[0][2] + this->y * matrix.ij[1][2] + this->z * matrix.ij[2][2] + this->w * matrix.ij[3][2]);
 
 }
 
@@ -168,7 +181,7 @@ Vector4 Vector4::operator/(const float_z fScalar) const
     return Vector4(this->x * DIVISOR, this->y * DIVISOR, this->z * DIVISOR, this->w * DIVISOR);
 }
 
-Vector4 Vector4::operator/(const BaseVector4 &vVector) const
+Vector4 Vector4::operator/(const Vector4 &vVector) const
 {
     // Checkout to avoid division by 0
     Z_ASSERT_WARNING(vVector.x != SFloat::_0 && vVector.y != SFloat::_0 &&
@@ -177,7 +190,7 @@ Vector4 Vector4::operator/(const BaseVector4 &vVector) const
     return Vector4(this->x / vVector.x, this->y / vVector.y, this->z / vVector.z, this->w / vVector.w);
 }
 
-Vector4& Vector4::operator+=(const BaseVector4 &vVector)
+Vector4& Vector4::operator+=(const Vector4 &vVector)
 {
     this->x += vVector.x;
     this->y += vVector.y;
@@ -187,7 +200,7 @@ Vector4& Vector4::operator+=(const BaseVector4 &vVector)
     return *this;
 }
 
-Vector4& Vector4::operator+=(const BaseVector3 &vVector)
+Vector4& Vector4::operator+=(const Vector3 &vVector)
 {
     this->x += vVector.x;
     this->y += vVector.y;
@@ -196,7 +209,7 @@ Vector4& Vector4::operator+=(const BaseVector3 &vVector)
     return *this;
 }
 
-Vector4& Vector4::operator-=(const BaseVector4 &vVector)
+Vector4& Vector4::operator-=(const Vector4 &vVector)
 {
     this->x -= vVector.x;
     this->y -= vVector.y;
@@ -206,7 +219,7 @@ Vector4& Vector4::operator-=(const BaseVector4 &vVector)
     return *this;
 }
 
-Vector4& Vector4::operator-=(const BaseVector3 &vVector)
+Vector4& Vector4::operator-=(const Vector3 &vVector)
 {
     this->x -= vVector.x;
     this->y -= vVector.y;
@@ -225,7 +238,7 @@ Vector4& Vector4::operator*=(const float_z fScalar)
     return *this;
 }
 
-Vector4& Vector4::operator*=(const BaseVector4 &vVector)
+Vector4& Vector4::operator*=(const Vector4 &vVector)
 {
     this->x *= vVector.x;
     this->y *= vVector.y;
@@ -235,7 +248,7 @@ Vector4& Vector4::operator*=(const BaseVector4 &vVector)
     return *this;
 }
 
-Vector4& Vector4::operator*=(const BaseMatrix4x4 &matrix)
+Vector4& Vector4::operator*=(const Matrix4x4 &matrix)
 {
     Vector4 vAux(*this);
 
@@ -262,7 +275,7 @@ Vector4& Vector4::operator/=(const float_z fScalar)
     return *this;
 }
 
-Vector4& Vector4::operator/=(const BaseVector4 &vVector)
+Vector4& Vector4::operator/=(const Vector4 &vVector)
 {
     // Checkout to avoid division by 0
     Z_ASSERT_WARNING (vVector.x != SFloat::_0 && vVector.y != SFloat::_0 && vVector.z != SFloat::_0 && vVector.w != SFloat::_0, 
@@ -273,12 +286,6 @@ Vector4& Vector4::operator/=(const BaseVector4 &vVector)
     this->z /= vVector.z;
     this->w /= vVector.w;
 
-    return *this;
-}
-
-Vector4& Vector4::operator=(const BaseVector4 &vVector)
-{
-    BaseVector4::operator=(vVector);
     return *this;
 }
 
@@ -351,12 +358,12 @@ bool Vector4::IsVectorOfOnes() const
             SFloat::AreEqual(this->z, SFloat::_1) && SFloat::AreEqual(this->w, SFloat::_1);
 }
 
-float_z Vector4::DotProduct(const BaseVector4 &vVector) const
+float_z Vector4::DotProduct(const Vector4 &vVector) const
 {
     return this->x * vVector.x + this->y * vVector.y + this->z * vVector.z;
 }
 
-float_z Vector4::AngleBetween(const BaseVector4 &vVector) const
+float_z Vector4::AngleBetween(const Vector4 &vVector) const
 {
     float_z fLength = sqrt_z( (this->x*this->x + this->y*this->y + this->z*this->z) * (vVector.x*vVector.x + vVector.y*vVector.y + vVector.z*vVector.z) );
 
@@ -383,7 +390,7 @@ float_z Vector4::AngleBetween(const BaseVector4 &vVector) const
     return fAngle;
 }
 
-Vector4 Vector4::CrossProduct(const BaseVector4 &vVector) const
+Vector4 Vector4::CrossProduct(const Vector4 &vVector) const
 {
     return Vector4(this->y * vVector.z - this->z * vVector.y,
                     this->z * vVector.x - this->x * vVector.z,
@@ -391,7 +398,7 @@ Vector4 Vector4::CrossProduct(const BaseVector4 &vVector) const
                     this->w);
 }
 
-Vector4 Vector4::Lerp(const float_z fProportion, const BaseVector4 &vVector) const
+Vector4 Vector4::Lerp(const float_z fProportion, const Vector4 &vVector) const
 {
     return Vector4(this->x * (SFloat::_1 - fProportion) + vVector.x * fProportion,
                     this->y * (SFloat::_1 - fProportion) + vVector.y * fProportion,
@@ -399,7 +406,7 @@ Vector4 Vector4::Lerp(const float_z fProportion, const BaseVector4 &vVector) con
                     this->w * (SFloat::_1 - fProportion) + vVector.w * fProportion);
 }
 
-float_z Vector4::Distance(const BaseVector4 &vVector) const
+float_z Vector4::Distance(const Vector4 &vVector) const
 {
     return sqrt_z( (this->x - vVector.x)*(this->x - vVector.x) + (this->y - vVector.y)*(this->y - vVector.y) +
                     (this->z - vVector.z)*(this->z - vVector.z) );
@@ -434,8 +441,8 @@ Vector4 Vector4::Transform(const Quaternion &qRotation) const
 
 Vector4 Vector4::Transform(const DualQuaternion &transformation) const
 {
-    DualQuaternion dqAux(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
-                          BaseQuaternion(this->x, this->y, this->z, SFloat::_0));
+    DualQuaternion dqAux(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
+                          Quaternion(this->x, this->y, this->z, SFloat::_0));
     DualQuaternion dqConj = transformation.DoubleConjugate();
 
     dqAux = (transformation * dqAux ) * dqConj;
@@ -456,24 +463,24 @@ Vector4 Vector4::Transform(const ScalingMatrix3x3 &scale) const
     return Vector4(this->x * scale.ij[0][0], this->y * scale.ij[1][1], this->z * scale.ij[2][2], this->w);
 }
 
-Vector4 Vector4::Transform(const TranslationMatrix<Matrix4x3> &translation) const
+Vector4 Vector4::Transform(const TranslationMatrix4x3 &translation) const
 {
     return TransformImp(translation);
 }
 
 
-Vector4 Vector4::Transform(const TranslationMatrix<Matrix4x4> &translation) const
+Vector4 Vector4::Transform(const TranslationMatrix4x4 &translation) const
 {
     return TransformImp(translation);
 }
 
-Vector4 Vector4::Transform(const TransformationMatrix<Matrix4x3> &transformation) const
+Vector4 Vector4::Transform(const TransformationMatrix4x3 &transformation) const
 {
     return TransformImp(transformation);
 }
 
 
-Vector4 Vector4::Transform(const TransformationMatrix<Matrix4x4> &transformation) const
+Vector4 Vector4::Transform(const TransformationMatrix4x4 &transformation) const
 {
     return TransformImp(transformation);
 }
@@ -503,12 +510,12 @@ string_z Vector4::ToString() const
 }
 
 template <class MatrixT>
-Vector4 Vector4::TransformImp(const TranslationMatrix<MatrixT> &translation) const
+Vector4 Vector4::TransformImp(const Internals::TranslationMatrix<MatrixT> &translation) const
 {
     return Vector4(this->x + this->w * translation.ij[3][0],
-                    this->y + this->w * translation.ij[3][1],
-                    this->z + this->w * translation.ij[3][2],
-                    this->w);
+                   this->y + this->w * translation.ij[3][1],
+                   this->z + this->w * translation.ij[3][2],
+                   this->w);
 }
 
 /// <summary>
@@ -523,7 +530,7 @@ Vector4 Vector4::TransformImp(const TranslationMatrix<MatrixT> &translation) con
 /// The transformed vector.
 /// </returns>
 template <class MatrixT>
-Vector4 Vector4::TransformImp(const TransformationMatrix<MatrixT> &transformation) const
+Vector4 Vector4::TransformImp(const Internals::TransformationMatrix<MatrixT> &transformation) const
 {
     return Vector4(this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0] + this->w * transformation.ij[3][0],
                     this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + this->w * transformation.ij[3][1],

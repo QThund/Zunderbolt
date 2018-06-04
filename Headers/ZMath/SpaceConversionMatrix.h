@@ -34,21 +34,29 @@
 namespace z
 {
 
-// Forward declarations
-template<class MatrixT> class TranslationMatrix;
-template<class MatrixT> class TransformationMatrix;
+// FORWARD DECLARATIONS
+// ----------------------
 class RotationMatrix3x3;
 class ScalingMatrix3x3;
-class BaseVector3;
-class BaseVector4;
 class Vector3;
 class Vector4;
-class BaseQuaternion;
+class Vector3;
+class Vector4;
+class Quaternion;
 class Matrix4x3;
 class SpaceConversionMatrix;
 
-// Preventing friend global operator to be called.
-SpaceConversionMatrix operator*(const float_z fScalar, const SpaceConversionMatrix &matrix);
+namespace Internals
+{
+    template<class MatrixT> class TransformationMatrix;
+    template<class MatrixT> class TranslationMatrix;
+}
+
+typedef Internals::TranslationMatrix<Matrix4x3> TranslationMatrix4x3;
+typedef Internals::TranslationMatrix<Matrix4x4> TranslationMatrix4x4;
+typedef Internals::TransformationMatrix<Matrix4x3> TransformationMatrix4x3;
+typedef Internals::TransformationMatrix<Matrix4x4> TransformationMatrix4x4;
+
 
 /// <summary>
 /// Class representing a matrix which symbolizes coordinate system transformations.
@@ -63,7 +71,7 @@ class Z_MATH_MODULE_SYMBOLS SpaceConversionMatrix : public Matrix4x4
 public:
 
     /// <summary>
-    /// Default constructor. It's initialized to identity matrix.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     SpaceConversionMatrix();
 
@@ -81,7 +89,7 @@ public:
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="matrix">[IN] The 4x4 matrix in which we want the resident space conversion matrix to be based.</param>
-    SpaceConversionMatrix(const BaseMatrix4x4 &matrix);
+    SpaceConversionMatrix(const Matrix4x4 &matrix);
 
 
     // METHODS
@@ -99,7 +107,7 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    SpaceConversionMatrix& operator=(const BaseMatrix4x4 &matrix);
+    SpaceConversionMatrix& operator=(const Matrix4x4 &matrix);
 
     /// <summary>
     /// Multiplies a space conversion matrix by the resident matrix.
@@ -129,7 +137,7 @@ public:
     /// <param name="vTranslation">[IN] Vector which contains the translation (position).</param>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const BaseVector3 &vTranslation, const BaseQuaternion &qRotation, const BaseVector3 &vScale);
+    void SetWorldSpaceMatrix(const Vector3 &vTranslation, const Quaternion &qRotation, const Vector3 &vScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -137,7 +145,7 @@ public:
     /// <param name="vTranslation">[IN] Vector which contains the translation (position).</param>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const BaseVector4 &vTranslation, const BaseQuaternion &qRotation, const BaseVector3 &vScale);
+    void SetWorldSpaceMatrix(const Vector4 &vTranslation, const Quaternion &qRotation, const Vector3 &vScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -145,7 +153,7 @@ public:
     /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
     /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const TranslationMatrix<Matrix4x3> &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale);
+    void SetWorldSpaceMatrix(const TranslationMatrix4x3 &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -153,7 +161,7 @@ public:
     /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
     /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const TranslationMatrix<Matrix4x4> &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale);
+    void SetWorldSpaceMatrix(const TranslationMatrix4x4 &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -161,8 +169,8 @@ public:
     /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
     /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const TransformationMatrix<Matrix4x4> &translation, const TransformationMatrix<Matrix4x4> &rotation,
-                             const TransformationMatrix<Matrix4x4> &scale);
+    void SetWorldSpaceMatrix(const TransformationMatrix4x4 &translation, const TransformationMatrix4x4 &rotation,
+                             const TransformationMatrix4x4 &scale);
 
     /// <summary>
     /// Sets the view space matrix, also called camera space matrix, defined by the point of view or camera position,
@@ -233,16 +241,16 @@ private:
 
     // Preventing the operators from base class to be used.
     Matrix4x4 operator*(const float_z fScalar) const;
-    Matrix4x4 operator*(const BaseMatrix4x4 &matrix) const;
-    BaseMatrix4x3 operator*(const BaseMatrix4x3 &matrix) const;
+    Matrix4x4 operator*(const Matrix4x4 &matrix) const;
+    Matrix4x3 operator*(const Matrix4x3 &matrix) const;
     Matrix4x4 operator/(const float_z fScalar) const;
-    Matrix4x4 operator+(const BaseMatrix4x4 &matrix) const;
-    Matrix4x4 operator-(const BaseMatrix4x4 &matrix) const;
-    Matrix4x4& operator*=(const BaseMatrix4x4 &matrix);
+    Matrix4x4 operator+(const Matrix4x4 &matrix) const;
+    Matrix4x4 operator-(const Matrix4x4 &matrix) const;
+    Matrix4x4& operator*=(const Matrix4x4 &matrix);
     Matrix4x4& operator*=(const float_z fScalar);
     Matrix4x4& operator/=(const float_z fScalar);
-    Matrix4x4& operator+=(const BaseMatrix4x4 &matrix);
-    Matrix4x4& operator-=(const BaseMatrix4x4 &matrix);
+    Matrix4x4& operator+=(const Matrix4x4 &matrix);
+    Matrix4x4& operator-=(const Matrix4x4 &matrix);
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
@@ -255,8 +263,13 @@ private:
     /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
     template <class MatrixT>
-    void SetWorldSpaceMatrixImp(const TranslationMatrix<MatrixT> &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale);
+    void SetWorldSpaceMatrixImp(const Internals::TranslationMatrix<MatrixT> &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale);
 };
+
+
+// Preventing friend global operator to be called.
+SpaceConversionMatrix operator*(const float_z fScalar, const SpaceConversionMatrix &matrix);
+
 
 } // namespace z
 

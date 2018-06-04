@@ -35,7 +35,7 @@
 #include "ZMath/Matrix4x4.h"
 #include "ZMath/RotationMatrix3x3.h"
 #include "ZMath/TransformationMatrix.h"
-
+#include "ZCommon/DataTypes/SVF32.h"
 
 
 namespace z
@@ -52,15 +52,7 @@ namespace z
 //##################                                                       ##################
 //##################=======================================================##################
 
-Quaternion::Quaternion() : BaseQuaternion()
-{
-}
-
-Quaternion::Quaternion(const Quaternion &qQuat) : BaseQuaternion(qQuat)
-{
-}
-
-Quaternion::Quaternion(const BaseQuaternion &qQuat) : BaseQuaternion(qQuat)
+Quaternion::Quaternion()
 {
 }
 
@@ -92,40 +84,33 @@ Quaternion::Quaternion(const float_z fRotationAngleX, const float_z fRotationAng
 }
 
 Quaternion::Quaternion(const float_z fValueX, const float_z fValueY, const float_z fValueZ, const float_z fValueW) :
-                           BaseQuaternion(fValueX, fValueY, fValueZ, fValueW)
+                           x(fValueX), y(fValueY), z(fValueZ), w(fValueW)
 {
 }
 
-Quaternion::Quaternion(const float_z* arValues) : BaseQuaternion(arValues)
+Quaternion::Quaternion(const float_z* arValues)
 {
+    // [REVIEW] Thund: Should we put these constants in another place?
+    static const int Z_X_INDEX_IN_FLOATTYPE_ARRAY = 0;
+    static const int Z_Y_INDEX_IN_FLOATTYPE_ARRAY = 1;
+    static const int Z_Z_INDEX_IN_FLOATTYPE_ARRAY = 2;
+    static const int Z_W_INDEX_IN_FLOATTYPE_ARRAY = 3;
+
+    Z_ASSERT_ERROR(arValues != null_z, "Input array must not be null");
+
+    this->x = arValues[Z_X_INDEX_IN_FLOATTYPE_ARRAY];
+    this->y = arValues[Z_Y_INDEX_IN_FLOATTYPE_ARRAY];
+    this->z = arValues[Z_Z_INDEX_IN_FLOATTYPE_ARRAY];
+    this->w = arValues[Z_W_INDEX_IN_FLOATTYPE_ARRAY];
 }
 
-Quaternion::Quaternion(const vf32_z value) : BaseQuaternion(value)
+Quaternion::Quaternion(const vf32_z value)
 {
+    // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
+    SVF32::Unpack(value, Z_VF32_FIRST_COMPONENT, Z_VF32_SECOND_COMPONENT, Z_VF32_THIRD_COMPONENT, Z_VF32_FOURTH_COMPONENT);
 }
 
-Quaternion::Quaternion(const BaseVector3 &vRotationAxis, const float_z fRotationAngle)
-{
-    // Calculates half angle
-    #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
-        // If angles are specified in degrees, then converts it to radians
-        const float_z& HALF_ANGLE_RAD = SAngle::DegreesToRadians(fRotationAngle) * SFloat::_0_5;
-    #else
-        const float_z& HALF_ANGLE_RAD = fRotationAngle * SFloat::_0_5;
-    #endif
-
-    const float_z &fSin = sin_z(HALF_ANGLE_RAD);
-
-    // Please note the axis has to be normalized...
-
-    this->x = vRotationAxis.x * fSin;
-    this->y = vRotationAxis.y * fSin;
-    this->z = vRotationAxis.z * fSin;
-
-    this->w = cos_z(HALF_ANGLE_RAD);
-}
-
-Quaternion::Quaternion(const BaseVector4 &vRotationAxis, const float_z fRotationAngle)
+Quaternion::Quaternion(const Vector3 &vRotationAxis, const float_z fRotationAngle)
 {
     // Calculates half angle
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
@@ -146,13 +131,34 @@ Quaternion::Quaternion(const BaseVector4 &vRotationAxis, const float_z fRotation
     this->w = cos_z(HALF_ANGLE_RAD);
 }
 
-Quaternion::Quaternion(const TransformationMatrix<Matrix4x3> &transformation)
+Quaternion::Quaternion(const Vector4 &vRotationAxis, const float_z fRotationAngle)
+{
+    // Calculates half angle
+    #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
+        // If angles are specified in degrees, then converts it to radians
+        const float_z& HALF_ANGLE_RAD = SAngle::DegreesToRadians(fRotationAngle) * SFloat::_0_5;
+    #else
+        const float_z& HALF_ANGLE_RAD = fRotationAngle * SFloat::_0_5;
+    #endif
+
+    const float_z &fSin = sin_z(HALF_ANGLE_RAD);
+
+    // Please note the axis has to be normalized...
+
+    this->x = vRotationAxis.x * fSin;
+    this->y = vRotationAxis.y * fSin;
+    this->z = vRotationAxis.z * fSin;
+
+    this->w = cos_z(HALF_ANGLE_RAD);
+}
+
+Quaternion::Quaternion(const TransformationMatrix4x3 &transformation)
 {
     this->QuaternionImp(transformation);
 }
 
 
-Quaternion::Quaternion(const TransformationMatrix<Matrix4x4> &transformation)
+Quaternion::Quaternion(const TransformationMatrix4x4 &transformation)
 {
     this->QuaternionImp(transformation);
 }
@@ -164,7 +170,7 @@ Quaternion::Quaternion(const RotationMatrix3x3 &rotation)
 }
 
 template <class MatrixT>
-void Quaternion::QuaternionImp(const TransformationMatrix<MatrixT> &transformation)
+void Quaternion::QuaternionImp(const Internals::TransformationMatrix<MatrixT> &transformation)
 {
     transformation.GetRotation(*this);
 }
@@ -178,52 +184,65 @@ void Quaternion::QuaternionImp(const TransformationMatrix<MatrixT> &transformati
 //##################                                                       ##################
 //##################=======================================================##################
 
-Quaternion Quaternion::operator+(const BaseQuaternion &qQuat) const
+bool Quaternion::operator==(const Quaternion &qQuat) const
+{
+    return SFloat::AreEqual(this->x, qQuat.x) &&
+           SFloat::AreEqual(this->y, qQuat.y) &&
+           SFloat::AreEqual(this->z, qQuat.z) &&
+           SFloat::AreEqual(this->w, qQuat.w);
+}
+
+bool Quaternion::operator!=(const Quaternion &qQuat) const
+{
+    return !(*this == qQuat);
+}
+
+Quaternion Quaternion::operator+(const Quaternion &qQuat) const
 {
     return Quaternion(this->x + qQuat.x,
-                       this->y + qQuat.y,
-                       this->z + qQuat.z,
-                       this->w + qQuat.w);
+                      this->y + qQuat.y,
+                      this->z + qQuat.z,
+                      this->w + qQuat.w);
 }
 
-Quaternion Quaternion::operator-(const BaseQuaternion &qQuat) const
+Quaternion Quaternion::operator-(const Quaternion &qQuat) const
 {
     return Quaternion(this->x - qQuat.x,
-                       this->y - qQuat.y,
-                       this->z - qQuat.z,
-                       this->w - qQuat.w);
+                      this->y - qQuat.y,
+                      this->z - qQuat.z,
+                      this->w - qQuat.w);
 }
 
-Quaternion Quaternion::operator*(const BaseQuaternion &qQuat) const
+Quaternion Quaternion::operator*(const Quaternion &qQuat) const
 {
     return Quaternion( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,       // Vx
-                        qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,       // Vy
-                        qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,       // Vz
-                        qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );       // W
+                       qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,       // Vy
+                       qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,       // Vz
+                       qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );       // W
 }
 
 Quaternion Quaternion::operator*(const float_z fScalar) const
 {
     return Quaternion( this->x * fScalar,
-                        this->y * fScalar,
-                        this->z * fScalar,
-                        this->w * fScalar);
+                       this->y * fScalar,
+                       this->z * fScalar,
+                       this->w * fScalar);
 }
 
-Quaternion Quaternion::operator*(const BaseVector3 &vVector) const
+Quaternion Quaternion::operator*(const Vector3 &vVector) const
 {
     return *this * Quaternion(vVector.x, vVector.y, vVector.z, SFloat::_0);
 }
 
-Quaternion Quaternion::operator*(const BaseVector4 &vVector) const
+Quaternion Quaternion::operator*(const Vector4 &vVector) const
 {
     return *this * Quaternion(vVector.x, vVector.y, vVector.z, vVector.w);
 }
 
-Quaternion Quaternion::operator/(const BaseQuaternion &qQuat) const
+Quaternion Quaternion::operator/(const Quaternion &qQuat) const
 {
     // Note: Quaternion::Invert method's code copied here. The reason is not to require a Quaternion as a parameter
-    //       which would break the coherence of the interface (all operators require BaseQuaternion only). Moreover, if
+    //       which would break the coherence of the interface (all operators require Quaternion only). Moreover, if
     //       scast_z was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
     const float_z& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
 
@@ -241,12 +260,12 @@ Quaternion Quaternion::operator/(const float_z fScalar) const
     const float_z &DIVISOR = SFloat::_1/fScalar;
 
     return Quaternion( this->x * DIVISOR,
-                        this->y * DIVISOR,
-                        this->z * DIVISOR,
-                        this->w * DIVISOR);
+                       this->y * DIVISOR,
+                       this->z * DIVISOR,
+                       this->w * DIVISOR);
 }
 
-Quaternion& Quaternion::operator+=(const BaseQuaternion &qQuat)
+Quaternion& Quaternion::operator+=(const Quaternion &qQuat)
 {
     this->x += qQuat.x;
     this->y += qQuat.y;
@@ -255,7 +274,7 @@ Quaternion& Quaternion::operator+=(const BaseQuaternion &qQuat)
     return *this;
 }
 
-Quaternion& Quaternion::operator-=(const BaseQuaternion &qQuat)
+Quaternion& Quaternion::operator-=(const Quaternion &qQuat)
 {
     this->x -= qQuat.x;
     this->y -= qQuat.y;
@@ -265,12 +284,12 @@ Quaternion& Quaternion::operator-=(const BaseQuaternion &qQuat)
     return *this;
 }
 
-Quaternion& Quaternion::operator*=(const BaseQuaternion &qQuat)
+Quaternion& Quaternion::operator*=(const Quaternion &qQuat)
 {
     Quaternion resQuat( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,    // Vx
-                         qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,    // Vy
-                         qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,    // Vz
-                         qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );  // W
+                        qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,    // Vy
+                        qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,    // Vz
+                        qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );  // W
     this->x = resQuat.x;
     this->y = resQuat.y;
     this->z = resQuat.z;
@@ -289,7 +308,7 @@ Quaternion& Quaternion::operator*=(const float_z fScalar)
     return *this;
 }
 
-Quaternion& Quaternion::operator*=(const BaseVector3 &vVector)
+Quaternion& Quaternion::operator*=(const Vector3 &vVector)
 {
     Quaternion qAux(vVector.x, vVector.y, vVector.z, SFloat::_0);
 
@@ -298,7 +317,7 @@ Quaternion& Quaternion::operator*=(const BaseVector3 &vVector)
     return *this;
 }
 
-Quaternion& Quaternion::operator*=(const BaseVector4 &vVector)
+Quaternion& Quaternion::operator*=(const Vector4 &vVector)
 {
     Quaternion qAux(vVector.x, vVector.y, vVector.z, vVector.w);
 
@@ -307,10 +326,10 @@ Quaternion& Quaternion::operator*=(const BaseVector4 &vVector)
     return *this;
 }
 
-Quaternion& Quaternion::operator/=(const BaseQuaternion &qQuat)
+Quaternion& Quaternion::operator/=(const Quaternion &qQuat)
 {
     // Note: Quaternion::Invert method's code copied here. The reason is not to require a Quaternion as a parameter
-    //       which would break the coherence of the interface (all operators require BaseQuaternion only). Moreover, if
+    //       which would break the coherence of the interface (all operators require Quaternion only). Moreover, if
     //       scast_z was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
     const float_z& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
 
@@ -334,12 +353,6 @@ Quaternion& Quaternion::operator/=(const float_z fScalar)
     this->z *= DIVISOR;
     this->w *= DIVISOR;
 
-    return *this;
-}
-
-Quaternion& Quaternion::operator=(const BaseQuaternion &qQuat)
-{
-    BaseQuaternion::operator=(qQuat);
     return *this;
 }
 
@@ -390,7 +403,7 @@ Quaternion operator*(const float_z fScalar, const Quaternion &qQuat)
     return Quaternion( qQuat.x * fScalar, qQuat.y * fScalar, qQuat.z * fScalar, qQuat.w * fScalar);
 }
 
-float_z Quaternion::DotProduct(const BaseQuaternion &qQuat) const
+float_z Quaternion::DotProduct(const Quaternion &qQuat) const
 {
     return this->x * qQuat.x + this->y * qQuat.y + this->z * qQuat.z + this->w * qQuat.w;
 }
@@ -430,9 +443,9 @@ Quaternion Quaternion::Lerp(const float_z fProportion, const Quaternion &qQuat) 
 {
     // Separated from the equation to gain performance
     Quaternion qAuxSum(this->x * (SFloat::_1 - fProportion) + qQuat.x * fProportion,
-                        this->y * (SFloat::_1 - fProportion) + qQuat.y * fProportion,
-                        this->z * (SFloat::_1 - fProportion) + qQuat.z * fProportion,
-                        this->w * (SFloat::_1 - fProportion) + qQuat.w * fProportion);
+                       this->y * (SFloat::_1 - fProportion) + qQuat.y * fProportion,
+                       this->z * (SFloat::_1 - fProportion) + qQuat.z * fProportion,
+                       this->w * (SFloat::_1 - fProportion) + qQuat.w * fProportion);
 
     // Separated from the equation to check for "division by zero"
     float_z fDivisor = ( qAuxSum ).GetLength();
@@ -562,7 +575,7 @@ void Quaternion::ToEulerAngles(float_z &fRotationAngleX, float_z &fRotationAngle
     #endif
 }
 
-void Quaternion::ToAxisAngle(BaseVector3 &vRotationAxis, float_z &fRotationAngle) const
+void Quaternion::ToAxisAngle(Vector3 &vRotationAxis, float_z &fRotationAngle) const
 {
     // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
     float_z fW = this->w;
@@ -607,9 +620,9 @@ void Quaternion::ToAxisAngle(BaseVector3 &vRotationAxis, float_z &fRotationAngle
     #endif
 }
 
-void Quaternion::ToAxisAngle(BaseVector4 &vRotationAxis, float_z &fRotationAngle) const
+void Quaternion::ToAxisAngle(Vector4 &vRotationAxis, float_z &fRotationAngle) const
 {
-    BaseVector3 vAux;
+    Vector3 vAux;
 
     this->ToAxisAngle(vAux, fRotationAngle);
 
@@ -668,6 +681,12 @@ const Quaternion& Quaternion::GetIdentity()
 {
     static const Quaternion IDENTITY(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
     return IDENTITY;
+}
+    
+const Quaternion& Quaternion::GetNullQuaternion()
+{
+    static const Quaternion NULL_QUATERNION(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    return NULL_QUATERNION;
 }
 
 } // namespace z

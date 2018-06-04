@@ -36,9 +36,14 @@
 namespace z
 {
 
+    
 // Forward declarations
 // ---------------------
 class TransformationMatrix3x3;
+
+
+namespace Internals
+{
 
 
 /// <summary>
@@ -52,7 +57,7 @@ class Z_MATH_MODULE_SYMBOLS Triangle2D : public Triangle<Vector2>
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Triangle2D();
 
@@ -66,7 +71,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="triangle">[IN] The 2D triangle in which we want resident 2D triangle to be based.</param>
-    Triangle2D(const BaseTriangle<Vector2> &triangle);
+    Triangle2D(const Triangle<Vector2> &triangle);
 
     /// <summary>
     /// Constructor from three 2D vectors, one for each vertex.
@@ -107,7 +112,7 @@ public:
     /// <returns>
     /// A reference to the triangle.
     /// </returns>
-    Triangle2D& operator=(const BaseTriangle<Vector2> &triangle);
+    Triangle2D& operator=(const Triangle<Vector2> &triangle);
 
     /// <summary>
     /// Receives a transformation matrix and applies its transformations to the resident triangle.
@@ -119,7 +124,7 @@ public:
     /// <returns>
     /// The transformed triangle.
     /// </returns>
-    Triangle2D Transform(const TransformationMatrix3x3 &transformation) const;
+    Triangle2D Transform(const z::TransformationMatrix3x3 &transformation) const;
 
     /// <summary>
     /// Receives a transformation matrix and a 2D vector (transformation pivot) and applies the transformations
@@ -133,7 +138,7 @@ public:
     /// <returns>
     /// The transformed triangle.
     /// </returns>
-    Triangle2D TransformWithPivot(const TransformationMatrix3x3 &transformation, const BaseVector2 &vPivot) const;
+    Triangle2D TransformWithPivot(const z::TransformationMatrix3x3 &transformation, const Vector2 &vPivot) const;
 
     /// <summary>
     /// Calculates the circumcenter of the triangle.
@@ -164,7 +169,7 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    Triangle2D Translate(const BaseVector2 &vTranslation) const;
+    Triangle2D Translate(const Vector2 &vTranslation) const;
 
     /// <summary>
     /// This method performs a translation of the resident triangle given by the provided amounts for every axis.
@@ -195,7 +200,7 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-    Triangle2D RotateWithPivot(const float_z fRotationAngle, const BaseVector2 &vPivot) const;
+    Triangle2D RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot) const;
 
     /// <summary>
     /// This method scales the resident triangle by the scale contained in the provided vector.
@@ -204,7 +209,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    Triangle2D Scale(const BaseVector2 &vScale) const;
+    Triangle2D Scale(const Vector2 &vScale) const;
 
     /// <summary>
     /// This method scales the resident triangle by the provided amounts for every axis.
@@ -225,7 +230,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    Triangle2D ScaleWithPivot(const BaseVector2 &vScale, const BaseVector2 &vPivot) const;
+    Triangle2D ScaleWithPivot(const Vector2 &vScale, const Vector2 &vPivot) const;
 
     /// <summary>
     /// This method scales the resident triangle by the provided amounts for every axis,
@@ -237,8 +242,14 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    Triangle2D ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const BaseVector2 &vPivot) const;
+    Triangle2D ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const Vector2 &vPivot) const;
 };
+
+} // namespace Internals
+
+// TYPEDEFS
+// ----------
+typedef Internals::Triangle2D Triangle2;
 
 } // namespace z
 

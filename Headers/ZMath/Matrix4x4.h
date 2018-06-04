@@ -27,14 +27,19 @@
 #ifndef __MATRIX4X4__
 #define __MATRIX4X4__
 
-#include "BaseMatrix4x4.h"
-#include "BaseMatrix4x3.h"
+#include "ZMath/MathModuleDefinitions.h"
+#include "Matrix4x3.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"
 
 
 
 namespace z
 {
+    
+// FORWARD DECLARATIONS
+// ---------------------
+class Matrix4x3;
+
 
 /// <summary>
 /// This class implements the functionality of a matrix with 4 rows and 4 columns.
@@ -52,7 +57,7 @@ namespace z
 /// <br/>
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\\ a_{30} & a_{31} & a_{32} & a_{33}\end{bmatrix}\f$
 /// </remarks>
-class Z_MATH_MODULE_SYMBOLS Matrix4x4 : public BaseMatrix4x4
+class Z_MATH_MODULE_SYMBOLS Matrix4x4
 {
     // FRIENDS
     // ---------------
@@ -69,26 +74,14 @@ public:
     friend Matrix4x4 Z_MATH_MODULE_SYMBOLS operator*(const float_z fScalar, const Matrix4x4 &matrix);
 
 
-     // CONSTRUCTORS
+    // CONSTRUCTORS
     // ---------------
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Matrix4x4();
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="matrix">[IN] The 4x4 matrix from which we want to create a copy in the resident matrix.</param>
-    Matrix4x4(const Matrix4x4 &matrix);
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="matrix">[IN] The 4x4 matrix in which we want the resident matrix to be based.</param>
-    Matrix4x4(const BaseMatrix4x4 &matrix);
 
     /// <summary>
     /// Constructor from a floating point value which with fill all matrix's elements.
@@ -116,9 +109,9 @@ public:
     /// <param name="f32">[IN] Floating point value for element of row 3, column 2.</param>
     /// <param name="f33">[IN] Floating point value for element of row 3, column 3.</param>
     Matrix4x4(const float_z f00, const float_z f01, const float_z f02, const float_z f03,
-               const float_z f10, const float_z f11, const float_z f12, const float_z f13,
-               const float_z f20, const float_z f21, const float_z f22, const float_z f23,
-               const float_z f30, const float_z f31, const float_z f32, const float_z f33);
+              const float_z f10, const float_z f11, const float_z f12, const float_z f13,
+              const float_z f20, const float_z f21, const float_z f22, const float_z f23,
+              const float_z f30, const float_z f31, const float_z f32, const float_z f33);
 
     /// <summary>
     /// Constructor that receives a pointer to 16 floating point values.
@@ -168,6 +161,25 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Equality operator. Compares two [4x4] matrices.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
+    /// <returns>
+    /// If matrices are equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator==(const Matrix4x4 &matrix) const;
+
+    /// <summary>
+    /// Inequality operator. Compares two [4x4] matrices.
+    /// matrices are equals or not.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
+    /// <returns>
+    /// If matrices are not equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator!=(const Matrix4x4 &matrix) const;
 
     /// <summary>
     /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
@@ -197,7 +209,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    Matrix4x4 operator*(const BaseMatrix4x4 &matrix) const;
+    Matrix4x4 operator*(const Matrix4x4 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 matrix by the current matrix.
@@ -218,7 +230,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    BaseMatrix4x3 operator*(const BaseMatrix4x3 &matrix) const;
+    Matrix4x3 operator*(const Matrix4x3 &matrix) const;
 
     /// <summary>
     /// Divides current matrix by a floating point value.
@@ -237,7 +249,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    Matrix4x4 operator+(const BaseMatrix4x4 &matrix) const;
+    Matrix4x4 operator+(const Matrix4x4 &matrix) const;
 
     /// <summary>
     /// Subtracts a Matrix4x4 to the current matrix.
@@ -246,7 +258,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    Matrix4x4 operator-(const BaseMatrix4x4 &matrix) const;
+    Matrix4x4 operator-(const Matrix4x4 &matrix) const;
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -255,7 +267,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix4x4& operator*=(const BaseMatrix4x4 &matrix);
+    Matrix4x4& operator*=(const Matrix4x4 &matrix);
 
     /// <summary>
     /// Product by an scalar and assign operator. Current matrix stores the result of the multiplication.
@@ -283,7 +295,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix4x4& operator+=(const BaseMatrix4x4 &matrix);
+    Matrix4x4& operator+=(const Matrix4x4 &matrix);
 
     /// <summary>
     /// Subtraction and assign operator. Current matrix stores the result of the subtraction.
@@ -292,16 +304,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix4x4& operator-=(const BaseMatrix4x4 &matrix);
-
-    /// <summary>
-    /// Assignation operator. Assigns the provided matrix to the resident matrix.
-    /// </summary>
-    /// <param name="matrix">[IN] The matrix to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified matrix.
-    /// </returns>
-    Matrix4x4& operator=(const BaseMatrix4x4 &matrix);
+    Matrix4x4& operator-=(const Matrix4x4 &matrix);
 
     /// <summary>
     /// Resets all matrix elements to 0.
@@ -421,6 +424,16 @@ public:
     /// </remarks>
     /// <returns>The string with the format specified.</returns>
     string_z ToString() const;
+
+    
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Array that holds the matrix.
+    /// </summary>
+    float_z ij[4][4];
 };
 
 } // namespace z

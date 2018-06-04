@@ -46,6 +46,7 @@ using namespace boost::unit_test;
 #include "ZMath/Quaternion.h"
 #include "ZMath/SpaceConversionMatrix.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 
 ZTEST_SUITE_BEGIN( SPoint_TestSuite )
@@ -62,7 +63,7 @@ ZTEST_CASE ( Translate1_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector2(SFloat::_0, SFloat::_8)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 TRANSLATION(SFloat::_1, -SFloat::_2);
+    const Vector2 TRANSLATION(SFloat::_1, -SFloat::_2);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_0, SFloat::_1),
@@ -90,7 +91,7 @@ ZTEST_CASE ( Translate1_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector2(SFloat::_1, -SFloat::_1),
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 TRANSLATION(SFloat::_1, -SFloat::_2);
+    const Vector2 TRANSLATION(SFloat::_1, -SFloat::_2);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_0, SFloat::_1),
@@ -116,7 +117,7 @@ ZTEST_CASE ( Translate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector2(SFloat::_1, -SFloat::_1),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector2 TRANSLATION(SFloat::_1, -SFloat::_2);
+    const Vector2 TRANSLATION(SFloat::_1, -SFloat::_2);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
@@ -142,7 +143,7 @@ ZTEST_CASE ( Translate1_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector2 TRANSLATION(SFloat::_1, -SFloat::_2);
+    const Vector2 TRANSLATION(SFloat::_1, -SFloat::_2);
 
     Vector2* arInputPoints = null_z;
 
@@ -176,7 +177,7 @@ ZTEST_CASE ( Translate2_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector2(SFloat::_0, SFloat::_8)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 TRANSLATION(SFloat::_1, -SFloat::_2);
+    const Vector2 TRANSLATION(SFloat::_1, -SFloat::_2);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_0, SFloat::_1),
@@ -204,7 +205,7 @@ ZTEST_CASE ( Translate2_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector2(SFloat::_1, -SFloat::_1),
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 TRANSLATION(SFloat::_1, -SFloat::_2);
+    const Vector2 TRANSLATION(SFloat::_1, -SFloat::_2);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_0, SFloat::_1),
@@ -230,7 +231,7 @@ ZTEST_CASE ( Translate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector2(SFloat::_1, -SFloat::_1),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector2 TRANSLATION(SFloat::_1, -SFloat::_2);
+    const Vector2 TRANSLATION(SFloat::_1, -SFloat::_2);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
@@ -256,7 +257,7 @@ ZTEST_CASE ( Translate2_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector2 TRANSLATION(SFloat::_1, -SFloat::_2);
+    const Vector2 TRANSLATION(SFloat::_1, -SFloat::_2);
 
     Vector2* arInputPoints = null_z;
 
@@ -424,7 +425,7 @@ ZTEST_CASE ( Scale1_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector2(-SFloat::_2, SFloat::_6)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_0, SFloat::_1),
@@ -452,7 +453,7 @@ ZTEST_CASE ( Scale1_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector2(SFloat::_2, -SFloat::_3),
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
@@ -478,7 +479,7 @@ ZTEST_CASE ( Scale1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector2(SFloat::_1, -SFloat::_1),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
@@ -504,7 +505,7 @@ ZTEST_CASE ( Scale1_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2* arInputPoints = null_z;
 
@@ -538,7 +539,7 @@ ZTEST_CASE ( Scale2_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector2(-SFloat::_2, SFloat::_6)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_0, SFloat::_1),
@@ -566,7 +567,7 @@ ZTEST_CASE ( Scale2_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector2(SFloat::_2, -SFloat::_3),
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
@@ -592,7 +593,7 @@ ZTEST_CASE ( Scale2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector2(SFloat::_1, -SFloat::_1),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
@@ -618,7 +619,7 @@ ZTEST_CASE ( Scale2_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2* arInputPoints = null_z;
 
@@ -807,7 +808,7 @@ ZTEST_CASE ( Translate3_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector3(SFloat::_0, SFloat::_8, SFloat::_4)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_0, SFloat::_1, -SFloat::_2),
@@ -835,7 +836,7 @@ ZTEST_CASE ( Translate3_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector3(SFloat::_1, -SFloat::_1, SFloat::_2),
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_0, SFloat::_1, -SFloat::_1),
@@ -861,7 +862,7 @@ ZTEST_CASE ( Translate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector3(SFloat::_1, -SFloat::_1, SFloat::_3),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_1, -SFloat::_1, SFloat::_3),
@@ -887,7 +888,7 @@ ZTEST_CASE ( Translate3_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3* arInputPoints = null_z;
 
@@ -921,7 +922,7 @@ ZTEST_CASE ( Translate4_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector4(SFloat::_0, SFloat::_8, SFloat::_4, SFloat::_0)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_0, SFloat::_1, -SFloat::_2, SFloat::_0),
@@ -949,7 +950,7 @@ ZTEST_CASE ( Translate4_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector4(SFloat::_1, -SFloat::_1, SFloat::_2, SFloat::_0),
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_0, SFloat::_1, -SFloat::_1, SFloat::_0),
@@ -975,7 +976,7 @@ ZTEST_CASE ( Translate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector4(SFloat::_1, -SFloat::_1, SFloat::_3, SFloat::_0),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_1, -SFloat::_1, SFloat::_3, SFloat::_0),
@@ -1001,7 +1002,7 @@ ZTEST_CASE ( Translate4_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector4* arInputPoints = null_z;
 
@@ -1035,7 +1036,7 @@ ZTEST_CASE ( Translate5_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector3(SFloat::_0, SFloat::_8, SFloat::_4)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_0, SFloat::_1, -SFloat::_2),
@@ -1063,7 +1064,7 @@ ZTEST_CASE ( Translate5_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector3(SFloat::_1, -SFloat::_1, SFloat::_2),
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_0, SFloat::_1, -SFloat::_1),
@@ -1089,7 +1090,7 @@ ZTEST_CASE ( Translate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector3(SFloat::_1, -SFloat::_1, SFloat::_3),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_1, -SFloat::_1, SFloat::_3),
@@ -1115,7 +1116,7 @@ ZTEST_CASE ( Translate5_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3* arInputPoints = null_z;
 
@@ -1149,7 +1150,7 @@ ZTEST_CASE ( Translate6_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector4(SFloat::_0, SFloat::_8, SFloat::_4, SFloat::_0)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_0, SFloat::_1, -SFloat::_2, SFloat::_0),
@@ -1177,7 +1178,7 @@ ZTEST_CASE ( Translate6_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector4(SFloat::_1, -SFloat::_1, SFloat::_2, SFloat::_0),
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_0, SFloat::_1, -SFloat::_1, SFloat::_0),
@@ -1203,7 +1204,7 @@ ZTEST_CASE ( Translate6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector4(SFloat::_1, -SFloat::_1, SFloat::_3, SFloat::_0),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_1, -SFloat::_1, SFloat::_3, SFloat::_0),
@@ -1229,7 +1230,7 @@ ZTEST_CASE ( Translate6_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 TRANSLATION(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector4* arInputPoints = null_z;
 
@@ -2279,7 +2280,7 @@ ZTEST_CASE ( Scale3_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector3(-SFloat::_3, -SFloat::_8, -SFloat::_2)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_2, SFloat::_1, SFloat::_0),
@@ -2307,7 +2308,7 @@ ZTEST_CASE ( Scale3_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector3(-SFloat::_3, -SFloat::_8, -SFloat::_2)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
@@ -2333,7 +2334,7 @@ ZTEST_CASE ( Scale3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
@@ -2359,7 +2360,7 @@ ZTEST_CASE ( Scale3_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3* arInputPoints = null_z;
 
@@ -2393,7 +2394,7 @@ ZTEST_CASE ( Scale4_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector4(-SFloat::_3, -SFloat::_8, -SFloat::_2, SFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_2, SFloat::_1, SFloat::_0, SFloat::_1),
@@ -2421,7 +2422,7 @@ ZTEST_CASE ( Scale4_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector4(-SFloat::_3, -SFloat::_8, -SFloat::_2, SFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
@@ -2447,7 +2448,7 @@ ZTEST_CASE ( Scale4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
@@ -2473,7 +2474,7 @@ ZTEST_CASE ( Scale4_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4* arInputPoints = null_z;
 
@@ -2507,7 +2508,7 @@ ZTEST_CASE ( Scale5_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector3(-SFloat::_3, -SFloat::_8, -SFloat::_2)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_2, SFloat::_1, SFloat::_0),
@@ -2535,7 +2536,7 @@ ZTEST_CASE ( Scale5_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector3(-SFloat::_3, -SFloat::_8, -SFloat::_2)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
@@ -2561,7 +2562,7 @@ ZTEST_CASE ( Scale5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector3(SFloat::_1, -SFloat::_1, SFloat::_3),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 SCALE(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 SCALE(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_1, -SFloat::_1, SFloat::_3),
@@ -2587,7 +2588,7 @@ ZTEST_CASE ( Scale5_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 SCALE(SFloat::_1, -SFloat::_2, SFloat::_3);
+    const Vector3 SCALE(SFloat::_1, -SFloat::_2, SFloat::_3);
 
     Vector3* arInputPoints = null_z;
 
@@ -2621,7 +2622,7 @@ ZTEST_CASE ( Scale6_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector4(-SFloat::_3, -SFloat::_8, -SFloat::_2, SFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_2, SFloat::_1, SFloat::_0, SFloat::_1),
@@ -2649,7 +2650,7 @@ ZTEST_CASE ( Scale6_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector4(-SFloat::_3, -SFloat::_8, -SFloat::_2, SFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
@@ -2675,7 +2676,7 @@ ZTEST_CASE ( Scale6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
@@ -2701,7 +2702,7 @@ ZTEST_CASE ( Scale6_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4* arInputPoints = null_z;
 
@@ -3802,7 +3803,7 @@ ZTEST_CASE ( RotateWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector2(SFloat::_1, SFloat::_0),
                                    Vector2(-SFloat::_4, SFloat::_4)
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -3834,7 +3835,7 @@ ZTEST_CASE ( RotateWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
     Vector2 arInputPoints[] = {
                                    Vector2(-SFloat::_4, SFloat::_4)
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -3866,7 +3867,7 @@ ZTEST_CASE ( RotateWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -3896,7 +3897,7 @@ ZTEST_CASE ( RotateWithPivot1_AssertionFailsWhenInputIsNull_Test )
 #endif
 
     Vector2* arInputPoints = null_z;
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -3928,14 +3929,14 @@ ZTEST_CASE ( ScaleWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector2(-SFloat::_3, SFloat::_4)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_0, SFloat::_1),
                                    Vector2(SFloat::_0_25, -SFloat::_3),
                                    Vector2(-SFloat::_1, SFloat::_2)
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
@@ -3957,12 +3958,12 @@ ZTEST_CASE ( ScaleWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector2(-SFloat::_3, SFloat::_4)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(-SFloat::_1, SFloat::_2)
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
@@ -3984,12 +3985,12 @@ ZTEST_CASE ( ScaleWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector2(SFloat::_1, -SFloat::_1),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4011,10 +4012,10 @@ ZTEST_CASE ( ScaleWithPivot1_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2* arInputPoints = null_z;
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -4046,14 +4047,14 @@ ZTEST_CASE ( ScaleWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector2(-SFloat::_3, SFloat::_4)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_0, SFloat::_1),
                                    Vector2(SFloat::_0_25, -SFloat::_3),
                                    Vector2(-SFloat::_1, SFloat::_2)
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4075,12 +4076,12 @@ ZTEST_CASE ( ScaleWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector2(-SFloat::_3, SFloat::_4)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector2);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(-SFloat::_1, SFloat::_2)
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4102,12 +4103,12 @@ ZTEST_CASE ( ScaleWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector2(SFloat::_1, -SFloat::_1),
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4129,10 +4130,10 @@ ZTEST_CASE ( ScaleWithPivot2_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
 
     Vector2* arInputPoints = null_z;
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -4182,7 +4183,7 @@ ZTEST_CASE ( TransformWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector2(SFloat::_0_25, -SFloat::_5),
                                    Vector2(-SFloat::_1, SFloat::_10)
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4219,7 +4220,7 @@ ZTEST_CASE ( TransformWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
     Vector2 arInputPoints[] = {
                                    Vector2(-SFloat::_1, SFloat::_10)
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4256,7 +4257,7 @@ ZTEST_CASE ( TransformWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     Vector2 arInputPoints[] = {
                                    Vector2(SFloat::_1, -SFloat::_1),
                                };
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4291,7 +4292,7 @@ ZTEST_CASE ( TransformWithPivot1_AssertionFailsWhenInputIsNull_Test )
     const TransformationMatrix3x3 TRANSFORMATION = TransformationMatrix3x3(TRANSLATION, ROTATION, SCALE);
 
     Vector2* arInputPoints = null_z;
-    const BaseVector2 PIVOT(SFloat::_1, SFloat::_1);
+    const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -4329,7 +4330,7 @@ ZTEST_CASE ( RotateWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector3(-SFloat::_4, SFloat::_4, SFloat::_3)
                                };
 
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
     const Vector3 EXPECTED_POINTS[] = {
                                            (arInputPoints[0] - PIVOT).Transform(ROTATION) + PIVOT,
                                            (arInputPoints[1] - PIVOT).Transform(ROTATION) + PIVOT,
@@ -4363,7 +4364,7 @@ ZTEST_CASE ( RotateWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
                                    Vector3(-SFloat::_4, SFloat::_4, SFloat::_3)
                                };
 
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
     const Vector3 EXPECTED_POINTS[] = {
                                            (arInputPoints[0] - PIVOT).Transform(ROTATION) + PIVOT,
                                        };
@@ -4399,7 +4400,7 @@ ZTEST_CASE ( RotateWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            arInputPoints[0],
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4430,7 +4431,7 @@ ZTEST_CASE ( RotateWithPivot2_AssertionFailsWhenInputIsNull_Test )
 #endif
 
     Vector3* arInputPoints = null_z;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -4468,7 +4469,7 @@ ZTEST_CASE ( RotateWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector4(-SFloat::_4, SFloat::_4, SFloat::_3, SFloat::_1)
                                };
 
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
     const Vector4 EXPECTED_POINTS[] = {
                                            (arInputPoints[0] - PIVOT).Transform(ROTATION) + PIVOT,
                                            (arInputPoints[1] - PIVOT).Transform(ROTATION) + PIVOT,
@@ -4502,7 +4503,7 @@ ZTEST_CASE ( RotateWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
                                    Vector4(-SFloat::_4, SFloat::_4, SFloat::_3, SFloat::_1)
                                };
 
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
     const Vector4 EXPECTED_POINTS[] = {
                                            (arInputPoints[0] - PIVOT).Transform(ROTATION) + PIVOT,
                                        };
@@ -4538,7 +4539,7 @@ ZTEST_CASE ( RotateWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            arInputPoints[0],
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4569,7 +4570,7 @@ ZTEST_CASE ( RotateWithPivot3_AssertionFailsWhenInputIsNull_Test )
 #endif
 
     Vector4* arInputPoints = null_z;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -4607,7 +4608,7 @@ ZTEST_CASE ( RotateWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector3(-SFloat::_4, SFloat::_4, SFloat::_3)
                                };
 
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
     const Vector3 EXPECTED_POINTS[] = {
                                            (arInputPoints[0] - PIVOT).Transform(ROTATION) + PIVOT,
                                            (arInputPoints[1] - PIVOT).Transform(ROTATION) + PIVOT,
@@ -4641,7 +4642,7 @@ ZTEST_CASE ( RotateWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
                                    Vector3(-SFloat::_4, SFloat::_4, SFloat::_3)
                                };
 
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
     const Vector3 EXPECTED_POINTS[] = {
                                            (arInputPoints[0] - PIVOT).Transform(ROTATION) + PIVOT,
                                        };
@@ -4677,7 +4678,7 @@ ZTEST_CASE ( RotateWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            arInputPoints[0],
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4708,7 +4709,7 @@ ZTEST_CASE ( RotateWithPivot4_AssertionFailsWhenInputIsNull_Test )
 #endif
 
     Vector3* arInputPoints = null_z;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -4746,7 +4747,7 @@ ZTEST_CASE ( RotateWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector4(-SFloat::_4, SFloat::_4, SFloat::_3, SFloat::_1)
                                };
 
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
     const Vector4 EXPECTED_POINTS[] = {
                                            (arInputPoints[0] - PIVOT).Transform(ROTATION) + PIVOT,
                                            (arInputPoints[1] - PIVOT).Transform(ROTATION) + PIVOT,
@@ -4780,7 +4781,7 @@ ZTEST_CASE ( RotateWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
                                    Vector4(-SFloat::_4, SFloat::_4, SFloat::_3, SFloat::_1)
                                };
 
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
     const Vector4 EXPECTED_POINTS[] = {
                                            (arInputPoints[0] - PIVOT).Transform(ROTATION) + PIVOT,
                                        };
@@ -4816,7 +4817,7 @@ ZTEST_CASE ( RotateWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            arInputPoints[0],
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4847,7 +4848,7 @@ ZTEST_CASE ( RotateWithPivot5_AssertionFailsWhenInputIsNull_Test )
 #endif
 
     Vector4* arInputPoints = null_z;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -4879,14 +4880,14 @@ ZTEST_CASE ( ScaleWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector3(-SFloat::_5, -SFloat::_5, SFloat::_3)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_2, SFloat::_1, SFloat::_0),
                                    Vector3(SFloat::_0_25, -SFloat::_5, -SFloat::_1),
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4908,12 +4909,12 @@ ZTEST_CASE ( ScaleWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector3(-SFloat::_5, -SFloat::_5, SFloat::_3)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4935,12 +4936,12 @@ ZTEST_CASE ( ScaleWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -4962,10 +4963,10 @@ ZTEST_CASE ( ScaleWithPivot3_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3* arInputPoints = null_z;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -4997,14 +4998,14 @@ ZTEST_CASE ( ScaleWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector4(-SFloat::_5, -SFloat::_5, SFloat::_3, SFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_2, SFloat::_1, SFloat::_0, SFloat::_1),
                                    Vector4(SFloat::_0_25, -SFloat::_5, -SFloat::_1, SFloat::_1),
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5026,12 +5027,12 @@ ZTEST_CASE ( ScaleWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector4(-SFloat::_5, -SFloat::_5, SFloat::_3, SFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5053,12 +5054,12 @@ ZTEST_CASE ( ScaleWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5080,10 +5081,10 @@ ZTEST_CASE ( ScaleWithPivot4_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4* arInputPoints = null_z;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -5115,14 +5116,14 @@ ZTEST_CASE ( ScaleWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector3(-SFloat::_5, -SFloat::_5, SFloat::_3)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(SFloat::_2, SFloat::_1, SFloat::_0),
                                    Vector3(SFloat::_0_25, -SFloat::_5, -SFloat::_1),
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5144,12 +5145,12 @@ ZTEST_CASE ( ScaleWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector3(-SFloat::_5, -SFloat::_5, SFloat::_3)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5171,12 +5172,12 @@ ZTEST_CASE ( ScaleWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5198,10 +5199,10 @@ ZTEST_CASE ( ScaleWithPivot5_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3* arInputPoints = null_z;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -5233,14 +5234,14 @@ ZTEST_CASE ( ScaleWithPivot6_MoreThanOnePointAreTransformedCorrectly_Test )
                                            Vector4(-SFloat::_5, -SFloat::_5, SFloat::_3, SFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(SFloat::_2, SFloat::_1, SFloat::_0, SFloat::_1),
                                    Vector4(SFloat::_0_25, -SFloat::_5, -SFloat::_1, SFloat::_1),
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5262,12 +5263,12 @@ ZTEST_CASE ( ScaleWithPivot6_OnlyOnePointIsTransformedCorrectly_Test )
                                            Vector4(-SFloat::_5, -SFloat::_5, SFloat::_3, SFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5289,12 +5290,12 @@ ZTEST_CASE ( ScaleWithPivot6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                            Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                        };
     const int POINTS_COUNT = 0;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5316,10 +5317,10 @@ ZTEST_CASE ( ScaleWithPivot6_AssertionFailsWhenInputIsNull_Test )
     // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
-    const BaseVector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
+    const Vector3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4* arInputPoints = null_z;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -5358,7 +5359,7 @@ ZTEST_CASE ( ScaleWithPivot7_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector3(SFloat::_0_25, -SFloat::_5, -SFloat::_1),
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5385,7 +5386,7 @@ ZTEST_CASE ( ScaleWithPivot7_OnlyOnePointIsTransformedCorrectly_Test )
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5412,7 +5413,7 @@ ZTEST_CASE ( ScaleWithPivot7_NoWorkIsDoneWhenInputNumberIsZero_Test )
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5437,7 +5438,7 @@ ZTEST_CASE ( ScaleWithPivot7_AssertionFailsWhenInputIsNull_Test )
     const ScalingMatrix3x3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector3* arInputPoints = null_z;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -5476,7 +5477,7 @@ ZTEST_CASE ( ScaleWithPivot8_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector4(SFloat::_0_25, -SFloat::_5, -SFloat::_1, SFloat::_1),
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5503,7 +5504,7 @@ ZTEST_CASE ( ScaleWithPivot8_OnlyOnePointIsTransformedCorrectly_Test )
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5530,7 +5531,7 @@ ZTEST_CASE ( ScaleWithPivot8_NoWorkIsDoneWhenInputNumberIsZero_Test )
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5555,7 +5556,7 @@ ZTEST_CASE ( ScaleWithPivot8_AssertionFailsWhenInputIsNull_Test )
     const ScalingMatrix3x3 SCALE(SFloat::_3, -SFloat::_2, -SFloat::_4);
 
     Vector4* arInputPoints = null_z;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -5603,7 +5604,7 @@ ZTEST_CASE ( TransformWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector3(-SFloat::_1,   SFloat::_4,  SFloat::_0_5)
                                };
 
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5637,7 +5638,7 @@ ZTEST_CASE ( TransformWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5671,7 +5672,7 @@ ZTEST_CASE ( TransformWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5703,7 +5704,7 @@ ZTEST_CASE ( TransformWithPivot2_AssertionFailsWhenInputIsNull_Test )
     const TransformationMatrix<Matrix4x3> TRANSFORMATION = TransformationMatrix<Matrix4x3>(TRANSLATION, ROTATION, SCALE);
 
     Vector3* arInputPoints = null_z;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -5750,7 +5751,7 @@ ZTEST_CASE ( TransformWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector4(SFloat::_0_25, -SFloat::_5, -SFloat::_1, SFloat::_1),
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5784,7 +5785,7 @@ ZTEST_CASE ( TransformWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5818,7 +5819,7 @@ ZTEST_CASE ( TransformWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5850,7 +5851,7 @@ ZTEST_CASE ( TransformWithPivot3_AssertionFailsWhenInputIsNull_Test )
     const TransformationMatrix<Matrix4x3> TRANSFORMATION = TransformationMatrix<Matrix4x3>(TRANSLATION, ROTATION, SCALE);
 
     Vector4* arInputPoints = null_z;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -5892,8 +5893,8 @@ ZTEST_CASE ( TransformWithPivot3_WComponentOfPivotDoesNotMatter_Test )
     Vector4 arInputPoints2[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                 };
-    const BaseVector4 PIVOT1(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
-    const BaseVector4 PIVOT2(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_0);
+    const Vector4 PIVOT1(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT2(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_0);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT1, arInputPoints1, POINTS_COUNT);
@@ -5930,7 +5931,7 @@ ZTEST_CASE ( TransformWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector3(SFloat::_0_25, -SFloat::_5, -SFloat::_1),
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5964,7 +5965,7 @@ ZTEST_CASE ( TransformWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -5998,7 +5999,7 @@ ZTEST_CASE ( TransformWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     Vector3 arInputPoints[] = {
                                    Vector3(-SFloat::_1, SFloat::_4, SFloat::_0_5)
                                };
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -6030,7 +6031,7 @@ ZTEST_CASE ( TransformWithPivot4_AssertionFailsWhenInputIsNull_Test )
     const TransformationMatrix<Matrix4x4> TRANSFORMATION = TransformationMatrix<Matrix4x4>(TRANSLATION, ROTATION, SCALE);
 
     Vector3* arInputPoints = null_z;
-    const BaseVector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -6077,7 +6078,7 @@ ZTEST_CASE ( TransformWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
                                    Vector4(SFloat::_0_25, -SFloat::_5, -SFloat::_1, SFloat::_1),
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -6111,7 +6112,7 @@ ZTEST_CASE ( TransformWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -6145,7 +6146,7 @@ ZTEST_CASE ( TransformWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     Vector4 arInputPoints[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                };
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
@@ -6177,7 +6178,7 @@ ZTEST_CASE ( TransformWithPivot5_AssertionFailsWhenInputIsNull_Test )
     const TransformationMatrix<Matrix4x4> TRANSFORMATION = TransformationMatrix<Matrix4x4>(TRANSLATION, ROTATION, SCALE);
 
     Vector4* arInputPoints = null_z;
-    const BaseVector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
     bool bAssertionFailed = false;
@@ -6219,8 +6220,8 @@ ZTEST_CASE ( TransformWithPivot5_WComponentOfPivotDoesNotMatter_Test )
     Vector4 arInputPoints2[] = {
                                    Vector4(-SFloat::_1, SFloat::_4, SFloat::_0_5, SFloat::_1)
                                 };
-    const BaseVector4 PIVOT1(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
-    const BaseVector4 PIVOT2(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_0);
+    const Vector4 PIVOT1(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
+    const Vector4 PIVOT2(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_0);
 
 	// [Execution]
     SPoint::TransformWithPivot(TRANSFORMATION, PIVOT1, arInputPoints1, POINTS_COUNT);

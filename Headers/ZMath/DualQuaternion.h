@@ -27,8 +27,9 @@
 #ifndef __DUALQUATERNION__
 #define __DUALQUATERNION__
 
-#include "BaseDualQuaternion.h"
+#include "ZMath/MathModuleDefinitions.h"
 
+#include "ZMath/Quaternion.h"
 #include "ZCommon/DataTypes/SFloat.h"
 
 
@@ -37,8 +38,8 @@ namespace z
 {
 
 // Forward declarations
-class BaseVector3;
-class BaseVector4;
+class Vector3;
+class Vector4;
 
 
 /// <summary>
@@ -56,7 +57,7 @@ class BaseVector4;
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br/>
 /// This class has been included for experimental purposes only. Use it at your own risk.
 /// </remarks>
-class Z_MATH_MODULE_SYMBOLS DualQuaternion : public BaseDualQuaternion
+class Z_MATH_MODULE_SYMBOLS DualQuaternion
 {
     // FRIENDS
     // ---------------
@@ -78,28 +79,16 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     DualQuaternion();
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="dualQuat">[IN] The dual quaternion from which we want to create a copy in the resident dual quaternion.</param>
-    DualQuaternion(const DualQuaternion &dualQuat);
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="dualQuat">[IN] The dual quaternion from which we want to create a copy in the resident dual quaternion.</param>
-    DualQuaternion(const BaseDualQuaternion &dualQuat);
 
     /// <summary>
     /// Constructor from two regular quaternions.
     /// </summary>
     /// <param name="qReal">[IN] Regular quaternion to define non-dual part.</param>
     /// <param name="qDual">[IN] Regular quaternion to define dual part.</param>
-    DualQuaternion(const BaseQuaternion &qReal, const BaseQuaternion &qDual);
+    DualQuaternion(const Quaternion &qReal, const Quaternion &qDual);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -124,7 +113,7 @@ public:
     /// </remarks>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
-    DualQuaternion(const BaseQuaternion &qRotation, const BaseVector3 &vTranslation);
+    DualQuaternion(const Quaternion &qRotation, const Vector3 &vTranslation);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -150,7 +139,7 @@ public:
     /// </remarks>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
-    DualQuaternion(const BaseQuaternion &qRotation, const BaseVector4 &vTranslation);
+    DualQuaternion(const Quaternion &qRotation, const Vector4 &vTranslation);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -176,7 +165,7 @@ public:
     /// </remarks>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
-    DualQuaternion(const BaseVector3 &vTranslation, const BaseQuaternion &qRotation);
+    DualQuaternion(const Vector3 &vTranslation, const Quaternion &qRotation);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -202,7 +191,7 @@ public:
     /// </remarks>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
-    DualQuaternion(const BaseVector4 &vTranslation, const BaseQuaternion &qRotation);
+    DualQuaternion(const Vector4 &vTranslation, const Quaternion &qRotation);
 
     /// <summary>
     /// Constructor from two four components arrays of floating point values, one for each quaternion component.
@@ -230,11 +219,11 @@ private:
     /// the rotation dual quaternion, taking into account that the transfomation is done as follows:<br/>
     /// FIRST ROTATION THEN TRANSLATION.
     /// </remarks>
-    /// <typeparam name="VectorT">Allowed types: BaseVector3, BaseVector4, Vector3, Vector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: Vector3, Vector4, Vector3, Vector4.</typeparam>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     template <class VectorT>
-    void DualQuaternionImp(const BaseQuaternion &qRotation, const VectorT &vTranslation);
+    void DualQuaternionImp(const Quaternion &qRotation, const VectorT &vTranslation);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -251,11 +240,11 @@ private:
     /// the translation dual quaternion, taking into account that the transfomation is done as follows:<br/>
     /// FIRST TRANSLATION THEN ROTATION.
     /// </remarks>
-    /// <typeparam name="VectorT">Allowed types: BaseVector3, BaseVector4, Vector3, Vector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: Vector3, Vector4, Vector3, Vector4.</typeparam>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     template <class VectorT>
-    void DualQuaternionImp(const VectorT &vTranslation, const BaseQuaternion &qRotation);
+    void DualQuaternionImp(const VectorT &vTranslation, const Quaternion &qRotation);
 
 
     // PROPERTIES
@@ -274,6 +263,24 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Equality operator. Compares two dual quaternions component by component.
+    /// </summary>
+    /// <param name="dualQuat">[IN] The dual quaternion to compare to.</param>
+    /// <returns>
+    /// If dual quaternions are equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator==(const DualQuaternion &dualQuat) const;
+
+    /// <summary>
+    /// Inequality operator. Compares two dual quaternions component by component.
+    /// </summary>
+    /// <param name="dualQuat">[IN] The dual quaternion to compare to.</param>
+    /// <returns>
+    /// If dual quaternions are not equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator!=(const DualQuaternion &dualQuat) const;
 
     /// <summary>
     /// Dual quaternions addition: it's performed component by component.
@@ -282,7 +289,7 @@ public:
     /// <returns>
     /// A dual quaternion that is the result of the addition.
     /// </returns>
-    DualQuaternion operator+(const BaseDualQuaternion &dualQuat) const;
+    DualQuaternion operator+(const DualQuaternion &dualQuat) const;
 
     /// <summary>
     /// Dual quaternions subtraction: it's performed component by component.
@@ -291,7 +298,7 @@ public:
     /// <returns>
     /// A dual quaternion that is the result of the subtraction.
     /// </returns>
-    DualQuaternion operator-(const BaseDualQuaternion &dualQuat) const;
+    DualQuaternion operator-(const DualQuaternion &dualQuat) const;
 
     /// <summary>
     /// Dual quaternions product: it's performed as follows:
@@ -306,7 +313,7 @@ public:
     /// <returns>
     /// A dual quaternion that is the result of the product.
     /// </returns>
-    DualQuaternion operator*(const BaseDualQuaternion &dualQuat) const;
+    DualQuaternion operator*(const DualQuaternion &dualQuat) const;
 
     /// <summary>
     /// Multiply by scalar operator. Both quaternion components are multiplied by the scalar.
@@ -329,7 +336,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    DualQuaternion operator*(const BaseVector3 &vVector) const;
+    DualQuaternion operator*(const Vector3 &vVector) const;
 
     /// <summary>
     /// Product by a vector (multiplying to the dual quaternion by the right).
@@ -343,7 +350,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    DualQuaternion operator*(const BaseVector4 &vVector) const;
+    DualQuaternion operator*(const Vector4 &vVector) const;
 
     /// <summary>
     /// Divide by scalar operator. Both quaternion components are divided by the scalar.
@@ -362,7 +369,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    DualQuaternion& operator+=(const BaseDualQuaternion &dualQuat);
+    DualQuaternion& operator+=(const DualQuaternion &dualQuat);
 
     /// <summary>
     /// Subtract and assign operator. Each input quaternion component is subtracted to the corresponding quaternion
@@ -372,7 +379,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    DualQuaternion& operator-=(const BaseDualQuaternion &dualQuat);
+    DualQuaternion& operator-=(const DualQuaternion &dualQuat);
 
     /// <summary>
     /// Multiply and assign operator. The resident dual quaternion is multiplied by the input one.
@@ -388,7 +395,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    DualQuaternion& operator*=(const BaseDualQuaternion &dualQuat);
+    DualQuaternion& operator*=(const DualQuaternion &dualQuat);
 
     /// <summary>
     /// Multiply by a floating point value and assign operator. Each dual quaternion component is
@@ -408,15 +415,6 @@ public:
     /// The modified dual quaternion.
     /// </returns>
     DualQuaternion& operator/=(const float_z fScalar);
-
-    /// <summary>
-    /// Assignation operator. Assigns the provided dual quaternion to the resident dual quaternion.
-    /// </summary>
-    /// <param name="dualQuat">[IN] The dual quaternion to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified dual quaternion.
-    /// </returns>
-    DualQuaternion& operator=(const BaseDualQuaternion &dualQuat);
 
     /// <summary>
     /// Resets to zero all components of both quaternions of the dual quaternion.
@@ -485,7 +483,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    DualQuaternion TransformRotationFirst(const BaseQuaternion &qRotation, const BaseVector3 &vTranslation) const;
+    DualQuaternion TransformRotationFirst(const Quaternion &qRotation, const Vector3 &vTranslation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
@@ -495,7 +493,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    DualQuaternion TransformRotationFirst(const BaseQuaternion &qRotation, const BaseVector4 &vTranslation) const;
+    DualQuaternion TransformRotationFirst(const Quaternion &qRotation, const Vector4 &vTranslation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
@@ -505,7 +503,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    DualQuaternion TransformTranslationFirst(const BaseVector3 &vTranslation, const BaseQuaternion &qRotation) const;
+    DualQuaternion TransformTranslationFirst(const Vector3 &vTranslation, const Quaternion &qRotation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
@@ -515,7 +513,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    DualQuaternion TransformTranslationFirst(const BaseVector4 &vTranslation, const BaseQuaternion &qRotation) const;
+    DualQuaternion TransformTranslationFirst(const Vector4 &vTranslation, const Quaternion &qRotation) const;
 
     /// <summary>
     /// Returns a dual quaternion, assuming current one is a transformation, which is a linear interpolation
@@ -560,27 +558,41 @@ private:
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
     /// </summary>
-    /// <typeparam name="VectorT">Allowed types: BaseVector3, BaseVector4, Vector3, Vector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: Vector3, Vector4, Vector3, Vector4.</typeparam>
     /// <param name="qRotation">[IN] Regular quaternion which defines the rotation.</param>
     /// <param name="vTranslation">[IN] Vector which defines the translation.</param>
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
     template <class VectorT>
-    DualQuaternion TransformRotationFirstImp(const BaseQuaternion &qRotation, const VectorT &vTranslation) const;
+    DualQuaternion TransformRotationFirstImp(const Quaternion &qRotation, const VectorT &vTranslation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
     /// </summary>
-    /// <typeparam name="VectorT">Allowed types: BaseVector3, BaseVector4, Vector3, Vector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: Vector3, Vector4, Vector3, Vector4.</typeparam>
     /// <param name="vTranslation">[IN] Vector which defines the translation.</param>
     /// <param name="qRotation">[IN] Regular quaternion which defines the rotation.</param>
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
     template <class VectorT>
-    DualQuaternion TransformTranslationFirstImp(const VectorT &vTranslation, const BaseQuaternion &qRotation) const;
+    DualQuaternion TransformTranslationFirstImp(const VectorT &vTranslation, const Quaternion &qRotation) const;
+    
 
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Non-dual (real) part of the dual quaternion. Generally it represents the rotation applied.
+    /// </summary>
+    Quaternion r;
+
+    /// <summary>
+    /// Dual part of the dual quaternion. Generally it represents the traslation applied (modified by the rotation).
+    /// </summary>
+    Quaternion d;
 };
 
 } // namespace z

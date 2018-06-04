@@ -27,9 +27,8 @@
 #ifndef __VECTOR2__
 #define __VECTOR2__
 
-#include "ZMath/BaseVector2.h"
+#include "ZMath/MathModuleDefinitions.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"
-
 
 
 namespace z
@@ -38,7 +37,7 @@ namespace z
 // Forward declarations
 // ---------------------
 class TransformationMatrix3x3;
-class BaseMatrix2x2;
+class Matrix2x2;
 
 
 /// <summary>
@@ -47,7 +46,7 @@ class BaseMatrix2x2;
 /// <remarks>
 ///    A vector is a geometric object that has both a magnitude (or length) and a direction.
 /// </remarks>
-class Z_MATH_MODULE_SYMBOLS Vector2 : public BaseVector2
+class Z_MATH_MODULE_SYMBOLS Vector2
 {
     // FRIENDS
     // ---------------
@@ -69,24 +68,9 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
-    /// <remarks>
-    ///    By default, all the components are set to zero.
-    /// </remarks>
     Vector2();
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-    Vector2(const Vector2 &vVector);
-
-    /// <summary>
-    /// Constructor that receives an instance of the base type.
-    /// </summary>
-    /// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-    Vector2(const BaseVector2 &vVector);
 
     /// <summary>
     /// Constructor that receives the value of every vector's component.
@@ -178,13 +162,31 @@ public:
 public:
 
     /// <summary>
+    /// Checks if two vectors are equal.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to which to compare.</param>
+    /// <returns>
+    /// True if vectors are the same; False otherwise.
+    /// </returns>
+    bool operator==(const Vector2 &vVector) const;
+
+    /// <summary>
+    /// Checks if two vectors are not equal.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to which to compare.</param>
+    /// <returns>
+    /// True if vectors are not the same; False otherwise.
+    /// </returns>
+    bool operator!=(const Vector2 &vVector) const;
+
+    /// <summary>
     /// Adds two vectors by adding each component.
     /// </summary>
     /// <param name="vVector">[IN] Vector to be added.</param>
     /// <returns>
     /// A vector that is the result of the addition.
     /// </returns>
-    Vector2 operator+(const BaseVector2 &vVector) const;
+    Vector2 operator+(const Vector2 &vVector) const;
 
     /// <summary>
     /// Substracts two vectors by substracting each component.
@@ -193,7 +195,7 @@ public:
     /// <returns>
     /// A vector that is the result of the subtraction.
     /// </returns>
-    Vector2 operator-(const BaseVector2 &vVector) const;
+    Vector2 operator-(const Vector2 &vVector) const;
 
     /// <summary>
     /// Multiplies the vector by a scalar.
@@ -211,7 +213,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    Vector2 operator*(const BaseVector2 &vVector) const;
+    Vector2 operator*(const Vector2 &vVector) const;
 
     /// <summary>
     /// Multiplies the vector by a 2x2 matrix.
@@ -223,7 +225,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    Vector2 operator*(const BaseMatrix2x2 &matrix) const;
+    Vector2 operator*(const Matrix2x2 &matrix) const;
 
     /// <summary>
     /// Divides the vector by a scalar.
@@ -241,7 +243,7 @@ public:
     /// <returns>
     /// A vector that is the result of the division.
     /// </returns>
-    Vector2 operator/(const BaseVector2 &vVector) const;
+    Vector2 operator/(const Vector2 &vVector) const;
 
     /// <summary>
     /// Adds a vector to the resident vector. The resident vector is set to the result.
@@ -250,7 +252,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the addition.
     /// </returns>
-    Vector2& operator+=(const BaseVector2 &vVector);
+    Vector2& operator+=(const Vector2 &vVector);
 
     /// <summary>
     /// Subtracts a vector to the resident vector. The resident vector is set to the result.
@@ -259,7 +261,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the subtraction.
     /// </returns>
-    Vector2& operator-=(const BaseVector2 &vVector);
+    Vector2& operator-=(const Vector2 &vVector);
 
     /// <summary>
     /// Multiplies the resident vector by a scalar. The resident vector is set to the result.
@@ -280,7 +282,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the product.
     /// </returns>
-    Vector2& operator*=(const BaseMatrix2x2 &matrix);
+    Vector2& operator*=(const Matrix2x2 &matrix);
 
     /// <summary>
     /// Multiplies two vectors by multiplying each component. The resident vector is set to the result.
@@ -289,7 +291,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the product.
     /// </returns>
-    Vector2& operator*=(const BaseVector2 &vVector);
+    Vector2& operator*=(const Vector2 &vVector);
 
     /// <summary>
     /// Divides the vector by a scalar. The resident vector is set to the result.
@@ -307,18 +309,9 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the division.
     /// </returns>
-    Vector2& operator/=(const BaseVector2 &vVector);
+    Vector2& operator/=(const Vector2 &vVector);
 
     /// <summary>
-    /// Assigns the provided vector to the resident vector.
-    /// </summary>
-    /// <param name="vVector">[IN] The vector to be assigned.</param>
-    /// <returns>
-    /// A reference to the resident vector.
-    /// </returns>
-    Vector2& operator=(const BaseVector2 &vVector);
-
-       /// <summary>
     /// Negates the vector by negating each component.
     /// </summary>
     /// <returns>
@@ -448,7 +441,7 @@ public:
     /// <returns>
     /// A vector that is the result of the interpolation.
     /// </returns>
-    Vector2 Lerp(const float_z fProportion, const BaseVector2 &vVector) const;
+    Vector2 Lerp(const float_z fProportion, const Vector2 &vVector) const;
 
     /// <summary>
     /// Calculates the distance between two vectors (two points).
@@ -471,7 +464,21 @@ public:
     /// The string with the format specified.
     /// </returns>
     string_z ToString() const;
+    
 
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Vector's X coordinate.
+    /// </summary>
+    float_z x;
+
+    /// <summary>
+    /// Vector's Y coordinate.
+    /// </summary>
+    float_z y;
 };
 
 } // namespace z

@@ -34,19 +34,25 @@
 namespace z
 {
 
-// Forward declarations
+// FORWARD DECLARATIONS
 // ----------------------
-class BaseVector3;
-class BaseQuaternion;
+class Vector3;
+class Quaternion;
 class ScalingMatrix3x3;
-template<class MatrixT> class TransformationMatrix;
-template<class MatrixT> class TranslationMatrix;
 class Matrix4x3;
 class Matrix4x4;
-class RotationMatrix3x3;
 
-// Preventing friend global operator to be called.
-RotationMatrix3x3 operator*(const float_z fScalar, const RotationMatrix3x3 &matrix);
+namespace Internals
+{
+    template<class MatrixT> class TransformationMatrix;
+    template<class MatrixT> class TranslationMatrix;
+}
+
+typedef Internals::TranslationMatrix<Matrix4x3> TranslationMatrix4x3;
+typedef Internals::TranslationMatrix<Matrix4x4> TranslationMatrix4x4;
+typedef Internals::TransformationMatrix<Matrix4x3> TransformationMatrix4x3;
+typedef Internals::TransformationMatrix<Matrix4x4> TransformationMatrix4x4;
+
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a rotation.
@@ -59,7 +65,7 @@ class Z_MATH_MODULE_SYMBOLS RotationMatrix3x3 : public Matrix3x3
 public:
 
     /// <summary>
-    /// Default constructor. It's initialized to identity matrix.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     RotationMatrix3x3();
 
@@ -77,7 +83,7 @@ public:
     /// Otherwise, unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="rotation">[IN] The 3x3 matrix in which we want the resident 3x3 rotation matrix to be based.</param>
-    RotationMatrix3x3(const BaseMatrix3x3 &rotation);
+    RotationMatrix3x3(const Matrix3x3 &rotation);
 
     /// <summary>
     /// Constructor that receives 3 angles, one for each Euler angle, to construct the rotation
@@ -115,7 +121,7 @@ public:
     /// <remarks>
     /// The axis vector must be normalized to construct the rotation matrix properly.
     /// </remarks>
-    RotationMatrix3x3(const float_z fRotationAngle, const BaseVector3 &vRotationAxis);
+    RotationMatrix3x3(const float_z fRotationAngle, const Vector3 &vRotationAxis);
 
     /// <summary>
     /// Constructor from a quaternion.
@@ -129,7 +135,7 @@ public:
     /// \end{bmatrix}\f$<br/>
     /// </remarks>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation. It must be normalized to construct the rotation matrix properly</param>
-    explicit RotationMatrix3x3(const BaseQuaternion &qRotation);
+    explicit RotationMatrix3x3(const Quaternion &qRotation);
 
 
     // PROPERTIES
@@ -176,7 +182,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x4> operator*(const ScalingMatrix3x3 &matrix) const;
+    TransformationMatrix4x4 operator*(const ScalingMatrix3x3 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x4 translation matrix by the current matrix.
@@ -188,7 +194,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x4> operator*(const TranslationMatrix<Matrix4x4> &matrix) const;
+    TransformationMatrix4x4 operator*(const TranslationMatrix4x4 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 translation matrix by the current matrix.
@@ -200,7 +206,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x3> operator*(const TranslationMatrix<Matrix4x3> &matrix) const;
+    TransformationMatrix4x3 operator*(const TranslationMatrix4x3 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x4 transformation matrix by the current matrix.
@@ -212,7 +218,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x4> operator*(const TransformationMatrix<Matrix4x4> &matrix) const;
+    TransformationMatrix4x4 operator*(const TransformationMatrix4x4 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 transformation matrix by the current matrix.
@@ -224,7 +230,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x3> operator*(const TransformationMatrix<Matrix4x3> &matrix) const;
+    TransformationMatrix4x3 operator*(const TransformationMatrix4x3 &matrix) const;
 
     /// <summary>
     /// Assignation operator. Assigns the provided matrix to the resident matrix.
@@ -237,7 +243,7 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    RotationMatrix3x3& operator=(const BaseMatrix3x3 &matrix);
+    RotationMatrix3x3& operator=(const Matrix3x3 &matrix);
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -280,7 +286,7 @@ public:
     /// Then, we can calculate quaternion component from every matrix trace.<br/>
     /// </remarks>
     /// <param name="qRotation">[OUT] Quaternion where to store the rotation.</param>
-    void GetRotation(BaseQuaternion &qRotation) const;
+    void GetRotation(Quaternion &qRotation) const;
 
     /// <summary>
     /// Converts rotation matrix to an angle and a spin axis.<br/>
@@ -291,7 +297,7 @@ public:
     /// </remarks>
     /// <param name="fRotationAngle">[OUT] Angle of rotation.</param>
     /// <param name="vRotationAxis">[OUT] Unitary vector in the direction of the spin axis.</param>
-    void GetRotation(float_z &fRotationAngle, BaseVector3 &vRotationAxis) const;
+    void GetRotation(float_z &fRotationAngle, Vector3 &vRotationAxis) const;
 
     /// <summary>
     /// Calculates the determinant of the matrix. Since this is a rotation matrix, which is
@@ -306,16 +312,16 @@ private:
 
     // Preventing the operators from base class to be used.
     Matrix3x3 operator*(const float_z fScalar) const;
-    Matrix3x3 operator*(const BaseMatrix3x3 &matrix) const;
-    BaseMatrix3x4 operator*(const BaseMatrix3x4& matrix) const;
+    Matrix3x3 operator*(const Matrix3x3 &matrix) const;
+    Matrix3x4 operator*(const Matrix3x4& matrix) const;
     Matrix3x3 operator/(const float_z fScalar) const;
-    Matrix3x3 operator+(const BaseMatrix3x3 &matrix) const;
-    Matrix3x3 operator-(const BaseMatrix3x3 &matrix) const;
-    Matrix3x3& operator*=(const BaseMatrix3x3 &matrix);
+    Matrix3x3 operator+(const Matrix3x3 &matrix) const;
+    Matrix3x3 operator-(const Matrix3x3 &matrix) const;
+    Matrix3x3& operator*=(const Matrix3x3 &matrix);
     Matrix3x3& operator*=(const float_z fScalar);
     Matrix3x3& operator/=(const float_z fScalar);
-    Matrix3x3& operator+=(const BaseMatrix3x3 &matrix);
-    Matrix3x3& operator-=(const BaseMatrix3x3 &matrix);
+    Matrix3x3& operator+=(const Matrix3x3 &matrix);
+    Matrix3x3& operator-=(const Matrix3x3 &matrix);
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
@@ -332,7 +338,7 @@ private:
     /// The resultant 4x3 or 4x4 transformation matrix.
     /// </returns>
     template <class MatrixT>
-    TransformationMatrix<MatrixT> ProductOperatorImp(const TranslationMatrix<MatrixT> &matrix) const;
+    Internals::TransformationMatrix<MatrixT> ProductOperatorImp(const Internals::TranslationMatrix<MatrixT> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 or 4x4 transformation matrix by the resident matrix.
@@ -346,8 +352,12 @@ private:
     /// The resultant 4x3 or 4x4 transformation matrix.
     /// </returns>
     template <class MatrixT>
-    TransformationMatrix<MatrixT> ProductOperatorImp(const TransformationMatrix<MatrixT> &matrix) const;
+    Internals::TransformationMatrix<MatrixT> ProductOperatorImp(const Internals::TransformationMatrix<MatrixT> &matrix) const;
 };
+
+
+// Preventing friend global operator to be called.
+RotationMatrix3x3 operator*(const float_z fScalar, const RotationMatrix3x3 &matrix);
 
 } // namespace z
 

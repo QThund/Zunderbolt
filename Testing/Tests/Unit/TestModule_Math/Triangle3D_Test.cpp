@@ -43,34 +43,13 @@ using namespace boost::unit_test;
 #include "ZMath/TransformationMatrix.h"
 #include "ZMath/SpaceConversionMatrix.h"
 #include "ZCommon/Exceptions/AssertException.h"
+#include "ZCommon/DataTypes/SVF32.h"
+using namespace z::Internals;
 
 typedef boost::mpl::list<Vector3, Vector4> TTemplateTypes;
 
 
 ZTEST_SUITE_BEGIN( Triangle3D_TestSuite )
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TTemplateTypes )
-{
-    // [Preparation]
-    const float_z VECTOR_COMPONENTS_A[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-    const float_z VECTOR_COMPONENTS_B[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-    const float_z VECTOR_COMPONENTS_C[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-
-	const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
-    const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
-    const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
-
-	// [Execution]
-    Triangle3D<T> triangleUT;
-
-    // [Verification]
-    BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
-    BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
-    BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
-}
 
 /// <summary>
 /// Checks if copy constructor sets triangle's points properly.
@@ -111,7 +90,7 @@ ZTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TTemplateTypes 
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-    const BaseTriangle<T> EXPECTED_TRIANGLE(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
+    const Triangle<T> EXPECTED_TRIANGLE(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
 	// [Execution]
     Triangle3D<T> triangleUT(EXPECTED_TRIANGLE);
@@ -275,7 +254,7 @@ ZTEST_CASE_TEMPLATE ( OperatorAssignation_TriangleIsAssignedProperlyToAnother_Te
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-    const BaseTriangle<T> OTHER_TRIANGLE = BaseTriangle<T>(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
+    const Triangle<T> OTHER_TRIANGLE = Triangle<T>(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
 	// [Execution]
     Triangle3D<T> triangleUT;
@@ -2393,7 +2372,7 @@ ZTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TTemplate
     const float_z VECTOR_COMPONENTS_C[] = { SFloat::_4, SFloat::_1, SFloat::_3, SFloat::_1 };
     const Triangle3D<T> TRIANGLE = Triangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    const BasePlane NULL_PLANE = BasePlane(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Plane NULL_PLANE = Plane(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -2809,7 +2788,7 @@ ZTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TTemplat
     const float_z VECTOR_COMPONENTS_C[] = { SFloat::_4, SFloat::_1, SFloat::_3, SFloat::_1 };
     const Triangle3D<T> TRIANGLE = Triangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    const BasePlane NULL_PLANE = BasePlane(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Plane NULL_PLANE = Plane(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     const bool ASSERTION_FAILED = true;
 

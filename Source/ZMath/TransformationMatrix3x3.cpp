@@ -27,7 +27,7 @@
 #include "ZMath/TransformationMatrix3x3.h"
 
 #include "ZCommon/Assertions.h"
-#include "ZMath/BaseVector2.h"
+#include "ZMath/Vector2.h"
 #include "ZMath/SAngle.h"
 #include "ZCommon/DataTypes/SFloat.h"
 #include "ZMath/MathDefinitions.h"
@@ -49,18 +49,17 @@ namespace z
 
 TransformationMatrix3x3::TransformationMatrix3x3()
 {
-    this->ResetToIdentity();
 }
 
 TransformationMatrix3x3::TransformationMatrix3x3(const TransformationMatrix3x3 &transformation) : Matrix3x3(transformation)
 {
 }
 
-TransformationMatrix3x3::TransformationMatrix3x3(const BaseMatrix3x3 &transformation) : Matrix3x3(transformation)
+TransformationMatrix3x3::TransformationMatrix3x3(const Matrix3x3 &transformation) : Matrix3x3(transformation)
 {
 }
 
-TransformationMatrix3x3::TransformationMatrix3x3(const BaseVector2 &vTranslation, const float_z fRotationAngle, const BaseVector2 &vScale)
+TransformationMatrix3x3::TransformationMatrix3x3(const Vector2 &vTranslation, const float_z fRotationAngle, const Vector2 &vScale)
 {
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
@@ -97,13 +96,13 @@ TransformationMatrix3x3::TransformationMatrix3x3(const BaseVector2 &vTranslation
 //##################                                                       ##################
 //##################=======================================================##################
 
-TransformationMatrix3x3& TransformationMatrix3x3::operator=(const BaseMatrix3x3 &matrix)
+TransformationMatrix3x3& TransformationMatrix3x3::operator=(const Matrix3x3 &matrix)
 {
-    BaseMatrix3x3::operator=(matrix);
+    Matrix3x3::operator=(matrix);
     return *this;
 }
 
-void TransformationMatrix3x3::Decompose(BaseVector2 &vOutDisp, float_z &fOutRot, BaseVector2 &vOutScale) const
+void TransformationMatrix3x3::Decompose(Vector2 &vOutDisp, float_z &fOutRot, Vector2 &vOutScale) const
 {
     vOutDisp.x = this->ij[2][0];
     vOutDisp.y = this->ij[2][1];
@@ -132,7 +131,7 @@ void TransformationMatrix3x3::Decompose(BaseVector2 &vOutDisp, float_z &fOutRot,
     #endif
 }
 
-void TransformationMatrix3x3::GetTranslation(BaseVector2 &vTranslation) const
+void TransformationMatrix3x3::GetTranslation(Vector2 &vTranslation) const
 {
     vTranslation.x = this->ij[2][0];
     vTranslation.y = this->ij[2][1];
@@ -163,7 +162,7 @@ void TransformationMatrix3x3::GetRotation(float_z &fRotationAngle) const
     #endif
 }
 
-void TransformationMatrix3x3::GetScale(BaseVector2 &vScale) const
+void TransformationMatrix3x3::GetScale(Vector2 &vScale) const
 {
     vScale.x = hypot_z(this->ij[0][0], this->ij[0][1]);
     vScale.y = hypot_z(this->ij[1][0], this->ij[1][1]);

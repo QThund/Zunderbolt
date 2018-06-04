@@ -39,33 +39,15 @@ using namespace boost::unit_test;
 #include "ZMath/Ray.h"
 #include "ZMath/Vector3.h"
 #include "ZMath/Vector4.h"
-#include "ZMath/BaseOrb.h"
+#include "ZMath/Orb.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 typedef boost::mpl::list<Vector4> TTemplateTypes;
 
 
 ZTEST_SUITE_BEGIN( Ray_TestSuite )
 
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TTemplateTypes )
-{
-    // [Preparation]
-    float_z VECTOR_COMPONENTS_ORIGIN[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-    float_z VECTOR_COMPONENTS_DIRECTION[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-
-    const T EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
-    const Vector3 EXPECTED_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
-
-	// [Execution]
-    Ray<T, Vector3> rayUT;
-
-    // [Verification]
-    BOOST_CHECK(rayUT.Origin == EXPECTED_VALUE_FOR_ORIGIN);
-    BOOST_CHECK(rayUT.Direction == EXPECTED_VALUE_FOR_DIRECTION);
-}
 
 /// <summary>
 /// Checks if copy constructor sets ray's components properly.
@@ -101,7 +83,7 @@ ZTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TTemplateTypes 
     const T EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const Vector3 EXPECTED_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
-    BaseRay<T, Vector3> EXPECTED_RAY(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
+    Ray<T, Vector3> EXPECTED_RAY(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
 	// [Execution]
     Ray<T, Vector3> rayUT(EXPECTED_RAY);
@@ -168,6 +150,136 @@ ZTEST_CASE_TEMPLATE ( GetNullRay_ReturnsWhatExpected_Test, TTemplateTypes )
     // [Verification]
     BOOST_CHECK(obtinedRay.Origin == EXPECTED_VALUE.Origin);
     BOOST_CHECK(obtinedRay.Direction == EXPECTED_VALUE.Direction);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::_0), Vector3(SFloat::_0) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5), Vector3(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5));
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::_0), Vector3(SFloat::_0) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5), Vector3(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::_0), Vector3(SFloat::_0) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks that two similar rays are considered different.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperandsAreSimilarButNotEqual_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) * SFloat::_3 ); // LEFT_OPERAND's direction x3
+
+	// [Execution] / Verification
+    BOOST_CHECK( !(LEFT_OPERAND == RIGHT_OPERAND) );
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND =  Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5), Vector3(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5), Vector3(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::_0), Vector3(SFloat::_0) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks that two similar rays are considered different.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperandsAreSimilarButNotEqual_Test )
+{
+    // [Preparation]
+    const Ray<Vector4, Vector3> LEFT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon) );
+    const Ray<Vector4, Vector3> RIGHT_OPERAND = Ray<Vector4, Vector3>( Vector4(SFloat::Epsilon), Vector3(SFloat::Epsilon * SFloat::_3) ); // LEFT_OPERAND's direction x3
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
 /// <summary>
@@ -416,7 +528,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenRayDoesNotIntersectTheOrb_Tes
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     
     const bool EXPECTED_RESULT = false;
 
@@ -449,7 +561,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenRayIntersectsTheOrbTwice_Test,
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     
     const bool EXPECTED_RESULT = true;
 
@@ -482,7 +594,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginLiesOnTheSurfaceOfTheOrb
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     
     const bool EXPECTED_RESULT = true;
 
@@ -515,7 +627,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginIsContainedInTheOrb_Test
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     
     const bool EXPECTED_RESULT = true;
 
@@ -548,7 +660,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenRayIsTangentToTheOrb_Test, TTe
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     
     const bool EXPECTED_RESULT = true;
 
@@ -581,7 +693,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenRayDoesNotIntersectTheOrbButW
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     
     const bool EXPECTED_RESULT = false;
 
@@ -614,7 +726,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusOfTheOrbEqualsZero_Te
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_0;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -654,7 +766,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenDirectionVectorIsNull_Test,
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -688,7 +800,7 @@ ZTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRayIsNotNormalized_Test, TT
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -729,12 +841,12 @@ ZTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusOfTheOrbEquals
     const float_z VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SFloat::_2, SFloat::_2, SFloat::_3 };
     const T VALUE_FOR_CENTER_CONTAINED(VECTOR_COMPONENTS_CENTER_CONTAINED);
     const float_z RADIUS_CONTAINED = SFloat::_0;
-    const BaseOrb<T> ORB_CONTAINED = BaseOrb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
+    const Orb<T> ORB_CONTAINED = Orb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
 
     const float_z VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SFloat::_4, SFloat::_3, SFloat::_3 };
     const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
 
-    const BaseOrb<T> ORB_NOT_CONTAINED = BaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
+    const Orb<T> ORB_NOT_CONTAINED = Orb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
 
     const bool EXPECTED_RESULT_CONTAINED = true;
     const bool EXPECTED_RESULT_NOT_CONTAINED = false;
@@ -771,7 +883,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_NoIntersectionPointsAreReturnedWhenRayD
     const Ray<T, Vector3> RAY = Ray<T, Vector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION.Normalize());
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_10, SFloat::_10, SFloat::_10, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_None;
     const T EXPECTED_POINT = T::GetNullVector();
@@ -804,7 +916,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoIntersectionPointsWhenRayInte
     const Ray<T, Vector3> RAY = Ray<T, Vector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION.Normalize());
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_2, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_Two;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT[] = { SFloat::_1, SFloat::_2, SFloat::_2, SFloat::_1 };
@@ -839,7 +951,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginLiesOnTheSurfa
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_One;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT[] = { SFloat::_3, SFloat::_2, SFloat::_3, SFloat::_1 };
@@ -874,7 +986,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOriginLiesOnTheSurf
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_Two;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT[] = { SFloat::_3, SFloat::_2, SFloat::_3, SFloat::_1 };
@@ -909,7 +1021,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginIsContainedInT
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_One;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT[] = { SFloat::_3, SFloat::_2, SFloat::_3, SFloat::_1 };
@@ -944,7 +1056,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenRayIsTangentToTheOrb
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_One;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT[] = { SFloat::_2, SFloat::_3, SFloat::_3, SFloat::_1 };
@@ -979,7 +1091,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointsWhenRayDoesNotIntersectT
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_None;
     const T EXPECTED_POINT = T::GetNullVector();
@@ -1015,7 +1127,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRadiusOfTheOrbEqualsZ
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_0;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     T OUTPUT_POINT = T::GetNullVector();
     const bool ASSERTION_FAILED = true;
 
@@ -1055,7 +1167,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenDirectionVectorIsNull
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_0;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     T OUTPUT_POINT = T::GetNullVector();
     const bool ASSERTION_FAILED = true;
 
@@ -1090,7 +1202,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRayIsNotNormalized_Te
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     T OUTPUT_POINT = T::GetNullVector();
     const bool ASSERTION_FAILED = true;
 
@@ -1132,11 +1244,11 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrb
     const float_z VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER_CONTAINED(VECTOR_COMPONENTS_CENTER_CONTAINED);
     const float_z RADIUS_CONTAINED = SFloat::_0;
-    const BaseOrb<T> ORB_CONTAINED = BaseOrb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
+    const Orb<T> ORB_CONTAINED = Orb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
 
     const float_z VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SFloat::_4, SFloat::_3, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
-    const BaseOrb<T> ORB_NOT_CONTAINED = BaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
+    const Orb<T> ORB_NOT_CONTAINED = Orb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
 
     const EIntersections EXPECTED_RESULT_CONTAINED = EIntersections::E_One;
     const EIntersections EXPECTED_RESULT_NOT_CONTAINED = EIntersections::E_None;
@@ -1179,7 +1291,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsWrongResultWhenRayDirectionIsNot
     const Ray<T, Vector3> NORMALIZED_RAY = NOT_NORMALIZED_RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_2, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
 	// [Execution]
     T vNormalizedRayResult = T::GetNullVector();
@@ -1220,7 +1332,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnedPointIsTheClosestOneToRayOrigin
     const Ray<T, Vector3> RAY2 = Ray<T, Vector3>(VALUE_FOR_ORIGIN2, VALUE_FOR_DIRECTION2.Normalize());
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_2, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     float_z VECTOR_COMPONENTS_OUTPUT_POINT[] = { SFloat::_1, SFloat::_2, SFloat::_2, SFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
@@ -1260,7 +1372,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointsAreReturnedWhenRayD
     const Ray<T, Vector3> RAY = Ray<T, Vector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION.Normalize());
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_10, SFloat::_10, SFloat::_10, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_None;
     const T EXPECTED_POINT = T::GetNullVector();
@@ -1293,7 +1405,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionPointsWhenRayInte
     const Ray<T, Vector3> RAY = Ray<T, Vector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION.Normalize());
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_2, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_Two;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT1[] = { SFloat::_1, SFloat::_2, SFloat::_2, SFloat::_1 };
@@ -1332,7 +1444,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginLiesOnTheSurfa
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_One;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT1[] = { SFloat::_3, SFloat::_2, SFloat::_3, SFloat::_1 };
@@ -1370,7 +1482,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOriginLiesOnTheSurf
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_Two;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT1[] = { SFloat::_3, SFloat::_2, SFloat::_3, SFloat::_1 };
@@ -1409,7 +1521,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginIsContainedInT
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_One;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT1[] = { SFloat::_3, SFloat::_2, SFloat::_3, SFloat::_1 };
@@ -1447,7 +1559,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenRayIsTangentToTheOrb
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_One;
     float_z VECTOR_COMPONENTS_OUTPUT_POINT1[] = { SFloat::_2, SFloat::_3, SFloat::_3, SFloat::_1 };
@@ -1485,7 +1597,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointsWhenRayDoesNotIntersectT
     RAY = RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     const EIntersections EXPECTED_RESULT = EIntersections::E_None;
     const T EXPECTED_POINT = T::GetNullVector();
@@ -1523,7 +1635,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRadiusOfTheOrbEqualsZ
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_0;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     T OUTPUT_POINT1 = T::GetNullVector();
     T OUTPUT_POINT2 = T::GetNullVector();
     const bool ASSERTION_FAILED = true;
@@ -1564,7 +1676,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenDirectionVectorIsNull
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_0;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     T OUTPUT_POINT1 = T::GetNullVector();
     T OUTPUT_POINT2 = T::GetNullVector();
     const bool ASSERTION_FAILED = true;
@@ -1600,7 +1712,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRayIsNotNormalized_Te
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_1 };
     const T VALUE_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_z RADIUS = SFloat::_1;
-    const BaseOrb<T> ORB = BaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
+    const Orb<T> ORB = Orb<T>(VALUE_FOR_CENTER, RADIUS);
     T OUTPUT_POINT1 = T::GetNullVector();
     T OUTPUT_POINT2 = T::GetNullVector();
     const bool ASSERTION_FAILED = true;
@@ -1643,11 +1755,11 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenRadiusOfTheOrb
     const float_z VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SFloat::_2, SFloat::_2, SFloat::_3, SFloat::_0 };
     const T VALUE_FOR_CENTER_CONTAINED(VECTOR_COMPONENTS_CENTER_CONTAINED);
     const float_z RADIUS_CONTAINED = SFloat::_0;
-    const BaseOrb<T> ORB_CONTAINED = BaseOrb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
+    const Orb<T> ORB_CONTAINED = Orb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
 
     const float_z VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SFloat::_4, SFloat::_3, SFloat::_3, SFloat::_0 };
     const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
-    const BaseOrb<T> ORB_NOT_CONTAINED = BaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
+    const Orb<T> ORB_NOT_CONTAINED = Orb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
 
     const EIntersections EXPECTED_RESULT_CONTAINED = EIntersections::E_One;
     const EIntersections EXPECTED_RESULT_NOT_CONTAINED = EIntersections::E_None;
@@ -1694,7 +1806,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsWrongResultWhenRayDirectionIsNot
     const Ray<T, Vector3> NORMALIZED_RAY = NOT_NORMALIZED_RAY.Normalize();
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_2 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
 	// [Execution]
     T vFirstNormalizedRayResult = T::GetNullVector();
@@ -1738,7 +1850,7 @@ ZTEST_CASE_TEMPLATE ( IntersectionPoint2_FirstReturnedPointIsTheClosestOneToRayO
     const Ray<T, Vector3> RAY2 = Ray<T, Vector3>(VALUE_FOR_ORIGIN2, VALUE_FOR_DIRECTION2.Normalize());
 
     float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_2, SFloat::_2, SFloat::_2, SFloat::_1 };
-    BaseOrb<T> ORB = BaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
+    Orb<T> ORB = Orb<T>( T(VECTOR_COMPONENTS_CENTER), SFloat::_1 );
 
     float_z VECTOR_COMPONENTS_OUTPUT_POINT[] = { SFloat::_1, SFloat::_2, SFloat::_2, SFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);

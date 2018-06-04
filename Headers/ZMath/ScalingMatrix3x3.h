@@ -34,18 +34,23 @@
 namespace z
 {
 
-// Forward declarations
+// FORWARD DECLARATIONS
 // ----------------------
 class RotationMatrix3x3;
-template<class MatrixT> class TransformationMatrix;
-template<class MatrixT> class TranslationMatrix;
-class BaseVector3;
+class Vector3;
 class Matrix4x3;
 class Matrix4x4;
-class ScalingMatrix3x3;
 
-// Preventing friend global operator to be called.
-ScalingMatrix3x3 operator*(const float_z fScalar, const ScalingMatrix3x3 &matrix);
+namespace Internals
+{
+    template<class MatrixT> class TransformationMatrix;
+    template<class MatrixT> class TranslationMatrix;
+}
+
+typedef Internals::TranslationMatrix<Matrix4x3> TranslationMatrix4x3;
+typedef Internals::TranslationMatrix<Matrix4x4> TranslationMatrix4x4;
+typedef Internals::TransformationMatrix<Matrix4x3> TransformationMatrix4x3;
+typedef Internals::TransformationMatrix<Matrix4x4> TransformationMatrix4x4;
 
 
 /// <summary>
@@ -64,7 +69,7 @@ class Z_MATH_MODULE_SYMBOLS ScalingMatrix3x3 : public Matrix3x3
 public:
 
     /// <summary>
-    /// Default constructor. It's initialized to identity matrix.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     ScalingMatrix3x3();
 
@@ -82,7 +87,7 @@ public:
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="scale">[IN] The 3x3 matrix in which we want the resident 3x3 scale matrix to be based.</param>
-    ScalingMatrix3x3(const BaseMatrix3x3 &scale);
+    ScalingMatrix3x3(const Matrix3x3 &scale);
 
     /// <summary>
     /// Constructor that receives three scaling values, one for each axis direction, to construct the scale
@@ -97,7 +102,7 @@ public:
     /// Constructor from a 3D vector which stores the three scaling values, one for each axis direction.
     /// </summary>
     /// <param name="vScale">[IN] Vector with the scaling values.</param>
-    explicit ScalingMatrix3x3(const BaseVector3 &vScale);
+    explicit ScalingMatrix3x3(const Vector3 &vScale);
 
 
     // PROPERTIES
@@ -146,7 +151,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x4> operator*(const RotationMatrix3x3 &matrix) const;
+    TransformationMatrix4x4 operator*(const RotationMatrix3x3 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x4 translation matrix by the current matrix.
@@ -158,7 +163,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x4> operator*(const TranslationMatrix<Matrix4x4> &matrix) const;
+    TransformationMatrix4x4 operator*(const TranslationMatrix4x4 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 translation matrix by the current matrix.
@@ -170,7 +175,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x3> operator*(const TranslationMatrix<Matrix4x3> &matrix) const;
+    TransformationMatrix4x3 operator*(const TranslationMatrix4x3 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x4 transformation matrix by the current matrix.
@@ -182,7 +187,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-    TransformationMatrix<Matrix4x4> operator*(const TransformationMatrix<Matrix4x4> &matrix) const;
+    TransformationMatrix4x4 operator*(const TransformationMatrix4x4 &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 transformation matrix by the current matrix.
@@ -194,7 +199,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix, depending on the method template parameter.
     /// </returns>
-    TransformationMatrix<Matrix4x3> operator*(const TransformationMatrix<Matrix4x3> &matrix) const;
+    TransformationMatrix4x3 operator*(const TransformationMatrix4x3 &matrix) const;
 
     /// <summary>
     /// Assignation operator. Assigns the provided matrix to the resident matrix.
@@ -207,7 +212,7 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    ScalingMatrix3x3& operator=(const BaseMatrix3x3 &matrix);
+    ScalingMatrix3x3& operator=(const Matrix3x3 &matrix);
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -243,7 +248,7 @@ public:
     /// Extracts the scale factors from the matrix.
     /// </summary>
     /// <param name="vScale">[OUT] Vector where to store the scale factors.</param>
-    void GetScale(BaseVector3 &vScale) const;
+    void GetScale(Vector3 &vScale) const;
 
     /// <summary>
     /// Calculates the determinant of the matrix.
@@ -260,16 +265,16 @@ private:
 
     // Preventing the operators from base class to be used.
     Matrix3x3 operator*(const float_z fScalar) const;
-    Matrix3x3 operator*(const BaseMatrix3x3 &matrix) const;
-    BaseMatrix3x4 operator*(const BaseMatrix3x4& matrix) const;
+    Matrix3x3 operator*(const Matrix3x3 &matrix) const;
+    Matrix3x4 operator*(const Matrix3x4& matrix) const;
     Matrix3x3 operator/(const float_z fScalar) const;
-    Matrix3x3 operator+(const BaseMatrix3x3 &matrix) const;
-    Matrix3x3 operator-(const BaseMatrix3x3 &matrix) const;
-    Matrix3x3& operator*=(const BaseMatrix3x3 &matrix);
+    Matrix3x3 operator+(const Matrix3x3 &matrix) const;
+    Matrix3x3 operator-(const Matrix3x3 &matrix) const;
+    Matrix3x3& operator*=(const Matrix3x3 &matrix);
     Matrix3x3& operator*=(const float_z fScalar);
     Matrix3x3& operator/=(const float_z fScalar);
-    Matrix3x3& operator+=(const BaseMatrix3x3 &matrix);
-    Matrix3x3& operator-=(const BaseMatrix3x3 &matrix);
+    Matrix3x3& operator+=(const Matrix3x3 &matrix);
+    Matrix3x3& operator-=(const Matrix3x3 &matrix);
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
@@ -286,7 +291,7 @@ private:
     /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
     /// </returns>
     template <class MatrixT>
-    TransformationMatrix<MatrixT> ProductOperatorImp(const TranslationMatrix<MatrixT> &matrix) const;
+    Internals::TransformationMatrix<MatrixT> ProductOperatorImp(const Internals::TranslationMatrix<MatrixT> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 or 4x4 transformation matrix by the resident matrix.
@@ -300,8 +305,13 @@ private:
     /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
     /// </returns>
     template <class MatrixT>
-    TransformationMatrix<MatrixT> ProductOperatorImp(const TransformationMatrix<MatrixT> &matrix) const;
+    Internals::TransformationMatrix<MatrixT> ProductOperatorImp(const Internals::TransformationMatrix<MatrixT> &matrix) const;
 };
+
+
+// Preventing friend global operator to be called.
+ScalingMatrix3x3 operator*(const float_z fScalar, const ScalingMatrix3x3 &matrix);
+
 
 } // namespace z
 

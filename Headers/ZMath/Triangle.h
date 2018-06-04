@@ -27,7 +27,7 @@
 #ifndef __TRIANGLE__
 #define __TRIANGLE__
 
-#include "BaseTriangle.h"
+#include "ZMath/MathModuleDefinitions.h"
 
 #include "ZCommon/Assertions.h"
 #include "ZMath/MathDefinitions.h"
@@ -39,6 +39,8 @@
 
 namespace z
 {
+namespace Internals
+{
 
 /// <summary>
 /// Represents a triangle in the space.
@@ -49,42 +51,17 @@ namespace z
 /// </remarks>
 /// <typeparam name="VectorT">Allowed types: Vector2, Vector3, Vector4.</typeparam>
 template <class VectorT>
-class Triangle : public BaseTriangle<VectorT>
+class Triangle
 {
-
-    // BASE CLASS USINGS
-    // -------------------
-public:
-
-    using BaseTriangle<VectorT>::A;
-    using BaseTriangle<VectorT>::B;
-    using BaseTriangle<VectorT>::C;
-
 
     // CONSTRUCTORS
     // ---------------
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Triangle()
-    {
-    }
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="triangle">[IN] The triangle from which we want to create a copy in the resident triangle.</param>
-    Triangle(const Triangle<VectorT> &triangle) : BaseTriangle<VectorT>(triangle)
-    {
-    }
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="triangle">[IN] The triangle in which we want resident triangle to be based.</param>
-    Triangle(const BaseTriangle<VectorT> &triangle) : BaseTriangle<VectorT>(triangle)
     {
     }
 
@@ -94,7 +71,8 @@ public:
     /// <param name="vA">[IN] Vector to define vertex A.</param>
     /// <param name="vB">[IN] Vector to define vertex B.</param>
     /// <param name="vC">[IN] Vector to define vertex C.</param>
-    Triangle(const VectorT &vA, const VectorT &vB, const VectorT &vC) : BaseTriangle<VectorT>(vA, vB, vC)
+    Triangle(const VectorT &vA, const VectorT &vB, const VectorT &vC) :
+                            A(vA), B(vB), C(vC)
     {
     }
 
@@ -104,9 +82,14 @@ public:
     /// <param name="arValuesA">[IN] Array of components of the vertex A. If it is null, the behavior is undefined.</param>
     /// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
     /// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
-    Triangle(const float_z* arValuesA, const float_z* arValuesB, const float_z* arValuesC) :
-                         BaseTriangle<VectorT>(arValuesA, arValuesB, arValuesC)
+    Triangle(const float_z* arValuesA, const float_z* arValuesB, const float_z* arValuesC)
     {
+        // Checkout to ensure pointers are not null.
+        Z_ASSERT_ERROR( (arValuesA != null_z) && (arValuesB != null_z) && (arValuesC != null_z) , "Input values must not be null");
+
+        A = VectorT(arValuesA);
+        B = VectorT(arValuesB);
+        C = VectorT(arValuesC);
     }
 
     /// <summary>
@@ -115,7 +98,8 @@ public:
     /// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
     /// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
     /// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-    Triangle(const vf32_z valueA, const vf32_z valueB, const vf32_z valueC) : BaseTriangle<VectorT>(valueA, valueB, valueC)
+    Triangle(const vf32_z valueA, const vf32_z valueB, const vf32_z valueC) :
+                             A(valueA), B(valueB), C(valueC)
     {
     }
 
@@ -123,21 +107,31 @@ public:
     // METHODS
     // ---------------
 public:
-
+    
     /// <summary>
-    /// Assignation operator.<br/>
-    /// Assigns the provided triangle to the resident triangle.
+    /// Equality operator. Compares two triangles.
     /// </summary>
-    /// <param name="triangle">[IN] Triangle that will be assigned to current triangle.</param>
+    /// <param name="triangle">[IN] Triangle with which to compare.</param>
     /// <returns>
-    /// The assigned value.
+    /// True if triangles are the same, false otherwise.
     /// </returns>
-    Triangle<VectorT>& operator=(const BaseTriangle<VectorT> &triangle)
+    bool operator==(const Triangle<VectorT> &triangle) const
     {
-        BaseTriangle<VectorT>::operator=(triangle);
-        return *this;
+        return ( this->A == triangle.A && this->B == triangle.B && this->C == triangle.C );
     }
 
+    /// <summary>
+    /// Inequality operator. Compares two triangles.
+    /// </summary>
+    /// <param name="triangle">[IN] Triangle with which to compare.</param>
+    /// <returns>
+    /// True if triangles are not the same, false otherwise.
+    /// </returns>
+    bool operator!=(const Triangle<VectorT> &triangle) const
+    {
+        return !(*this == triangle);
+    }
+    
     /// <summary>
     /// Calculates the surface of the triangle.
     /// </summary>
@@ -295,6 +289,26 @@ public:
     {
         return string_z("T(a(") + A.ToString() + Z_L("),b(") + B.ToString() + Z_L("),c(") + C.ToString() + Z_L("))");
     }
+    
+
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Vector which represents a vextex of the triangle.
+    /// </summary>
+    VectorT A;
+
+    /// <summary>
+    /// Vector which represents a vextex of the triangle.
+    /// </summary>
+    VectorT B;
+
+    /// <summary>
+    /// Vector which represents a vextex of the triangle.
+    /// </summary>
+    VectorT C;
 };
 
 
@@ -308,6 +322,7 @@ template class Z_MATH_MODULE_SYMBOLS Triangle<Vector4>;
 
 #endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
 
+} // namespace Internals
 } // namespace z
 
 

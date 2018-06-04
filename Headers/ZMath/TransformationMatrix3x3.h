@@ -34,13 +34,10 @@
 namespace z
 {
 
-// Forwoard declarations
+// FORWARD DELCARATIONS
 // -----------------------
-class BaseVector2;
-class TransformationMatrix3x3;
+class Vector2;
 
-// Preventing friend global operator to be called.
-TransformationMatrix3x3 operator*(const float_z fScalar, const TransformationMatrix3x3 &matrix);
 
 /// <summary>
 /// It represents a 3x3 matrix containing spatial transformations relating to translation, rotation and scaling,
@@ -54,7 +51,7 @@ class Z_MATH_MODULE_SYMBOLS TransformationMatrix3x3 : public Matrix3x3
 public:
 
     /// <summary>
-    /// Default constructor. It's initialized to identity matrix.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     TransformationMatrix3x3();
 
@@ -72,7 +69,7 @@ public:
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="transformation">[IN] The 3x3 matrix in which we want the resident 3x3 transformation matrix to be based.</param>
-    TransformationMatrix3x3(const BaseMatrix3x3 &transformation);
+    TransformationMatrix3x3(const Matrix3x3 &transformation);
 
     /// <summary>
     /// Constructor from a 2D vector which stores a scale, a floating point value which stores a rotation
@@ -81,7 +78,7 @@ public:
     /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
     /// <param name="fRotationAngle">[IN] Angle of rotation.</param>
     /// <param name="vScale">[IN] Vector with the scale values.</param>
-    TransformationMatrix3x3(const BaseVector2 &vTranslation, const float_z fRotationAngle, const BaseVector2 &vScale);
+    TransformationMatrix3x3(const Vector2 &vTranslation, const float_z fRotationAngle, const Vector2 &vScale);
 
 
     // PROPERTIES
@@ -113,7 +110,7 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    TransformationMatrix3x3& operator=(const BaseMatrix3x3 &matrix);
+    TransformationMatrix3x3& operator=(const Matrix3x3 &matrix);
 
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated variables.
@@ -124,13 +121,13 @@ public:
     /// <param name="vTranslation">[OUT] A 2D vector to store the translation.</param>
     /// <param name="fRotationAngle">[OUT] Floating point variable to store the angle of rotation.</param>
     /// <param name="vScale">[OUT] A 2D vector to store the scale.</param>
-    void Decompose(BaseVector2 &vTranslation, float_z &fRotationAngle, BaseVector2 &vScale) const;
+    void Decompose(Vector2 &vTranslation, float_z &fRotationAngle, Vector2 &vScale) const;
 
     /// <summary>
     /// Extracts the displacement components from the matrix.
     /// </summary>
     /// <param name="vTranslation">[OUT] A 2D vector where to store the displacement.</param>
-    void GetTranslation(BaseVector2 &vTranslation) const;
+    void GetTranslation(Vector2 &vTranslation) const;
 
     /// <summary>
     /// Extracts the rotation angle from the transformation matrix.
@@ -145,7 +142,7 @@ public:
     /// Extracts the scale factors from the matrix.
     /// </summary>
     /// <param name="vScale">[OUT] A 2D vector where to store the scale factors.</param>
-    void GetScale(BaseVector2 &vScale) const;
+    void GetScale(Vector2 &vScale) const;
 
     /// <summary>
     /// Turns the hand convention into opposite rules.
@@ -163,21 +160,26 @@ private:
 
     // Preventing the operators from base class to be used.
     Matrix3x3 operator*(const float_z fScalar) const;
-    Matrix3x3 operator*(const BaseMatrix3x3 &matrix) const;
-    BaseMatrix3x4 operator*(const BaseMatrix3x4& matrix) const;
+    Matrix3x3 operator*(const Matrix3x3 &matrix) const;
+    Matrix3x4 operator*(const Matrix3x4& matrix) const;
     Matrix3x3 operator/(const float_z fScalar) const;
-    Matrix3x3 operator+(const BaseMatrix3x3 &matrix) const;
-    Matrix3x3 operator-(const BaseMatrix3x3 &matrix) const;
-    Matrix3x3& operator*=(const BaseMatrix3x3 &matrix);
+    Matrix3x3 operator+(const Matrix3x3 &matrix) const;
+    Matrix3x3 operator-(const Matrix3x3 &matrix) const;
+    Matrix3x3& operator*=(const Matrix3x3 &matrix);
     Matrix3x3& operator*=(const float_z Scalar);
     Matrix3x3& operator/=(const float_z fScalar);
-    Matrix3x3& operator+=(const BaseMatrix3x3 &matrix);
-    Matrix3x3& operator-=(const BaseMatrix3x3 &matrix);
+    Matrix3x3& operator+=(const Matrix3x3 &matrix);
+    Matrix3x3& operator-=(const Matrix3x3 &matrix);
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
 
 };
+
+
+// Preventing friend global operator to be called.
+TransformationMatrix3x3 operator*(const float_z fScalar, const TransformationMatrix3x3 &matrix);
+
 
 } // namespace z
 

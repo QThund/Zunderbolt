@@ -27,16 +27,22 @@
 #ifndef __MATRIX3X4__
 #define __MATRIX3X4__
 
-#include "BaseMatrix3x4.h"
-#include "BaseMatrix3x3.h"
-#include "BaseMatrix4x4.h"
-#include "BaseMatrix4x3.h"
+#include "ZMath/MathModuleDefinitions.h"
+#include "Matrix4x4.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"
-
+#include "Matrix3x3.h"
+#include "Matrix4x3.h"
 
 
 namespace z
 {
+
+// FORWARD DECLARATIONS
+// ---------------------
+class Matrix3x3;
+class Matrix4x3;
+class Matrix4x4;
+
 
 /// <summary>
 /// This class implements the functionality of a matrix with 3 rows and 4 columns.
@@ -53,8 +59,8 @@ namespace z
 /// In this case, we will work with 4x3 matrices, therefore our matrix will be:<br/>
 /// <br/>
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\end{bmatrix}\f$
-/// <remarks>
-class Z_MATH_MODULE_SYMBOLS Matrix3x4 : public BaseMatrix3x4
+/// </remarks>
+class Z_MATH_MODULE_SYMBOLS Matrix3x4
 {
     // FRIENDS
     // ---------------
@@ -75,21 +81,9 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Matrix3x4();
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="matrix">[IN] The 3x4 matrix from which we want to create a copy in the resident matrix.</param>
-    Matrix3x4(const Matrix3x4 &matrix);
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="matrix">[IN] The 3x4 matrix in which we want the resident matrix to be based.</param>
-    Matrix3x4(const BaseMatrix3x4 &matrix);
 
     /// <summary>
     /// Constructor from a floating point value which with fill all matrix's elements.
@@ -113,8 +107,8 @@ public:
     /// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
     /// <param name="f23">[IN] Floating point value for element of row 2, column 3.</param>
     Matrix3x4(const float_z f00, const float_z f01, const float_z f02, const float_z f03,
-               const float_z f10, const float_z f11, const float_z f12, const float_z f13,
-               const float_z f20, const float_z f21, const float_z f22, const float_z f23);
+              const float_z f10, const float_z f11, const float_z f12, const float_z f13,
+              const float_z f20, const float_z f21, const float_z f22, const float_z f23);
 
     /// <summary>
     /// Constructor that receives a pointer to 12 floating point values.
@@ -164,6 +158,24 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Equality operator. Compares two [3x4] matrices.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
+    /// <returns>
+    /// If matrices are equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator==(const Matrix3x4 &matrix) const;
+
+    /// <summary>
+    /// Inequality operator. Compares two [3x4] matrices.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
+    /// <returns>
+    /// If matrices are not equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    bool operator!=(const Matrix3x4 &matrix) const;
 
     /// <summary>
     /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
@@ -181,7 +193,7 @@ public:
     /// <returns>
     /// The resultant 3x3 matrix.
     /// </returns>
-    BaseMatrix3x3 operator*(const BaseMatrix4x3& matrix) const;
+    Matrix3x3 operator*(const Matrix4x3& matrix) const;
 
     /// <summary>
     /// Multiply the resident matrix by a 4x4 matrix.
@@ -190,7 +202,7 @@ public:
     /// <returns>
     /// The resultant 3x4 matrix.
     /// </returns>
-    Matrix3x4 operator*(const BaseMatrix4x4& matrix) const;
+    Matrix3x4 operator*(const Matrix4x4& matrix) const;
 
     /// <summary>
     /// Divides resident matrix by a floating point value.
@@ -209,7 +221,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    Matrix3x4 operator+(const BaseMatrix3x4 &matrix) const;
+    Matrix3x4 operator+(const Matrix3x4 &matrix) const;
 
     /// <summary>
     /// Subtracts a Matrix3x4 to the resident matrix.
@@ -218,7 +230,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    Matrix3x4 operator-(const BaseMatrix3x4 &matrix) const;
+    Matrix3x4 operator-(const Matrix3x4 &matrix) const;
 
     /// <summary>
     /// Division and assign operator. Resident matrix stores the result of the division.
@@ -237,7 +249,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix3x4& operator+=(const BaseMatrix3x4 &matrix);
+    Matrix3x4& operator+=(const Matrix3x4 &matrix);
 
     /// <summary>
     /// Subtraction and assign operator. Resident matrix stores the result of the subtraction.
@@ -246,7 +258,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix3x4& operator-=(const BaseMatrix3x4 &matrix);
+    Matrix3x4& operator-=(const Matrix3x4 &matrix);
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -264,16 +276,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    Matrix3x4& operator*=(const BaseMatrix4x4 &matrix);
-
-    /// <summary>
-    /// Assignation operator. Assigns the provided matrix to the resident matrix.
-    /// </summary>
-    /// <param name="matrix">[IN] The matrix to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified matrix.
-    /// </returns>
-    Matrix3x4& operator=(const BaseMatrix3x4 &matrix);
+    Matrix3x4& operator*=(const Matrix4x4 &matrix);
 
     /// <summary>
     /// Resets all matrix elements to 0.
@@ -290,7 +293,7 @@ public:
     /// <returns>
     /// The transposed matrix, which is a 4x3 matrix.
     /// </returns>
-    BaseMatrix4x3 Transpose() const;
+    Matrix4x3 Transpose() const;
 
     /// <summary>
     /// Checks if all elements of the matrix are 0 or under tolerance (absolute value).
@@ -319,7 +322,16 @@ public:
     /// The string with the format specified.
     /// </returns>
     string_z ToString() const;
+    
 
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Array that holds the matrix.
+    /// </summary>
+    float_z ij[3][4];
 };
 
 } // namespace z

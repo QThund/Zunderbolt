@@ -27,12 +27,14 @@
 #ifndef __SPOINT__
 #define __SPOINT__
 
-#include "ZMath/BaseVector3.h"
+#include "ZMath/Vector3.h"
 #include "ZMath/Quaternion.h"
 #include "ZMath/RotationMatrix3x3.h"
 #include "ZMath/ScalingMatrix3x3.h"
 #include "ZMath/SpaceConversionMatrix.h"
-
+#include "ZMath/TransformationMatrix.h"
+#include "ZMath/TranslationMatrix.h"
+#include "ZMath/TransformationMatrix3x3.h"
 
 
 namespace z
@@ -40,16 +42,13 @@ namespace z
 
 // Forward declarations
 // ---------------------
-class BaseVector2;
-class BaseVector4;
+class Vector2;
+class Vector4;
 class Vector2;
 class Vector3;
 class Vector4;
 class Matrix4x3;
 class Matrix4x4;
-template<class MatrixT> class TransformationMatrix;
-template<class MatrixT> class TranslationMatrix;
-class TransformationMatrix3x3;
 
 
 /// <summary>
@@ -80,7 +79,7 @@ public:
     /// <param name="vTranslation">[IN] 2D Vector type that contains the translation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 2D points that will be translated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Translate(const BaseVector2 &vTranslation, Vector2* arPoints, const unsigned int uElements);
+    static void Translate(const Vector2 &vTranslation, Vector2* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Translates 2D points.
@@ -114,7 +113,7 @@ public:
     /// <param name="vScale">[IN] 2D Vector type that contains the scale to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Scale(const BaseVector2 &vScale, Vector2* arPoints, const unsigned int uElements);
+    static void Scale(const Vector2 &vScale, Vector2* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 2D points.
@@ -148,7 +147,7 @@ public:
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Translate(const BaseVector3 &vTranslation, Vector3* arPoints, const unsigned int uElements);
+    static void Translate(const Vector3 &vTranslation, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Translates 4D points.
@@ -159,7 +158,7 @@ public:
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Translate(const BaseVector3 &vTranslation, Vector4* arPoints, const unsigned int uElements);
+    static void Translate(const Vector3 &vTranslation, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Translates 3D points.
@@ -196,7 +195,7 @@ public:
     /// <param name="translation">[IN] 4x3 matrix that contains the translation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Translate(const TranslationMatrix<Matrix4x3> &translation, Vector3* arPoints, const unsigned int uElements);
+    static void Translate(const TranslationMatrix4x3 &translation, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Translates 3D points.
@@ -207,7 +206,7 @@ public:
     /// <param name="translation">[IN] 4x4 matrix that contains the translation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Translate(const TranslationMatrix<Matrix4x4> &translation, Vector3* arPoints, const unsigned int uElements);
+    static void Translate(const TranslationMatrix4x4 &translation, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Translates 4D points.
@@ -218,7 +217,7 @@ public:
     /// <param name="translation">[IN] 4x3 matrix that contains the translation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Translate(const TranslationMatrix<Matrix4x3> &translation, Vector4* arPoints, const unsigned int uElements);
+    static void Translate(const TranslationMatrix4x3 &translation, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Translates 4D points.
@@ -229,7 +228,7 @@ public:
     /// <param name="translation">[IN] 4x4 matrix that contains the translation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Translate(const TranslationMatrix<Matrix4x4> &translation, Vector4* arPoints, const unsigned int uElements);
+    static void Translate(const TranslationMatrix4x4 &translation, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Rotates 3D points.
@@ -284,7 +283,7 @@ public:
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Scale(const BaseVector3 &vScale, Vector3* arPoints, const unsigned int uElements);
+    static void Scale(const Vector3 &vScale, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 4D points.
@@ -295,7 +294,7 @@ public:
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Scale(const BaseVector3 &vScale, Vector4* arPoints, const unsigned int uElements);
+    static void Scale(const Vector3 &vScale, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 3D points.
@@ -354,7 +353,7 @@ public:
     /// <param name="transformation">[IN] 4x3 matrix that contains the transformation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Transform(const TransformationMatrix<Matrix4x3> &transformation, Vector3* arPoints, const unsigned int uElements);
+    static void Transform(const TransformationMatrix4x3 &transformation, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Transforms 3D points.
@@ -365,7 +364,7 @@ public:
     /// <param name="transformation">[IN] 4x4 matrix that contains the transformation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Transform(const TransformationMatrix<Matrix4x4> &transformation, Vector3* arPoints, const unsigned int uElements);
+    static void Transform(const TransformationMatrix4x4 &transformation, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Transforms 4D points.
@@ -376,7 +375,7 @@ public:
     /// <param name="transformation">[IN] 4x3 matrix that contains the transformation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Transform(const TransformationMatrix<Matrix4x3> &transformation, Vector4* arPoints, const unsigned int uElements);
+    static void Transform(const TransformationMatrix4x3 &transformation, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Transforms 4D points.
@@ -387,7 +386,7 @@ public:
     /// <param name="transformation">[IN] 4x4 matrix that contains the transformation to be applied.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void Transform(const TransformationMatrix<Matrix4x4> &transformation, Vector4* arPoints, const unsigned int uElements);
+    static void Transform(const TransformationMatrix4x4 &transformation, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Transforms 3D points.
@@ -421,7 +420,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 2D points that will be rotated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void RotateWithPivot(const float_z fRotationAngle, const BaseVector2 &vPivot, Vector2* arPoints, const unsigned int uElements);
+    static void RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot, Vector2* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 2D points, using the provided pivot as the center of transformation.
@@ -434,7 +433,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const BaseVector2 &vPivot, Vector2* arPoints, const unsigned int uElements);
+    static void ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const Vector2 &vPivot, Vector2* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 2D points, using the provided pivot as the center of transformation.
@@ -446,7 +445,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void ScaleWithPivot(const BaseVector2 &vScale, const BaseVector2 &vPivot, Vector2* arPoints, const unsigned int uElements);
+    static void ScaleWithPivot(const Vector2 &vScale, const Vector2 &vPivot, Vector2* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Transforms 2D points, using the provided pivot as the center of transformation.
@@ -458,7 +457,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 2D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void TransformWithPivot(const TransformationMatrix3x3 &transformation, const BaseVector2 &vPivot, Vector2* arPoints, const unsigned int uElements);
+    static void TransformWithPivot(const TransformationMatrix3x3 &transformation, const Vector2 &vPivot, Vector2* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Rotates 3D points, using the provided pivot as the center of transformation.
@@ -470,7 +469,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void RotateWithPivot(const Quaternion &qRotation, const BaseVector3 &vPivot, Vector3* arPoints, const unsigned int uElements);
+    static void RotateWithPivot(const Quaternion &qRotation, const Vector3 &vPivot, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Rotates 4D points, using the provided pivot as the center of transformation.
@@ -482,7 +481,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void RotateWithPivot(const Quaternion &qRotation, const BaseVector4 &vPivot, Vector4* arPoints, const unsigned int uElements);
+    static void RotateWithPivot(const Quaternion &qRotation, const Vector4 &vPivot, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Rotates 3D points, using the provided pivot as the center of transformation.
@@ -494,7 +493,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void RotateWithPivot(const RotationMatrix3x3 &rotation, const BaseVector3 &vPivot, Vector3* arPoints, const unsigned int uElements);
+    static void RotateWithPivot(const RotationMatrix3x3 &rotation, const Vector3 &vPivot, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Rotates 4D points, using the provided pivot as the center of transformation.
@@ -506,7 +505,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void RotateWithPivot(const RotationMatrix3x3 &rotation, const BaseVector4 &vPivot, Vector4* arPoints, const unsigned int uElements);
+    static void RotateWithPivot(const RotationMatrix3x3 &rotation, const Vector4 &vPivot, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 3D points, using the provided pivot as the center of transformation.
@@ -518,7 +517,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void ScaleWithPivot(const BaseVector3& vScale, const BaseVector3 &vPivot, Vector3* arPoints, const unsigned int uElements);
+    static void ScaleWithPivot(const Vector3& vScale, const Vector3 &vPivot, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 4D points, using the provided pivot as the center of transformation.
@@ -530,7 +529,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void ScaleWithPivot(const BaseVector3 &vScale, const BaseVector4 &vPivot, Vector4* arPoints, const unsigned int uElements);
+    static void ScaleWithPivot(const Vector3 &vScale, const Vector4 &vPivot, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 3D points, using the provided pivot as the center of transformation.
@@ -544,7 +543,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const BaseVector3 &vPivot,
+    static void ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const Vector3 &vPivot,
                                       Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
@@ -559,7 +558,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const BaseVector4 &vPivot,
+    static void ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const Vector4 &vPivot,
                                       Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
@@ -572,7 +571,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void ScaleWithPivot(const ScalingMatrix3x3 &scale, const BaseVector3 &vPivot, Vector3* arPoints, const unsigned int uElements);
+    static void ScaleWithPivot(const ScalingMatrix3x3 &scale, const Vector3 &vPivot, Vector3* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Scales 4D points, using the provided pivot as the center of transformation.
@@ -584,7 +583,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void ScaleWithPivot(const ScalingMatrix3x3 &scale, const BaseVector4 &vPivot, Vector4* arPoints, const unsigned int uElements);
+    static void ScaleWithPivot(const ScalingMatrix3x3 &scale, const Vector4 &vPivot, Vector4* arPoints, const unsigned int uElements);
 
     /// <summary>
     /// Transforms 3D points, using the provided pivot as the center of transformation.
@@ -596,7 +595,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const BaseVector3 &vPivot, Vector3* arPoints,
+    static void TransformWithPivot(const TransformationMatrix4x3 &transformation, const Vector3 &vPivot, Vector3* arPoints,
                                           const unsigned int uElements);
 
     /// <summary>
@@ -610,7 +609,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const BaseVector4 &vPivot, Vector4* arPoints,
+    static void TransformWithPivot(const TransformationMatrix4x3 &transformation, const Vector4 &vPivot, Vector4* arPoints,
                                           const unsigned int uElements);
 
     /// <summary>
@@ -623,7 +622,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const BaseVector3 &vPivot, Vector3* arPoints,
+    static void TransformWithPivot(const TransformationMatrix4x4 &transformation, const Vector3 &vPivot, Vector3* arPoints,
                                           const unsigned int uElements);
 
     /// <summary>
@@ -637,7 +636,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
     /// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
     /// <param name="uElements">[IN] Number of elements in the array.</param>
-    static void TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const BaseVector4 &vPivot, Vector4* arPoints,
+    static void TransformWithPivot(const TransformationMatrix4x4 &transformation, const Vector4 &vPivot, Vector4* arPoints,
                                           const unsigned int uElements);
 
 private:
@@ -649,7 +648,7 @@ private:
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
     template <class VectorT>
-    static void Translate(const BaseVector3 &vTranslation, VectorT &vPoint)
+    static void Translate(const Vector3 &vTranslation, VectorT &vPoint)
     {
         vPoint.x += vTranslation.x;
         vPoint.y += vTranslation.y;
@@ -675,7 +674,7 @@ private:
     /// <summary>
     /// Translates 3D or 4D points.
     /// </summary>
-    /// <typeparam name="MatrixT">Allowed types: TranslationMatrix<Matrix4x3>, TranslationMatrix<Matrix4x4>.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: TranslationMatrix4x3, TranslationMatrix4x4.</typeparam>
     /// <typeparam name="VectorT">Allowed types: Vector3, Vector4.</typeparam>
     /// <param name="translation">[IN] 3x3 or 4x4 translation matrix that contains the transformation to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
@@ -716,7 +715,7 @@ private:
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
     template <class VectorT>
-    static void Scale(const BaseVector3 &vScale, VectorT &vPoint)
+    static void Scale(const Vector3 &vScale, VectorT &vPoint)
     {
         vPoint.x *= vScale.x;
         vPoint.y *= vScale.y;
@@ -753,7 +752,7 @@ private:
     /// <summary>
     /// Transforms 3D or 4D points.
     /// </summary>
-    /// <typeparam name="MatrixT">Allowed types: TransformationMatrix<Matrix4x3>, TransformationMatrix<Matrix4x4>.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: TransformationMatrix4x3, TransformationMatrix4x4.</typeparam>
     /// <typeparam name="VectorT">Allowed types: Vector3, Vector4.</typeparam>
     /// <param name="transformation">[IN] 4x3 or 4x4 matrix that contains the transformation to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be transformed.</param>

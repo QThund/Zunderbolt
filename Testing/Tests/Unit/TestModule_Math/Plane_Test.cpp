@@ -31,7 +31,7 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "ZMath/BasePlane.h"
+#include "ZMath/Plane.h"
 #include "ZMath/Plane.h"
 #include "ZMath/Vector3.h"
 #include "ZMath/Vector4.h"
@@ -44,6 +44,7 @@ using namespace boost::unit_test;
 #include "ZMath/SAngle.h"
 #include "ZMath/SpaceConversionMatrix.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 typedef boost::mpl::list<Vector3, Vector4> TVectorTypes;
 typedef boost::mpl::list<Matrix4x3, Matrix4x4> TMatrixTypes;
@@ -67,27 +68,6 @@ ZTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByPlane_Test )
 
 	// [Execution]
     Plane planeUT = SCALAR * PLANE;
-
-    // [Verification]
-    BOOST_CHECK( SFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
-    BOOST_CHECK( SFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
-    BOOST_CHECK( SFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
-    BOOST_CHECK( SFloat::AreEqual(planeUT.d, EXPECTED_VALUE_FOR_D) );
-}
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
-{
-    // [Preparation]
-    const float_z EXPECTED_VALUE_FOR_A = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_B = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_C = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_D = SFloat::_0;
-
-	// [Execution]
-    Plane planeUT;
 
     // [Verification]
     BOOST_CHECK( SFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
@@ -130,7 +110,7 @@ ZTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
     const float_z EXPECTED_VALUE_FOR_C = SFloat::_3;
     const float_z EXPECTED_VALUE_FOR_D = SFloat::_4;
 
-    const BasePlane PLANE_TO_COPY(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
+    const Plane PLANE_TO_COPY(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
 	// [Execution]
     Plane planeUT = Plane(PLANE_TO_COPY);
@@ -687,6 +667,137 @@ ZTEST_CASE_TEMPLATE ( GetPlaneYZ_ExpectedValueIsReturned_Test, TVectorTypes )
     BOOST_CHECK( SFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
     BOOST_CHECK( SFloat::AreEqual(planeUT.d, EXPECTED_VALUE_FOR_D) );
+}
+
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::Epsilon);
+    const Plane RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5);
+    const Plane RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5);
+    const Plane RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::Epsilon);
+    const Plane RIGHT_OPERAND(SFloat::Epsilon);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks that when operators are similar but not equal (geometrically speaking), they are considered different.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperatorsAreSimilarButNotEqual_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::_1, SFloat::_2, SFloat::_4, SFloat::_10);
+    const Plane RIGHT_OPERAND(SFloat::_0_5, SFloat::_1, SFloat::_2, SFloat::_5); // LEFT_OPERAND / 2
+
+	// [Execution] / Verification
+    BOOST_CHECK(!(LEFT_OPERAND == RIGHT_OPERAND));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::Epsilon);
+    const Plane RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5);
+    const Plane RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5);
+    const Plane RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::Epsilon);
+    const Plane RIGHT_OPERAND(SFloat::Epsilon);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks that when operators are similar but not equal (geometrically speaking), they are considered different.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperatorsAreSimilarButNotEqual_Test )
+{
+    // [Preparation]
+    const Plane LEFT_OPERAND(SFloat::_1, SFloat::_2, SFloat::_4, SFloat::_10);
+    const Plane RIGHT_OPERAND(SFloat::_0_5, SFloat::_1, SFloat::_2, SFloat::_5); // LEFT_OPERAND / 2
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
 /// <summary>
@@ -1846,11 +1957,11 @@ ZTEST_CASE_TEMPLATE ( PointProjection_ResultIsDifferentWhenPlaneIsNotNormalized_
 ZTEST_CASE ( PointProjection_ItDoesNotAffectWComponent_Test )
 {
     // [Preparation]
-    const BaseVector4 POINT = BaseVector4(SFloat::_4, -SFloat::_8, SFloat::_3, SFloat::_9);
+    const Vector4 POINT = Vector4(SFloat::_4, -SFloat::_8, SFloat::_3, SFloat::_9);
     const Plane PLANE = Plane(-SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize();
 
 	// [Execution]
-    BaseVector4 vProjectedPoint = PLANE.PointProjection(POINT);
+    Vector4 vProjectedPoint = PLANE.PointProjection(POINT);
 
     // [Verification]
     BOOST_CHECK_EQUAL(vProjectedPoint.w, POINT.w);

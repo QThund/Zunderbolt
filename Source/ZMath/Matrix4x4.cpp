@@ -29,7 +29,7 @@
 #include "ZCommon/Assertions.h"
 #include "ZMath/SAngle.h"
 #include "ZCommon/DataTypes/SFloat.h"
-
+#include "ZCommon/DataTypes/SVF32.h"
 
 
 namespace z
@@ -50,34 +50,65 @@ Matrix4x4::Matrix4x4()
 {
 }
 
-Matrix4x4::Matrix4x4(const Matrix4x4 &matrix) : BaseMatrix4x4(matrix)
+Matrix4x4::Matrix4x4(const float_z fValueAll)
 {
-}
-
-Matrix4x4::Matrix4x4(const BaseMatrix4x4 &matrix) : BaseMatrix4x4(matrix)
-{
-}
-
-Matrix4x4::Matrix4x4(const float_z fValueAll) : BaseMatrix4x4(fValueAll)
-{
+    ij[0][0] = ij[0][1] = ij[0][2] = ij[0][3] =
+    ij[1][0] = ij[1][1] = ij[1][2] = ij[1][3] =
+    ij[2][0] = ij[2][1] = ij[2][2] = ij[2][3] =
+    ij[3][0] = ij[3][1] = ij[3][2] = ij[3][3] = fValueAll;
 }
 
 Matrix4x4::Matrix4x4(const float_z f00, const float_z f01, const float_z f02, const float_z f03,
-                       const float_z f10, const float_z f11, const float_z f12, const float_z f13,
-                       const float_z f20, const float_z f21, const float_z f22, const float_z f23,
-                       const float_z f30, const float_z f31, const float_z f32, const float_z f33) :
-                            BaseMatrix4x4(f00, f01, f02, f03, f10, f11, f12, f13,
-                                           f20, f21, f22, f23, f30, f31, f32, f33)
+                     const float_z f10, const float_z f11, const float_z f12, const float_z f13,
+                     const float_z f20, const float_z f21, const float_z f22, const float_z f23,
+                     const float_z f30, const float_z f31, const float_z f32, const float_z f33)
 {
+    ij[0][0] = f00;
+    ij[0][1] = f01;
+    ij[0][2] = f02;
+    ij[0][3] = f03;
+    ij[1][0] = f10;
+    ij[1][1] = f11;
+    ij[1][2] = f12;
+    ij[1][3] = f13;
+    ij[2][0] = f20;
+    ij[2][1] = f21;
+    ij[2][2] = f22;
+    ij[2][3] = f23;
+    ij[3][0] = f30;
+    ij[3][1] = f31;
+    ij[3][2] = f32;
+    ij[3][3] = f33;
 }
 
-Matrix4x4::Matrix4x4(const float_z* arValues) : BaseMatrix4x4(arValues)
+Matrix4x4::Matrix4x4(const float_z* arValues)
 {
+    Z_ASSERT_ERROR(arValues != null_z, "The input array must not be null");
+
+    ij[0][0] = arValues[0];
+    ij[0][1] = arValues[1];
+    ij[0][2] = arValues[2];
+    ij[0][3] = arValues[3];
+    ij[1][0] = arValues[4];
+    ij[1][1] = arValues[5];
+    ij[1][2] = arValues[6];
+    ij[1][3] = arValues[7];
+    ij[2][0] = arValues[8];
+    ij[2][1] = arValues[9];
+    ij[2][2] = arValues[10];
+    ij[2][3] = arValues[11];
+    ij[3][0] = arValues[12];
+    ij[3][1] = arValues[13];
+    ij[3][2] = arValues[14];
+    ij[3][3] = arValues[15];
 }
 
-Matrix4x4::Matrix4x4(const vf32_z row0, const vf32_z row1, const vf32_z row2, const vf32_z &row3) :
-                            BaseMatrix4x4(row0, row1, row2, row3)
+Matrix4x4::Matrix4x4(const vf32_z row0, const vf32_z row1, const vf32_z row2, const vf32_z &row3)
 {
+    SVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], this->ij[0][3]);
+    SVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], this->ij[1][3]);
+    SVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], this->ij[2][3]);
+    SVF32::Unpack(row3, this->ij[3][0], this->ij[3][1], this->ij[3][2], this->ij[3][3]);
 }
 
 
@@ -89,6 +120,31 @@ Matrix4x4::Matrix4x4(const vf32_z row0, const vf32_z row1, const vf32_z row2, co
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
+
+bool Matrix4x4::operator==(const Matrix4x4 &matrix) const
+{
+    return  SFloat::AreEqual(this->ij[0][0], matrix.ij[0][0]) &&
+            SFloat::AreEqual(this->ij[0][1], matrix.ij[0][1]) &&
+            SFloat::AreEqual(this->ij[0][2], matrix.ij[0][2]) &&
+            SFloat::AreEqual(this->ij[0][3], matrix.ij[0][3]) &&
+            SFloat::AreEqual(this->ij[1][0], matrix.ij[1][0]) &&
+            SFloat::AreEqual(this->ij[1][1], matrix.ij[1][1]) &&
+            SFloat::AreEqual(this->ij[1][2], matrix.ij[1][2]) &&
+            SFloat::AreEqual(this->ij[1][3], matrix.ij[1][3]) &&
+            SFloat::AreEqual(this->ij[2][0], matrix.ij[2][0]) &&
+            SFloat::AreEqual(this->ij[2][1], matrix.ij[2][1]) &&
+            SFloat::AreEqual(this->ij[2][2], matrix.ij[2][2]) &&
+            SFloat::AreEqual(this->ij[2][3], matrix.ij[2][3]) &&
+            SFloat::AreEqual(this->ij[3][0], matrix.ij[3][0]) &&
+            SFloat::AreEqual(this->ij[3][1], matrix.ij[3][1]) &&
+            SFloat::AreEqual(this->ij[3][2], matrix.ij[3][2]) &&
+            SFloat::AreEqual(this->ij[3][3], matrix.ij[3][3]);
+}
+
+bool Matrix4x4::operator!=(const Matrix4x4 &matrix) const
+{
+    return !(*this == matrix);
+}
 
 Matrix4x4 Matrix4x4::operator*(const float_z fScalar) const
 {
@@ -138,7 +194,7 @@ Matrix4x4 operator*(const float_z fScalar, const Matrix4x4 &matrix)
     return aux;
 }
 
-Matrix4x4 Matrix4x4::operator*(const BaseMatrix4x4 &matrix) const
+Matrix4x4 Matrix4x4::operator*(const Matrix4x4 &matrix) const
 {
     Matrix4x4 aux;
 
@@ -165,9 +221,9 @@ Matrix4x4 Matrix4x4::operator*(const BaseMatrix4x4 &matrix) const
     return aux;
 }
 
-BaseMatrix4x3 Matrix4x4::operator*(const BaseMatrix4x3 &matrix) const
+Matrix4x3 Matrix4x4::operator*(const Matrix4x3 &matrix) const
 {
-    BaseMatrix4x3 aux;
+    Matrix4x3 aux;
 
     aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0] + this->ij[0][1] * matrix.ij[1][0] + this->ij[0][2] * matrix.ij[2][0] + this->ij[0][3] * matrix.ij[3][0];
     aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1] + this->ij[0][1] * matrix.ij[1][1] + this->ij[0][2] * matrix.ij[2][1] + this->ij[0][3] * matrix.ij[3][1];
@@ -217,7 +273,7 @@ Matrix4x4 Matrix4x4::operator/(const float_z fScalar) const
     return aux;
 }
 
-Matrix4x4 Matrix4x4::operator+(const BaseMatrix4x4 &matrix) const
+Matrix4x4 Matrix4x4::operator+(const Matrix4x4 &matrix) const
 {
     Matrix4x4 aux;
 
@@ -241,7 +297,7 @@ Matrix4x4 Matrix4x4::operator+(const BaseMatrix4x4 &matrix) const
     return aux;
 }
 
-Matrix4x4 Matrix4x4::operator-(const BaseMatrix4x4 &matrix) const
+Matrix4x4 Matrix4x4::operator-(const Matrix4x4 &matrix) const
 {
     Matrix4x4 aux;
 
@@ -265,7 +321,7 @@ Matrix4x4 Matrix4x4::operator-(const BaseMatrix4x4 &matrix) const
     return aux;
 }
 
-Matrix4x4& Matrix4x4::operator*=(const BaseMatrix4x4 &matrix)
+Matrix4x4& Matrix4x4::operator*=(const Matrix4x4 &matrix)
 {
     Matrix4x4 aux;
 
@@ -326,7 +382,7 @@ Matrix4x4& Matrix4x4::operator/=(const float_z fScalar)
     return *this;
 }
 
-Matrix4x4& Matrix4x4::operator+=(const BaseMatrix4x4 &matrix)
+Matrix4x4& Matrix4x4::operator+=(const Matrix4x4 &matrix)
 {
     this->ij[0][0] += matrix.ij[0][0];
     this->ij[0][1] += matrix.ij[0][1];
@@ -348,7 +404,7 @@ Matrix4x4& Matrix4x4::operator+=(const BaseMatrix4x4 &matrix)
     return *this;
 }
 
-Matrix4x4& Matrix4x4::operator-=(const BaseMatrix4x4 &matrix)
+Matrix4x4& Matrix4x4::operator-=(const Matrix4x4 &matrix)
 {
     this->ij[0][0] -= matrix.ij[0][0];
     this->ij[0][1] -= matrix.ij[0][1];
@@ -367,12 +423,6 @@ Matrix4x4& Matrix4x4::operator-=(const BaseMatrix4x4 &matrix)
     this->ij[3][2] -= matrix.ij[3][2];
     this->ij[3][3] -= matrix.ij[3][3];
 
-    return *this;
-}
-
-Matrix4x4& Matrix4x4::operator=(const BaseMatrix4x4 &matrix)
-{
-    BaseMatrix4x4::operator=(matrix);
     return *this;
 }
 

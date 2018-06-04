@@ -27,14 +27,14 @@
 #include "ZMath/SpaceConversionMatrix.h"
 
 #include "ZCommon/Assertions.h"
-#include "ZMath/BaseQuaternion.h"
+#include "ZMath/Quaternion.h"
 #include "ZMath/TranslationMatrix.h"
 #include "ZMath/RotationMatrix3x3.h"
 #include "ZMath/ScalingMatrix3x3.h"
 #include "ZMath/TransformationMatrix.h"
 #include "ZMath/Vector3.h"
 #include "ZMath/Vector4.h"
-#include "ZMath/BaseQuaternion.h"
+#include "ZMath/Quaternion.h"
 #include "ZMath/Matrix4x3.h"
 #include "ZCommon/DataTypes/SFloat.h"
 #include "ZMath/SAngle.h"
@@ -57,14 +57,13 @@ namespace z
     
 SpaceConversionMatrix::SpaceConversionMatrix()
 {
-    this->ResetToIdentity();
 }
 
 SpaceConversionMatrix::SpaceConversionMatrix(const SpaceConversionMatrix &matrix) : Matrix4x4(matrix)
 {
 }
 
-SpaceConversionMatrix::SpaceConversionMatrix(const BaseMatrix4x4 &matrix) : Matrix4x4(matrix)
+SpaceConversionMatrix::SpaceConversionMatrix(const Matrix4x4 &matrix) : Matrix4x4(matrix)
 {
 }
 
@@ -77,9 +76,9 @@ SpaceConversionMatrix::SpaceConversionMatrix(const BaseMatrix4x4 &matrix) : Matr
 //##################                                                       ##################
 //##################=======================================================##################
 
-SpaceConversionMatrix& SpaceConversionMatrix::operator=(const BaseMatrix4x4 &matrix)
+SpaceConversionMatrix& SpaceConversionMatrix::operator=(const Matrix4x4 &matrix)
 {
-    BaseMatrix4x4::operator=(matrix);
+    Matrix4x4::operator=(matrix);
     return *this;
 }
 
@@ -94,22 +93,22 @@ SpaceConversionMatrix& SpaceConversionMatrix::operator*=(const SpaceConversionMa
     return *this;
 }
 
-void SpaceConversionMatrix::SetWorldSpaceMatrix(const BaseVector3 &vTranslation, const BaseQuaternion &qRotation, const BaseVector3 &vScale)
+void SpaceConversionMatrix::SetWorldSpaceMatrix(const Vector3 &vTranslation, const Quaternion &qRotation, const Vector3 &vScale)
 {
-    TransformationMatrix<Matrix4x4> aux(vTranslation, qRotation, vScale);
+    TransformationMatrix4x4 aux(vTranslation, qRotation, vScale);
 
     *this = rcast_z(aux, SpaceConversionMatrix&);
 }
 
-void SpaceConversionMatrix::SetWorldSpaceMatrix(const BaseVector4 &vTranslation, const BaseQuaternion &qRotation, const BaseVector3 &vScale)
+void SpaceConversionMatrix::SetWorldSpaceMatrix(const Vector4 &vTranslation, const Quaternion &qRotation, const Vector3 &vScale)
 {
-    TransformationMatrix<Matrix4x4> aux(vTranslation, qRotation, vScale);
+    TransformationMatrix4x4 aux(vTranslation, qRotation, vScale);
 
     *this = rcast_z(aux, SpaceConversionMatrix&);
 }
 
-void SpaceConversionMatrix::SetWorldSpaceMatrix(const TransformationMatrix<Matrix4x4> &translation, const TransformationMatrix<Matrix4x4> &rotation,
-                                                 const TransformationMatrix<Matrix4x4> &scale)
+void SpaceConversionMatrix::SetWorldSpaceMatrix(const TransformationMatrix4x4 &translation, const TransformationMatrix4x4 &rotation,
+                                                const TransformationMatrix4x4 &scale)
 {
     this->ij[0][0] = scale.ij[0][0] * rotation.ij[0][0];
     this->ij[0][1] = scale.ij[0][0] * rotation.ij[0][1];
@@ -133,7 +132,7 @@ void SpaceConversionMatrix::SetWorldSpaceMatrix(const TransformationMatrix<Matri
 }
 
 void SpaceConversionMatrix::SetViewSpaceMatrix(const Vector3 &vPointOfView, const Vector3 &vTarget,
-                                                const Vector3 &vUpDirection)
+                                               const Vector3 &vUpDirection)
 {
     Vector3 vZAxis = (vTarget - vPointOfView).Normalize();
 
@@ -233,12 +232,12 @@ SpaceConversionMatrix SpaceConversionMatrix::SwitchHandConventionViewSpaceMatrix
                                               -vXAxis.DotProduct(vPOV), -vYAxis.DotProduct(vPOV), -vZAxis.DotProduct(vPOV), SFloat::_1));
 }
 
-void SpaceConversionMatrix::SetWorldSpaceMatrix(const TranslationMatrix<Matrix4x3> &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale)
+void SpaceConversionMatrix::SetWorldSpaceMatrix(const TranslationMatrix4x3 &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale)
 {
     SetWorldSpaceMatrixImp(translation, rotation, scale);
 }
 
-void SpaceConversionMatrix::SetWorldSpaceMatrix(const TranslationMatrix<Matrix4x4> &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale)
+void SpaceConversionMatrix::SetWorldSpaceMatrix(const TranslationMatrix4x4 &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale)
 {
     SetWorldSpaceMatrixImp(translation, rotation, scale);
 }
@@ -252,16 +251,16 @@ SpaceConversionMatrix SpaceConversionMatrix::SwitchHandConventionProjectionSpace
 }
 
 template <class MatrixT>
-void SpaceConversionMatrix::SetWorldSpaceMatrixImp(const TranslationMatrix<MatrixT> &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale)
+void SpaceConversionMatrix::SetWorldSpaceMatrixImp(const Internals::TranslationMatrix<MatrixT> &translation, const RotationMatrix3x3 &rotation, const ScalingMatrix3x3 &scale)
 {
-    TransformationMatrix<Matrix4x4> aux(translation, rotation, scale);
+    TransformationMatrix4x4 aux(translation, rotation, scale);
 
     *this = rcast_z(aux, SpaceConversionMatrix&);
 }
 
 SpaceConversionMatrix SpaceConversionMatrix::SwitchHandConventionWorldSpaceMatrix() const
 {
-    return SpaceConversionMatrix(scast_z(*this, const TransformationMatrix<Matrix4x4>&).SwitchHandConvention());
+    return SpaceConversionMatrix(scast_z(*this, const TransformationMatrix4x4&).SwitchHandConvention());
 }
 
 } // namespace z

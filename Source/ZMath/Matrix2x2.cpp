@@ -29,7 +29,7 @@
 #include "ZCommon/Assertions.h"
 #include "ZMath/SAngle.h"
 #include "ZCommon/DataTypes/SFloat.h"
-
+#include "ZCommon/DataTypes/SVF32.h"
 
 
 namespace z
@@ -49,29 +49,33 @@ Matrix2x2::Matrix2x2()
 {
 }
 
-Matrix2x2::Matrix2x2(const Matrix2x2 &matrix) : BaseMatrix2x2(matrix)
+Matrix2x2::Matrix2x2(const float_z fValueAll)
 {
+    ij[0][0] = ij[0][1] =
+    ij[1][0] = ij[1][1] = fValueAll;
 }
 
-Matrix2x2::Matrix2x2(const BaseMatrix2x2 &matrix) : BaseMatrix2x2(matrix)
+Matrix2x2::Matrix2x2(const float_z f00, const float_z f01, const float_z f10, const float_z f11)
 {
+    ij[0][0] = f00;
+    ij[0][1] = f01;
+    ij[1][0] = f10;
+    ij[1][1] = f11;
 }
 
-Matrix2x2::Matrix2x2(const float_z fValueAll) : BaseMatrix2x2(fValueAll)
+Matrix2x2::Matrix2x2(const float_z* arValues)
 {
+    Z_ASSERT_ERROR(arValues != null_z, "The input array must not be null");
+
+    ij[0][0] = arValues[0];
+    ij[0][1] = arValues[1];
+    ij[1][0] = arValues[2];
+    ij[1][1] = arValues[3];
 }
 
-Matrix2x2::Matrix2x2(const float_z f00, const float_z f01, const float_z f10, const float_z f11) :
-                        BaseMatrix2x2(f00, f01, f10, f11)
+Matrix2x2::Matrix2x2(const vf32_z value)
 {
-}
-
-Matrix2x2::Matrix2x2(const float_z* arValues) : BaseMatrix2x2(arValues)
-{
-}
-
-Matrix2x2::Matrix2x2(const vf32_z value) : BaseMatrix2x2(value)
-{
+    SVF32::Unpack(value, this->ij[0][0], this->ij[0][1], this->ij[1][0], this->ij[1][1]);
 }
 
 
@@ -83,6 +87,19 @@ Matrix2x2::Matrix2x2(const vf32_z value) : BaseMatrix2x2(value)
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
+
+bool Matrix2x2::operator==(const Matrix2x2 &matrix) const
+{
+    return SFloat::AreEqual(this->ij[0][0], matrix.ij[0][0]) &&
+           SFloat::AreEqual(this->ij[0][1], matrix.ij[0][1]) &&
+           SFloat::AreEqual(this->ij[1][0], matrix.ij[1][0]) &&
+           SFloat::AreEqual(this->ij[1][1], matrix.ij[1][1]);
+}
+
+bool Matrix2x2::operator!=(const Matrix2x2 &matrix) const
+{
+    return  !(*this == matrix);
+}
 
 Matrix2x2 Matrix2x2::operator*(const float_z fScalar) const
 {
@@ -108,7 +125,7 @@ Matrix2x2 operator*(const float_z fScalar, const Matrix2x2 &matrix)
     return aux;
 }
 
-Matrix2x2 Matrix2x2::operator*(const BaseMatrix2x2 &matrix) const
+Matrix2x2 Matrix2x2::operator*(const Matrix2x2 &matrix) const
 {
     Matrix2x2 aux;
 
@@ -137,7 +154,7 @@ Matrix2x2 Matrix2x2::operator/(const float_z fScalar) const
     return aux;
 }
 
-Matrix2x2 Matrix2x2::operator+(const BaseMatrix2x2 &matrix) const
+Matrix2x2 Matrix2x2::operator+(const Matrix2x2 &matrix) const
 {
     Matrix2x2 aux;
 
@@ -149,7 +166,7 @@ Matrix2x2 Matrix2x2::operator+(const BaseMatrix2x2 &matrix) const
     return aux;
 }
 
-Matrix2x2 Matrix2x2::operator-(const BaseMatrix2x2 &matrix) const
+Matrix2x2 Matrix2x2::operator-(const Matrix2x2 &matrix) const
 {
     Matrix2x2 aux;
 
@@ -171,7 +188,7 @@ Matrix2x2& Matrix2x2::operator*=(const float_z fScalar)
     return *this;
 }
 
-Matrix2x2& Matrix2x2::operator*=(const BaseMatrix2x2 &matrix)
+Matrix2x2& Matrix2x2::operator*=(const Matrix2x2 &matrix)
 {
     Matrix2x2 aux;
 
@@ -199,7 +216,7 @@ Matrix2x2& Matrix2x2::operator/=(const float_z fScalar)
     return *this;
 }
 
-Matrix2x2& Matrix2x2::operator+=(const BaseMatrix2x2 &matrix)
+Matrix2x2& Matrix2x2::operator+=(const Matrix2x2 &matrix)
 {
     this->ij[0][0] += matrix.ij[0][0];
     this->ij[0][1] += matrix.ij[0][1];
@@ -209,19 +226,13 @@ Matrix2x2& Matrix2x2::operator+=(const BaseMatrix2x2 &matrix)
     return *this;
 }
 
-Matrix2x2& Matrix2x2::operator-=(const BaseMatrix2x2 &matrix)
+Matrix2x2& Matrix2x2::operator-=(const Matrix2x2 &matrix)
 {
     this->ij[0][0] -= matrix.ij[0][0];
     this->ij[0][1] -= matrix.ij[0][1];
     this->ij[1][0] -= matrix.ij[1][0];
     this->ij[1][1] -= matrix.ij[1][1];
 
-    return *this;
-}
-
-Matrix2x2& Matrix2x2::operator=(const BaseMatrix2x2 &matrix)
-{
-    BaseMatrix2x2::operator=(matrix);
     return *this;
 }
 

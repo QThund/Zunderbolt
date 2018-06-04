@@ -37,25 +37,8 @@ using namespace boost::unit_test;
 #include "ZMath/SAngle.h"
 #include "ZCommon/Exceptions/AssertException.h"
 
-
 ZTEST_SUITE_BEGIN( Circle_TestSuite )
 
-/// <summary>
-/// Checks that default values hasn't changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
-{
-    // [Preparation]
-    const Vector2 EXPECTED_VALUE_FOR_CENTER = Vector2();
-    const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_0;
-
-	// [Execution]
-    Circle circleUT;
-    
-    // [Verification]
-    BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
-    BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
-}
 
 /// <summary>
 /// Checks if copy constructor sets circle components properly.
@@ -86,8 +69,8 @@ ZTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
     const Vector2 EXPECTED_VALUE_FOR_CENTER = Vector2(SFloat::_8, SFloat::_9);
     const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_3;
 
-    const Orb<Vector2> ORB_TO_COPY = Orb<Vector2>(EXPECTED_VALUE_FOR_CENTER,
-                                                  EXPECTED_VALUE_FOR_RADIUS);
+    const Internals::Orb<Vector2> ORB_TO_COPY = Internals::Orb<Vector2>(EXPECTED_VALUE_FOR_CENTER,
+                                                                        EXPECTED_VALUE_FOR_RADIUS);
 
 	// [Execution]
     Circle circleUT(ORB_TO_COPY);

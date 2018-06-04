@@ -28,11 +28,11 @@
 #define __TRANSFORMATIONMATRIX__
 
 #include "ZMath/MathDefinitions.h"
-#include "ZMath/BaseQuaternion.h"
+#include "ZMath/Quaternion.h"
 #include "ZMath/ScalingMatrix3x3.h"
 #include "ZMath/RotationMatrix3x3.h"
 #include "ZMath/Vector3.h"
-#include "ZMath/BaseVector4.h"
+#include "ZMath/Vector4.h"
 #include "ZMath/Matrix4x3.h"
 #include "ZMath/Matrix4x4.h"
 #include "ZMath/TranslationMatrix.h"
@@ -40,10 +40,8 @@
 
 namespace z
 {
-
-// Preventing friend global operator to be called.
-template <class MatrixT>
-TransformationMatrix<MatrixT> operator*(const float_z fScalar, const TransformationMatrix<MatrixT> &matrix);
+namespace Internals
+{
 
 /// <summary>
 /// Class that represents a transformation matrix.
@@ -77,9 +75,9 @@ class TransformationMatrix : public MatrixT
 public:
 
     /// <summary>
-    /// Default constructor. It's initialized to identity matrix.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
-    TransformationMatrix() : MatrixT(TransformationMatrix::GetIdentity())
+    TransformationMatrix()
     {
     }
 
@@ -110,7 +108,7 @@ public:
     /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
     /// <param name="qRotation">[IN] Quaternion with the rotation values. It's supposed to be normalized.</param>
     /// <param name="vScale">[IN] Vector with the scale values (where 1 means 100%).</param>
-    TransformationMatrix(const BaseVector3 &vTranslation, const BaseQuaternion &qRotation, const BaseVector3 &vScale)
+    TransformationMatrix(const Vector3 &vTranslation, const Quaternion &qRotation, const Vector3 &vScale)
     {
         this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z,
                          qRotation.x, qRotation.y, qRotation.z, qRotation.w,
@@ -124,7 +122,7 @@ public:
     /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
     /// <param name="qRotation">[IN] Quaternion with the rotation values. It's supposed to be normalized.</param>
     /// <param name="vScale">[IN] Vector with the scale values (where 1 means 100%).</param>
-    TransformationMatrix(const BaseVector4 &vTranslation, const BaseQuaternion &qRotation, const BaseVector3 &vScale)
+    TransformationMatrix(const Vector4 &vTranslation, const Quaternion &qRotation, const Vector3 &vScale)
     {
         this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z,
                          qRotation.x, qRotation.y, qRotation.z, qRotation.w,
@@ -568,7 +566,7 @@ public:
     /// Extracts the displacement components from the matrix.
     /// </summary>
     /// <param name="vTranslation">[OUT] Vector where to store the displacement.</param>
-    void GetTranslation(BaseVector3 &vTranslation) const
+    void GetTranslation(Vector3 &vTranslation) const
     {
         vTranslation.x = this->ij[3][0];
         vTranslation.y = this->ij[3][1];
@@ -579,7 +577,7 @@ public:
     /// Extracts the displacement components from the matrix.
     /// </summary>
     /// <param name="vTranslation">[OUT] Vector where to store the displacement. W component of this vector will be set to 0.</param>
-    void GetTranslation(BaseVector4 &vTranslation) const
+    void GetTranslation(Vector4 &vTranslation) const
     {
         vTranslation.x = this->ij[3][0];
         vTranslation.y = this->ij[3][1];
@@ -604,7 +602,7 @@ public:
     /// Extracts the scale factors from the matrix.
     /// </summary>
     /// <param name="vScale">[OUT] Vector where to store the scale factors.</param>
-    void GetScale(BaseVector3 &vScale) const
+    void GetScale(Vector3 &vScale) const
     {
         vScale.x = sqrt_z(this->ij[0][0] * this->ij[0][0] + this->ij[0][1] * this->ij[0][1] + this->ij[0][2] * this->ij[0][2]);
         vScale.y = sqrt_z(this->ij[1][0] * this->ij[1][0] + this->ij[1][1] * this->ij[1][1] + this->ij[1][2] * this->ij[1][2]);
@@ -635,7 +633,7 @@ public:
     /// cause that obtained quaternion doesn't match that used to build the matrix.
     /// </remarks>
     /// <param name="qRotation">[OUT] Quaternion where to store the extracted rotation.</param>
-    void GetRotation(BaseQuaternion &qRotation) const
+    void GetRotation(Quaternion &qRotation) const
     {
         RotationMatrix3x3 mAux = this->ToRotationMatrix3x3();
         mAux.GetRotation(qRotation);
@@ -646,7 +644,7 @@ public:
     /// </summary>
     /// <param name="fRotationAngle">[OUT] Angle of rotation.</param>
     /// <param name="vRotationAxis">[OUT] Unitary vector in the direction of the spin axis.</param>
-    void GetRotation(float_z &fRotationAngle, BaseVector3 &vRotationAxis) const
+    void GetRotation(float_z &fRotationAngle, Vector3 &vRotationAxis) const
     {
         RotationMatrix3x3 mAux = this->ToRotationMatrix3x3();
         mAux.GetRotation(fRotationAngle, vRotationAxis);
@@ -662,7 +660,7 @@ public:
     /// <param name="vTranslation">[OUT] Vector to store the translation.</param>
     /// <param name="qRotation">[OUT] Quaternion to store the rotation.</param>
     /// <param name="vScale">[OUT] Vector to store the scale.</param>
-    void Decompose(BaseVector3 &vTranslation, BaseQuaternion &qRotation, BaseVector3 &vScale) const
+    void Decompose(Vector3 &vTranslation, Quaternion &qRotation, Vector3 &vScale) const
     {
         this->GetScale(vScale);
         this->GetRotation(qRotation);
@@ -679,7 +677,7 @@ public:
     /// <param name="vTranslation">[OUT] Vector to store the translation.</param>
     /// <param name="qRotation">[OUT] Quaternion to store the rotation.</param>
     /// <param name="vScale">[OUT] Vector to store the scale.</param>
-    void Decompose(BaseVector4 &vTranslation, BaseQuaternion &qRotation, BaseVector3 &vScale) const
+    void Decompose(Vector4 &vTranslation, Quaternion &qRotation, Vector3 &vScale) const
     {
         this->GetScale(vScale);
         this->GetRotation(qRotation);
@@ -844,7 +842,7 @@ protected:
                     const float_z fRotationX, const float_z fRotationY, const float_z fRotationZ, const float_z fRotationW,
                     const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ)
     {
-        BaseQuaternion qRot(fRotationX, fRotationY, fRotationZ, fRotationW);
+        Quaternion qRot(fRotationX, fRotationY, fRotationZ, fRotationW);
 
         RotationMatrix3x3 mRot(qRot);
 
@@ -969,7 +967,7 @@ private:
                       TransformationMatrix<MatrixParamT> &rotation,
                       TransformationMatrix<MatrixParamT> &scale) const
     {
-        BaseVector3 vAux;
+        Vector3 vAux;
         this->GetScale(vAux);
 
         scale.ResetToIdentity();
@@ -978,13 +976,13 @@ private:
         scale.ij[1][1] = vAux.y;
         scale.ij[2][2] = vAux.z;
 
-        BaseQuaternion qRotAux;
+        Quaternion qRotAux;
         this->GetRotation(qRotAux);
 
         // Makes a transformation matrix with current rotation, scale 1 and displacement 0
         rotation = TransformationMatrix<MatrixParamT>(SFloat::_0, SFloat::_0, SFloat::_0,
-                                                          qRotAux.x , qRotAux.y , qRotAux.z , qRotAux.w,
-                                                          SFloat::_1, SFloat::_1, SFloat::_1);
+                                                      qRotAux.x , qRotAux.y , qRotAux.z , qRotAux.w,
+                                                      SFloat::_1, SFloat::_1, SFloat::_1);
         this->GetTranslation(vAux);
 
         translation.ResetToIdentity();
@@ -1007,7 +1005,7 @@ private:
                       RotationMatrix3x3 &rotation,
                       ScalingMatrix3x3 &scale) const
     {
-        BaseVector3 vAux;
+        Vector3 vAux;
         this->GetScale(vAux);
 
         scale.ResetToIdentity();
@@ -1016,7 +1014,7 @@ private:
         scale.ij[1][1] = vAux.y;
         scale.ij[2][2] = vAux.z;
 
-        BaseQuaternion qRotAux;
+        Quaternion qRotAux;
         this->GetRotation(qRotAux);
 
         // Makes a transformation matrix with current rotation, scale 1 and displacement 0
@@ -1036,6 +1034,7 @@ private:
 
 };
 
+
 // SPECIALIZATION EXPORTATIONS
 // -----------------------------
 #ifdef Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
@@ -1044,6 +1043,20 @@ template class Z_MATH_MODULE_SYMBOLS TransformationMatrix<Matrix4x3>;
 template class Z_MATH_MODULE_SYMBOLS TransformationMatrix<Matrix4x4>;
 
 #endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
+
+
+} // namespace Internals
+
+
+// TYPEDEFS
+// ----------
+typedef Internals::TransformationMatrix<Matrix4x3> TransformationMatrix4x3;
+typedef Internals::TransformationMatrix<Matrix4x4> TransformationMatrix4x4;
+
+
+// Preventing friend global operator to be called.
+template <class MatrixT>
+Internals::TransformationMatrix<MatrixT> operator*(const float_z fScalar, const Internals::TransformationMatrix<MatrixT> &matrix);
 
 
 // Note: The following global operators have been defined this way in order to avoid a mutual inclusion between TranslationMatrix and TransformationMatrix
@@ -1062,8 +1075,8 @@ template class Z_MATH_MODULE_SYMBOLS TransformationMatrix<Matrix4x4>;
 /// The resultant transformation matrix, with the same template parameter that the input translation matrix.
 /// </returns>
 template<class MatrixT>
-TransformationMatrix<MatrixT> operator*(const TranslationMatrix<MatrixT> &translation, 
-                                                                              const TransformationMatrix<Matrix4x3> &transformation)
+Internals::TransformationMatrix<MatrixT> operator*(const Internals::TranslationMatrix<MatrixT> &translation, 
+                                                   const Internals::TransformationMatrix<Matrix4x3> &transformation)
 {
     TransformationMatrix<MatrixT> aux = TransformationMatrix<MatrixT>::GetIdentity();
 
@@ -1099,8 +1112,8 @@ TransformationMatrix<MatrixT> operator*(const TranslationMatrix<MatrixT> &transl
 /// The resultant transformation matrix, with the same template parameter that the input translation matrix.
 /// </returns>
 template<class MatrixT>
-TransformationMatrix<MatrixT> operator*(const TranslationMatrix<MatrixT> &translation, 
-                                                                              const TransformationMatrix<Matrix4x4> &transformation)
+Internals::TransformationMatrix<MatrixT> operator*(const Internals::TranslationMatrix<MatrixT> &translation, 
+                                                   const Internals::TransformationMatrix<Matrix4x4> &transformation)
 {
     TransformationMatrix<MatrixT> aux = TransformationMatrix<MatrixT>::GetIdentity();
 

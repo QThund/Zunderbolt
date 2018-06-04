@@ -28,8 +28,8 @@
 #define __RAY__
 
 #include "ZMath/MathDefinitions.h"
-#include "BaseRay.h"
-#include "BaseOrb.h"
+#include "ZMath/MathModuleDefinitions.h"
+#include "Orb.h"
 #include "EIntersections.h"
 #include "ZMath/Vector2.h"
 #include "ZMath/Vector3.h"
@@ -38,6 +38,8 @@
 
 
 namespace z
+{
+namespace Internals
 {
 
 /// <summary>
@@ -49,7 +51,7 @@ namespace z
 /// <typeparam name="VectorTOrigin">Allowed types: Vector2, Vector3, Vector4.</typeparam>
 /// <typeparam name="VectorTDirection">Allowed types: Vector2 (when VectorTOrigin is Vector2), Vector3 (when VectorTOrigin is Vector3 or Vector4).</typeparam>
 template<class VectorTOrigin, class VectorTDirection>
-class Ray : public BaseRay<VectorTOrigin, VectorTDirection>
+class Ray
 {
 
     // CONSTRUCTORS
@@ -57,25 +59,9 @@ class Ray : public BaseRay<VectorTOrigin, VectorTDirection>
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Ray()
-    {
-    }
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
-    Ray(const Ray<VectorTOrigin, VectorTDirection> &ray) : BaseRay<VectorTOrigin, VectorTDirection>(ray)
-    {
-    }
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="ray">[IN] The ray in which we want resident ray to be based.</param>
-    Ray(const BaseRay<VectorTOrigin, VectorTDirection> &ray) : BaseRay<VectorTOrigin, VectorTDirection>(ray)
     {
     }
 
@@ -87,7 +73,8 @@ public:
     /// </remarks>
     /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
-    Ray(const VectorTOrigin &vOrigin, const VectorTDirection &vDirection) : BaseRay<VectorTOrigin, VectorTDirection>(vOrigin, vDirection)
+    Ray(const VectorTOrigin &vOrigin, const VectorTDirection &vDirection) :
+                        Origin(vOrigin), Direction(vDirection)
     {
     }
 
@@ -112,18 +99,35 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Equality operator. Compares two rays.
+    /// </summary>
+    /// <remarks>
+    /// If rays are not normalized, it may occur that 2 similar rays (but not exactly equal) are considered different.
+    /// </remarks>
+    /// <param name="ray">[IN] Ray with which to compare.</param>
+    /// <returns>
+    /// True if rays are the same, false otherwise.
+    /// </returns>
+    bool operator==(const Ray<VectorTOrigin, VectorTDirection> &ray) const
+    {
+        return ( this->Origin == ray.Origin && this->Direction == ray.Direction );
+    }
 
     /// <summary>
-    /// Assignation operator that receives another ray.
+    /// Inequality operator. Compares two rays.
     /// </summary>
-    /// <param name="ray">[IN] An existing ray.</param>
+    /// <remarks>
+    /// If rays are not normalized, it may occur that 2 similar rays (but not exactly equal) are considered different.
+    /// </remarks>
+    /// <param name="ray">[IN] Ray with which to compare.</param>
     /// <returns>
-    /// A reference to this ray, after assignation.
+    /// True if rays are not the same, false otherwise.
     /// </returns>
-    Ray<VectorTOrigin, VectorTDirection>& operator=(const BaseRay<VectorTOrigin, VectorTDirection> &ray)
+    bool operator!=(const Ray<VectorTOrigin, VectorTDirection> &ray) const
     {
-        BaseRay<VectorTOrigin, VectorTDirection>::operator=(ray);
-        return *this;
+        return !(*this == ray);
     }
 
     /// <summary>
@@ -187,7 +191,7 @@ public:
     /// <b>False</b><br/>
     /// The ray and the orb do not intersect.
     /// </returns>
-    bool Intersection(const BaseOrb<VectorTOrigin> &orb) const
+    bool Intersection(const Orb<VectorTOrigin> &orb) const
     {
         // [TODO] Thund: This method is easy to optimize.
 
@@ -266,7 +270,7 @@ public:
     /// - The ray intersects with the orb in two points.
     /// - The origin of the ray lays on the surface / perimeter of the orb and the ray points to the orb.
     /// </returns>
-    EIntersections IntersectionPoint(const BaseOrb<VectorTOrigin> &orb, VectorTOrigin &vIntersection) const
+    EIntersections IntersectionPoint(const Orb<VectorTOrigin> &orb, VectorTOrigin &vIntersection) const
     {
         VectorTOrigin vAux;
         return this->IntersectionPoint(orb, vIntersection, vAux);
@@ -301,7 +305,7 @@ public:
     /// - The ray intersects with the orb in two points.
     /// - The origin of the ray lays on the surface / perimeter of the orb and the ray points to the orb.
     /// </returns>
-    EIntersections IntersectionPoint(const BaseOrb<VectorTOrigin> &orb, VectorTOrigin &vIntersection1, VectorTOrigin &vIntersection2) const
+    EIntersections IntersectionPoint(const Orb<VectorTOrigin> &orb, VectorTOrigin &vIntersection1, VectorTOrigin &vIntersection2) const
     {
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
         Z_ASSERT_WARNING( SFloat::IsNotZero(this->Direction.GetLength()) && SFloat::IsNotZero(orb.Radius), 
@@ -400,7 +404,21 @@ public:
     {
         return string_z("RY(o(") + this->Origin.ToString() + Z_L("),d(") + this->Direction.ToString() + Z_L("))");
     }
+    
 
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Point where the vector is located.
+    /// </summary>
+    VectorTOrigin Origin;
+
+    /// <summary>
+    /// Vector which defines the direction of the ray.
+    /// </summary>
+    VectorTDirection Direction;
 };
 
 
@@ -414,6 +432,7 @@ template class Z_MATH_MODULE_SYMBOLS Ray<Vector4, Vector3>;
 
 #endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
 
+} // namespace Internals
 } // namespace z
 
 

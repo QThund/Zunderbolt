@@ -33,7 +33,6 @@ namespace z
 {
 
     
-    
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
@@ -47,15 +46,15 @@ Circle::Circle()
 {
 }
 
-Circle::Circle(const Circle &circle) : Orb<Vector2>(circle)
+Circle::Circle(const Circle &circle) : Internals::Orb<Vector2>(circle)
 {
 }
 
-Circle::Circle(const BaseOrb<Vector2> &orb) : Orb<Vector2>(orb)
+Circle::Circle(const Internals::Orb<Vector2> &orb) : Internals::Orb<Vector2>(orb)
 {
 }
 
-Circle::Circle(const Vector2 &vCenter, const float_z fRadius) : Orb<Vector2>(vCenter, fRadius)
+Circle::Circle(const Vector2 &vCenter, const float_z fRadius) : Internals::Orb<Vector2>(vCenter, fRadius)
 {
 }
 
@@ -69,13 +68,13 @@ Circle::Circle(const Vector2 &vCenter, const float_z fRadius) : Orb<Vector2>(vCe
 //##################                                                       ##################
 //##################=======================================================##################
 
-Circle& Circle::operator=(const BaseOrb<Vector2> &orb)
+Circle& Circle::operator=(const Internals::Orb<Vector2> &orb)
 {
-    BaseOrb<Vector2>::operator=(orb);
+    Internals::Orb<Vector2>::operator=(orb);
     return *this;
 }
 
-Circle Circle::Translate(const BaseVector2 &vTranslation) const
+Circle Circle::Translate(const Vector2 &vTranslation) const
 {
     Circle auxCircle = *this;
     SPoint::Translate(vTranslation, &auxCircle.Center, 1);
@@ -96,14 +95,14 @@ Circle Circle::Rotate(const float_z fRotationAngle) const
     return auxCircle;
 }
 
-Circle Circle::RotateWithPivot(const float_z fRotationAngle, const BaseVector2 &vPivot) const
+Circle Circle::RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot) const
 {
     Circle auxCircle = *this;
     SPoint::RotateWithPivot(fRotationAngle, vPivot, &auxCircle.Center, 1);
     return auxCircle;
 }
 
-Circle Circle::Scale(const BaseVector2 &vScale, const float_z fRadiusScale) const
+Circle Circle::Scale(const Vector2 &vScale, const float_z fRadiusScale) const
 {
     Circle auxCircle = *this;
     SPoint::Scale(vScale, &auxCircle.Center, 1);
@@ -119,7 +118,7 @@ Circle Circle::Scale(const float_z fScaleX, const float_z fScaleY, const float_z
     return auxCircle;
 }
 
-Circle Circle::ScaleWithPivot(const BaseVector2 &vScale, const float_z fRadiusScale, const BaseVector2 &vPivot) const
+Circle Circle::ScaleWithPivot(const Vector2 &vScale, const float_z fRadiusScale, const Vector2 &vPivot) const
 {
     Circle auxCircle = *this;
     SPoint::ScaleWithPivot(vScale, vPivot, &auxCircle.Center, 1);
@@ -127,7 +126,7 @@ Circle Circle::ScaleWithPivot(const BaseVector2 &vScale, const float_z fRadiusSc
     return auxCircle;
 }
 
-Circle Circle::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fRadiusScale, const BaseVector2 &vPivot) const
+Circle Circle::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fRadiusScale, const Vector2 &vPivot) const
 {
     Circle auxCircle = *this;
     SPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &auxCircle.Center, 1);
@@ -143,7 +142,7 @@ Circle Circle::Transform(const TransformationMatrix3x3 &transformation, const fl
     return auxCircle;
 }
 
-Circle Circle::TransformWithPivot(const TransformationMatrix3x3 &transformation, const float_z fRadiusScale, const BaseVector2 &vPivot) const
+Circle Circle::TransformWithPivot(const TransformationMatrix3x3 &transformation, const float_z fRadiusScale, const Vector2 &vPivot) const
 {
     Circle auxCircle = *this;
     SPoint::TransformWithPivot(transformation, vPivot, &auxCircle.Center, 1);
@@ -151,7 +150,7 @@ Circle Circle::TransformWithPivot(const TransformationMatrix3x3 &transformation,
     return auxCircle;
 }
 
-EIntersections Circle::IntersectionPoint(const BaseOrb<Vector2> &circle, BaseVector2 &vIntersection1, BaseVector2 &vIntersection2) const
+EIntersections Circle::IntersectionPoint(const Orb<Vector2> &circle, Vector2 &vIntersection1, Vector2 &vIntersection2) const
 {
     // More information: http://mathforum.org/library/drmath/view/51710.html
 

@@ -35,28 +35,11 @@ using namespace boost::unit_test;
 #include "ZMath/TransformationMatrix3x3.h"
 #include "ZMath/SAngle.h"
 #include "ZCommon/Exceptions/AssertException.h"
+#include "ZCommon/DataTypes/SVF32.h"
+using namespace z::Internals;
 
 
 ZTEST_SUITE_BEGIN( Triangle2D_TestSuite )
-
-/// <summary>
-/// Checks that default values haven't changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
-{
-    // [Preparation]
-    const Vector2 EXPECTED_VALUE_FOR_A = Vector2::GetNullVector();
-    const Vector2 EXPECTED_VALUE_FOR_B = Vector2::GetNullVector();
-    const Vector2 EXPECTED_VALUE_FOR_C = Vector2::GetNullVector();
-
-	// [Execution]
-    Triangle2D triangleUT;
-    
-    // [Verification]
-    BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
-    BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
-    BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
-}
 
 /// <summary>
 /// Checks if copy constructor sets triangle components properly.
@@ -89,7 +72,7 @@ ZTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
     const Vector2 EXPECTED_VALUE_FOR_B = Vector2(SFloat::_5, SFloat::_9);
     const Vector2 EXPECTED_VALUE_FOR_C = Vector2(SFloat::_7, SFloat::_4);
 
-    const BaseTriangle<Vector2> BASE_TRIANGLE_TO_COPY = BaseTriangle<Vector2>(EXPECTED_VALUE_FOR_A,
+    const Triangle<Vector2> BASE_TRIANGLE_TO_COPY = Triangle<Vector2>(EXPECTED_VALUE_FOR_A,
                                                                                   EXPECTED_VALUE_FOR_B,
                                                                                   EXPECTED_VALUE_FOR_C);
 
@@ -243,7 +226,7 @@ ZTEST_CASE ( OperatorAssignation_TriangleIsAssignedProperlyToAnother_Test )
     const Vector2 EXPECTED_VALUE_FOR_B = Vector2(SFloat::_5, SFloat::_9);
     const Vector2 EXPECTED_VALUE_FOR_C = Vector2(SFloat::_7, SFloat::_4);
 
-    const BaseTriangle<Vector2> OTHER_TRIANGLE = BaseTriangle<Vector2>(EXPECTED_VALUE_FOR_A,
+    const Triangle<Vector2> OTHER_TRIANGLE = Triangle<Vector2>(EXPECTED_VALUE_FOR_A,
                                                                            EXPECTED_VALUE_FOR_B,
                                                                            EXPECTED_VALUE_FOR_C);
 

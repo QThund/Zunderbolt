@@ -32,8 +32,8 @@ using namespace boost::unit_test;
 
 #include "ZMath/DualQuaternion.h"
 
-#include "ZMath/BaseVector3.h"
-#include "ZMath/BaseVector4.h"
+#include "ZMath/Vector3.h"
+#include "ZMath/Vector4.h"
 #include "ZCommon/DataTypes/SFloat.h"
 #include "ZCommon/Exceptions/AssertException.h"
 
@@ -55,41 +55,12 @@ ZTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByQuaternion_Test 
     const float_z EXPECTED_VALUE_FOR_DZ = (float_z)3.5;
     const float_z EXPECTED_VALUE_FOR_DW = SFloat::_4;
 
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                           Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
     const float_z SCALAR = SFloat::_0_5;
 
     // [Execution]
     DualQuaternion dualQuaternionUT = SCALAR * DUALQUATERNION;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
-    BOOST_CHECK_EQUAL(dualQuaternionUT.d.y, EXPECTED_VALUE_FOR_DY);
-    BOOST_CHECK_EQUAL(dualQuaternionUT.d.z, EXPECTED_VALUE_FOR_DZ);
-    BOOST_CHECK_EQUAL(dualQuaternionUT.d.w, EXPECTED_VALUE_FOR_DW);
-    BOOST_CHECK_EQUAL(dualQuaternionUT.r.x, EXPECTED_VALUE_FOR_RX);
-    BOOST_CHECK_EQUAL(dualQuaternionUT.r.y, EXPECTED_VALUE_FOR_RY);
-    BOOST_CHECK_EQUAL(dualQuaternionUT.r.z, EXPECTED_VALUE_FOR_RZ);
-    BOOST_CHECK_EQUAL(dualQuaternionUT.r.w, EXPECTED_VALUE_FOR_RW);
-}
-
-/// <summary>
-/// Checks that default values hasn't changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
-{
-    // [Preparation]
-    const float_z EXPECTED_VALUE_FOR_DX = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_DY = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_DZ = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_DW = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_RX = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_RY = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_RZ = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_RW = SFloat::_0;
-
-	// [Execution]
-    DualQuaternion dualQuaternionUT;
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -108,8 +79,8 @@ ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 ZTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
     // [Preparation]
-    const BaseQuaternion EXPECTED_VALUE_D = BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseQuaternion EXPECTED_VALUE_R = BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8);
+    const Quaternion EXPECTED_VALUE_D = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Quaternion EXPECTED_VALUE_R = Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8);
 
     const DualQuaternion DQUAT_TO_COPY(EXPECTED_VALUE_R, EXPECTED_VALUE_D);
 
@@ -137,8 +108,8 @@ ZTEST_CASE ( Constructor3_IsCorrectlyCopied_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_8;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT(BaseDualQuaternion(BaseQuaternion(EXPECTED_VALUE_FOR_RX, EXPECTED_VALUE_FOR_RY, EXPECTED_VALUE_FOR_RZ, EXPECTED_VALUE_FOR_RW),
-                                                         BaseQuaternion(EXPECTED_VALUE_FOR_DX, EXPECTED_VALUE_FOR_DY, EXPECTED_VALUE_FOR_DZ, EXPECTED_VALUE_FOR_DW)));
+    DualQuaternion dualQuaternionUT(DualQuaternion(Quaternion(EXPECTED_VALUE_FOR_RX, EXPECTED_VALUE_FOR_RY, EXPECTED_VALUE_FOR_RZ, EXPECTED_VALUE_FOR_RW),
+                                                         Quaternion(EXPECTED_VALUE_FOR_DX, EXPECTED_VALUE_FOR_DY, EXPECTED_VALUE_FOR_DZ, EXPECTED_VALUE_FOR_DW)));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -167,8 +138,8 @@ ZTEST_CASE ( Constructor4_IsCorrectlyCreatedWhenUsingCommonTransformations_Test 
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_4;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                       BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                       Vector3(SFloat::_5, SFloat::_6, SFloat::_7));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -197,8 +168,8 @@ ZTEST_CASE ( Constructor4_DualPartIsNullWhenTranslationIsNull_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_4;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                       BaseVector3(SFloat::_0, SFloat::_0, SFloat::_0));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                       Vector3(SFloat::_0, SFloat::_0, SFloat::_0));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -227,8 +198,8 @@ ZTEST_CASE ( Constructor4_DualAndRealPartsAreNullWhenRotationIsNull_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_0;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
-                                                       BaseVector3(SFloat::_1, SFloat::_2, SFloat::_3));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                                       Vector3(SFloat::_1, SFloat::_2, SFloat::_3));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -257,8 +228,8 @@ ZTEST_CASE ( Constructor5_IsCorrectlyCreatedWhenUsingCommonTransformations_Test 
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_4;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                       BaseVector4(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                       Vector4(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -287,8 +258,8 @@ ZTEST_CASE ( Constructor5_DualPartIsNullWhenTranslationIsNull_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_4;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                       BaseVector4(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                       Vector4(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -317,8 +288,8 @@ ZTEST_CASE ( Constructor5_DualAndRealPartsAreNullWhenRotationIsNull_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_0;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
-                                                       BaseVector4(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                                       Vector4(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -347,8 +318,8 @@ ZTEST_CASE ( Constructor6_IsCorrectlyCreatedWhenUsingCommonTransformations_Test 
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_4;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7),
-                                                       BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Vector3(SFloat::_5, SFloat::_6, SFloat::_7),
+                                                       Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -377,8 +348,8 @@ ZTEST_CASE ( Constructor6_DualPartIsNullWhenTranslationIsNull_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_4;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                       BaseVector3(SFloat::_0, SFloat::_0, SFloat::_0));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                       Vector3(SFloat::_0, SFloat::_0, SFloat::_0));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -407,8 +378,8 @@ ZTEST_CASE ( Constructor6_DualAndRealPartsAreNullWhenRotationIsNull_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_0;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseVector3(SFloat::_1, SFloat::_2, SFloat::_3),
-                                                       BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Vector3(SFloat::_1, SFloat::_2, SFloat::_3),
+                                                       Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -437,8 +408,8 @@ ZTEST_CASE ( Constructor7_IsCorrectlyCreatedWhenUsingCommonTransformations_Test 
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_4;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseVector4(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8),
-                                                       BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Vector4(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8),
+                                                       Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -467,8 +438,8 @@ ZTEST_CASE ( Constructor7_DualPartIsNullWhenTranslationIsNull_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_4;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                       BaseVector4(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                       Vector4(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -497,8 +468,8 @@ ZTEST_CASE ( Constructor7_DualAndRealPartsAreNullWhenRotationIsNull_Test )
     const float_z EXPECTED_VALUE_FOR_RW = SFloat::_0;
 
 	// [Execution]
-    DualQuaternion dualQuaternionUT = DualQuaternion(BaseVector4(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                       BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+    DualQuaternion dualQuaternionUT = DualQuaternion(Vector4(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                       Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
 
     // [Verification]
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
@@ -618,18 +589,141 @@ ZTEST_CASE ( GetIdentity_DualPartIsNullAndRealPartEqualsIdentity_Test )
 }
 
 /// <summary>
+/// Checks if the operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const DualQuaternion LEFT_OPERAND(Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon),
+                                          Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon));
+    const DualQuaternion RIGHT_OPERAND(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                           Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z VALUE_FOR_LEFT_OPERAND_COMPONENTS = SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5;
+    const DualQuaternion LEFT_OPERAND(Quaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS),
+                                          Quaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS));
+    const DualQuaternion RIGHT_OPERAND(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                           Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z VALUE_FOR_LEFT_OPERAND_COMPONENTS = SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5;
+    const DualQuaternion LEFT_OPERAND(Quaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS),
+                                          Quaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS));
+    const DualQuaternion RIGHT_OPERAND(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                           Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const DualQuaternion LEFT_OPERAND(Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon),
+                                          Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon));
+    const DualQuaternion RIGHT_OPERAND(Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon),
+                                           Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon));
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const DualQuaternion LEFT_OPERAND(Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon),
+                                          Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon));
+    const DualQuaternion RIGHT_OPERAND(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                           Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z VALUE_FOR_LEFT_OPERAND_COMPONENTS = SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5;
+    const DualQuaternion LEFT_OPERAND(Quaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS),
+                                      Quaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS));
+    const DualQuaternion RIGHT_OPERAND(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                       Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z VALUE_FOR_LEFT_OPERAND_COMPONENTS = SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5;
+    const DualQuaternion LEFT_OPERAND(Quaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS),
+                                      Quaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS));
+    const DualQuaternion RIGHT_OPERAND(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                       Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const DualQuaternion LEFT_OPERAND(Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon),
+                                      Quaternion(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon));
+    const DualQuaternion RIGHT_OPERAND(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0),
+                                       Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
 /// Checks if two different dual quaternions are correctly added.
 /// </summary>
 ZTEST_CASE ( OperatorAddition_TwoDifferentQuaternionsAreCorrectlyAdded_Test )
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                     Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                   Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_7, SFloat::_8, SFloat::_9, SFloat::_10),
-                                                     Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion((float_z)7.25, SFloat::_9, (float_z)11.0, (float_z)13.0),
-                                                           Quaternion((float_z)14.0, (float_z)16.0, (float_z)18.0, (float_z)20.0));
+                                                         Quaternion((float_z)14.0, (float_z)16.0, (float_z)18.0, (float_z)20.0));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = OPERAND1 + OPERAND2;
@@ -645,12 +739,12 @@ ZTEST_CASE ( OperatorSubtraction_TwoDifferentQuaternionsAreCorrectlySubtracted_T
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion((float_z)7.25, SFloat::_9, (float_z)11.0, (float_z)13.0),
-                                                     Quaternion((float_z)14.0, (float_z)16.0, (float_z)18.0, (float_z)20.0));
+                                                   Quaternion((float_z)14.0, (float_z)16.0, (float_z)18.0, (float_z)20.0));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_7, SFloat::_8, SFloat::_9, SFloat::_10),
-                                                     Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                         Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = OPERAND1 - OPERAND2;
@@ -666,12 +760,12 @@ ZTEST_CASE ( OperatorProduct1_TwoDifferentQuaternionsAreCorrectlyMultiplied_Test
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                     Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                   Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_7, SFloat::_8, SFloat::_9, SFloat::_10),
-                                                     Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion((float_z)30.5, (float_z)22.25, (float_z)52.0, (float_z)2.25),
-                                                           Quaternion((float_z)123.5, (float_z)111.25, (float_z)183.0, (float_z)-36.75));
+                                                         Quaternion((float_z)123.5, (float_z)111.25, (float_z)183.0, (float_z)-36.75));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = OPERAND1 * OPERAND2;
@@ -687,9 +781,9 @@ ZTEST_CASE ( OperatorProduct1_IsNotCommutative_Test )
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                     Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                   Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_7, SFloat::_8, SFloat::_9, SFloat::_10),
-                                                     Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
 
 	// [Execution]
     DualQuaternion dualQuaternion1UT = OPERAND1 * OPERAND2;
@@ -706,11 +800,11 @@ ZTEST_CASE ( OperatorProduct2_ScalarAndDualQuaternionAreCorrectlyMultiplied_Test
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                         Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
     const float_z SCALAR = SFloat::_7;
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion((float_z)1.75, (float_z)7.0, (float_z)14.0, (float_z)21.0),
-                                                           Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
+                                                         Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION * SCALAR;
@@ -726,11 +820,11 @@ ZTEST_CASE ( OperatorProduct3_ResultIsCorrectWhenUsingCommonVector_Test )
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
-    const BaseVector3 VECTOR(SFloat::_9, SFloat::_10, (float_z)11.0);
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const Vector3 VECTOR(SFloat::_9, SFloat::_10, (float_z)11.0);
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion((float_z)49.0, (float_z)30.0, (float_z)59.0, (float_z)-54.0));
+                                                         Quaternion((float_z)49.0, (float_z)30.0, (float_z)59.0, (float_z)-54.0));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION * VECTOR;
@@ -746,11 +840,11 @@ ZTEST_CASE ( OperatorProduct4_ResultIsCorrectWhenUsingCommonVector_Test )
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
-    const BaseVector4 VECTOR(SFloat::_9, SFloat::_10, (float_z)11.0, (float_z)12.0);
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const Vector4 VECTOR(SFloat::_9, SFloat::_10, (float_z)11.0, (float_z)12.0);
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion((float_z)49.0, (float_z)30.0, (float_z)59.0, (float_z)-54.0));
+                                                         Quaternion((float_z)49.0, (float_z)30.0, (float_z)59.0, (float_z)-54.0));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION * VECTOR;
@@ -766,11 +860,11 @@ ZTEST_CASE ( OperatorDivision_DualQuaternionIsCorrectlyDividedByScalar_Test )
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion((float_z)1.75, (float_z)7.0, (float_z)14.0, (float_z)21.0),
-                                                           Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
+                                                         Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
     const float_z SCALAR = SFloat::_7;
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                         Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION / SCALAR;
@@ -788,7 +882,7 @@ ZTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion((float_z)1.75, (float_z)7.0, (float_z)14.0, (float_z)21.0),
-                                                           Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
+                                                         Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
     const float_z SCALAR = SFloat::_0;
 
     const bool EXPECTED_VALUE = true;
@@ -818,12 +912,12 @@ ZTEST_CASE ( OperatorAdditionAssignation_TwoDifferentQuaternionsAreCorrectlyAdde
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                     Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                   Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_7, SFloat::_8, SFloat::_9, SFloat::_10),
-                                                     Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion((float_z)7.25, SFloat::_9, (float_z)11.0, (float_z)13.0),
-                                                           Quaternion((float_z)14.0, (float_z)16.0, (float_z)18.0, (float_z)20.0));
+                                                         Quaternion((float_z)14.0, (float_z)16.0, (float_z)18.0, (float_z)20.0));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = OPERAND1;
@@ -840,12 +934,12 @@ ZTEST_CASE ( OperatorSubtractionAssignation_TwoDifferentQuaternionsAreCorrectlyS
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion((float_z)7.25, SFloat::_9, (float_z)11.0, (float_z)13.0),
-                                                     Quaternion((float_z)14.0, (float_z)16.0, (float_z)18.0, (float_z)20.0));
+                                                   Quaternion((float_z)14.0, (float_z)16.0, (float_z)18.0, (float_z)20.0));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_7, SFloat::_8, SFloat::_9, SFloat::_10),
-                                                     Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                         Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = OPERAND1;
@@ -862,12 +956,12 @@ ZTEST_CASE ( OperatorProductAssignation1_TwoDifferentQuaternionsAreCorrectlyMult
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                     Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                   Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_7, SFloat::_8, SFloat::_9, SFloat::_10),
-                                                     Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion((float_z)30.5, (float_z)22.25, (float_z)52.0, (float_z)2.25),
-                                                           Quaternion((float_z)123.5, (float_z)111.25, (float_z)183.0, (float_z)-36.75));
+                                                         Quaternion((float_z)123.5, (float_z)111.25, (float_z)183.0, (float_z)-36.75));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = OPERAND1;
@@ -884,9 +978,9 @@ ZTEST_CASE ( OperatorProductAssignation1_IsNotCommutative_Test )
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                     Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                   Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_7, SFloat::_8, SFloat::_9, SFloat::_10),
-                                                     Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Quaternion((float_z)11.0, (float_z)12.0, (float_z)13.0, (float_z)14.0));
 
 	// [Execution]
     DualQuaternion dualQuaternion1UT = OPERAND1;
@@ -905,11 +999,11 @@ ZTEST_CASE ( OperatorProductAssignation2_ScalarAndDualQuaternionAreCorrectlyMult
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                         Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
     const float_z SCALAR = SFloat::_7;
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion((float_z)1.75, (float_z)7.0, (float_z)14.0, (float_z)21.0),
-                                                           Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
+                                                         Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION;
@@ -926,11 +1020,11 @@ ZTEST_CASE ( OperatorDivisionAssignation_DualQuaternionIsCorrectlyDividedByScala
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion((float_z)1.75, (float_z)7.0, (float_z)14.0, (float_z)21.0),
-                                                           Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
+                                                         Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
     const float_z SCALAR = SFloat::_7;
 
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                         Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION;
@@ -949,7 +1043,7 @@ ZTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion((float_z)1.75, (float_z)7.0, (float_z)14.0, (float_z)21.0),
-                                                           Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
+                                                         Quaternion((float_z)21.0, (float_z)28.0, (float_z)35.0, (float_z)42.0));
     const float_z SCALAR = SFloat::_0;
 
     const bool EXPECTED_VALUE = true;
@@ -979,7 +1073,7 @@ ZTEST_CASE ( OperatorAssignation_DualQuaternionIsAssignedProperlyToAnother_Test 
 {
     // [Preparation]
     const DualQuaternion EXPECTED_VALUE = DualQuaternion(Quaternion(SFloat::_0_25, SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
+                                                         Quaternion(SFloat::_3, SFloat::_4, SFloat::_5, SFloat::_6));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT;
@@ -996,7 +1090,7 @@ ZTEST_CASE ( ResetToZero_AllDualQuaternionComponentsAreSetToZero_Test )
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
     const float_z EXPECTED_VALUE_FOR_ALL = SFloat::_0;
 
 	// [Execution]
@@ -1021,7 +1115,7 @@ ZTEST_CASE ( ResetToIdentity_DualQuaternionBecomesIdentity_Test )
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
     const DualQuaternion IDENTITY = DualQuaternion::GetIdentity();
 
 	// [Execution]
@@ -1039,9 +1133,9 @@ ZTEST_CASE ( Conjugate_CommonDualQuaternionIsCorrectlyConjugated_Test )
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
     const DualQuaternion EXPECTED_RESULT = DualQuaternion(Quaternion(-SFloat::_1, -SFloat::_2, -SFloat::_3, SFloat::_4),
-                                                            Quaternion(-SFloat::_5, -SFloat::_6, -SFloat::_7, SFloat::_8));
+                                                          Quaternion(-SFloat::_5, -SFloat::_6, -SFloat::_7, SFloat::_8));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION.Conjugate();
@@ -1057,9 +1151,9 @@ ZTEST_CASE ( DoubleConjugate_CommonDualQuaternionIsCorrectlyDoubleConjugated_Tes
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
     const DualQuaternion EXPECTED_RESULT = DualQuaternion(Quaternion(-SFloat::_1, -SFloat::_2, -SFloat::_3, SFloat::_4),
-                                                            Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, -SFloat::_8));
+                                                          Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, -SFloat::_8));
 
 	// [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION.DoubleConjugate();
@@ -1075,7 +1169,7 @@ ZTEST_CASE ( GetNonDualLength_CorrectNonDualLengthObtainedFromCommonDualQuaterni
 {
     // [Preparation]
     const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
     const float_z EXPECTED_LENGTH = (float_z)5.4772255750516612;
 
 	// [Execution]
@@ -1092,11 +1186,11 @@ ZTEST_CASE ( Transform_CommonDualQuaternionIsCorrectlyTransformedByAnother_Test 
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                     Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+                                                   Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_9, SFloat::_10, (float_z)11.0, (float_z)12.0),
-                                                     Quaternion((float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0));
+                                                   Quaternion((float_z)13.0, (float_z)14.0, (float_z)15.0, (float_z)16.0));
     const DualQuaternion EXPECTED_RESULT = DualQuaternion(Quaternion((float_z)766.0, (float_z)1308.0, (float_z)698.0, (float_z)1784.0),
-                                                            Quaternion((float_z)2518.0, (float_z)2884.0, (float_z)2866.0, (float_z)3488.0));
+                                                          Quaternion((float_z)2518.0, (float_z)2884.0, (float_z)2866.0, (float_z)3488.0));
 
     // [Execution]
     DualQuaternion dualQuaternionUT = OPERAND1.Transform(OPERAND2);
@@ -1112,7 +1206,7 @@ ZTEST_CASE ( Transform_ResultEqualsOriginalDualQuaternionWhenTransformingByIdent
 {
     // [Preparation]
     const DualQuaternion OPERAND = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                    Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+                                                  Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
     const DualQuaternion IDENTITY = DualQuaternion::GetIdentity();
 
     const DualQuaternion EXPECTED_RESULT = OPERAND;
@@ -1130,14 +1224,14 @@ ZTEST_CASE ( Transform_ResultEqualsOriginalDualQuaternionWhenTransformingByIdent
 ZTEST_CASE ( TransformRotationFirst1_CommonDualQuaternionIsCorrectlyTransformed_Test )
 {
     // [Preparation]
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
-    const BaseQuaternion ROTATION = BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector3 TRANSLATION = BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7);
+    const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector3 TRANSLATION = Vector3(SFloat::_5, SFloat::_6, SFloat::_7);
 
-    const DualQuaternion EXPECTED_RESULT = DualQuaternion(BaseQuaternion((float_z)30.0, (float_z)60.0, (float_z)90.0, (float_z)120.0),
-                                                            BaseQuaternion((float_z)718.0, (float_z)820.0, (float_z)1114.0, (float_z)-900.0));
+    const DualQuaternion EXPECTED_RESULT = DualQuaternion(Quaternion((float_z)30.0, (float_z)60.0, (float_z)90.0, (float_z)120.0),
+                                                          Quaternion((float_z)718.0, (float_z)820.0, (float_z)1114.0, (float_z)-900.0));
 
     // [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION.TransformRotationFirst(ROTATION, TRANSLATION);
@@ -1152,11 +1246,11 @@ ZTEST_CASE ( TransformRotationFirst1_CommonDualQuaternionIsCorrectlyTransformed_
 ZTEST_CASE ( TransformRotationFirst1_ResultEqualsOriginalDualQuaternionWhenTransformedByNullTranslationAndRotation_Test )
 {
     // [Preparation]
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
-    const BaseQuaternion ROTATION = BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 TRANSLATION = BaseVector3(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION = Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 TRANSLATION = Vector3(SFloat::_0, SFloat::_0, SFloat::_0);
 
     const DualQuaternion EXPECTED_RESULT = DUALQUATERNION;
 
@@ -1173,14 +1267,14 @@ ZTEST_CASE ( TransformRotationFirst1_ResultEqualsOriginalDualQuaternionWhenTrans
 ZTEST_CASE ( TransformRotationFirst2_CommonDualQuaternionIsCorrectlyTransformed_Test )
 {
     // [Preparation]
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
-    const BaseQuaternion ROTATION = BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector4 TRANSLATION = BaseVector4(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8);
+    const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector4 TRANSLATION = Vector4(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8);
 
-    const DualQuaternion EXPECTED_RESULT = DualQuaternion(BaseQuaternion((float_z)30.0, (float_z)60.0, (float_z)90.0, (float_z)120.0),
-                                                            BaseQuaternion((float_z)718.0, (float_z)820.0, (float_z)1114.0, (float_z)-900.0));
+    const DualQuaternion EXPECTED_RESULT = DualQuaternion(Quaternion((float_z)30.0, (float_z)60.0, (float_z)90.0, (float_z)120.0),
+                                                          Quaternion((float_z)718.0, (float_z)820.0, (float_z)1114.0, (float_z)-900.0));
 
     // [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION.TransformRotationFirst(ROTATION, TRANSLATION);
@@ -1195,11 +1289,11 @@ ZTEST_CASE ( TransformRotationFirst2_CommonDualQuaternionIsCorrectlyTransformed_
 ZTEST_CASE ( TransformRotationFirst2_ResultEqualsOriginalDualQuaternionWhenTransformedByNullTranslationAndRotation_Test )
 {
     // [Preparation]
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
-    const BaseQuaternion ROTATION = BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector4 TRANSLATION = BaseVector4(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION = Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector4 TRANSLATION = Vector4(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     const DualQuaternion EXPECTED_RESULT = DUALQUATERNION;
 
@@ -1216,14 +1310,14 @@ ZTEST_CASE ( TransformRotationFirst2_ResultEqualsOriginalDualQuaternionWhenTrans
 ZTEST_CASE ( TransformTranslationFirst1_CommonDualQuaternionIsCorrectlyTransformed_Test )
 {
     // [Preparation]
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
-    const BaseQuaternion ROTATION = BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector3 TRANSLATION = BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7);
+    const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector3 TRANSLATION = Vector3(SFloat::_5, SFloat::_6, SFloat::_7);
 
-    const DualQuaternion EXPECTED_RESULT = DualQuaternion(BaseQuaternion((float_z)30.0, (float_z)60.0, (float_z)90.0, (float_z)120.0),
-                                                            BaseQuaternion((float_z)590.0, (float_z)500.0, (float_z)1370.0, (float_z)-900.0));
+    const DualQuaternion EXPECTED_RESULT = DualQuaternion(Quaternion((float_z)30.0, (float_z)60.0, (float_z)90.0, (float_z)120.0),
+                                                          Quaternion((float_z)590.0, (float_z)500.0, (float_z)1370.0, (float_z)-900.0));
 
     // [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION.TransformTranslationFirst(TRANSLATION, ROTATION);
@@ -1238,11 +1332,11 @@ ZTEST_CASE ( TransformTranslationFirst1_CommonDualQuaternionIsCorrectlyTransform
 ZTEST_CASE ( TransformTranslationFirst1_ResultEqualsOriginalDualQuaternionWhenTransformedByNullTranslationAndRotation_Test )
 {
     // [Preparation]
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
-    const BaseQuaternion ROTATION = BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector3 TRANSLATION = BaseVector3(SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION = Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector3 TRANSLATION = Vector3(SFloat::_0, SFloat::_0, SFloat::_0);
 
     const DualQuaternion EXPECTED_RESULT = DUALQUATERNION;
 
@@ -1259,14 +1353,14 @@ ZTEST_CASE ( TransformTranslationFirst1_ResultEqualsOriginalDualQuaternionWhenTr
 ZTEST_CASE ( TransformTranslationFirst2_CommonDualQuaternionIsCorrectlyTransformed_Test )
 {
     // [Preparation]
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
-    const BaseQuaternion ROTATION = BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
-    const BaseVector4 TRANSLATION = BaseVector4(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8);
+    const Quaternion ROTATION = Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Vector4 TRANSLATION = Vector4(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8);
 
-    const DualQuaternion EXPECTED_RESULT = DualQuaternion(BaseQuaternion((float_z)30.0, (float_z)60.0, (float_z)90.0, (float_z)120.0),
-                                                            BaseQuaternion((float_z)590.0, (float_z)500.0, (float_z)1370.0, (float_z)-900.0));
+    const DualQuaternion EXPECTED_RESULT = DualQuaternion(Quaternion((float_z)30.0, (float_z)60.0, (float_z)90.0, (float_z)120.0),
+                                                          Quaternion((float_z)590.0, (float_z)500.0, (float_z)1370.0, (float_z)-900.0));
 
     // [Execution]
     DualQuaternion dualQuaternionUT = DUALQUATERNION.TransformTranslationFirst(TRANSLATION, ROTATION);
@@ -1281,11 +1375,11 @@ ZTEST_CASE ( TransformTranslationFirst2_CommonDualQuaternionIsCorrectlyTransform
 ZTEST_CASE ( TransformTranslationFirst2_ResultEqualsOriginalDualQuaternionWhenTransformedByNullTranslationAndRotation_Test )
 {
     // [Preparation]
-    const DualQuaternion DUALQUATERNION = DualQuaternion(BaseQuaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
-                                                           BaseQuaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
+    const DualQuaternion DUALQUATERNION = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4),
+                                                         Quaternion(SFloat::_5, SFloat::_6, SFloat::_7, SFloat::_8));
 
-    const BaseQuaternion ROTATION = BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
-    const BaseVector4 TRANSLATION = BaseVector4(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Quaternion ROTATION = Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1);
+    const Vector4 TRANSLATION = Vector4(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     const DualQuaternion EXPECTED_RESULT = DUALQUATERNION;
 
@@ -1303,12 +1397,12 @@ ZTEST_CASE ( Lerp_CorrectLerpedDualQuaternionIsObtainedForTwoCommonDualQuaternio
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize(),
-                                                     BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7));
+                                                   Vector3(SFloat::_5, SFloat::_6, SFloat::_7));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_8, SFloat::_9, SFloat::_10, (float_z)11.0).Normalize(),
-                                                     BaseVector3((float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                     Vector3((float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_RESULT = DualQuaternion(Quaternion((float_z)0.24356699032036269, (float_z)0.394866515026776, (float_z)0.54616603973318933, (float_z)0.69746556443960261),
-                                                            Quaternion((float_z)1.9485359225629015, (float_z)3.2050658530211824, (float_z)2.6460014870025041, (float_z)-4.9507089457357143));
+                                                          Quaternion((float_z)1.9485359225629015, (float_z)3.2050658530211824, (float_z)2.6460014870025041, (float_z)-4.9507089457357143));
     const float_z PROPORTION = SFloat::_0_25;
 
     // [Execution]
@@ -1325,7 +1419,7 @@ ZTEST_CASE ( Lerp_InterpolatingTwoEquivalentDualQuaternionsGivesSameDualQuaterni
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize(),
-                                                     BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7));
+                                                   Vector3(SFloat::_5, SFloat::_6, SFloat::_7));
     const DualQuaternion OPERAND2 = OPERAND1;
 
     const DualQuaternion EXPECTED_RESULT = OPERAND1;
@@ -1346,7 +1440,7 @@ ZTEST_CASE ( Lerp_RealPartEqualsIdentityWhenInterpolatingInTheMiddleOfDualQuater
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize(),
-                                                     BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7));
+                                                   Vector3(SFloat::_5, SFloat::_6, SFloat::_7));
     const DualQuaternion OPERAND2 = OPERAND1.DoubleConjugate();
 
     const Quaternion EXPECTED_REAL_PART_VALUE = Quaternion::GetIdentity();
@@ -1367,9 +1461,9 @@ ZTEST_CASE ( Lerp_ProportionZeroMeansNormalizedResidentQuaternion_Test )
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize(),
-                                                     BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7));
+                                                   Vector3(SFloat::_5, SFloat::_6, SFloat::_7));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_8, SFloat::_9, SFloat::_10, (float_z)11.0).Normalize(),
-                                                     BaseVector3((float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Vector3((float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_RESULT = OPERAND1;
 
@@ -1389,9 +1483,9 @@ ZTEST_CASE ( Lerp_ProportionOneMeansNormalizedInputQuaternion_Test )
 {
     // [Preparation]
     const DualQuaternion OPERAND1 = DualQuaternion(Quaternion(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4).Normalize(),
-                                                   BaseVector3(SFloat::_5, SFloat::_6, SFloat::_7));
+                                                   Vector3(SFloat::_5, SFloat::_6, SFloat::_7));
     const DualQuaternion OPERAND2 = DualQuaternion(Quaternion(SFloat::_8, SFloat::_9, SFloat::_10, (float_z)11.0).Normalize(),
-                                                   BaseVector3((float_z)12.0, (float_z)13.0, (float_z)14.0));
+                                                   Vector3((float_z)12.0, (float_z)13.0, (float_z)14.0));
 
     const DualQuaternion EXPECTED_RESULT = OPERAND2;
 

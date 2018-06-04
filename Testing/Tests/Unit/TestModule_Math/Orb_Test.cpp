@@ -36,30 +36,12 @@ using namespace boost::unit_test;
 #include "ZMath/Vector3.h"
 #include "ZMath/Vector4.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 typedef boost::mpl::list<Vector2, Vector3, Vector4> TTemplateTypes;
 
 
 ZTEST_SUITE_BEGIN( Orb_TestSuite )
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TTemplateTypes )
-{
-    // [Preparation]
-    float_z VECTOR_COMPONENTS_CENTER[] = { SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0 };
-
-    const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
-    const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_0;
-
-	// [Execution]
-    Orb<T> orbUT;
-
-    // [Verification]
-    BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
-    BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
-}
 
 /// <summary>
 /// Checks if copy constructor sets orb's center and radius properly.
@@ -93,7 +75,7 @@ ZTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TTemplateTypes 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
     const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_5;
 
-    const BaseOrb<T> EXPECTED_ORB(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
+    const Orb<T> EXPECTED_ORB(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
 	// [Execution]
     Orb<T> orbUT(EXPECTED_ORB);
@@ -143,6 +125,110 @@ ZTEST_CASE_TEMPLATE ( GetUnitOrb_ValueHasNotChanged_Test, TTemplateTypes )
 }
 
 /// <summary>
+/// Checks if the operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Orb<T> LEFT_OPERAND = Orb<T>( T::GetNullVector(), SFloat::_0 );
+    const Orb<T> RIGHT_OPERAND = Orb<T>( T::GetNullVector(), SFloat::_0 );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Orb<T> LEFT_OPERAND = Orb<T>( T(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5), SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5);
+    const Orb<T> RIGHT_OPERAND = Orb<T>( T::GetNullVector(), SFloat::_0 );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Orb<T> LEFT_OPERAND = Orb<T>( T(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5), SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5);
+    const Orb<T> RIGHT_OPERAND = Orb<T>( T::GetNullVector(), SFloat::_0 );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Orb<T> LEFT_OPERAND = Orb<T>( T(SFloat::Epsilon), SFloat::Epsilon );
+    const Orb<T> RIGHT_OPERAND = Orb<T>( T(SFloat::Epsilon), SFloat::Epsilon );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Orb<T> LEFT_OPERAND =  Orb<T>( T(SFloat::Epsilon), SFloat::Epsilon );
+    const Orb<T> RIGHT_OPERAND = Orb<T>( T(SFloat::Epsilon), SFloat::Epsilon );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Orb<T> LEFT_OPERAND = Orb<T>( T(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5), SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5);
+    const Orb<T> RIGHT_OPERAND = Orb<T>( T(SFloat::Epsilon), SFloat::Epsilon );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Orb<T> LEFT_OPERAND = Orb<T>( T(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5), SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5 );
+    const Orb<T> RIGHT_OPERAND = Orb<T>( T::GetNullVector(), SFloat::_0 );
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test, TTemplateTypes )
+{
+    // [Preparation]
+    const Orb<T> LEFT_OPERAND = Orb<T>( T(SFloat::Epsilon), SFloat::Epsilon );
+    const Orb<T> RIGHT_OPERAND = Orb<T>( T(SFloat::Epsilon), SFloat::Epsilon );
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
 /// Checks that a orb is correctly assigned to another orb.
 /// </summary>
 ZTEST_CASE_TEMPLATE ( OperatorAssignation_OrbIsAssignedProperlyToAnother_Test, TTemplateTypes )
@@ -153,7 +239,7 @@ ZTEST_CASE_TEMPLATE ( OperatorAssignation_OrbIsAssignedProperlyToAnother_Test, T
     const T EXPECTED_VALUE_FOR_CENTER(VECTOR_COMPONENTS);
     const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_4;
 
-    const BaseOrb<T> OTHER_ORB = BaseOrb<T>(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
+    const Orb<T> OTHER_ORB = Orb<T>(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
 	// [Execution]
     Orb<T> orbUT;

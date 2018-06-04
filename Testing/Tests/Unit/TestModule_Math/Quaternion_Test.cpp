@@ -43,6 +43,7 @@ using namespace boost::unit_test;
 #include "ZCommon/DataTypes/SVF32.h"
 #include "ZMath/SAngle.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES && Z_CONFIG_PRECISION_DEFAULT == Z_CONFIG_PRECISION_SIMPLE
     const float_z SMALLER_TOLERANCE = 1e-5f;
@@ -68,27 +69,6 @@ ZTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByQuaternion_Test 
 
 	// [Execution]
     Quaternion qQuaternionUT = SCALAR * QUATERNION;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
-    BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
-    BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
-    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_VALUE_FOR_W);
-}
-
-/// <summary>
-/// Checks that default values hasn't changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
-{
-    // [Preparation]
-    const float_z EXPECTED_VALUE_FOR_X = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_Y = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_Z = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_W = SFloat::_0;
-
-	// [Execution]
-    Quaternion qQuaternionUT;
 
     // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
@@ -130,7 +110,7 @@ ZTEST_CASE ( Constructor3_QuaternionIsCorrectlyCopied_Test )
     const float_z EXPECTED_VALUE_Y = SFloat::_2;
     const float_z EXPECTED_VALUE_Z = SFloat::_3;
     const float_z EXPECTED_VALUE_W = SFloat::_4;
-    const BaseQuaternion QUATERNION(EXPECTED_VALUE_X, EXPECTED_VALUE_Y, EXPECTED_VALUE_Z, EXPECTED_VALUE_W);
+    const Quaternion QUATERNION(EXPECTED_VALUE_X, EXPECTED_VALUE_Y, EXPECTED_VALUE_Z, EXPECTED_VALUE_W);
 
 	// [Execution]
     Quaternion qQuaternionUT(QUATERNION);
@@ -717,9 +697,9 @@ ZTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
     const float_z EULER_ANGLE_Z = SAngle::_90;
 #endif
 
-    const TransformationMatrix<Matrix4x3> TRANSFORMATION(TranslationMatrix<Matrix4x3>(),
+    const TransformationMatrix<Matrix4x3> TRANSFORMATION(TranslationMatrix<Matrix4x3>::GetIdentity(),
                                                            RotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           ScalingMatrix3x3());
+                                                           ScalingMatrix3x3::GetIdentity());
     const Quaternion EXPECTED_RESULT = Quaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// [Execution]
@@ -764,7 +744,7 @@ ZTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 {
     // [Preparation]
     const TransformationMatrix<Matrix4x3> TRANSFORMATION(TranslationMatrix<Matrix4x3>(SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           RotationMatrix3x3(),
+                                                           RotationMatrix3x3::GetIdentity(),
                                                            ScalingMatrix3x3(SFloat::_0_25, SFloat::_0_5, (float_z)200.0));
     const Quaternion EXPECTED_RESULT = Quaternion::GetIdentity();
 
@@ -836,9 +816,9 @@ ZTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
     const float_z EULER_ANGLE_Z = SAngle::_90;
 #endif
 
-    const TransformationMatrix<Matrix4x4> TRANSFORMATION(TranslationMatrix<Matrix4x4>(),
+    const TransformationMatrix<Matrix4x4> TRANSFORMATION(TranslationMatrix<Matrix4x4>::GetIdentity(),
                                                            RotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           ScalingMatrix3x3());
+                                                           ScalingMatrix3x3::GetIdentity());
     const Quaternion EXPECTED_RESULT = Quaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// [Execution]
@@ -883,7 +863,7 @@ ZTEST_CASE ( Constructor11_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 {
     // [Preparation]
     const TransformationMatrix<Matrix4x4> TRANSFORMATION(TranslationMatrix<Matrix4x4>(SFloat::_1, SFloat::_2, SFloat::_3),
-                                                           RotationMatrix3x3(),
+                                                           RotationMatrix3x3::GetIdentity(),
                                                            ScalingMatrix3x3(SFloat::_0_25, SFloat::_0_5, (float_z)200.0));
     const Quaternion EXPECTED_RESULT = Quaternion::GetIdentity();
 
@@ -1029,6 +1009,135 @@ ZTEST_CASE ( GetIdentity_XYZEqualZeroAndWEqualsOne_Test )
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_XYZ);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_XYZ);
     BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_VALUE_FOR_W);
+}
+
+/// <summary>
+/// Checks if it returns a quaternion with all components set to zero.
+/// </summary>
+ZTEST_CASE ( GetNullQuaternion_ReturnsANullQuaternion_Test )
+{
+    // [Preparation]
+    const float_z EXPECTED_VALUE_FOR_X = SFloat::_0;
+    const float_z EXPECTED_VALUE_FOR_Y = SFloat::_0;
+    const float_z EXPECTED_VALUE_FOR_Z = SFloat::_0;
+    const float_z EXPECTED_VALUE_FOR_W = SFloat::_0;
+
+	// [Execution]
+    Quaternion qQuaternionUT = Quaternion::GetNullQuaternion();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
+    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_VALUE_FOR_W);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Quaternion LEFT_OPERAND(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon);
+    const Quaternion RIGHT_OPERAND(SFloat::_0,SFloat::_0, SFloat::_0, SFloat::_0);
+    
+    // [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z VALUE_FOR_LEFT_OPERAND_COMPONENTS = SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5;
+    const Quaternion LEFT_OPERAND(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS);
+    const Quaternion RIGHT_OPERAND(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    
+    // [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z VALUE_FOR_LEFT_OPERAND_COMPONENTS = SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5;
+    const Quaternion LEFT_OPERAND(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS);
+    const Quaternion RIGHT_OPERAND(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    
+    // [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Quaternion LEFT_OPERAND(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon);
+    const Quaternion RIGHT_OPERAND(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon);
+    
+    // [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Quaternion LEFT_OPERAND(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon);
+    const Quaternion RIGHT_OPERAND(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    
+    // [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z VALUE_FOR_LEFT_OPERAND_COMPONENTS = SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5;
+    const Quaternion LEFT_OPERAND(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS);
+    const Quaternion RIGHT_OPERAND(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    
+    // [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const float_z VALUE_FOR_LEFT_OPERAND_COMPONENTS = SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5;
+    const Quaternion LEFT_OPERAND(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS);
+    const Quaternion RIGHT_OPERAND(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    
+    // [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Quaternion LEFT_OPERAND(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon);
+    const Quaternion RIGHT_OPERAND(SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon, SFloat::Epsilon);
+    
+    // [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
 /// <summary>

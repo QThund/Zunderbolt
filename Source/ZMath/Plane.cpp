@@ -37,6 +37,7 @@
 #include "ZMath/SpaceConversionMatrix.h"
 #include "ZMath/SAngle.h"
 #include "ZMath/MathDefinitions.h"
+#include "ZCommon/DataTypes/SVF32.h"
 
 
 namespace z
@@ -56,29 +57,30 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(const Plane &plane) : BasePlane(plane)
+Plane::Plane(const float_z fValueA, const float_z fValueB, const float_z fValueC, const float_z fValueD) : 
+                                            a(fValueA), b(fValueB), c(fValueC), d(fValueD)
 {
 }
 
-Plane::Plane(const BasePlane &plane) : BasePlane(plane)
+Plane::Plane(const float_z fValueAll) : a(fValueAll), b(fValueAll), c(fValueAll), d(fValueAll)
 {
 }
 
-Plane::Plane(const float_z fA, const float_z fB, const float_z fC, const float_z fD) :
-                BasePlane(fA, fB, fC, fD)
+Plane::Plane(float_z* arValues)
 {
+    // Null pointer checkout
+    Z_ASSERT_ERROR(arValues != null_z, "The input array must not be null");
+
+    // Assignments
+    this->a = arValues[0];
+    this->b = arValues[1];
+    this->c = arValues[2];
+    this->d = arValues[3];
 }
 
-Plane::Plane(const float_z fValueAll) : BasePlane(fValueAll)
+Plane::Plane(const vf32_z value)
 {
-}
-
-Plane::Plane(float_z* arValues) : BasePlane(arValues)
-{
-}
-
-Plane::Plane(const vf32_z value) : BasePlane(value)
-{
+    SVF32::Unpack(value, this->a, this->b, this->c, this->d);
 }
 
 Plane::Plane(const Vector3 &vPoint1, const Vector3 &vPoint2, const Vector3 &vPoint3)
@@ -116,6 +118,17 @@ void Plane::PlaneImp(const VectorT &vPoint1, const VectorT &vPoint2, const Vecto
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
+
+bool Plane::operator==(const Plane &plane) const
+{
+    return ( SFloat::AreEqual(plane.a, this->a) && SFloat::AreEqual(plane.b, this->b) &&
+                SFloat::AreEqual(plane.c, this->c) && SFloat::AreEqual(plane.d, this->d) );
+}
+
+bool Plane::operator!=(const Plane &plane) const
+{
+    return !(*this == plane);
+}
 
 Plane Plane::operator*(const float_z fScalar) const
 {
@@ -167,12 +180,6 @@ Plane Plane::operator-() const
     return Plane(-this->a, -this->b, -this->c, this->d);
 }
 
-Plane& Plane::operator=(const BasePlane &plane)
-{
-    BasePlane::operator=(plane);
-    return *this;
-}
-
 Plane Plane::Normalize() const
 {
     // Checkout to avoid division by zero.
@@ -193,7 +200,7 @@ float_z Plane::DotProduct(const Vector4 &vVector) const
     return this->DotProductImp(vVector);
 }
 
-float_z Plane::DotProduct(const BasePlane &plane) const
+float_z Plane::DotProduct(const Plane &plane) const
 {
     return plane.a * this->a + plane.b * this->b + plane.c * this->c;
 }
@@ -208,7 +215,7 @@ float_z Plane::AngleBetween(const Vector4 &vVector) const
     return this->AngleBetweenImp(vVector);
 }
 
-float_z Plane::AngleBetween(const BasePlane &plane) const
+float_z Plane::AngleBetween(const Plane &plane) const
 {
     // When the length of a plane equals zero, the calculated angle is not correct
     Z_ASSERT_WARNING( SFloat::IsNotZero(this->GetSquaredLength()) && !(SFloat::IsZero(plane.a) && SFloat::IsZero(plane.b) && SFloat::IsZero(plane.c)), 
@@ -234,24 +241,24 @@ float_z Plane::AngleBetween(const BasePlane &plane) const
     return fAngle;
 }
 
-BaseVector3 Plane::PointProjection(const BaseVector3 &vPoint) const
+Vector3 Plane::PointProjection(const Vector3 &vPoint) const
 {
     return this->PointProjectionImp(vPoint);
 }
 
-BaseVector4 Plane::PointProjection(const BaseVector4 &vPoint) const
+Vector4 Plane::PointProjection(const Vector4 &vPoint) const
 {
-    BaseVector4 vAux = this->PointProjectionImp(vPoint);
+    Vector4 vAux = this->PointProjectionImp(vPoint);
     vAux.w = vPoint.w;
     return vAux;
 }
 
-bool Plane::Contains(const BaseVector3 &vPoint) const
+bool Plane::Contains(const Vector3 &vPoint) const
 {
     return this->ContainsImp(vPoint);
 }
 
-bool Plane::Contains(const BaseVector4 &vPoint) const
+bool Plane::Contains(const Vector4 &vPoint) const
 {
     return this->ContainsImp(vPoint);
 }
@@ -271,28 +278,28 @@ Vector3 Plane::GetNormal() const
     return Vector3(this->a, this->b, this->c);
 }
 
-float_z Plane::PointDistance(const BaseVector3 &vPoint) const
+float_z Plane::PointDistance(const Vector3 &vPoint) const
 {
     return PointDistanceImp(vPoint);
 }
 
-float_z Plane::PointDistance(const BaseVector4 &vPoint) const
+float_z Plane::PointDistance(const Vector4 &vPoint) const
 {
     return PointDistanceImp(vPoint);
 }
 
-EIntersections Plane::IntersectionPoint(const BasePlane &plane1, const BasePlane &plane2, BaseVector3 &vIntersection) const
+EIntersections Plane::IntersectionPoint(const Plane &plane1, const Plane &plane2, Vector3 &vIntersection) const
 {
     return IntersectionPointImp(plane1, plane2, vIntersection);
 }
 
-EIntersections Plane::IntersectionPoint(const BasePlane &plane1, const BasePlane &plane2, BaseVector4 &vIntersection) const
+EIntersections Plane::IntersectionPoint(const Plane &plane1, const Plane &plane2, Vector4 &vIntersection) const
 {
     EIntersections eNumIntersections = IntersectionPointImp(plane1, plane2, vIntersection);
     return eNumIntersections;
 }
 
-ESpaceRelation Plane::SpaceRelation(const BasePlane &plane) const
+ESpaceRelation Plane::SpaceRelation(const Plane &plane) const
 {
     // It's impossible to calculate the spacial relation for a null plane
     Z_ASSERT_WARNING( !(SFloat::IsZero(this->a) && SFloat::IsZero(this->b) && SFloat::IsZero(this->c)), "It's impossible to calculate the spacial relation for a null plane" );
@@ -337,7 +344,7 @@ Plane Plane::Scale(const ScalingMatrix3x3 &scale) const
             .Normalize();
 }
 
-Plane Plane::Scale(const BaseVector3 &vScale) const
+Plane Plane::Scale(const Vector3 &vScale) const
 {
     // None of the scale values should equal zero
     Z_ASSERT_WARNING( vScale.x != SFloat::_0 && vScale.y != SFloat::_0 && vScale.z != SFloat::_0, "None of the scale values should equal zero, this will cause a division by zero" );
@@ -355,47 +362,47 @@ Plane Plane::Scale(const float_z fScaleX, const float_z fScaleY, const float_z f
             .Normalize();
 }
 
-Plane Plane::Translate(const TranslationMatrix<Matrix4x3> &translation) const
+Plane Plane::Translate(const TranslationMatrix4x3 &translation) const
 {
     return Plane(this->a,
-                  this->b,
-                  this->c,
-                  this->d - (this->a * translation.ij[3][0] + this->b * translation.ij[3][1] + this->c * translation.ij[3][2]));
+                 this->b,
+                 this->c,
+                 this->d - (this->a * translation.ij[3][0] + this->b * translation.ij[3][1] + this->c * translation.ij[3][2]));
 }
 
-Plane Plane::Translate(const TranslationMatrix<Matrix4x4> &translation) const
+Plane Plane::Translate(const TranslationMatrix4x4 &translation) const
 {
     return Plane(this->a,
-                  this->b,
-                  this->c,
-                  this->d - (this->a * translation.ij[3][0] + this->b * translation.ij[3][1] + this->c * translation.ij[3][2]));
+                 this->b,
+                 this->c,
+                 this->d - (this->a * translation.ij[3][0] + this->b * translation.ij[3][1] + this->c * translation.ij[3][2]));
 }
 
-Plane Plane::Translate(const BaseVector3 &vTranslation) const
+Plane Plane::Translate(const Vector3 &vTranslation) const
 {
     return Plane(this->a,
-                  this->b,
-                  this->c,
-                  this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
+                 this->b,
+                 this->c,
+                 this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
 }
 
-Plane Plane::Translate(const BaseVector4 &vTranslation) const
+Plane Plane::Translate(const Vector4 &vTranslation) const
 {
     return Plane(this->a,
-                  this->b,
-                  this->c,
-                  this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
+                 this->b,
+                 this->c,
+                 this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
 }
 
 Plane Plane::Translate(const float_z fTranslationX, const float_z fTranslationY, const float_z fTranslationZ) const
 {
     return Plane(this->a,
-                  this->b,
-                  this->c,
-                  this->d - (this->a * fTranslationX + this->b * fTranslationY + this->c * fTranslationZ));
+                 this->b,
+                 this->c,
+                 this->d - (this->a * fTranslationX + this->b * fTranslationY + this->c * fTranslationZ));
 }
 
-Plane Plane::Transform(const TransformationMatrix<Matrix4x3> &transformation) const
+Plane Plane::Transform(const TransformationMatrix4x3 &transformation) const
 {
     // Explanation:
     //
@@ -433,13 +440,13 @@ Plane Plane::Transform(const TransformationMatrix<Matrix4x3> &transformation) co
 
     // The product is implemented using the transpose of the inverted transformation
     return Plane(this->a * inverse.ij[0][0] + this->b * inverse.ij[0][1] + this->c * inverse.ij[0][2],
-                  this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2],
-                  this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2],
-                  this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d)
+                 this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2],
+                 this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2],
+                 this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d)
                   .Normalize();
 }
 
-Plane Plane::Transform(const TransformationMatrix<Matrix4x4> &transformation) const
+Plane Plane::Transform(const TransformationMatrix4x4 &transformation) const
 {
     // Explanation:
     //
@@ -477,10 +484,10 @@ Plane Plane::Transform(const TransformationMatrix<Matrix4x4> &transformation) co
 
     // The product is implemented using the transpose of the inverted transformation
     return Plane(this->a * inverse.ij[0][0] + this->b * inverse.ij[0][1] + this->c * inverse.ij[0][2],
-                  this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2],
-                  this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2],
-                  this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d)
-                  .Normalize();
+                 this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2],
+                 this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2],
+                 this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d)
+                 .Normalize();
 }
 
 Plane Plane::Transform(const SpaceConversionMatrix &spaceConversion) const
@@ -489,10 +496,10 @@ Plane Plane::Transform(const SpaceConversionMatrix &spaceConversion) const
 
     // The product is implemented using the transpose of m
     return Plane(this->a * inverse.ij[0][0] + this->b * inverse.ij[0][1] + this->c * inverse.ij[0][2] + this->d * inverse.ij[0][3],
-                  this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2] + this->d * inverse.ij[1][3],
-                  this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2] + this->d * inverse.ij[2][3],
-                  this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d * inverse.ij[3][3])
-                  .Normalize();
+                 this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2] + this->d * inverse.ij[1][3],
+                 this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2] + this->d * inverse.ij[2][3],
+                 this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d * inverse.ij[3][3])
+                 .Normalize();
 }
 
 Plane Plane::RotateWithPivot(const Quaternion &qRotation, const Vector3 &vPivot) const
@@ -515,12 +522,12 @@ Plane Plane::RotateWithPivot(const RotationMatrix3x3 &rotation, const Vector4 &v
     return this->RotateWithPivotImp(rotation, vPivot);
 }
 
-Plane Plane::ScaleWithPivot(const BaseVector3 &vScale, const Vector3 &vPivot) const
+Plane Plane::ScaleWithPivot(const Vector3 &vScale, const Vector3 &vPivot) const
 {
     return this->ScaleWithPivotImp(vScale, vPivot);
 }
 
-Plane Plane::ScaleWithPivot(const BaseVector3 &vScale, const Vector4 &vPivot) const
+Plane Plane::ScaleWithPivot(const Vector3 &vScale, const Vector4 &vPivot) const
 {
     return this->ScaleWithPivotImp(vScale, vPivot);
 }
@@ -545,22 +552,22 @@ Plane Plane::ScaleWithPivot(const ScalingMatrix3x3 &scale, const Vector4 &vPivot
     return this->ScaleWithPivotImp(scale, vPivot);
 }
 
-Plane Plane::TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const Vector3 &vPivot) const
+Plane Plane::TransformWithPivot(const TransformationMatrix4x3 &transformation, const Vector3 &vPivot) const
 {
     return this->TransformWithPivotImp(transformation, vPivot);
 }
 
-Plane Plane::TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const Vector4 &vPivot) const
+Plane Plane::TransformWithPivot(const TransformationMatrix4x3 &transformation, const Vector4 &vPivot) const
 {
     return this->TransformWithPivotImp(transformation, vPivot);
 }
 
-Plane Plane::TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const Vector3 &vPivot) const
+Plane Plane::TransformWithPivot(const TransformationMatrix4x4 &transformation, const Vector3 &vPivot) const
 {
     return this->TransformWithPivotImp(transformation, vPivot);
 }
 
-Plane Plane::TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const Vector4 &vPivot) const
+Plane Plane::TransformWithPivot(const TransformationMatrix4x4 &transformation, const Vector4 &vPivot) const
 {
     return this->TransformWithPivotImp(transformation, vPivot);
 }
@@ -640,7 +647,7 @@ Plane Plane::RotateWithPivotImp(const RotationMatrix3x3 &rotation, const VectorT
 }
 
 template <class VectorT>
-Plane Plane::ScaleWithPivotImp(const BaseVector3 &vScale, const VectorT &vPivot) const
+Plane Plane::ScaleWithPivotImp(const Vector3 &vScale, const VectorT &vPivot) const
 {
     return this->Translate(-vPivot)
                 .Scale(vScale)
@@ -708,7 +715,7 @@ float_z Plane::PointDistanceImp(const VectorT &vPoint) const
 }
 
 template <class VectorT>
-EIntersections Plane::IntersectionPointImp(const BasePlane &plane1, const BasePlane &plane2, VectorT &vIntersection) const
+EIntersections Plane::IntersectionPointImp(const Plane &plane1, const Plane &plane2, VectorT &vIntersection) const
 {
     // None of the planes should be null
     Z_ASSERT_WARNING( !(SFloat::IsZero(this->a) && SFloat::IsZero(this->b) && SFloat::IsZero(this->c)), "The plane should not be null, the result will be incorrect" );
@@ -716,18 +723,18 @@ EIntersections Plane::IntersectionPointImp(const BasePlane &plane1, const BasePl
     Z_ASSERT_WARNING( !(SFloat::IsZero(plane2.a) && SFloat::IsZero(plane2.b) && SFloat::IsZero(plane2.c)), "Input planes should not be null, the result will be incorrect" );
 
     // Solved by Cramer method.
-    const float_z &DET_C = this->a * plane1.b * plane2.c + this->b * plane1.c * plane2.a + this->c * plane1.a * plane2.b -
-                            (this->c * plane1.b * plane2.a + this->a * plane1.c * plane2.b + this->b * plane1.a * plane2.c);
-    const float_z &DET_X = this->c * plane1.b * plane2.d + this->d * plane1.c * plane2.b + this->b * plane1.d * plane2.c -
-                            (this->d * plane1.b * plane2.c + this->b * plane1.c * plane2.d + this->c * plane1.d * plane2.b);
-    const float_z &DET_Y = this->c * plane1.d * plane2.a + this->a * plane1.c * plane2.d + this->d * plane1.a * plane2.c -
-                            (this->a * plane1.d * plane2.c + this->d * plane1.c * plane2.a + this->c * plane1.a * plane2.d);
-    const float_z &DET_Z = this->d * plane1.b * plane2.a + this->a * plane1.d * plane2.b + this->b * plane1.a * plane2.d -
-                            (this->a * plane1.b * plane2.d + this->b * plane1.d * plane2.a + this->d * plane1.a * plane2.b);
+    const float_z& DET_C = this->a * plane1.b * plane2.c + this->b * plane1.c * plane2.a + this->c * plane1.a * plane2.b -
+                          (this->c * plane1.b * plane2.a + this->a * plane1.c * plane2.b + this->b * plane1.a * plane2.c);
+    const float_z& DET_X = this->c * plane1.b * plane2.d + this->d * plane1.c * plane2.b + this->b * plane1.d * plane2.c -
+                          (this->d * plane1.b * plane2.c + this->b * plane1.c * plane2.d + this->c * plane1.d * plane2.b);
+    const float_z& DET_Y = this->c * plane1.d * plane2.a + this->a * plane1.c * plane2.d + this->d * plane1.a * plane2.c -
+                          (this->a * plane1.d * plane2.c + this->d * plane1.c * plane2.a + this->c * plane1.a * plane2.d);
+    const float_z& DET_Z = this->d * plane1.b * plane2.a + this->a * plane1.d * plane2.b + this->b * plane1.a * plane2.d -
+                          (this->a * plane1.b * plane2.d + this->b * plane1.d * plane2.a + this->d * plane1.a * plane2.b);
 
     if (!SFloat::IsZero(DET_C)) // A range = 3, A* range = 3: Compatible system
     {
-        const float_z &INV_DET_C = SFloat::_1/DET_C;
+        const float_z& INV_DET_C = SFloat::_1/DET_C;
 
         vIntersection.x = DET_X * INV_DET_C;
         vIntersection.y = DET_Y * INV_DET_C;

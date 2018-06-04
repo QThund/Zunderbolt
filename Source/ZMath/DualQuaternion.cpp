@@ -27,8 +27,8 @@
 #include "ZMath/DualQuaternion.h"
 
 #include "ZCommon/Assertions.h"
-#include "ZMath/BaseVector3.h"
-#include "ZMath/BaseVector4.h"
+#include "ZMath/Vector3.h"
+#include "ZMath/Vector4.h"
 
 
 namespace z
@@ -48,34 +48,26 @@ DualQuaternion::DualQuaternion()
 {
 }
 
-DualQuaternion::DualQuaternion(const DualQuaternion &dualQuat) : BaseDualQuaternion(dualQuat)
+DualQuaternion::DualQuaternion(const Quaternion &qReal, const Quaternion &qDual) : r(qReal), d(qDual)
 {
 }
 
-DualQuaternion::DualQuaternion(const BaseDualQuaternion &dualQuat) : BaseDualQuaternion(dualQuat)
-{
-}
-
-DualQuaternion::DualQuaternion(const BaseQuaternion &qReal, const BaseQuaternion &qDual) : BaseDualQuaternion(qReal, qDual)
-{
-}
-
-DualQuaternion::DualQuaternion(const BaseQuaternion &qRotation, const BaseVector3 &vTranslation)
+DualQuaternion::DualQuaternion(const Quaternion &qRotation, const Vector3 &vTranslation)
 {
     DualQuaternionImp(qRotation, vTranslation);
 }
 
-DualQuaternion::DualQuaternion(const BaseQuaternion &qRotation, const BaseVector4 &vTranslation)
+DualQuaternion::DualQuaternion(const Quaternion &qRotation, const Vector4 &vTranslation)
 {
     DualQuaternionImp(qRotation, vTranslation);
 }
 
-DualQuaternion::DualQuaternion(const BaseVector3 &vTranslation, const BaseQuaternion &qRotation)
+DualQuaternion::DualQuaternion(const Vector3 &vTranslation, const Quaternion &qRotation)
 {
     DualQuaternionImp(vTranslation, qRotation);
 }
 
-DualQuaternion::DualQuaternion(const BaseVector4 &vTranslation, const BaseQuaternion &qRotation)
+DualQuaternion::DualQuaternion(const Vector4 &vTranslation, const Quaternion &qRotation)
 {
     DualQuaternionImp(vTranslation, qRotation);
 }
@@ -89,21 +81,21 @@ DualQuaternion::DualQuaternion(const float_z *arValuesReal, const float_z *arVal
 }
 
 template <class VectorT>
-void DualQuaternion::DualQuaternionImp(const BaseQuaternion &qRotation, const VectorT &vTranslation)
+void DualQuaternion::DualQuaternionImp(const Quaternion &qRotation, const VectorT &vTranslation)
 {
-    DualQuaternion rotation(qRotation, BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
-    DualQuaternion translation(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
-                                BaseQuaternion(vTranslation.x * SFloat::_0_5, vTranslation.y * SFloat::_0_5, vTranslation.z * SFloat::_0_5, SFloat::_0));
+    DualQuaternion rotation(qRotation, Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+    DualQuaternion translation(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
+                                Quaternion(vTranslation.x * SFloat::_0_5, vTranslation.y * SFloat::_0_5, vTranslation.z * SFloat::_0_5, SFloat::_0));
 
     *this = translation * rotation;
 }
 
 template <class VectorT>
-void DualQuaternion::DualQuaternionImp(const VectorT &vTranslation, const BaseQuaternion &qRotation)
+void DualQuaternion::DualQuaternionImp(const VectorT &vTranslation, const Quaternion &qRotation)
 {
-    DualQuaternion rotation(qRotation, BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
-    DualQuaternion translation(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
-                                BaseQuaternion(vTranslation.x * SFloat::_0_5, vTranslation.y * SFloat::_0_5, vTranslation.z * SFloat::_0_5, SFloat::_0));
+    DualQuaternion rotation(qRotation, Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+    DualQuaternion translation(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
+                                Quaternion(vTranslation.x * SFloat::_0_5, vTranslation.y * SFloat::_0_5, vTranslation.z * SFloat::_0_5, SFloat::_0));
 
     *this = rotation * translation;
 }
@@ -118,47 +110,57 @@ void DualQuaternion::DualQuaternionImp(const VectorT &vTranslation, const BaseQu
 //##################                                                       ##################
 //##################=======================================================##################
 
-DualQuaternion DualQuaternion::operator+(const BaseDualQuaternion &dualQuat) const
+bool DualQuaternion::operator==(const DualQuaternion &dualQuat) const
 {
-    return DualQuaternion(BaseQuaternion(this->r + dualQuat.r), BaseQuaternion(this->d + dualQuat.d));
+    return this->r == dualQuat.r && this->d == dualQuat.d;
 }
 
-DualQuaternion DualQuaternion::operator-(const BaseDualQuaternion &dualQuat) const
+bool DualQuaternion::operator!=(const DualQuaternion &dualQuat) const
 {
-    return DualQuaternion(BaseQuaternion(this->r - dualQuat.r), BaseQuaternion(this->d - dualQuat.d));
+    return !(*this == dualQuat);
 }
 
-DualQuaternion DualQuaternion::operator*(const BaseDualQuaternion &dualQuat) const
+DualQuaternion DualQuaternion::operator+(const DualQuaternion &dualQuat) const
 {
-    return DualQuaternion(BaseQuaternion(this->r * dualQuat.r), BaseQuaternion(this->r * dualQuat.d + this->d * dualQuat.r));
+    return DualQuaternion(Quaternion(this->r + dualQuat.r), Quaternion(this->d + dualQuat.d));
+}
+
+DualQuaternion DualQuaternion::operator-(const DualQuaternion &dualQuat) const
+{
+    return DualQuaternion(Quaternion(this->r - dualQuat.r), Quaternion(this->d - dualQuat.d));
+}
+
+DualQuaternion DualQuaternion::operator*(const DualQuaternion &dualQuat) const
+{
+    return DualQuaternion(Quaternion(this->r * dualQuat.r), Quaternion(this->r * dualQuat.d + this->d * dualQuat.r));
 }
 
 DualQuaternion DualQuaternion::operator*(const float_z fScalar) const
 {
-    return DualQuaternion(BaseQuaternion(this->r * fScalar), BaseQuaternion(this->d * fScalar));
+    return DualQuaternion(Quaternion(this->r * fScalar), Quaternion(this->d * fScalar));
 }
 
 DualQuaternion operator*(const float_z fScalar, const DualQuaternion &dualQuat)
 {
-    return DualQuaternion(BaseQuaternion(dualQuat.r * fScalar), BaseQuaternion(dualQuat.d * fScalar));
+    return DualQuaternion(Quaternion(dualQuat.r * fScalar), Quaternion(dualQuat.d * fScalar));
 }
 
-DualQuaternion DualQuaternion::operator*(const BaseVector3 &vVector) const
+DualQuaternion DualQuaternion::operator*(const Vector3 &vVector) const
 {
     // Vector3 is converted to dual quaternion (0, 0, 0, 1)(x, y, z, 0)
-    DualQuaternion auxQ(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
-                         BaseQuaternion(vVector.x, vVector.y, vVector.z, SFloat::_0) );
+    DualQuaternion auxQ(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
+                         Quaternion(vVector.x, vVector.y, vVector.z, SFloat::_0) );
 
     auxQ = (*this)*auxQ;
 
     return auxQ;
 }
 
-DualQuaternion DualQuaternion::operator*(const BaseVector4 &vVector) const
+DualQuaternion DualQuaternion::operator*(const Vector4 &vVector) const
 {
     // Vector4 is converted to dual quaternion (0, 0, 0, 1)(x, y, z, 0)
-    DualQuaternion auxQ(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
-                         BaseQuaternion(vVector.x, vVector.y, vVector.z, SFloat::_0) );
+    DualQuaternion auxQ(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
+                         Quaternion(vVector.x, vVector.y, vVector.z, SFloat::_0) );
 
     auxQ = (*this)*auxQ;
 
@@ -171,10 +173,10 @@ DualQuaternion DualQuaternion::operator/(const float_z fScalar) const
 
     const float_z &DIVISOR = SFloat::_1/fScalar;
 
-    return DualQuaternion(BaseQuaternion(this->r * DIVISOR), BaseQuaternion(this->d * DIVISOR));
+    return DualQuaternion(Quaternion(this->r * DIVISOR), Quaternion(this->d * DIVISOR));
 }
 
-DualQuaternion& DualQuaternion::operator+=(const BaseDualQuaternion &dualQuat)
+DualQuaternion& DualQuaternion::operator+=(const DualQuaternion &dualQuat)
 {
     this->r += dualQuat.r;
     this->d += dualQuat.d;
@@ -182,7 +184,7 @@ DualQuaternion& DualQuaternion::operator+=(const BaseDualQuaternion &dualQuat)
     return *this;
 }
 
-DualQuaternion& DualQuaternion::operator-=(const BaseDualQuaternion &dualQuat)
+DualQuaternion& DualQuaternion::operator-=(const DualQuaternion &dualQuat)
 {
     this->r -= dualQuat.r;
     this->d -= dualQuat.d;
@@ -190,7 +192,7 @@ DualQuaternion& DualQuaternion::operator-=(const BaseDualQuaternion &dualQuat)
     return *this;
 }
 
-DualQuaternion& DualQuaternion::operator*=(const BaseDualQuaternion &dualQuat)
+DualQuaternion& DualQuaternion::operator*=(const DualQuaternion &dualQuat)
 {
     DualQuaternion aux(*this);
 
@@ -218,12 +220,6 @@ DualQuaternion& DualQuaternion::operator/=(const float_z fScalar)
     this->r *= DIVISOR;
     this->d *= DIVISOR;
 
-    return *this;
-}
-
-DualQuaternion& DualQuaternion::operator=(const BaseDualQuaternion &dualQuat)
-{
-    BaseDualQuaternion::operator=(dualQuat);
     return *this;
 }
 
@@ -259,22 +255,22 @@ DualQuaternion DualQuaternion::Transform(const DualQuaternion &transformation) c
     return DualQuaternion(transformation * (*this) * transformation.DoubleConjugate());
 }
 
-DualQuaternion DualQuaternion::TransformRotationFirst(const BaseQuaternion &qRotation, const BaseVector3 &vTranslation) const
+DualQuaternion DualQuaternion::TransformRotationFirst(const Quaternion &qRotation, const Vector3 &vTranslation) const
 {
     return this->TransformRotationFirstImp(qRotation, vTranslation);
 }
 
-DualQuaternion DualQuaternion::TransformRotationFirst(const BaseQuaternion &qRotation, const BaseVector4 &vTranslation) const
+DualQuaternion DualQuaternion::TransformRotationFirst(const Quaternion &qRotation, const Vector4 &vTranslation) const
 {
     return this->TransformRotationFirstImp(qRotation, vTranslation);
 }
 
-DualQuaternion DualQuaternion::TransformTranslationFirst(const BaseVector3 &vTranslation, const BaseQuaternion &qRotation) const
+DualQuaternion DualQuaternion::TransformTranslationFirst(const Vector3 &vTranslation, const Quaternion &qRotation) const
 {
     return this->TransformTranslationFirstImp(vTranslation, qRotation);
 }
 
-DualQuaternion DualQuaternion::TransformTranslationFirst(const BaseVector4 &vTranslation, const BaseQuaternion &qRotation) const
+DualQuaternion DualQuaternion::TransformTranslationFirst(const Vector4 &vTranslation, const Quaternion &qRotation) const
 {
     return this->TransformTranslationFirstImp(vTranslation, qRotation);
 }
@@ -296,21 +292,21 @@ string_z DualQuaternion::ToString() const
 }
 
 template <class VectorT>
-DualQuaternion DualQuaternion::TransformRotationFirstImp(const BaseQuaternion &qRotation, const VectorT &vTranslation) const
+DualQuaternion DualQuaternion::TransformRotationFirstImp(const Quaternion &qRotation, const VectorT &vTranslation) const
 {
-    DualQuaternion rotation(qRotation, BaseQuaternion());
+    DualQuaternion rotation(qRotation, Quaternion::GetNullQuaternion());
     DualQuaternion translation(Quaternion::GetIdentity(),
-                                BaseQuaternion(vTranslation.x * SFloat::_0_5, vTranslation.y * SFloat::_0_5, vTranslation.z * SFloat::_0_5, SFloat::_0));
+                               Quaternion(vTranslation.x * SFloat::_0_5, vTranslation.y * SFloat::_0_5, vTranslation.z * SFloat::_0_5, SFloat::_0));
 
     return this->Transform(translation * rotation);
 }
 
 template <class VectorT>
-DualQuaternion DualQuaternion::TransformTranslationFirstImp(const VectorT &vTranslation, const BaseQuaternion &qRotation) const
+DualQuaternion DualQuaternion::TransformTranslationFirstImp(const VectorT &vTranslation, const Quaternion &qRotation) const
 {
-    DualQuaternion rotation(qRotation, BaseQuaternion());
+    DualQuaternion rotation(qRotation, Quaternion::GetNullQuaternion());
     DualQuaternion translation(Quaternion::GetIdentity(),
-                                BaseQuaternion(vTranslation.x * SFloat::_0_5, vTranslation.y * SFloat::_0_5, vTranslation.z * SFloat::_0_5, SFloat::_0));
+                               Quaternion(vTranslation.x * SFloat::_0_5, vTranslation.y * SFloat::_0_5, vTranslation.z * SFloat::_0_5, SFloat::_0));
 
     return this->Transform(rotation * translation);
 }
@@ -327,8 +323,8 @@ DualQuaternion DualQuaternion::TransformTranslationFirstImp(const VectorT &vTran
 
 const DualQuaternion& DualQuaternion::GetIdentity()
 {
-    static const DualQuaternion IDENTITY(BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
-                                            BaseQuaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
+    static const DualQuaternion IDENTITY(Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_1),
+                                         Quaternion(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0));
     return IDENTITY;
 }
 

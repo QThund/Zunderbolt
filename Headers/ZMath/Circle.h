@@ -42,15 +42,15 @@ namespace z
 /// <remarks>
 /// A circle is the collection of all points that are equidistant from other point known as "Center".
 /// </remarks>
-class Z_MATH_MODULE_SYMBOLS Circle : public Orb<Vector2>
+class Z_MATH_MODULE_SYMBOLS Circle : public Internals::Orb<Vector2>
 {
 
     // BASE CLASS USINGS
     // -------------------
 public:
 
-    using Orb<Vector2>::Center;
-    using Orb<Vector2>::Radius;
+    using Internals::Orb<Vector2>::Center;
+    using Internals::Orb<Vector2>::Radius;
 
 
     // CONSTRUCTORS
@@ -58,7 +58,7 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Circle();
 
@@ -72,7 +72,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="orb">[IN] The orb in which we want resident circle to be based.</param>
-    Circle(const BaseOrb<Vector2> &orb);
+    Circle(const Internals::Orb<Vector2> &orb);
 
     /// <summary>
     /// Constructor from a vector which defines the center point and a floating point value which
@@ -107,7 +107,7 @@ public:
     /// <returns>
     /// A reference to the modified orb.
     /// </returns>
-    Circle& operator=(const BaseOrb<Vector2> &orb);
+    Circle& operator=(const Internals::Orb<Vector2> &orb);
 
     /// <summary>
     /// Translates the circle.
@@ -116,7 +116,7 @@ public:
     /// <returns>
     /// The translated circle.
     /// </returns>
-    Circle Translate(const BaseVector2 &vTranslation) const;
+    Circle Translate(const Vector2 &vTranslation) const;
 
     /// <summary>
     /// Translates the circle.
@@ -145,7 +145,7 @@ public:
     /// <returns>
     /// The rotated circle.
     /// </returns>
-    Circle RotateWithPivot(const float_z fRotationAngle, const BaseVector2 &vPivot) const;
+    Circle RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot) const;
 
      /// <summary>
     /// Scales the circle.
@@ -155,7 +155,7 @@ public:
     /// <returns>
     /// The scaled circle.
     /// </returns>
-    Circle Scale(const BaseVector2 &vScale, const float_z fRadiusScale) const;
+    Circle Scale(const Vector2 &vScale, const float_z fRadiusScale) const;
 
      /// <summary>
     /// Scales the circle.
@@ -177,7 +177,7 @@ public:
     /// <returns>
     /// The scaled circle.
     /// </returns>
-    Circle ScaleWithPivot(const BaseVector2 &vScale, const float_z fRadiusScale, const BaseVector2 &vPivot) const;
+    Circle ScaleWithPivot(const Vector2 &vScale, const float_z fRadiusScale, const Vector2 &vPivot) const;
 
      /// <summary>
     /// Scales the circle using a pivot.
@@ -189,7 +189,7 @@ public:
     /// <returns>
     /// The scaled circle.
     /// </returns>
-    Circle ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fRadiusScale, const BaseVector2 &vPivot) const;
+    Circle ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fRadiusScale, const Vector2 &vPivot) const;
 
      /// <summary>
     /// Transforms the circle.
@@ -210,7 +210,7 @@ public:
     /// <returns>
     /// The transformed circle.
     /// </returns>
-    Circle TransformWithPivot(const TransformationMatrix3x3 &transformation, const float_z fRadiusScale, const BaseVector2 &vPivot) const;
+    Circle TransformWithPivot(const TransformationMatrix3x3 &transformation, const float_z fRadiusScale, const Vector2 &vPivot) const;
 
      /// <summary>
     /// Calculates possible intersections between resident circle and a circle received as parameter.
@@ -241,7 +241,7 @@ public:
     /// - Circles are the same.
     /// - One circle is contained in the other.
     /// </returns>
-    EIntersections IntersectionPoint(const BaseOrb<Vector2> &circle, BaseVector2 &vIntersection1, BaseVector2 &vIntersection2) const;
+    EIntersections IntersectionPoint(const Orb<Vector2> &circle, Vector2 &vIntersection1, Vector2 &vIntersection2) const;
     
 };
 

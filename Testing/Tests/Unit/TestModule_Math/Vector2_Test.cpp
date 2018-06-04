@@ -35,7 +35,7 @@ using namespace boost::unit_test;
 #include "ZCommon/DataTypes/SFloat.h"
 #include "ZCommon/DataTypes/SVF32.h"
 #include "ZMath/SAngle.h"
-#include "ZMath/BaseMatrix2x2.h"
+#include "ZMath/Matrix2x2.h"
 #include "ZMath/Matrix3x3.h"
 #include "ZMath/TransformationMatrix3x3.h"
 #include "ZCommon/Exceptions/AssertException.h"
@@ -57,23 +57,6 @@ ZTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByVector_Test )
 
 	// [Execution]
     Vector2 vVectorUT = SCALAR * VECTOR;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
-}
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
-{
-    // [Preparation]
-    const float_z EXPECTED_VALUE_FOR_X = SFloat::_0;
-    const float_z EXPECTED_VALUE_FOR_Y = SFloat::_0;
-
-	// [Execution]
-    Vector2 vVectorUT;
 
     // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -109,7 +92,7 @@ ZTEST_CASE ( Constructor3_VectorComponentsAreCopiedToRightComponents_Test )
     const float_z EXPECTED_VALUE_FOR_X = SFloat::_1;
     const float_z EXPECTED_VALUE_FOR_Y = SFloat::_2;
 
-    BaseVector2 BASEVECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y);
+    Vector2 BASEVECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y);
 
 	// [Execution]
     Vector2 vVectorUT(BASEVECTOR);
@@ -326,6 +309,110 @@ ZTEST_CASE ( GetUnitVectorInvY_ReturnsAUnitVectorThatPointsToNegativeDirectionOf
 }
 
 /// <summary>
+/// Checks if the operator returns true when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Vector2 LEFT_OPERAND(SFloat::Epsilon);
+    const Vector2 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const Vector2 LEFT_OPERAND(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5);
+    const Vector2 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const Vector2 LEFT_OPERAND(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5);
+    const Vector2 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Vector2 LEFT_OPERAND(SFloat::Epsilon);
+    const Vector2 RIGHT_OPERAND(SFloat::Epsilon);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences equals tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
+{
+    // [Preparation]
+    const Vector2 LEFT_OPERAND(SFloat::Epsilon);
+    const Vector2 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are lower than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
+{
+    // [Preparation]
+    const Vector2 LEFT_OPERAND(SFloat::Epsilon - SFloat::Epsilon * SFloat::_0_5);
+    const Vector2 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // [Preparation]
+    const Vector2 LEFT_OPERAND(SFloat::Epsilon + SFloat::Epsilon * SFloat::_0_5);
+    const Vector2 RIGHT_OPERAND(SFloat::_0);
+
+	// [Execution] / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
+}
+
+/// <summary>
+/// Checks if the operator returns true when operand components are exactly equal.
+/// </summary>
+ZTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
+{
+    // [Preparation]
+    const Vector2 LEFT_OPERAND(SFloat::Epsilon);
+    const Vector2 RIGHT_OPERAND(SFloat::Epsilon);
+
+	// [Execution] / Verification
+    BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
 /// Checks if two different vectors are correctly added.
 /// </summary>
 ZTEST_CASE ( OperatorAddition_TwoDifferentVectorsAreCorrectlyAdded_Test )
@@ -494,7 +581,7 @@ ZTEST_CASE ( OperatorProduct3_VectorIsCorrectlyMultipliedByMatrix2x2_Test )
     const float_z EXPECTED_VALUE_FOR_X = 4;
     const float_z EXPECTED_VALUE_FOR_Y = 7;
 
-    const BaseMatrix2x2 MATRIX = BaseMatrix2x2(SFloat::_0, SFloat::_1,
+    const Matrix2x2 MATRIX = Matrix2x2(SFloat::_0, SFloat::_1,
                                                  SFloat::_2, SFloat::_3);
 
     const Vector2 VECTOR = Vector2(SFloat::_1, SFloat::_2);
@@ -919,7 +1006,7 @@ ZTEST_CASE ( OperatorProductAssignation3_VectorIsCorrectlyMultipliedByMatrix2x2_
     const float_z EXPECTED_VALUE_FOR_X = 4;
     const float_z EXPECTED_VALUE_FOR_Y = 7;
 
-    const BaseMatrix2x2 MATRIX = BaseMatrix2x2(SFloat::_0, SFloat::_1,
+    const Matrix2x2 MATRIX = Matrix2x2(SFloat::_0, SFloat::_1,
                                                  SFloat::_2, SFloat::_3);
 
     const Vector2 VECTOR = Vector2(SFloat::_1, SFloat::_2);

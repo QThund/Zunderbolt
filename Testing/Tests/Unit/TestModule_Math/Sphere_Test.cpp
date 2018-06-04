@@ -41,28 +41,12 @@ using namespace boost::unit_test;
 #include "ZMath/TransformationMatrix.h"
 #include "ZMath/SpaceConversionMatrix.h"
 #include "ZCommon/Exceptions/AssertException.h"
+using namespace z::Internals;
 
 typedef boost::mpl::list<Vector3, Vector4> TTemplateTypes;
 
 
 ZTEST_SUITE_BEGIN( Sphere_TestSuite )
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TTemplateTypes )
-{
-    // [Preparation]
-    const T EXPECTED_VALUE_FOR_CENTER = T::GetNullVector();
-    const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_0;
-
-	// [Execution]
-    Sphere<T> sphereUT;
-
-    // [Verification]
-    BOOST_CHECK(sphereUT.Center == EXPECTED_VALUE_FOR_CENTER);
-    BOOST_CHECK(sphereUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
-}
 
 /// <summary>
 /// Checks if copy constructor sets sphere's center and radius properly.
@@ -1670,7 +1654,7 @@ ZTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TTemplate
     const float_z RADIUS = SFloat::_5;
     const Sphere<T> SPHERE = Sphere<T>(T(VECTOR_COMPONENTS_CENTER), RADIUS);
 
-    const BasePlane NULL_PLANE = BasePlane(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Plane NULL_PLANE = Plane(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1700,7 +1684,7 @@ ZTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenRadiusEqualsZero_Test, TTem
     const float_z RADIUS = SFloat::_0;
     const Sphere<T> SPHERE = Sphere<T>(T(VECTOR_COMPONENTS_CENTER), RADIUS);
 
-    const BasePlane PLANE = BasePlane(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
+    const Plane PLANE = Plane(SFloat::_1, SFloat::_2, SFloat::_3, SFloat::_4);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1834,7 +1818,7 @@ ZTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TTemplat
     const float_z RADIUS = SFloat::_5;
     const Sphere<T> SPHERE = Sphere<T>(T(VECTOR_COMPONENTS_CENTER), RADIUS);
 
-    const BasePlane NULL_PLANE = BasePlane(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
+    const Plane NULL_PLANE = Plane(SFloat::_0, SFloat::_0, SFloat::_0, SFloat::_0);
 
     const bool ASSERTION_FAILED = true;
 

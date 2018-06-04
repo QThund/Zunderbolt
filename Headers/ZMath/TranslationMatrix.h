@@ -27,8 +27,8 @@
 #ifndef __TRANSLATIONMATRIX__
 #define __TRANSLATIONMATRIX__
 
-#include "ZMath/BaseVector3.h"
-#include "ZMath/BaseVector4.h"
+#include "ZMath/Vector3.h"
+#include "ZMath/Vector4.h"
 #include "RotationMatrix3x3.h"
 #include "ZMath/ScalingMatrix3x3.h"
 #include "ZCommon/DataTypes/SFloat.h"
@@ -40,13 +40,13 @@
 
 namespace z
 {
+namespace Internals
+{
 
-template <class MatrixT>
-class TranslationMatrix;
+// FORWARD DECLARATIONS
+// ----------------------
+template <class MatrixT> class TranslationMatrix;
 
-// Preventing friend global operator to be called.
-template <class MatrixT>
-TranslationMatrix<MatrixT> operator*(const float_z &fScalar, const TranslationMatrix<MatrixT> &matrix);
 
 /// <summary>
 /// Class to represent a matrix that contains a displacement in the direction of each coordinate axis.
@@ -66,7 +66,7 @@ class TranslationMatrix : public MatrixT
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     TranslationMatrix()
     {
@@ -112,7 +112,7 @@ public:
     /// Constructor from a 3D vector which stores the three displacement values, one for each axis direction.
     /// </summary>
     /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
-    explicit TranslationMatrix(const BaseVector3 &vTranslation)
+    explicit TranslationMatrix(const Vector3 &vTranslation)
     {
         this->ResetToIdentity();
 
@@ -125,7 +125,7 @@ public:
     /// Constructor from a 4D vector which stores the three scaling values, one for each axis direction.
     /// </summary>
     /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
-    explicit TranslationMatrix(const BaseVector4 &vTranslation)
+    explicit TranslationMatrix(const Vector4 &vTranslation)
     {
         this->ResetToIdentity();
 
@@ -375,7 +375,7 @@ public:
     /// Extracts the displacement components from the matrix.
     /// </summary>
     /// <param name="vTranslation">[OUT] Vector where to store the displacement.</param>
-    void GetTranslation(BaseVector3 &vTranslation) const
+    void GetTranslation(Vector3 &vTranslation) const
     {
         vTranslation.x = this->ij[3][0];
         vTranslation.y = this->ij[3][1];
@@ -386,7 +386,7 @@ public:
     /// Extracts the displacement components from the matrix.
     /// </summary>
     /// <param name="vTranslation">[OUT] Vector where to store the displacement. W component of this vector will be set to 0.</param>
-    void GetTranslation(BaseVector4 &vTranslation) const
+    void GetTranslation(Vector4 &vTranslation) const
     {
         vTranslation.x = this->ij[3][0];
         vTranslation.y = this->ij[3][1];
@@ -476,6 +476,21 @@ template class Z_MATH_MODULE_SYMBOLS TranslationMatrix<Matrix4x3>;
 template class Z_MATH_MODULE_SYMBOLS TranslationMatrix<Matrix4x4>;
 
 #endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
+
+
+} // namespace Internals
+
+
+// TYPEDEFS
+// ----------
+typedef Internals::TranslationMatrix<Matrix4x3> TranslationMatrix4x3;
+typedef Internals::TranslationMatrix<Matrix4x4> TranslationMatrix4x4;
+
+
+// Preventing friend global operator to be called.
+template <class MatrixT>
+Internals::TranslationMatrix<MatrixT> operator*(const float_z &fScalar, const Internals::TranslationMatrix<MatrixT> &matrix);
+
 
 } // namespace z
 

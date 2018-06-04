@@ -119,15 +119,12 @@ StackAllocator::StackAllocator(const puint_z uPreallocationSize, void* pMemAddre
     Z_ASSERT_ERROR(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
     Z_ASSERT_ERROR(null_z != pMemAddress, "The input pointer to a preallocated memory block cannot be null.");
 
-    // VERY IMPORTANT: there is no way to prove pMemAddress points to the start of a real allocated memory block.
-    m_pBase = pMemAddress;
-        
     // If necessary, adjust the address of the stack base to make it to point to the first address, starting from
     // the input address, that has the given alignment.
-    m_pBase = (void*)align_z(m_pBase, alignment);
+    m_pBase = (void*)align_z(pMemAddress, alignment);
 
     m_pTop  = m_pPrevious = m_pBase;
-    m_uSize = (puint_z)m_pBase + uPreallocationSize - (puint_z)m_pBase; // Takes into account the allignment offset, which makes the actual usable size smaller
+    m_uSize = uPreallocationSize + (puint_z)pMemAddress - (puint_z)m_pBase; // Takes into account the allignment offset, which makes the actual usable size smaller
 }
 
 //##################=======================================================##################
@@ -193,9 +190,8 @@ void* StackAllocator::Allocate(const puint_z uSize, const Alignment& alignment)
         // STEP 3) Create a Block Header.
         //         (** using the so-called 'placement new operator' **).
         BlockHeader* pLastBlock = scast_z(m_pPrevious, BlockHeader*);
-        puint_z uOffsetToPreviousBlock = pLastBlock != null_z ? 
-                                                                      0 : 
-                                                                      pLastBlock->GetAllocatedBlockSize() + pLastBlock->GetAlignmentOffset() + StackAllocator::GetBlockHeaderSize();
+        puint_z uOffsetToPreviousBlock = pLastBlock != null_z ? 0 : 
+                                                                pLastBlock->GetAllocatedBlockSize() + pLastBlock->GetAlignmentOffset() + StackAllocator::GetBlockHeaderSize();
 
         new (m_pTop) BlockHeader(uSize, uAmountMisalignedBytes, uOffsetToPreviousBlock);
 

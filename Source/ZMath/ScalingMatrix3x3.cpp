@@ -53,14 +53,13 @@ namespace z
     
 ScalingMatrix3x3::ScalingMatrix3x3()
 {
-    this->ResetToIdentity();
 }
 
 ScalingMatrix3x3::ScalingMatrix3x3(const ScalingMatrix3x3 &scale) : Matrix3x3(scale)
 {
 }
 
-ScalingMatrix3x3::ScalingMatrix3x3(const BaseMatrix3x3 &scale) : Matrix3x3(scale)
+ScalingMatrix3x3::ScalingMatrix3x3(const Matrix3x3 &scale) : Matrix3x3(scale)
 {
 }
 
@@ -74,7 +73,7 @@ ScalingMatrix3x3::ScalingMatrix3x3(const float_z fScaleX, const float_z fScaleY,
     this->ij[1][2] = this->ij[2][0] = this->ij[2][1] = SFloat::_0;
 }
 
-ScalingMatrix3x3::ScalingMatrix3x3(const BaseVector3 &vScale)
+ScalingMatrix3x3::ScalingMatrix3x3(const Vector3 &vScale)
 {
     this->ij[0][0] = vScale.x;
     this->ij[1][1] = vScale.y;
@@ -101,9 +100,9 @@ ScalingMatrix3x3 ScalingMatrix3x3::operator*(const ScalingMatrix3x3 &matrix) con
                              this->ij[2][2] * matrix.ij[2][2]);
 }
 
-TransformationMatrix<Matrix4x4> ScalingMatrix3x3::operator*(const RotationMatrix3x3 &matrix) const
+TransformationMatrix4x4 ScalingMatrix3x3::operator*(const RotationMatrix3x3 &matrix) const
 {
-    TransformationMatrix<Matrix4x4> aux = TransformationMatrix<Matrix4x4>::GetIdentity();
+    TransformationMatrix4x4 aux = TransformationMatrix4x4::GetIdentity();
 
     aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0];
     aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1];
@@ -120,29 +119,29 @@ TransformationMatrix<Matrix4x4> ScalingMatrix3x3::operator*(const RotationMatrix
     return aux;
 }
 
-TransformationMatrix<Matrix4x4> ScalingMatrix3x3::operator*(const TranslationMatrix<Matrix4x4> &matrix) const
+TransformationMatrix4x4 ScalingMatrix3x3::operator*(const TranslationMatrix4x4 &matrix) const
 {
     return this->ProductOperatorImp<Matrix4x4>(matrix);
 }
 
-TransformationMatrix<Matrix4x3> ScalingMatrix3x3::operator*(const TranslationMatrix<Matrix4x3> &matrix) const
+TransformationMatrix4x3 ScalingMatrix3x3::operator*(const TranslationMatrix4x3 &matrix) const
 {
     return this->ProductOperatorImp<Matrix4x3>(matrix);
 }
 
-TransformationMatrix<Matrix4x4> ScalingMatrix3x3::operator*(const TransformationMatrix<Matrix4x4> &matrix) const
+TransformationMatrix4x4 ScalingMatrix3x3::operator*(const TransformationMatrix4x4 &matrix) const
 {
     return this->ProductOperatorImp<Matrix4x4>(matrix);
 }
 
-TransformationMatrix<Matrix4x3> ScalingMatrix3x3::operator*(const TransformationMatrix<Matrix4x3> &matrix) const
+TransformationMatrix4x3 ScalingMatrix3x3::operator*(const TransformationMatrix4x3 &matrix) const
 {
     return this->ProductOperatorImp<Matrix4x3>(matrix);
 }
 
-ScalingMatrix3x3& ScalingMatrix3x3::operator=(const BaseMatrix3x3 &matrix)
+ScalingMatrix3x3& ScalingMatrix3x3::operator=(const Matrix3x3 &matrix)
 {
-    BaseMatrix3x3::operator=(matrix);
+    Matrix3x3::operator=(matrix);
     return *this;
 }
 
@@ -161,7 +160,7 @@ void ScalingMatrix3x3::GetScale(float_z &fScaleX, float_z &fScaleY, float_z &fSc
     fScaleZ = this->ij[2][2];
 }
 
-void ScalingMatrix3x3::GetScale(BaseVector3 &vScale) const
+void ScalingMatrix3x3::GetScale(Vector3 &vScale) const
 {
     vScale.x = this->ij[0][0];
     vScale.y = this->ij[1][1];
@@ -183,9 +182,9 @@ ScalingMatrix3x3& ScalingMatrix3x3::operator*=(const ScalingMatrix3x3 &matrix)
 }
 
 template <class MatrixT>
-TransformationMatrix<MatrixT> ScalingMatrix3x3::ProductOperatorImp(const TranslationMatrix<MatrixT> &matrix) const
+Internals::TransformationMatrix<MatrixT> ScalingMatrix3x3::ProductOperatorImp(const Internals::TranslationMatrix<MatrixT> &matrix) const
 {
-    TransformationMatrix<MatrixT> aux(TransformationMatrix<MatrixT>::GetIdentity());
+    Internals::TransformationMatrix<MatrixT> aux(Internals::TransformationMatrix<MatrixT>::GetIdentity());
 
     aux.ij[0][0] = this->ij[0][0];
     aux.ij[1][1] = this->ij[1][1];
@@ -210,9 +209,9 @@ TransformationMatrix<MatrixT> ScalingMatrix3x3::ProductOperatorImp(const Transla
 /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
 /// </returns>
 template <class MatrixT>
-TransformationMatrix<MatrixT> ScalingMatrix3x3::ProductOperatorImp(const TransformationMatrix<MatrixT> &matrix) const
+Internals::TransformationMatrix<MatrixT> ScalingMatrix3x3::ProductOperatorImp(const Internals::TransformationMatrix<MatrixT> &matrix) const
 {
-    TransformationMatrix<MatrixT> aux(TransformationMatrix<MatrixT>::GetIdentity());
+    Internals::TransformationMatrix<MatrixT> aux(Internals::TransformationMatrix<MatrixT>::GetIdentity());
 
     aux.ij[3][0] = matrix.ij[3][0];
     aux.ij[3][1] = matrix.ij[3][1];

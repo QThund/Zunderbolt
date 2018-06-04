@@ -41,30 +41,6 @@ using namespace boost::unit_test;
 ZTEST_SUITE_BEGIN( TransformationMatrix3x3_TestSuite )
 
 /// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
-{
-    // [Preparation]
-
-    const TransformationMatrix3x3 EXPECTED_VALUE(Matrix3x3::GetIdentity());
-
-    // [Execution]
-    TransformationMatrix3x3 matrixUT;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]);
-}
-
-/// <summary>
 /// Checks if copy constructor copies every matrix element properly.
 /// </summary>
 ZTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
@@ -81,7 +57,7 @@ ZTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
     const float_z EXPECTED_VALUE_FOR_21 = SFloat::_8;
     const float_z EXPECTED_VALUE_FOR_22 = SFloat::_9;
 
-    const BaseMatrix3x3 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
+    const Matrix3x3 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
                                         EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12,
                                         EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22);
 
@@ -109,7 +85,7 @@ ZTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // [Preparation]
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
                                         SFloat::_4, SFloat::_5, SFloat::_6,
                                         SFloat::_7, SFloat::_8, SFloat::_9);
 
@@ -134,8 +110,8 @@ ZTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 ZTEST_CASE ( Constructor4_MatrixIsCorrectlyCreatedFromCommonTranslationRotationAndScale_Test )
 {
     // [Preparation]
-    const BaseVector2 TRANSLATION(SFloat::_2, SFloat::_3);
-    const BaseVector2 SCALE(SFloat::_4, SFloat::_5);
+    const Vector2 TRANSLATION(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_4, SFloat::_5);
 
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
         const float_z ROTATION = SAngle::_45;
@@ -143,7 +119,7 @@ ZTEST_CASE ( Constructor4_MatrixIsCorrectlyCreatedFromCommonTranslationRotationA
         const float_z ROTATION = SAngle::_QuarterPi;
     #endif
 
-    const BaseMatrix3x3 EXPECTED_VALUE((float_z)2.8284271247461903,  (float_z)2.8284271247461898, SFloat::_0,
+    const Matrix3x3 EXPECTED_VALUE((float_z)2.8284271247461903,  (float_z)2.8284271247461898, SFloat::_0,
                                         (float_z)-3.5355339059327373, (float_z)3.5355339059327378, SFloat::_0,
                                         SFloat::_2,                  SFloat::_3,                 SFloat::_1);
 
@@ -169,8 +145,8 @@ ZTEST_CASE ( Constructor4_IdentityMatrixIsObtainedWhenUsingNeutralTransformation
 {
     // [Preparation]
 
-    const BaseVector2 TRANSLATION(SFloat::_0, SFloat::_0);
-    const BaseVector2 SCALE(SFloat::_1, SFloat::_1);
+    const Vector2 TRANSLATION(SFloat::_0, SFloat::_0);
+    const Vector2 SCALE(SFloat::_1, SFloat::_1);
     const float_z ROTATION = SFloat::_0;
 
     const TransformationMatrix3x3 EXPECTED_VALUE = TransformationMatrix3x3::GetIdentity();
@@ -196,8 +172,8 @@ ZTEST_CASE ( Constructor4_IdentityMatrixIsObtainedWhenUsingNeutralTransformation
 ZTEST_CASE ( Constructor4_RotationFollowsLeftHandedRules_Test )
 {
     // [Preparation]
-    const BaseVector2 TRANSLATION(SFloat::_0, SFloat::_0);
-    const BaseVector2 SCALE(SFloat::_1, SFloat::_1);
+    const Vector2 TRANSLATION(SFloat::_0, SFloat::_0);
+    const Vector2 SCALE(SFloat::_1, SFloat::_1);
 
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
         const float_z ROTATION = SAngle::_45;
@@ -222,8 +198,8 @@ ZTEST_CASE ( Constructor4_RotationFollowsLeftHandedRules_Test )
 ZTEST_CASE ( Constructor4_RotationDataIsCorrectlyGenerated_Test )
 {
     // [Preparation]
-    const BaseVector2 TRANSLATION(SFloat::_0, SFloat::_0);
-    const BaseVector2 SCALE(SFloat::_1, SFloat::_1);
+    const Vector2 TRANSLATION(SFloat::_0, SFloat::_0);
+    const Vector2 SCALE(SFloat::_1, SFloat::_1);
 
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
         const float_z ROTATION = SAngle::_60;
@@ -231,7 +207,7 @@ ZTEST_CASE ( Constructor4_RotationDataIsCorrectlyGenerated_Test )
         const float_z ROTATION = SAngle::_ThirdPi;
     #endif
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_0_5,                (float_z)0.8660254037844386, SFloat::_0,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_0_5,                (float_z)0.8660254037844386, SFloat::_0,
                                         (float_z)-0.8660254037844386, SFloat::_0_5,               SFloat::_0,
                                         SFloat::_0,                  SFloat::_0,                 SFloat::_1);
 
@@ -257,11 +233,11 @@ ZTEST_CASE ( Constructor4_ScalingDataIsCorrectlyGenerated_Test )
 {
     // [Preparation]
 
-    const BaseVector2 TRANSLATION(SFloat::_0, SFloat::_0);
-    const BaseVector2 SCALE(SFloat::_2, SFloat::_3);
+    const Vector2 TRANSLATION(SFloat::_0, SFloat::_0);
+    const Vector2 SCALE(SFloat::_2, SFloat::_3);
     const float_z ROTATION = SFloat::_0;
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_2, SFloat::_0, SFloat::_0,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_2, SFloat::_0, SFloat::_0,
                                         SFloat::_0, SFloat::_3, SFloat::_0,
                                         SFloat::_0, SFloat::_0, SFloat::_1);
 
@@ -287,11 +263,11 @@ ZTEST_CASE ( Constructor4_TranslationDataIsCorrectlyGenerated_Test )
 {
     // [Preparation]
 
-    const BaseVector2 TRANSLATION(SFloat::_2, SFloat::_3);
-    const BaseVector2 SCALE(SFloat::_1, SFloat::_1);
+    const Vector2 TRANSLATION(SFloat::_2, SFloat::_3);
+    const Vector2 SCALE(SFloat::_1, SFloat::_1);
     const float_z ROTATION = SFloat::_0;
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_0, SFloat::_0,
                                         SFloat::_0, SFloat::_1, SFloat::_0,
                                         SFloat::_2, SFloat::_3, SFloat::_1);
 
@@ -341,7 +317,7 @@ ZTEST_CASE ( OperatorAssignation_EveryElementIsAssignedToRightTargetElement_Test
 {
     // [Preparation]
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1,  SFloat::_2,    SFloat::_3,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1,  SFloat::_2,    SFloat::_3,
                                         SFloat::_4,  SFloat::_5,    SFloat::_6,
                                         SFloat::_7,  SFloat::_8,    SFloat::_9);
 
@@ -369,13 +345,13 @@ ZTEST_CASE ( Decompose_ObtainedTransformationsAreNeutralWhenMatrixIsIdentity_Tes
     // [Preparation]
 
     const TransformationMatrix3x3 IDENTITY = TransformationMatrix3x3::GetIdentity();
-    const BaseVector2 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0);
-    const BaseVector2 EXPECTED_SCALE(SFloat::_1, SFloat::_1);
+    const Vector2 EXPECTED_TRANSLATION(SFloat::_0, SFloat::_0);
+    const Vector2 EXPECTED_SCALE(SFloat::_1, SFloat::_1);
     const float_z EXPECTED_ROTATION = SFloat::_0;
 
     // [Execution]
-    BaseVector2 vTranslationUT(SFloat::_1, SFloat::_1);
-    BaseVector2 vScaleUT;
+    Vector2 vTranslationUT(SFloat::_1, SFloat::_1);
+    Vector2 vScaleUT;
     float_z fRotationUT = SFloat::_10;
     IDENTITY.Decompose(vTranslationUT, fRotationUT, vScaleUT);
 
@@ -393,11 +369,11 @@ ZTEST_CASE ( Decompose_ObtainedTransformationsAreNeutralWhenMatrixIsIdentity_Tes
 ZTEST_CASE ( Decompose_CorrectTransformationsAreObtainedFromCommonMatrix_Test )
 {
     // [Preparation]
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3((float_z)2.8284271247461903,  (float_z)2.8284271247461898, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3((float_z)2.8284271247461903,  (float_z)2.8284271247461898, SFloat::_0,
                                                                          (float_z)-3.5355339059327373, (float_z)3.5355339059327378, SFloat::_0,
                                                                          SFloat::_2,                  SFloat::_3,                 SFloat::_1) );
-    const BaseVector2 EXPECTED_TRANSLATION(SFloat::_2, SFloat::_3);
-    const BaseVector2 EXPECTED_SCALE(SFloat::_4, SFloat::_5);
+    const Vector2 EXPECTED_TRANSLATION(SFloat::_2, SFloat::_3);
+    const Vector2 EXPECTED_SCALE(SFloat::_4, SFloat::_5);
 
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
         const float_z EXPECTED_ROTATION = SAngle::_45;
@@ -406,8 +382,8 @@ ZTEST_CASE ( Decompose_CorrectTransformationsAreObtainedFromCommonMatrix_Test )
     #endif
     
     // [Execution]
-    BaseVector2 vTranslationUT(SFloat::_1, SFloat::_1);
-    BaseVector2 vScaleUT;
+    Vector2 vTranslationUT(SFloat::_1, SFloat::_1);
+    Vector2 vScaleUT;
     float_z fRotationUT = SFloat::_10;
     TRANSFORMATION_MATRIX.Decompose(vTranslationUT, fRotationUT, vScaleUT);
 
@@ -423,7 +399,7 @@ ZTEST_CASE ( Decompose_CorrectTransformationsAreObtainedFromCommonMatrix_Test )
 ZTEST_CASE ( Decompose_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRotation_Test )
 {
     // [Preparation]
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_0_5,                (float_z)0.8660254037844386, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_0_5,                (float_z)0.8660254037844386, SFloat::_0,
                                                                          (float_z)-0.8660254037844386, SFloat::_0_5,               SFloat::_0,
                                                                          SFloat::_0,                  SFloat::_0,                 SFloat::_1) );
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
@@ -432,10 +408,10 @@ ZTEST_CASE ( Decompose_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRotati
         const float_z EXPECTED_ROTATION = SAngle::_ThirdPi;
     #endif
         
-        const TransformationMatrix3x3 TRANSFORMATION_MATRIX2(BaseVector2(), EXPECTED_ROTATION, BaseVector2(1, 1));
+        const TransformationMatrix3x3 TRANSFORMATION_MATRIX2(Vector2(), EXPECTED_ROTATION, Vector2(1, 1));
     // [Execution]
-    BaseVector2 vTranslationAux;
-    BaseVector2 vScaleAux;
+    Vector2 vTranslationAux;
+    Vector2 vScaleAux;
     float_z fRotationUT = SFloat::_0;
     TRANSFORMATION_MATRIX.Decompose(vTranslationAux, fRotationUT, vScaleAux);
 
@@ -452,13 +428,13 @@ ZTEST_CASE ( Decompose_AssertionFailsWhenMatrixScaleIsNull_Test )
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseVector2(SFloat::_1, SFloat::_2),
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Vector2(SFloat::_1, SFloat::_2),
                                                           SFloat::_3,
-                                                          BaseVector2(SFloat::_0, SFloat::_0) );
+                                                          Vector2(SFloat::_0, SFloat::_0) );
 
     float_z fRotation;
-    BaseVector2 vTranslation;
-    BaseVector2 vScale;
+    Vector2 vTranslation;
+    Vector2 vScale;
 
     // [Execution]
     bool bAssertionFailed = false;
@@ -485,14 +461,14 @@ ZTEST_CASE ( Decompose_CorrectTranslationIsObtainedFromMatrixThatOnlyContainsTra
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
                                                                          SFloat::_0, SFloat::_1, SFloat::_0,
                                                                          SFloat::_2, SFloat::_3, SFloat::_1) );
-    const BaseVector2 EXPECTED_TRANSLATION(SFloat::_2, SFloat::_3);
+    const Vector2 EXPECTED_TRANSLATION(SFloat::_2, SFloat::_3);
 
     // [Execution]
-    BaseVector2 vTranslationUT;
-    BaseVector2 vScaleAux;
+    Vector2 vTranslationUT;
+    Vector2 vScaleAux;
     float_z fRotationAux;
     TRANSFORMATION_MATRIX.Decompose(vTranslationUT, fRotationAux, vScaleAux);
 
@@ -507,14 +483,14 @@ ZTEST_CASE ( Decompose_CorrectScaleIsObtainedFromMatrixThatOnlyContainsScaling_T
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_4, SFloat::_0, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_4, SFloat::_0, SFloat::_0,
                                                                          SFloat::_0, SFloat::_5, SFloat::_0,
                                                                          SFloat::_0, SFloat::_0, SFloat::_1) );
-    const BaseVector2 EXPECTED_SCALE(SFloat::_4, SFloat::_5);
+    const Vector2 EXPECTED_SCALE(SFloat::_4, SFloat::_5);
 
     // [Execution]
-    BaseVector2 vTranslationAux;
-    BaseVector2 vScaleUT;
+    Vector2 vTranslationAux;
+    Vector2 vScaleUT;
     float_z fRotationAux;
     TRANSFORMATION_MATRIX.Decompose(vTranslationAux, fRotationAux, vScaleUT);
 
@@ -529,13 +505,13 @@ ZTEST_CASE ( GetTranslation_CorrectTranslationIsObtainedFromMatrixThatOnlyContai
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
                                                                          SFloat::_0, SFloat::_1, SFloat::_0,
                                                                          SFloat::_2, SFloat::_3, SFloat::_1) );
-    const BaseVector2 EXPECTED_TRANSLATION(SFloat::_2, SFloat::_3);
+    const Vector2 EXPECTED_TRANSLATION(SFloat::_2, SFloat::_3);
 
     // [Execution]
-    BaseVector2 vTranslationUT;
+    Vector2 vTranslationUT;
     TRANSFORMATION_MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -549,13 +525,13 @@ ZTEST_CASE ( GetTranslation_CorrectTranslationIsObtainedFromCommonMatrix_Test )
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3((float_z)2.8284271,  (float_z)2.8284271, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3((float_z)2.8284271,  (float_z)2.8284271, SFloat::_0,
                                                                          (float_z)-3.5355339, (float_z)3.5355339, SFloat::_0,
                                                                          SFloat::_2,          SFloat::_3,         SFloat::_1) );
-    const BaseVector2 EXPECTED_TRANSLATION(SFloat::_2, SFloat::_3);
+    const Vector2 EXPECTED_TRANSLATION(SFloat::_2, SFloat::_3);
 
     // [Execution]
-    BaseVector2 vTranslationUT;
+    Vector2 vTranslationUT;
     TRANSFORMATION_MATRIX.GetTranslation(vTranslationUT);
 
     // [Verification]
@@ -568,7 +544,7 @@ ZTEST_CASE ( GetTranslation_CorrectTranslationIsObtainedFromCommonMatrix_Test )
 ZTEST_CASE ( GetRotation_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRotation_Test )
 {
     // [Preparation]
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_0_5,                (float_z)0.8660254037844386, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_0_5,                (float_z)0.8660254037844386, SFloat::_0,
                                                                          (float_z)-0.8660254037844386, SFloat::_0_5,               SFloat::_0,
                                                                          SFloat::_0,                  SFloat::_0,                 SFloat::_1) );
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
@@ -591,7 +567,7 @@ ZTEST_CASE ( GetRotation_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRota
 ZTEST_CASE ( GetRotation_CorrectRotationIsObtainedFromCommonMatrix_Test )
 {
     // [Preparation]
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3((float_z)2.8284271,  (float_z)2.8284271, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3((float_z)2.8284271,  (float_z)2.8284271, SFloat::_0,
                                                                          (float_z)-3.5355339, (float_z)3.5355339, SFloat::_0,
                                                                          SFloat::_2,          SFloat::_3,         SFloat::_1) );
     #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES
@@ -617,9 +593,9 @@ ZTEST_CASE ( GetRotation_AssertionFailsWhenMatrixScaleIsNull_Test )
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseVector2(SFloat::_1, SFloat::_2),
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Vector2(SFloat::_1, SFloat::_2),
                                                           SFloat::_3,
-                                                          BaseVector2(SFloat::_0, SFloat::_0) );
+                                                          Vector2(SFloat::_0, SFloat::_0) );
 
     float_z fRotation;
 
@@ -648,13 +624,13 @@ ZTEST_CASE ( GetScale_CorrectScaleIsObtainedFromMatrixThatOnlyContainsScaling_Te
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_4, SFloat::_0, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_4, SFloat::_0, SFloat::_0,
                                                                          SFloat::_0, SFloat::_5, SFloat::_0,
                                                                          SFloat::_0, SFloat::_0, SFloat::_1) );
-    const BaseVector2 EXPECTED_SCALE(SFloat::_4, SFloat::_5);
+    const Vector2 EXPECTED_SCALE(SFloat::_4, SFloat::_5);
 
     // [Execution]
-    BaseVector2 vScaleUT;
+    Vector2 vScaleUT;
     TRANSFORMATION_MATRIX.GetScale(vScaleUT);
 
     // [Verification]
@@ -668,14 +644,14 @@ ZTEST_CASE ( GetScale_CorrectScaleIsObtainedFromCommonMatrix_Test )
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3((float_z)2.8284271247461903,  (float_z)2.8284271247461898, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3((float_z)2.8284271247461903,  (float_z)2.8284271247461898, SFloat::_0,
                                                                          (float_z)-3.5355339059327373, (float_z)3.5355339059327378, SFloat::_0,
                                                                          SFloat::_2,                  SFloat::_3,                 SFloat::_1) );
 
-    const BaseVector2 EXPECTED_SCALE(SFloat::_4, SFloat::_5);
+    const Vector2 EXPECTED_SCALE(SFloat::_4, SFloat::_5);
 
     // [Execution]
-    BaseVector2 vScaleUT;
+    Vector2 vScaleUT;
     TRANSFORMATION_MATRIX.GetScale(vScaleUT);
 
     // [Verification]
@@ -689,11 +665,11 @@ ZTEST_CASE ( SwitchHandConvention_CorrectResultIsObtainedWhenUsingCommonMatrix_T
 {
     // [Preparation]
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1,  -SFloat::_2, SFloat::_3,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1,  -SFloat::_2, SFloat::_3,
                                         -SFloat::_4, SFloat::_5,  SFloat::_6,
                                         SFloat::_7,  SFloat::_8,  SFloat::_9);
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_1, SFloat::_2, SFloat::_3,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_1, SFloat::_2, SFloat::_3,
                                                                          SFloat::_4, SFloat::_5, SFloat::_6,
                                                                          SFloat::_7, SFloat::_8, SFloat::_9) );
 
@@ -718,7 +694,7 @@ ZTEST_CASE ( SwitchHandConvention_CorrectResultIsObtainedWhenUsingCommonMatrix_T
 ZTEST_CASE ( SwitchHandConvention_RotationIsInverted_Test )
 {
     // [Preparation]
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_0_5,        (float_z)0.8660254, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_0_5,        (float_z)0.8660254, SFloat::_0,
                                                                          (float_z)-0.8660254, SFloat::_0_5,       SFloat::_0,
                                                                          SFloat::_0,          SFloat::_0,         SFloat::_1) );
     const Vector2 ROTATED_POINT = Vector2(SFloat::_1, SFloat::_0).Transform(TRANSFORMATION_MATRIX);
@@ -739,7 +715,7 @@ ZTEST_CASE ( SwitchHandConvention_RotationAngleRemainsTheSame_Test )
 {
     // [Preparation]
 
-    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( BaseMatrix3x3(SFloat::_0_5,        (float_z)0.8660254, SFloat::_0,
+    const TransformationMatrix3x3 TRANSFORMATION_MATRIX( Matrix3x3(SFloat::_0_5,        (float_z)0.8660254, SFloat::_0,
                                                                          (float_z)-0.8660254, SFloat::_0_5,       SFloat::_0,
                                                                          SFloat::_0,          SFloat::_0,         SFloat::_1) );
     float_z ORIGINAL_ROTATION;

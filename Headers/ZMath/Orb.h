@@ -28,14 +28,17 @@
 #define __ORB__
 
 #include "ZCommon/Assertions.h"
-#include "ZMath/BaseOrb.h"
+#include "ZMath/MathModuleDefinitions.h"
 #include "ZMath/Vector2.h"
 #include "ZMath/Vector3.h"
 #include "ZMath/Vector4.h"
+#include "ZCommon/DataTypes/SFloat.h"
 
 
 
 namespace z
+{
+namespace Internals
 {
 
 /// <summary>
@@ -49,41 +52,16 @@ namespace z
 /// </remarks>
 /// <typeparam name="VectorT">Allowed types: Vector3, Vector4.</typeparam>
 template <class VectorT>
-class Orb : public BaseOrb<VectorT>
+class Orb
 {
-
-    // BASE CLASS USINGS
-    // -------------------
-public:
-
-    using BaseOrb<VectorT>::Center;
-    using BaseOrb<VectorT>::Radius;
-
-
     // CONSTRUCTORS
     // ---------------
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Orb()
-    {
-    }
-
-    /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="orb">[IN] The orb from which we want to create a copy in the resident orb.</param>
-    Orb(const Orb<VectorT> &orb) : BaseOrb<VectorT>(orb)
-    {
-    }
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="orb">[IN] The orb in which we want resident orb to be based.</param>
-    Orb(const BaseOrb<VectorT> &orb) : BaseOrb<VectorT>(orb)
     {
     }
 
@@ -93,7 +71,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    Orb(const VectorT &vCenter, const float_z fRadius) : BaseOrb<VectorT>(vCenter, fRadius)
+    Orb(const VectorT &vCenter, const float_z fRadius) : Center(vCenter), Radius(fRadius)
     {
     }
 
@@ -118,18 +96,29 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Equality operator. Compares two orbs.
+    /// </summary>
+    /// <param name="orb">[IN] Orb with which to compare.</param>
+    /// <returns>
+    /// True if orbs are the same, false otherwise.
+    /// </returns>
+    bool operator== (const Orb<VectorT> &orb) const
+    {
+        return this->Center == orb.Center && SFloat::AreEqual(this->Radius, orb.Radius);
+    }
 
     /// <summary>
-    /// Assigning operator.
+    /// Inequality operator. Compares two orbs.
     /// </summary>
-    /// <param name="orb">[IN] The orb to be copied from.</param>
+    /// <param name="orb">[IN] Orb with which to compare.</param>
     /// <returns>
-    /// A reference to the modified orb.
+    /// True if orbs are not the same, false otherwise.
     /// </returns>
-    Orb& operator=(const BaseOrb<VectorT> &orb)
+    bool operator!= (const Orb<VectorT> &orb) const
     {
-        BaseOrb<VectorT>::operator=(orb);
-        return *this;
+        return !(*this == orb);
     }
 
     /// <summary>
@@ -173,7 +162,7 @@ public:
     /// <b>False</b><br/>
     /// The orbs do not intersect.
     /// </returns>
-    bool Intersection(const BaseOrb<VectorT> &orb) const
+    bool Intersection(const Orb<VectorT> &orb) const
     {
         // If the radius of the orb equals zero, it doesn't exist
         Z_ASSERT_WARNING( SFloat::IsNotZero(this->Radius) && SFloat::IsNotZero(orb.Radius), "The radius of the orbs must not equal zero to exist" );
@@ -200,7 +189,21 @@ public:
     {
         return string_z("OB(c(") + this->Center.ToString() + Z_L("),r(") + string_z::FromFloat(this->Radius) + Z_L("))");
     }
+    
 
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Vector which represents the center point of orb.
+    /// </summary>
+    VectorT Center;
+
+    /// <summary>
+    /// Floating point value representig the radius of the orb.
+    /// </summary>
+    float_z Radius;
 };
 
 
@@ -214,6 +217,8 @@ template class Z_MATH_MODULE_SYMBOLS Orb<Vector4>;
 
 #endif // Z_MATH_MODULE_TEMPLATE_SPECIALIZATION_SYMBOLS
 
+
+} // namespace Internals
 } // namespace z
 
 

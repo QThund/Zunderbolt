@@ -32,6 +32,8 @@
 #include "ZMath/RotationMatrix3x3.h"
 #include "ZMath/ScalingMatrix3x3.h"
 
+using namespace z::Internals;
+
 namespace z
 {
 namespace Test

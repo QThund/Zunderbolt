@@ -27,7 +27,7 @@
 #ifndef __PLANE__
 #define __PLANE__
 
-#include "BasePlane.h"
+#include "ZMath/MathModuleDefinitions.h"
 #include "ZCommon/DataTypes/StringsDefinitions.h"
 
 #include "EIntersections.h"
@@ -39,19 +39,28 @@ namespace z
 {
 
 // Forward declarations
-class BaseVector3;
-class BaseVector4;
+class Vector3;
+class Vector4;
 class Vector3;
 class Vector4;
 class Matrix3x4;
-template<class MatrixT> class TranslationMatrix;
 class RotationMatrix3x3;
 class ScalingMatrix3x3;
-template<class MatrixT> class TransformationMatrix;
 class SpaceConversionMatrix;
 class Quaternion;
 class Matrix4x3;
 class Matrix4x4;
+
+namespace Internals
+{
+    template<class MatrixT> class TransformationMatrix;
+    template<class MatrixT> class TranslationMatrix;
+}
+
+typedef Internals::TranslationMatrix<Matrix4x3> TranslationMatrix4x3;
+typedef Internals::TranslationMatrix<Matrix4x4> TranslationMatrix4x4;
+typedef Internals::TransformationMatrix<Matrix4x3> TransformationMatrix4x3;
+typedef Internals::TransformationMatrix<Matrix4x4> TransformationMatrix4x4;
 
 
 /// <summary>
@@ -65,7 +74,7 @@ class Matrix4x4;
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from
 /// plane to the origin, when the normal is normalized.
 /// </remarks>
-class Z_MATH_MODULE_SYMBOLS Plane : public BasePlane
+class Z_MATH_MODULE_SYMBOLS Plane
 {
     // FRIENDS
     // ---------------
@@ -90,30 +99,18 @@ public:
 public:
 
     /// <summary>
-    /// Default constructor.
+    /// Default constructor. It is an empty constructor, it does not assign any value.
     /// </summary>
     Plane();
 
     /// <summary>
-    /// Copy constructor.
-    /// </summary>
-    /// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
-    Plane(const Plane &plane);
-
-    /// <summary>
-    /// Base type constructor.
-    /// </summary>
-    /// <param name="plane">The plane on which we base the resident plane.</param>
-    Plane(const BasePlane &plane);
-
-    /// <summary>
     /// Constructor from a floating point value for each coefficient.
     /// </summary>
-    /// <param name="fA">[IN] Floating point value for a coefficient.</param>
-    /// <param name="fB">[IN] Floating point value for b coefficient.</param>
-    /// <param name="fC">[IN] Floating point value for c coefficient.</param>
-    /// <param name="fD">[IN] Floating point value for independent term d.</param>
-    Plane(const float_z fA, const float_z fB, const float_z fC, const float_z fD);
+    /// <param name="fValueA">[IN] Floating point value for a coefficient.</param>
+    /// <param name="fValueB">[IN] Floating point value for b coefficient.</param>
+    /// <param name="fValueC">[IN] Floating point value for c coefficient.</param>
+    /// <param name="fValueD">[IN] Floating point value for independent term d.</param>
+    Plane(const float_z fValueA, const float_z fValueB, const float_z fValueC, const float_z fValueD);
 
     /// <summary>
     /// Constructor from a floating point value for all coefficients.
@@ -218,6 +215,34 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Equality operator. Compares two planes.
+    /// </summary>
+    /// <remarks>
+    /// Note that if any of the planes are not normalized, the result may be false, even if they are the same plane:
+    /// <br/>
+    /// \f$ x + y + z + 1 = 0\f$ and \f$ 2x + 2y + 2z + 2 = 0\f$ are the same plane but their components are different.
+    /// </remarks>
+    /// <param name="plane">[IN] Plane with which to compare.</param>
+    /// <returns>
+    /// True if planes are the same, false otherwise.
+    /// </returns>
+    bool operator==(const Plane &plane) const;
+
+    /// <summary>
+    /// Inequality operator. Compares two planes.
+    /// </summary>
+    /// <remarks>
+    /// Note that if any of the planes are not normalized, the result may be true, even if they are the same plane.
+    /// <br/>
+    /// \f$ x + y + z + 1 = 0\f$ and \f$ 2x + 2y + 2z + 2 = 0\f$ are the same plane but their components are different.
+    /// </remarks>
+    /// <param name="plane">[IN] Plane with which to compare.</param>
+    /// <returns>
+    /// True if planes are not the same, false otherwise.
+    /// </returns>
+    bool operator!=(const Plane &plane) const;
 
     /// <summary>
     /// Product by a scalar: all coefficients are multiplied by the floating point value provided.
@@ -279,15 +304,6 @@ public:
     Plane operator-() const;
 
     /// <summary>
-    /// Assignation operator. Assigns the provided plane to the resident plane.
-    /// </summary>
-    /// <param name="plane">[IN] The plane to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified plane.
-    /// </returns>
-    Plane& operator=(const BasePlane &plane);
-
-    /// <summary>
     /// Normalizes the plane.
     /// </summary>
     /// <remarks>
@@ -323,7 +339,7 @@ public:
     /// <returns>
     /// The result of the dot product.
     /// </returns>
-    float_z DotProduct(const BasePlane &plane) const;
+    float_z DotProduct(const Plane &plane) const;
 
     /// <summary>
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
@@ -362,7 +378,7 @@ public:
     /// <returns>
     /// The result of the dot product.
     /// </returns>
-    float_z AngleBetween(const BasePlane &plane) const;
+    float_z AngleBetween(const Plane &plane) const;
 
     /// <summary>
     /// Calculates the orthogonal projection of a given point over the resident plane.
@@ -374,7 +390,7 @@ public:
     /// <returns>
     /// The projected point.
     /// </returns>
-    BaseVector3 PointProjection(const BaseVector3 &vPoint) const;
+    Vector3 PointProjection(const Vector3 &vPoint) const;
 
     /// <summary>
     /// Calculates the orthogonal projection of a given point over the resident plane.
@@ -387,7 +403,7 @@ public:
     /// <returns>
     /// The projected point.
     /// </returns>
-    BaseVector4 PointProjection(const BaseVector4 &vPoint) const;
+    Vector4 PointProjection(const Vector4 &vPoint) const;
 
     /// <summary>
     /// Calculates if a point is contained in the resident plane.
@@ -399,7 +415,7 @@ public:
     /// <returns>
     /// True if the point is contained, false otherwise.
     /// </returns>
-    bool Contains(const BaseVector3 &vPoint) const;
+    bool Contains(const Vector3 &vPoint) const;
 
     /// <summary>
     /// Calculates if a point is contained in the resident plane.
@@ -411,7 +427,7 @@ public:
     /// <returns>
     /// True if the point is contained, false otherwise.
     /// </returns>
-    bool Contains(const BaseVector4 &vPoint) const;
+    bool Contains(const Vector4 &vPoint) const;
 
     /// <summary>
     /// Calculates the length of the direction vector of the resident plane.
@@ -451,7 +467,7 @@ public:
     /// <returns>
     /// A floating point value which represents the minimum distance between the plane and the point.
     /// </returns>
-    float_z PointDistance(const BaseVector3 &vPoint) const;
+    float_z PointDistance(const Vector3 &vPoint) const;
 
     /// <summary>
     /// Calculates the minimum distance from the given point to the resident plane, which is the length
@@ -464,7 +480,7 @@ public:
     /// <returns>
     /// A floating point value which represents the minimum distance between the plane and the point.
     /// </returns>
-    float_z PointDistance(const BaseVector4 &vPoint) const;
+    float_z PointDistance(const Vector4 &vPoint) const;
 
     /// <summary>
     /// Calculates the number of intersections between the resident plane and two planes provided,
@@ -494,7 +510,7 @@ public:
     /// - All planes intersect, defining a single line instead of a point.
     /// - All planes are the same.
     /// </returns>
-    EIntersections IntersectionPoint(const BasePlane &plane1, const BasePlane &plane2, BaseVector3 &vIntersection) const;
+    EIntersections IntersectionPoint(const Plane &plane1, const Plane &plane2, Vector3 &vIntersection) const;
 
     /// <summary>
     /// Calculates the number of intersections between the resident plane and two planes provided,
@@ -525,7 +541,7 @@ public:
     /// - All planes intersect, defining a single line instead of a point.
     /// - All planes are the same.
     /// </returns>
-    EIntersections IntersectionPoint(const BasePlane &plane1, const BasePlane &plane2, BaseVector4 &vIntersection) const;
+    EIntersections IntersectionPoint(const Plane &plane1, const Plane &plane2, Vector4 &vIntersection) const;
 
     /// <summary>
     /// Checks the spacial relation between resident plane and the provided plane.
@@ -537,7 +553,7 @@ public:
     /// <returns>
     /// The space relation of the input plane regarding the resident one.
     /// </returns>
-    ESpaceRelation SpaceRelation(const BasePlane &plane) const;
+    ESpaceRelation SpaceRelation(const Plane &plane) const;
 
     /// <summary>
     /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
@@ -583,7 +599,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    Plane Scale(const BaseVector3 &vScale) const;
+    Plane Scale(const Vector3 &vScale) const;
 
     /// <summary>
     /// Applies a scale to the resident plane given by the provided amounts for every axis.
@@ -611,7 +627,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    Plane Translate(const TranslationMatrix<Matrix4x3> &translation) const;
+    Plane Translate(const TranslationMatrix4x3 &translation) const;
 
     /// <summary>
     /// Applies a translation to the resident plane.
@@ -624,7 +640,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    Plane Translate(const TranslationMatrix<Matrix4x4> &translation) const;
+    Plane Translate(const TranslationMatrix4x4 &translation) const;
 
     /// <summary>
     /// Applies a translation to the resident plane given by the provided vector.
@@ -637,7 +653,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    Plane Translate(const BaseVector3 &vTranslation) const;
+    Plane Translate(const Vector3 &vTranslation) const;
 
     /// <summary>
     /// Applies a translation to the resident plane given by the provided vector.
@@ -650,7 +666,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    Plane Translate(const BaseVector4 &vTranslation) const;
+    Plane Translate(const Vector4 &vTranslation) const;
 
     /// <summary>
     /// Applies a translation to the resident plane given by the provided amounts for every axis.
@@ -678,7 +694,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    Plane Transform(const TransformationMatrix<Matrix4x3> &transformation) const;
+    Plane Transform(const TransformationMatrix4x3 &transformation) const;
 
     /// <summary>
     /// Applies a transformation to the resident plane.
@@ -691,7 +707,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    Plane Transform(const TransformationMatrix<Matrix4x4> &transformation) const;
+    Plane Transform(const TransformationMatrix4x4 &transformation) const;
 
     /// <summary>
     /// Applies the transformation contained in a space conversion matrix to the resident plane.
@@ -762,7 +778,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    Plane ScaleWithPivot(const BaseVector3 &vScale, const Vector3 &vPivot) const;
+    Plane ScaleWithPivot(const Vector3 &vScale, const Vector3 &vPivot) const;
 
     /// <summary>
     /// Applies the scale contained in the provided vector to the resident plane,
@@ -777,7 +793,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    Plane ScaleWithPivot(const BaseVector3 &vScale, const Vector4 &vPivot) const;
+    Plane ScaleWithPivot(const Vector3 &vScale, const Vector4 &vPivot) const;
 
     /// <summary>
     /// Scales the resident plane by the provided amounts for every axis,
@@ -855,7 +871,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    Plane TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const Vector3 &vPivot) const;
+    Plane TransformWithPivot(const TransformationMatrix4x3 &transformation, const Vector3 &vPivot) const;
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
@@ -871,7 +887,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    Plane TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const Vector4 &vPivot) const;
+    Plane TransformWithPivot(const TransformationMatrix4x3 &transformation, const Vector4 &vPivot) const;
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
@@ -886,7 +902,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    Plane TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const Vector3 &vPivot) const;
+    Plane TransformWithPivot(const TransformationMatrix4x4 &transformation, const Vector3 &vPivot) const;
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
@@ -902,7 +918,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    Plane TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const Vector4 &vPivot) const;
+    Plane TransformWithPivot(const TransformationMatrix4x4 &transformation, const Vector4 &vPivot) const;
 
     /// <summary>
     /// Converts plane into a string.
@@ -922,7 +938,7 @@ private:
     /// <summary>
     /// Calculates the dot product between the direction vector of the resident plane and the provided vector.
     /// </summary>
-    /// <typeparam name="VectorT">Allowed types: BaseVector3, BaseVector4, Vector3, Vector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: Vector3, Vector4, Vector3, Vector4.</typeparam>
     /// <param name="vVector">[IN] The vector which we want to calculate the dot product with.</param>
     template <class VectorT>
     float_z DotProductImp(const VectorT &vVector) const;
@@ -930,7 +946,7 @@ private:
     /// <summary>
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
-    /// <typeparam name="VectorT">Allowed types: BaseVector3, BaseVector4, Vector3, Vector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: Vector3, Vector4, Vector3, Vector4.</typeparam>
     /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     template <class VectorT>
     float_z AngleBetweenImp(const VectorT &vVector) const;
@@ -972,7 +988,7 @@ private:
     /// The scaled plane.
     /// </returns>
     template <class VectorT>
-    Plane ScaleWithPivotImp(const BaseVector3 &vScale, const VectorT &vPivot) const;
+    Plane ScaleWithPivotImp(const Vector3 &vScale, const VectorT &vPivot) const;
 
     /// <summary>
     /// Scales the resident plane by the provided amounts for every axis,
@@ -1063,7 +1079,32 @@ private:
     /// the following values: E_None, E_One and E_Infinite.
     /// </returns>
     template <class VectorT>
-    EIntersections IntersectionPointImp(const BasePlane &plane1, const BasePlane &plane2, VectorT &vIntersection) const;
+    EIntersections IntersectionPointImp(const Plane &plane1, const Plane &plane2, VectorT &vIntersection) const;
+    
+
+    // ATTRIBUTES
+    // ---------------
+public:
+
+    /// <summary>
+    /// X coefficient of the plane equation.
+    /// </summary>
+    float_z a;
+
+    /// <summary>
+    /// Y coefficient of the plane equation.
+    /// </summary>
+    float_z b;
+
+    /// <summary>
+    /// Z coefficient of the plane equation.
+    /// </summary>
+    float_z c;
+
+    /// <summary>
+    /// Independent term of the plane equation.
+    /// </summary>
+    float_z d;
 };
 
 

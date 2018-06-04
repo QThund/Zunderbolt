@@ -38,32 +38,10 @@ using namespace boost::unit_test;
 #include "ZMath/Matrix4x4.h"
 #include "ZMath/Matrix4x3.h"
 #include "ZMath/SAngle.h"
+using namespace z::Internals;
 
 
 ZTEST_SUITE_BEGIN( ScalingMatrix3x3_TestSuite )
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
-{
-    // [Preparation]
-    const ScalingMatrix3x3 EXPECTED_VALUE(ScalingMatrix3x3::GetIdentity());
-
-    // [Execution]
-    ScalingMatrix3x3 matrixUT;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]);
-}
 
 /// <summary>
 /// Checks if copy constructor copies every matrix element properly.
@@ -82,7 +60,7 @@ ZTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
     const float_z EXPECTED_VALUE_FOR_21 = SFloat::_8;
     const float_z EXPECTED_VALUE_FOR_22 = SFloat::_9;
 
-    const BaseMatrix3x3 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
+    const Matrix3x3 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
                                         EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12,
                                         EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22);
 
@@ -110,7 +88,7 @@ ZTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // [Preparation]
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
                                         SFloat::_4, SFloat::_5, SFloat::_6,
                                         SFloat::_7, SFloat::_8, SFloat::_9);
 
@@ -136,7 +114,7 @@ ZTEST_CASE ( Constructor4_ScaleMatrixCorrectlyBuiltFromThreeScalingValues_Test )
 {
     // [Preparation]
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_2, SFloat::_0, SFloat::_0,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_2, SFloat::_0, SFloat::_0,
                                         SFloat::_0, SFloat::_3, SFloat::_0,
                                         SFloat::_0, SFloat::_0, SFloat::_4);
 
@@ -186,7 +164,7 @@ ZTEST_CASE ( Constructor5_ScaleMatrixCorrectlyBuiltFrom3DVector_Test )
     // [Preparation]
     const Vector3 SCALING_VECTOR = Vector3(SFloat::_1, SFloat::_2, SFloat::_3);
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_0, SFloat::_0,
                                         SFloat::_0, SFloat::_2, SFloat::_0,
                                         SFloat::_0, SFloat::_0, SFloat::_3);
 
@@ -321,11 +299,11 @@ ZTEST_CASE ( OperatorProduct1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
 {
     // [Preparation]
 
-    const BaseMatrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
                                  SFloat::_0, SFloat::_2, SFloat::_0,
                                  SFloat::_0, SFloat::_0, SFloat::_3);
 
-    const BaseMatrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3);
 
@@ -411,11 +389,11 @@ ZTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
 ZTEST_CASE ( OperatorProduct2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith3x3RotationMatrixOperand_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
                                  SFloat::_0, SFloat::_2, SFloat::_0,
                                  SFloat::_0, SFloat::_0, SFloat::_3);
 
-    const BaseMatrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3);
 
@@ -491,11 +469,11 @@ ZTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
 ZTEST_CASE ( OperatorProduct3_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4TranslationMatrixOperand_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
                                  SFloat::_0, SFloat::_2, SFloat::_0,
                                  SFloat::_0, SFloat::_0, SFloat::_3);
 
-    const BaseMatrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3);
 
@@ -567,11 +545,11 @@ ZTEST_CASE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test )
 ZTEST_CASE ( OperatorProduct4_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3TranslationMatrixOperand_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
                                  SFloat::_0, SFloat::_2, SFloat::_0,
                                  SFloat::_0, SFloat::_0, SFloat::_3);
 
-    const BaseMatrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3);
 
@@ -646,11 +624,11 @@ ZTEST_CASE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test )
 ZTEST_CASE ( OperatorProduct5_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4TransformationMatrixOperand_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
                                  SFloat::_0, SFloat::_2, SFloat::_0,
                                  SFloat::_0, SFloat::_0, SFloat::_3);
 
-    const BaseMatrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3);
 
@@ -728,11 +706,11 @@ ZTEST_CASE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test )
 ZTEST_CASE ( OperatorProduct6_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3TransformationMatrixOperand_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
                                  SFloat::_0, SFloat::_2, SFloat::_0,
                                  SFloat::_0, SFloat::_0, SFloat::_3);
 
-    const BaseMatrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3);
 
@@ -771,7 +749,7 @@ ZTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test
 {
     // [Preparation]
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
                                         SFloat::_4, SFloat::_5, SFloat::_6,
                                         SFloat::_7, SFloat::_8, SFloat::_9);
 
@@ -861,11 +839,11 @@ ZTEST_CASE ( OperatorProductAssignation_NonDiagonalElementsDoNotHaveInfluenceOnP
 {
     // [Preparation]
 
-    const BaseMatrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 SCALE_A(SFloat::_1, SFloat::_0, SFloat::_0,
                                  SFloat::_0, SFloat::_2, SFloat::_0,
                                  SFloat::_0, SFloat::_0, SFloat::_3);
 
-    const BaseMatrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 SCALE_B(SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3,
                                  SFloat::_1, SFloat::_2, SFloat::_3);
 
@@ -925,11 +903,11 @@ ZTEST_CASE ( Invert_MatrixIsCorrectlyInverted_Test )
 {
     // [Preparation]
 
-    const ScalingMatrix3x3 ORIGINAL_VALUE(BaseMatrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
+    const ScalingMatrix3x3 ORIGINAL_VALUE(Matrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
                                                            SFloat::_0, SFloat::_2, SFloat::_0,
                                                            SFloat::_0, SFloat::_0, SFloat::_4));
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_0, SFloat::_0,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_0, SFloat::_0,
                                         SFloat::_0, SFloat::_0_5, SFloat::_0,
                                         SFloat::_0, SFloat::_0, SFloat::_0_25);
 
@@ -955,7 +933,7 @@ ZTEST_CASE ( GetScale1_ValuesAreCorrectlyExtracted_Test )
 {
     // [Preparation]
 
-    const ScalingMatrix3x3 ORIGINAL_VALUE(BaseMatrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
+    const ScalingMatrix3x3 ORIGINAL_VALUE(Matrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
                                                           SFloat::_0, SFloat::_2, SFloat::_0,
                                                           SFloat::_0, SFloat::_0, SFloat::_3));
     float_z fScaleXUT = SFloat::_0;
@@ -984,7 +962,7 @@ ZTEST_CASE ( GetScale2_3DVectorValuesAreCorrectlyExtracted_Test )
     // [Preparation]
     Vector3 vScalingVectorUT = Vector3(SFloat::_0, SFloat::_0, SFloat::_0);
 
-    const ScalingMatrix3x3 ORIGINAL_VALUE(BaseMatrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
+    const ScalingMatrix3x3 ORIGINAL_VALUE(Matrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
                                                           SFloat::_0, SFloat::_2, SFloat::_0,
                                                           SFloat::_0, SFloat::_0, SFloat::_3));
 
@@ -1009,7 +987,7 @@ ZTEST_CASE ( GetDeterminant_ValueIsCorrect_Test )
 {
     // [Preparation]
 
-    const ScalingMatrix3x3 ORIGINAL_VALUE(BaseMatrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
+    const ScalingMatrix3x3 ORIGINAL_VALUE(Matrix3x3(SFloat::_1, SFloat::_0, SFloat::_0,
                                                           SFloat::_0, SFloat::_2, SFloat::_0,
                                                           SFloat::_0, SFloat::_0, SFloat::_3));
     float_z determinantValueUT = SFloat::_0;

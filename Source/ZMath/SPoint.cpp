@@ -51,7 +51,7 @@ namespace z
 //##################                                                       ##################
 //##################=======================================================##################
 
-void SPoint::Translate(const BaseVector2 &vTranslation, Vector2* arPoints, const unsigned int uElements)
+void SPoint::Translate(const Vector2 &vTranslation, Vector2* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -85,7 +85,7 @@ void SPoint::Rotate(const float_z fRotationAngle, Vector2* arPoints, const unsig
     }
 }
 
-void SPoint::Scale(const BaseVector2 &vScale, Vector2* arPoints, const unsigned int uElements)
+void SPoint::Scale(const Vector2 &vScale, Vector2* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -119,7 +119,7 @@ void SPoint::Transform(const TransformationMatrix3x3 &transformation, Vector2* a
     }
 }
 
-void SPoint::Translate(const BaseVector3 &vTranslation, Vector3* arPoints, const unsigned int uElements)
+void SPoint::Translate(const Vector3 &vTranslation, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -130,7 +130,7 @@ void SPoint::Translate(const BaseVector3 &vTranslation, Vector3* arPoints, const
     }
 }
 
-void SPoint::Translate(const BaseVector3 &vTranslation, Vector4* arPoints, const unsigned int uElements)
+void SPoint::Translate(const Vector3 &vTranslation, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -163,7 +163,7 @@ void SPoint::Translate(const float_z fTranslationX, const float_z fTranslationY,
     }
 }
 
-void SPoint::Translate(const TranslationMatrix<Matrix4x3> &translation, Vector3* arPoints, const unsigned int uElements)
+void SPoint::Translate(const TranslationMatrix4x3 &translation, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -174,7 +174,7 @@ void SPoint::Translate(const TranslationMatrix<Matrix4x3> &translation, Vector3*
     }
 }
 
-void SPoint::Translate(const TranslationMatrix<Matrix4x4> &translation, Vector3* arPoints, const unsigned int uElements)
+void SPoint::Translate(const TranslationMatrix4x4 &translation, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -185,7 +185,7 @@ void SPoint::Translate(const TranslationMatrix<Matrix4x4> &translation, Vector3*
     }
 }
 
-void SPoint::Translate(const TranslationMatrix<Matrix4x3> &translation, Vector4* arPoints, const unsigned int uElements)
+void SPoint::Translate(const TranslationMatrix4x3 &translation, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -196,7 +196,7 @@ void SPoint::Translate(const TranslationMatrix<Matrix4x3> &translation, Vector4*
     }
 }
 
-void SPoint::Translate(const TranslationMatrix<Matrix4x4> &translation, Vector4* arPoints, const unsigned int uElements)
+void SPoint::Translate(const TranslationMatrix4x4 &translation, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -251,7 +251,7 @@ void SPoint::Rotate(const RotationMatrix3x3 &rotation, Vector4* arPoints, const 
     }
 }
 
-void SPoint::Scale(const BaseVector3 &vScale, Vector3* arPoints, const unsigned int uElements)
+void SPoint::Scale(const Vector3 &vScale, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -262,7 +262,7 @@ void SPoint::Scale(const BaseVector3 &vScale, Vector3* arPoints, const unsigned 
     }
 }
 
-void SPoint::Scale(const BaseVector3 &vScale, Vector4* arPoints, const unsigned int uElements)
+void SPoint::Scale(const Vector3 &vScale, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -317,7 +317,7 @@ void SPoint::Scale(const ScalingMatrix3x3 &scale, Vector4* arPoints, const unsig
     }
 }
 
-void SPoint::Transform(const TransformationMatrix<Matrix4x3> &transformation, Vector3* arPoints, const unsigned int uElements)
+void SPoint::Transform(const TransformationMatrix4x3 &transformation, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -328,7 +328,7 @@ void SPoint::Transform(const TransformationMatrix<Matrix4x3> &transformation, Ve
     }
 }
 
-void SPoint::Transform(const TransformationMatrix<Matrix4x4> &transformation, Vector3* arPoints, const unsigned int uElements)
+void SPoint::Transform(const TransformationMatrix4x4 &transformation, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -339,7 +339,7 @@ void SPoint::Transform(const TransformationMatrix<Matrix4x4> &transformation, Ve
     }
 }
 
-void SPoint::Transform(const TransformationMatrix<Matrix4x3> &transformation, Vector4* arPoints, const unsigned int uElements)
+void SPoint::Transform(const TransformationMatrix4x3 &transformation, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -350,7 +350,7 @@ void SPoint::Transform(const TransformationMatrix<Matrix4x3> &transformation, Ve
     }
 }
 
-void SPoint::Transform(const TransformationMatrix<Matrix4x4> &transformation, Vector4* arPoints, const unsigned int uElements)
+void SPoint::Transform(const TransformationMatrix4x4 &transformation, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -383,7 +383,7 @@ void SPoint::Transform(const SpaceConversionMatrix &spaceConversion, Vector4* ar
     }
 }
 
-void SPoint::RotateWithPivot(const float_z fRotationAngle, const BaseVector2 &vPivot, Vector2* arPoints, const unsigned int uElements)
+void SPoint::RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot, Vector2* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -398,7 +398,7 @@ void SPoint::RotateWithPivot(const float_z fRotationAngle, const BaseVector2 &vP
     }
 }
 
-void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const BaseVector2 &vPivot, Vector2* arPoints, const unsigned int uElements)
+void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const Vector2 &vPivot, Vector2* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -414,7 +414,7 @@ void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const 
     }
 }
 
-void SPoint::ScaleWithPivot(const BaseVector2 &vScale, const BaseVector2 &vPivot, Vector2* arPoints, const unsigned int uElements)
+void SPoint::ScaleWithPivot(const Vector2 &vScale, const Vector2 &vPivot, Vector2* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -429,7 +429,7 @@ void SPoint::ScaleWithPivot(const BaseVector2 &vScale, const BaseVector2 &vPivot
     }
 }
 
-void SPoint::TransformWithPivot(const TransformationMatrix3x3 &transformation, const BaseVector2 &vPivot, Vector2* arPoints, const unsigned int uElements)
+void SPoint::TransformWithPivot(const TransformationMatrix3x3 &transformation, const Vector2 &vPivot, Vector2* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -444,7 +444,7 @@ void SPoint::TransformWithPivot(const TransformationMatrix3x3 &transformation, c
     }
 }
 
-void SPoint::RotateWithPivot(const Quaternion &qRotation, const BaseVector3 &vPivot, Vector3* arPoints, const unsigned int uElements)
+void SPoint::RotateWithPivot(const Quaternion &qRotation, const Vector3 &vPivot, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -459,7 +459,7 @@ void SPoint::RotateWithPivot(const Quaternion &qRotation, const BaseVector3 &vPi
     }
 }
 
-void SPoint::RotateWithPivot(const Quaternion &qRotation, const BaseVector4 &vPivot, Vector4* arPoints, const unsigned int uElements)
+void SPoint::RotateWithPivot(const Quaternion &qRotation, const Vector4 &vPivot, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -474,7 +474,7 @@ void SPoint::RotateWithPivot(const Quaternion &qRotation, const BaseVector4 &vPi
     }
 }
 
-void SPoint::RotateWithPivot(const RotationMatrix3x3 &rotation, const BaseVector3 &vPivot, Vector3* arPoints, const unsigned int uElements)
+void SPoint::RotateWithPivot(const RotationMatrix3x3 &rotation, const Vector3 &vPivot, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -489,7 +489,7 @@ void SPoint::RotateWithPivot(const RotationMatrix3x3 &rotation, const BaseVector
     }
 }
 
-void SPoint::RotateWithPivot(const RotationMatrix3x3 &rotation, const BaseVector4 &vPivot, Vector4* arPoints, const unsigned int uElements)
+void SPoint::RotateWithPivot(const RotationMatrix3x3 &rotation, const Vector4 &vPivot, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -504,7 +504,7 @@ void SPoint::RotateWithPivot(const RotationMatrix3x3 &rotation, const BaseVector
     }
 }
 
-void SPoint::ScaleWithPivot(const BaseVector3& vScale, const BaseVector3 &vPivot, Vector3* arPoints, const unsigned int uElements)
+void SPoint::ScaleWithPivot(const Vector3& vScale, const Vector3 &vPivot, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -519,7 +519,7 @@ void SPoint::ScaleWithPivot(const BaseVector3& vScale, const BaseVector3 &vPivot
     }
 }
 
-void SPoint::ScaleWithPivot(const BaseVector3 &vScale, const BaseVector4 &vPivot, Vector4* arPoints, const unsigned int uElements)
+void SPoint::ScaleWithPivot(const Vector3 &vScale, const Vector4 &vPivot, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -534,7 +534,7 @@ void SPoint::ScaleWithPivot(const BaseVector3 &vScale, const BaseVector4 &vPivot
     }
 }
 
-void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const BaseVector3 &vPivot,
+void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const Vector3 &vPivot,
                                     Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
@@ -550,7 +550,7 @@ void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const 
     }
 }
 
-void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const BaseVector4 &vPivot,
+void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const Vector4 &vPivot,
                                     Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
@@ -566,7 +566,7 @@ void SPoint::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const 
     }
 }
 
-void SPoint::ScaleWithPivot(const ScalingMatrix3x3 &scale, const BaseVector3 &vPivot, Vector3* arPoints, const unsigned int uElements)
+void SPoint::ScaleWithPivot(const ScalingMatrix3x3 &scale, const Vector3 &vPivot, Vector3* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -581,7 +581,7 @@ void SPoint::ScaleWithPivot(const ScalingMatrix3x3 &scale, const BaseVector3 &vP
     }
 }
 
-void SPoint::ScaleWithPivot(const ScalingMatrix3x3 &scale, const BaseVector4 &vPivot, Vector4* arPoints, const unsigned int uElements)
+void SPoint::ScaleWithPivot(const ScalingMatrix3x3 &scale, const Vector4 &vPivot, Vector4* arPoints, const unsigned int uElements)
 {
     // Checks that the point array is not null
     Z_ASSERT_ERROR( arPoints != null_z, "Input array must not be null" );
@@ -596,7 +596,7 @@ void SPoint::ScaleWithPivot(const ScalingMatrix3x3 &scale, const BaseVector4 &vP
     }
 }
 
-void SPoint::TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const BaseVector3 &vPivot, Vector3* arPoints,
+void SPoint::TransformWithPivot(const TransformationMatrix4x3 &transformation, const Vector3 &vPivot, Vector3* arPoints,
                                         const unsigned int uElements)
 {
     // Checks that the point array is not null
@@ -612,7 +612,7 @@ void SPoint::TransformWithPivot(const TransformationMatrix<Matrix4x3> &transform
     }
 }
 
-void SPoint::TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const BaseVector4 &vPivot, Vector4* arPoints,
+void SPoint::TransformWithPivot(const TransformationMatrix4x3 &transformation, const Vector4 &vPivot, Vector4* arPoints,
                                         const unsigned int uElements)
 {
     // Checks that the point array is not null
@@ -632,7 +632,7 @@ void SPoint::TransformWithPivot(const TransformationMatrix<Matrix4x3> &transform
     }
 }
 
-void SPoint::TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const BaseVector3 &vPivot, Vector3* arPoints,
+void SPoint::TransformWithPivot(const TransformationMatrix4x4 &transformation, const Vector3 &vPivot, Vector3* arPoints,
                                         const unsigned int uElements)
 {
     // Checks that the point array is not null
@@ -648,7 +648,7 @@ void SPoint::TransformWithPivot(const TransformationMatrix<Matrix4x4> &transform
     }
 }
 
-void SPoint::TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const BaseVector4 &vPivot, Vector4* arPoints,
+void SPoint::TransformWithPivot(const TransformationMatrix4x4 &transformation, const Vector4 &vPivot, Vector4* arPoints,
                                         const unsigned int uElements)
 {
     // Checks that the point array is not null

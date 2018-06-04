@@ -39,6 +39,7 @@ using namespace boost::unit_test;
 #include "ZMath/TranslationMatrix.h"
 #include "ZMath/Matrix4x4.h"
 #include "ZMath/Matrix4x3.h"
+using namespace z::Internals;
 
 #if Z_CONFIG_ANGLENOTATION_DEFAULT == Z_CONFIG_ANGLENOTATION_DEGREES && Z_CONFIG_PRECISION_DEFAULT == Z_CONFIG_PRECISION_SIMPLE
     const float_z SMALLER_TOLERANCE = 1e-5f;
@@ -48,30 +49,6 @@ using namespace boost::unit_test;
 
 
 ZTEST_SUITE_BEGIN( RotationMatrix3x3_TestSuite )
-
-/// <summary>
-/// Checks if default values have changed.
-/// </summary>
-ZTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
-{
-    // [Preparation]
-
-    const RotationMatrix3x3 EXPECTED_VALUE(RotationMatrix3x3::GetIdentity());
-
-    // [Execution]
-    RotationMatrix3x3 matrixUT;
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]);
-    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]);
-}
 
 /// <summary>
 /// Checks if copy constructor copies every matrix element properly.
@@ -90,7 +67,7 @@ ZTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
     const float_z EXPECTED_VALUE_FOR_21 = SFloat::_8;
     const float_z EXPECTED_VALUE_FOR_22 = SFloat::_9;
 
-    const BaseMatrix3x3 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
+    const Matrix3x3 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
                                         EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12,
                                         EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22);
 
@@ -118,7 +95,7 @@ ZTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // [Preparation]
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
                                         SFloat::_4, SFloat::_5, SFloat::_6,
                                         SFloat::_7, SFloat::_8, SFloat::_9);
 
@@ -143,7 +120,7 @@ ZTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 ZTEST_CASE ( Constructor4_ExpectedValueIsObtainedWhenUsingCommonAngles_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 EXPECTED_VALUE((float_z)0.61237243569579447,  (float_z)0.70710678118654757,     (float_z)0.35355339059327373,
+    const Matrix3x3 EXPECTED_VALUE((float_z)0.61237243569579447,  (float_z)0.70710678118654757,     (float_z)0.35355339059327373,
                                         (float_z)-0.5,                 (float_z)4.3297802811774670e-017, (float_z)0.86602540378443860,
                                         (float_z)0.61237243569579458,  (float_z)-0.70710678118654746,    (float_z)0.35355339059327384);
 
@@ -182,7 +159,7 @@ ZTEST_CASE ( Constructor4_ExpectedValueIsObtainedWhenUsingCommonAngles_Test )
 ZTEST_CASE ( Constructor4_NeutralRotationIsObtainedWhenAnglesEqualZero_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 NEUTRAL_ROTATION = RotationMatrix3x3::GetIdentity();
+    const Matrix3x3 NEUTRAL_ROTATION = RotationMatrix3x3::GetIdentity();
 
     const float_z ANGLES = SFloat::_0;
 
@@ -248,7 +225,7 @@ ZTEST_CASE ( Constructor4_FollowsLeftHandedRules_Test )
 ZTEST_CASE ( Constructor5_ExpectedValueIsObtainedWhenUsingCommonNormalizedAxisAndAngle_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 EXPECTED_VALUE((float_z)0.72802772538750848,  (float_z)0.60878859791576267,   (float_z)-0.31520164040634452,
+    const Matrix3x3 EXPECTED_VALUE((float_z)0.72802772538750848,  (float_z)0.60878859791576267,   (float_z)-0.31520164040634452,
                                         (float_z)-0.52510482111191903, (float_z)0.79079055799039111,   (float_z)0.3145079017103789,
                                         (float_z)0.44072730561210988,  (float_z)-0.063456571298848269, (float_z)0.89539527899519555);
 
@@ -303,7 +280,7 @@ ZTEST_CASE ( Constructor5_MatrixDiagonalElementsEqualCosineOfAngleWhenUsingNullV
 
     const float_z COS_ANGLE = cos_z(SAngle::_ThirdPi);
 
-    const BaseMatrix3x3 EXPECTED_VALUE(COS_ANGLE,   SFloat::_0, SFloat::_0,
+    const Matrix3x3 EXPECTED_VALUE(COS_ANGLE,   SFloat::_0, SFloat::_0,
                                         SFloat::_0, COS_ANGLE,   SFloat::_0,
                                         SFloat::_0, SFloat::_0, COS_ANGLE);
 
@@ -446,7 +423,7 @@ ZTEST_CASE ( Constructor5_FollowsLeftHandedRules_Test )
 ZTEST_CASE ( Constructor6_ExpectedValueIsObtainedWhenUsingCommonNormalizedQuaternion_Test )
 {
     // [Preparation]
-    const BaseMatrix3x3 EXPECTED_VALUE((float_z)0.13333333333333353,  (float_z)0.93333333333333324, (float_z)-0.33333333333333326,
+    const Matrix3x3 EXPECTED_VALUE((float_z)0.13333333333333353,  (float_z)0.93333333333333324, (float_z)-0.33333333333333326,
                                         (float_z)-0.66666666666666663, (float_z)0.33333333333333348, (float_z)0.66666666666666652,
                                         (float_z)0.73333333333333317,  (float_z)0.13333333333333336, (float_z)0.66666666666666674);
 
@@ -865,7 +842,7 @@ ZTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test
 {
     // [Preparation]
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_2, SFloat::_3,
                                         SFloat::_4, SFloat::_5, SFloat::_6,
                                         SFloat::_7, SFloat::_8, SFloat::_9);
 
@@ -987,11 +964,11 @@ ZTEST_CASE ( Invert_MatrixIsCorrectlyInverted_Test )
 {
     // [Preparation]
 
-    const RotationMatrix3x3 ORIGINAL_VALUE(BaseMatrix3x3(SFloat::_1, SFloat::_2, SFloat::_3,
+    const RotationMatrix3x3 ORIGINAL_VALUE(Matrix3x3(SFloat::_1, SFloat::_2, SFloat::_3,
                                                            SFloat::_4, SFloat::_5, SFloat::_6,
                                                            SFloat::_7, SFloat::_8, SFloat::_9));
 
-    const BaseMatrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_4, SFloat::_7,
+    const Matrix3x3 EXPECTED_VALUE(SFloat::_1, SFloat::_4, SFloat::_7,
                                         SFloat::_2, SFloat::_5, SFloat::_8,
                                         SFloat::_3, SFloat::_6, SFloat::_9);
 
@@ -1026,7 +1003,7 @@ ZTEST_CASE ( GetRotation1_AnglesAreCorrectlyExtracted_Test )
         const float_z EXPECTED_ROTATION_Z = SAngle::_HalfPi;
     #endif
 
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)0.61237243569579447, (float_z)0.70710678118654757,     (float_z)0.35355339059327373,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)0.61237243569579447, (float_z)0.70710678118654757,     (float_z)0.35355339059327373,
                                                      (float_z)-0.5,                (float_z)4.3297802811774670e-017, (float_z)0.86602540378443860,
                                                      (float_z)0.61237243569579458, (float_z)-0.70710678118654746,    (float_z)0.35355339059327384));
 
@@ -1060,7 +1037,7 @@ ZTEST_CASE ( GetRotation1_AnglesAreNotWhatExpectedWhenGimbalLockOccurs_Test )
     #endif
 
     // By rotating 90º (or PI/2) two gimbals, they become alligned so rotating any of them results in the same transformation
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)0.86602545,      (float_z)-3.7855173e-008, (float_z)-0.5,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)0.86602545,      (float_z)-3.7855173e-008, (float_z)-0.5,
                                                      (float_z)0.5,             (float_z)-2.1855692e-008, (float_z)0.86602545,
                                                      (float_z)-4.3711388e-008, (float_z)-1.0,            (float_z)1.9106855e-015));
 
@@ -1095,7 +1072,7 @@ ZTEST_CASE ( GetRotation2_MatrixIsCorrectlyConvertedInQuaternion_Test )
 
     const Quaternion EXPECTED_VALUE(ROTATION_X, ROTATION_Y, ROTATION_Z);
 
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)0.61237243569579447, (float_z)0.70710678118654757,     (float_z)0.35355339059327373,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)0.61237243569579447, (float_z)0.70710678118654757,     (float_z)0.35355339059327373,
                                                      (float_z)-0.5,                (float_z)4.3297802811774670e-017, (float_z)0.86602540378443860,
                                                      (float_z)0.61237243569579458, (float_z)-0.70710678118654746,    (float_z)0.35355339059327384));
 
@@ -1121,7 +1098,7 @@ ZTEST_CASE ( GetRotation3_MatrixIsCorrectlyConvertedInAxisAndAngle_Test )
 
     const Vector3 EXPECTED_AXIS = Vector3(SFloat::_1, SFloat::_2, SFloat::_3).Normalize();
 
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)0.53571428571428581,  (float_z)0.76579364625798496,   (float_z)-0.35576719274341861,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)0.53571428571428581,  (float_z)0.76579364625798496,   (float_z)-0.35576719274341861,
                                                      (float_z)-0.62293650340084217, (float_z)0.64285714285714302,   (float_z)0.4457407392288521,
                                                      (float_z)0.5700529070291328,   (float_z)-0.017169310657423609, (float_z)0.8214285714285714));
 
@@ -1141,7 +1118,7 @@ ZTEST_CASE ( GetRotation3_MatrixIsCorrectlyConvertedInAxisAndAngle_Test )
 ZTEST_CASE ( GetRotation3_ResultantAxisIsTheOppositeWhenRotationIsTheOpposite_Test )
 {
     // [Preparation]
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)0.53571427,  (float_z)0.76579368,   (float_z)-0.35576719,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)0.53571427,  (float_z)0.76579368,   (float_z)-0.35576719,
                                                      (float_z)-0.62293649, (float_z)0.64285713,   (float_z)0.44574076,
                                                      (float_z)0.57005292,  (float_z)-0.017169312, (float_z)0.82142854));
     const RotationMatrix3x3 OPPOSITE_ROTATION = ROTATION.Invert();
@@ -1174,7 +1151,7 @@ ZTEST_CASE ( GetRotation3_AxisAndAngleAreCalculatedNormallyWhenRotationAngleEqua
 
     const Vector3 EXPECTED_AXIS = Vector3(SFloat::_1, SFloat::_2, SFloat::_3).Normalize();
     
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)-0.8571428571428571, (float_z)0.28571428571428586,  (float_z)0.42857142857142855,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)-0.8571428571428571, (float_z)0.28571428571428586,  (float_z)0.42857142857142855,
                                                      (float_z)0.28571428571428564, (float_z)-0.42857142857142849, (float_z)0.85714285714285721,
                                                      (float_z)0.42857142857142866, (float_z)0.85714285714285721,  (float_z)0.28571428571428581));
 
@@ -1215,7 +1192,7 @@ ZTEST_CASE ( GetRotation3_NullVectorIsReturnedWhenRotationAngleEqualsZero_Test )
 ZTEST_CASE ( GetRotation3_ResultantAxisIsNormalized_Test )
 {
     // [Preparation]
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3((float_z)0.53571428571428581,  (float_z)0.76579364625798496,   (float_z)-0.35576719274341861,
+    const RotationMatrix3x3 ROTATION(Matrix3x3((float_z)0.53571428571428581,  (float_z)0.76579364625798496,   (float_z)-0.35576719274341861,
                                                      (float_z)-0.62293650340084217, (float_z)0.64285714285714302,   (float_z)0.4457407392288521,
                                                      (float_z)0.5700529070291328,   (float_z)-0.017169310657423609, (float_z)0.8214285714285714));
 
@@ -1238,7 +1215,7 @@ ZTEST_CASE ( GetDeterminant_AlwaysReturnsOne_Test )
 {
     // [Preparation]
 
-    const RotationMatrix3x3 ROTATION(BaseMatrix3x3(SFloat::_1, SFloat::_2, SFloat::_3,
+    const RotationMatrix3x3 ROTATION(Matrix3x3(SFloat::_1, SFloat::_2, SFloat::_3,
                                                      SFloat::_4, SFloat::_5, SFloat::_6,
                                                      SFloat::_7, SFloat::_8, SFloat::_9));
     const float_z EXPECTED_VALUE = SFloat::_1;
