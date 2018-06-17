@@ -48,7 +48,7 @@ ZTEST_CASE ( Constructor_InstanceIsCorrectlyConstructedWhenUsingCommonInputs_Tes
     // [Preparation]
     const string_z COMMON_TIMEZONE_ID = Z_L("Europe/Madrid");
     const string_z COMMON_TIMEZONE_NAME = Z_L("CET");
-    const TimeSpan COMMON_TIMEZONE_OFFSET = TimeSpan(123456789);
+    const TimeSpan COMMON_TIMEZONE_OFFSET = TimeSpan(123456789ULL);
     const bool IS_NEGATIVE = false;
     const bool HAS_DST = true;
 
@@ -83,11 +83,11 @@ ZTEST_CASE ( CalculateOffset_ReturnsExpectedOffsetWhenDstIsActive_Test )
     const string_z COMMON_TIMEZONE_ID = Z_L("Europe/Madrid");
     const TimeZone* TIME_ZONE = STimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
     const DateTime DST_START_TIME = TIME_ZONE->GetDstInfo().GetStartInYear(2020);
-    const TimeSpan EXPECTED_OFFSET = TimeSpan(72000000000); // +2 hours
+    const TimeSpan EXPECTED_OFFSET = TimeSpan(72000000000ULL); // +2 hours
     const bool EXPECTED_OFFSET_SIGN = false;
 
 	// [Execution]
-    TimeSpan offset(0);
+    TimeSpan offset(0ULL);
     bool bOffsetIsNegative = true;
     TIME_ZONE->CalculateOffset(DST_START_TIME, offset, bOffsetIsNegative);
 
@@ -104,12 +104,12 @@ ZTEST_CASE ( CalculateOffset_ReturnsExpectedOffsetWhenDstIsNotActive_Test )
     // [Preparation]
     const string_z COMMON_TIMEZONE_ID = Z_L("Europe/Madrid");
     const TimeZone* TIME_ZONE = STimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
-    const DateTime BEFORE_DST_START_TIME = TIME_ZONE->GetDstInfo().GetStartInYear(2020) - TimeSpan(1);
-    const TimeSpan EXPECTED_OFFSET = TimeSpan(36000000000); // +1 hour
+    const DateTime BEFORE_DST_START_TIME = TIME_ZONE->GetDstInfo().GetStartInYear(2020) - TimeSpan(1ULL);
+    const TimeSpan EXPECTED_OFFSET = TimeSpan(36000000000ULL); // +1 hour
     const bool EXPECTED_OFFSET_SIGN = false;
 
 	// [Execution]
-    TimeSpan offset(0);
+    TimeSpan offset(0ULL);
     bool bOffsetIsNegative = true;
     TIME_ZONE->CalculateOffset(BEFORE_DST_START_TIME, offset, bOffsetIsNegative);
 
@@ -127,11 +127,11 @@ ZTEST_CASE ( CalculateOffset_DstIsNotAppliedWhenDateIsPriorTo1916_Test )
     const string_z COMMON_TIMEZONE_ID = Z_L("Europe/Madrid"); // +1 hour
     const TimeZone* TIME_ZONE = STimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
     const DateTime DATE_BEFORE_1916 = DateTime(1915, 7, 1, TimeZone::UTC);
-    const TimeSpan EXPECTED_OFFSET = TimeSpan(36000000000); 
+    const TimeSpan EXPECTED_OFFSET = TimeSpan(36000000000ULL); 
     const bool EXPECTED_OFFSET_SIGN = false;
 
 	// [Execution]
-    TimeSpan offset(0);
+    TimeSpan offset(0ULL);
     bool bOffsetIsNegative = true;
     TIME_ZONE->CalculateOffset(DATE_BEFORE_1916, offset, bOffsetIsNegative);
 
@@ -149,11 +149,11 @@ ZTEST_CASE ( CalculateOffset_DstIsNotAppliedWhenDateIsPosteriorTo9999_Test )
     const string_z COMMON_TIMEZONE_ID = Z_L("Europe/Madrid"); // +1 hour
     const TimeZone* TIME_ZONE = STimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
     const DateTime DATE_YEAR_10000 = DateTime(10000, 7, 1, TimeZone::UTC);
-    const TimeSpan EXPECTED_OFFSET = TimeSpan(36000000000);
+    const TimeSpan EXPECTED_OFFSET = TimeSpan(36000000000ULL);
     const bool EXPECTED_OFFSET_SIGN = false;
 
 	// [Execution]
-    TimeSpan offset(0);
+    TimeSpan offset(0ULL);
     bool bOffsetIsNegative = true;
     TIME_ZONE->CalculateOffset(DATE_YEAR_10000, offset, bOffsetIsNegative);
 
@@ -179,7 +179,7 @@ ZTEST_CASE ( CalculateOffset_AssertionFailsWhenInputDateIsUndefined_Test )
     
     try
     {
-        TimeSpan offset(0);
+        TimeSpan offset(0ULL);
         bool bOffsetIsNegative = true;
         TIME_ZONE->CalculateOffset(DateTime::GetUndefinedDate(), offset, bOffsetIsNegative);
     }

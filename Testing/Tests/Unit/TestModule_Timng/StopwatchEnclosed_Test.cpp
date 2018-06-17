@@ -58,7 +58,7 @@ void Wait_TestMethod(const unsigned int uMilliseconds)
 ZTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // [Preparation]
-    const TimeSpan EXPECTED_TIMELAPSE(0);
+    const TimeSpan EXPECTED_TIMELAPSE(0ULL);
     const EStopwatchEnclosedBehavior EXPECTED_BEHAVIOR(EStopwatchEnclosedBehavior::E_Clamped);
 
     // [Execution]
@@ -362,7 +362,7 @@ ZTEST_CASE ( SetTimeLapseLength_TimeLapseIsCorrectlyStored_Test )
 ZTEST_CASE ( SetTimeLapseLength_AssertionFailsWhenInputIsZero_Test )
 {
     // [Preparation]
-    const TimeSpan TIMELAPSE(0);
+    const TimeSpan TIMELAPSE(0ULL);
     StopwatchEnclosed stopwatch;
 
     // [Execution]
@@ -372,7 +372,7 @@ ZTEST_CASE ( SetTimeLapseLength_AssertionFailsWhenInputIsZero_Test )
     {
         stopwatch.SetTimeLapseLength(TIMELAPSE);
     }
-    catch(const Common::Exceptions::AssertException&)
+    catch(const AssertException&)
     {
         bAssertionFailed = true;
     }

@@ -40,6 +40,8 @@ namespace boost
 
     void throw_exception( std::exception const & e )
     {
+        using namespace z;
+
         Z_ASSERT_ERROR(false, "An unexpected error occurred inside Boost libraries.");
         std::terminate();
     }

@@ -45,7 +45,7 @@ ZTEST_SUITE_BEGIN( DstInformation_TestSuite )
 ZTEST_CASE ( Constructor_InstanceIsCorrectlyBuiltWhenUsingCommonInputData_Test )
 {
     // [Preparation]
-    const TimeSpan EXPECTED_OFFSET = TimeSpan(36000000000);
+    const TimeSpan EXPECTED_OFFSET = TimeSpan(36000000000ULL);
     const bool EXPECTED_OFFSET_SIGN = false;
     boost::local_time::tz_database TIMEZONE_DATABASE;
     std::istringstream streamDbSource;

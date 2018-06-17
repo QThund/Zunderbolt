@@ -63,7 +63,7 @@ TimeZone::DstInformation::DstInformation(boost::local_time::time_zone_ptr pTimeZ
     }
     else
     {
-        m_offset = TimeSpan(0);
+        m_offset = TimeSpan(0ULL);
         m_bIsNegative = false;
         m_pTimeZone = boost::local_time::time_zone_ptr((boost::local_time::time_zone_ptr::element_type*) null_z);
     }

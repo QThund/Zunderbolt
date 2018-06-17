@@ -113,12 +113,23 @@ public:
     /// <param name="uMicroseconds">[IN] Number of microseconds.</param>
     /// <param name="uHundredsNanoseconds">[IN] Number of hundreds of nanoseconds.</param>
     TimeSpan(const u64_z uDays,
-              const u64_z uHours,
-              const u64_z uMinutes,
-              const u64_z uSeconds,
-              const u64_z uMilliseconds,
-              const u64_z uMicroseconds,
-              const u64_z uHundredsNanoseconds);
+             const u64_z uHours,
+             const u64_z uMinutes,
+             const u64_z uSeconds,
+             const u64_z uMilliseconds,
+             const u64_z uMicroseconds,
+             const u64_z uHundredsNanoseconds);
+    
+    /// <summary>
+    /// Constructor from an amount of seconds.
+    /// </summary>
+    /// <remarks>
+    /// Negative values are not allowed.
+    /// Beware of the lack of precission when passing too big or too small values.
+    /// If the number seconds exceeds the maximum quantity of time that a TimeSpan can represent, then it will be set to the maximum value possible.
+    /// </remarks>
+    /// <param name="fSeconds">[IN] The amount of seconds.</param>
+    explicit TimeSpan(const float_z fSeconds);
 
     /// <summary>
     /// Copy constructor. Copies the content of the given time span.
@@ -284,6 +295,14 @@ public:
     /// The number of complete seconds.
     /// </returns>
     u64_z GetSeconds() const;
+    
+    /// <summary>
+    /// Gets the length of the time span, in seconds, including the fractional part.
+    /// </summary>
+    /// <returns>
+    /// The amount of seconds.
+    /// </returns>
+    float_z GetSecondsAsFloat() const;
 
     /// <summary>
     /// Gets the length of the time span, in milliseconds.

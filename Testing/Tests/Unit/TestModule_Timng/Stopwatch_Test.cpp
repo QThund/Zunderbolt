@@ -159,7 +159,7 @@ ZTEST_CASE ( GetElapsedTimeAsInteger_AssertionFailsWhenStopWatchHasNotBeenSet_Te
 ZTEST_CASE ( GetElapsedTimeAsTimeSpan_ReturnedValueIsGreaterThanZeroWhenStopWatchIsSet_Test )
 {
     // [Preparation]
-    const TimeSpan ZERO = TimeSpan(0);
+    const TimeSpan ZERO = TimeSpan(0ULL);
     Stopwatch stopWatch;
     stopWatch.Set();
 

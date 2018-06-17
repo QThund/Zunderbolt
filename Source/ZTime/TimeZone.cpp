@@ -82,11 +82,11 @@ void TimeZone::CalculateOffset(const DateTime &dateTime, TimeSpan &offset, bool 
     static const DateTime FIRST_DATETIME_WITH_DST(1916, 1, 1, TimeZone::UTC);
 
     // Boost can only process dates prior to the year 10.000
-    static const DateTime MAXIMUM_DATETIME_WITH_DST = DateTime(10000, 1, 1, TimeZone::UTC) - TimeSpan(1);
+    static const DateTime MAXIMUM_DATETIME_WITH_DST = DateTime(10000, 1, 1, TimeZone::UTC) - TimeSpan(1ULL);
 
     Z_ASSERT_ERROR(dateTime != DateTime::GetUndefinedDate(), "The input date is undefined");
 
-    TimeSpan dstOffset(0);
+    TimeSpan dstOffset(0ULL);
 
     offset = m_timeZoneOffset;
 

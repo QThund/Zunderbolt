@@ -28,10 +28,7 @@
 #define __ALLOCATIONOPERATORS__
 
 #include <new>
-#include "ZCommon/DataTypes/StringsDefinitions.h"
-#include "ZCommon/CommonModuleDefinitions.h"
 #include "ZCommon/Alignment.h"
-#include "ZCommon/Assertions.h"
 
 
 #ifdef Z_COMPILER_MSVC
@@ -139,11 +136,11 @@ inline void* aligned_alloc_z (const z::puint_z uSize, const z::Alignment& alignm
 void* operator new (const size_t uSize) throw(std::bad_alloc)
 #if Z_COMMON_MODULE_IS_STATIC
 {
-    Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
+    // Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
     void* p = malloc(uSize);
 
-    Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
+    // Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -162,11 +159,11 @@ void* operator new (const size_t uSize) throw(std::bad_alloc)
 void* operator new (const size_t uSize, const std::nothrow_t& nothrow_value) throw()
 #if Z_COMMON_MODULE_IS_STATIC
 {
-    Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
+    // Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
     void* p = malloc(uSize);
 
-    Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
+    // Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -184,11 +181,11 @@ void* operator new (const size_t uSize, const std::nothrow_t& nothrow_value) thr
 void* operator new[] (const size_t uSize) throw(std::bad_alloc)
 #if Z_COMMON_MODULE_IS_STATIC
 {
-    Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
+    // Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
     void* p = malloc(uSize);
 
-    Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
+    // Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -207,11 +204,11 @@ void* operator new[] (const size_t uSize) throw(std::bad_alloc)
 void* operator new[] (const size_t uSize, const std::nothrow_t& nothrow_value) throw()
 #if Z_COMMON_MODULE_IS_STATIC
 {
-    Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
+    // Z_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
     void* p = malloc(uSize);
 
-    Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
+    // Z_ASSERT_ERROR(p != null_z, "Fatal error: No memory could be allocated");
 
     return p;
 }

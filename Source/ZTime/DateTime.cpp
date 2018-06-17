@@ -64,7 +64,7 @@ const TimeSpan DateTime::_UNDEFINED_VALUE(0ULL);
 //##################                                                       ##################
 //##################=======================================================##################
 
-DateTime::DateTime() : m_instant(TimeSpan(0)),
+DateTime::DateTime() : m_instant(TimeSpan(0ULL)),
                        m_pTimeZone(null_z)
 {
 }
@@ -585,7 +585,7 @@ TimeSpan DateTime::operator-(const DateTime &dateTime) const
 
     if(this->IsUndefined() || dateTime.IsUndefined())
     {
-        return TimeSpan(0);
+        return TimeSpan(0ULL);
     }
     else
     {
@@ -772,7 +772,7 @@ string_z DateTime::ToString() const
     }
     else
     {
-        TimeSpan offset(0);
+        TimeSpan offset(0ULL);
         bool bIsNegative = false;
         m_pTimeZone->CalculateOffset(*this, offset, bIsNegative);
 
@@ -1589,7 +1589,7 @@ TimeSpan DateTime::_GetInstantWithSubtractedTimeZoneOffset(const TimeSpan &insta
     DateTime localDateTime;
     localDateTime.m_instant = instant;
 
-    TimeSpan timeZoneOffset(0);
+    TimeSpan timeZoneOffset(0ULL);
     bool bOffsetIsNegative = false;
     pTimeZone->CalculateOffset(localDateTime, timeZoneOffset, bOffsetIsNegative);
 
@@ -1607,7 +1607,7 @@ TimeSpan DateTime::_GetInstantWithAddedTimeZoneOffset(const TimeSpan &instant, c
     DateTime localDateTime;
     localDateTime.m_instant = instant;
 
-    TimeSpan timeZoneOffset(0);
+    TimeSpan timeZoneOffset(0ULL);
     bool bOffsetIsNegative = false;
     pTimeZone->CalculateOffset(localDateTime, timeZoneOffset, bOffsetIsNegative);
 

@@ -41,6 +41,8 @@ using namespace boost::unit_test;
 #include "ZCommon/DataTypes/ETextEncoding.h"
 #include "ZCommon/Exceptions/AssertException.h"
 
+using namespace z::Test;
+
 
 ZTEST_SUITE_BEGIN( LocalTimeZone_TestSuite )
     

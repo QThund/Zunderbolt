@@ -28,6 +28,7 @@
 #include "ZTime/TimeSpan.h"
 #include "ZCommon/Assertions.h"
 #include "ZCommon/DataTypes/SInteger.h"
+#include "ZCommon/DataTypes/SFloat.h"
 
 
 namespace z
@@ -41,12 +42,12 @@ namespace z
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
-const u64_z TimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND = 10;
 const u64_z TimeSpan::HOURS_PER_DAY = 24;
 const u64_z TimeSpan::MINUTES_PER_HOUR = 60;
 const u64_z TimeSpan::SECONDS_PER_MINUTE = 60;
 const u64_z TimeSpan::MILLISECONDS_PER_SECOND = 1000;
 const u64_z TimeSpan::MICROSECONDS_PER_MILLISECOND = 1000;
+const u64_z TimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND = 10;
 const u64_z TimeSpan::MAXIMUM_VALUE = -1;
 
 
@@ -122,6 +123,15 @@ TimeSpan::TimeSpan(const u64_z uDays, const u64_z uHours, const u64_z uMinutes, 
 
 }
 
+TimeSpan::TimeSpan(const float_z fSeconds)
+{
+    Z_ASSERT_ERROR(SFloat::IsPositive(fSeconds), "The amount of seconds cannot be negative when constructing a TimeSpan.");
+
+    // CAUTION: This is just a workaround to avoid performance loss due to unncecessry class instancing
+    //          If this class inherited from another, a different solution should be applied (calling a common function)
+    //          It is not possible to call other constructors until C++11
+    new (this) TimeSpan(scast_z(fSeconds * (TimeSpan::MILLISECONDS_PER_SECOND * TimeSpan::MICROSECONDS_PER_MILLISECOND * TimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND), u64_z));
+}
 
 TimeSpan::TimeSpan(const TimeSpan& timeSpan)
 {
@@ -131,7 +141,7 @@ TimeSpan::TimeSpan(const TimeSpan& timeSpan)
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
-//##################            |           METHODS             |               ##################
+//##################            |           METHODS          |             ##################
 //##################           /|                            |\            ##################
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
@@ -229,6 +239,13 @@ u64_z TimeSpan::GetSeconds() const
     return m_uTimeSpan / (TimeSpan::MILLISECONDS_PER_SECOND *
                           TimeSpan::MICROSECONDS_PER_MILLISECOND *
                           TimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND);
+}
+
+float_z TimeSpan::GetSecondsAsFloat() const
+{
+    return scast_z(m_uTimeSpan, float_z) / (TimeSpan::MILLISECONDS_PER_SECOND *
+                                            TimeSpan::MICROSECONDS_PER_MILLISECOND *
+                                            TimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND);
 }
 
 u64_z TimeSpan::GetMilliseconds() const

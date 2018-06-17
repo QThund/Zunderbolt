@@ -74,7 +74,7 @@ namespace z
 #define Z_CONFIG_ASSERTSBEHAVIOR_DISABLED 0x1
 #define Z_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS 0x2
 
-#define Z_CONFIG_ASSERTSBEHAVIOR_DEFAULT Z_CONFIG_ASSERTSBEHAVIOR_ENABLED // [Configurable]
+#define Z_CONFIG_ASSERTSBEHAVIOR_DEFAULT Z_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // [Configurable]
     
 // --------------------------------------------------------------------------------------------------------
 // Asserts tracing behavior: Specifies whether failed assertions will be traced or not.

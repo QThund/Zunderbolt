@@ -33,6 +33,8 @@ using namespace boost::unit_test;
 #include "ZTime/TimeSpan.h"
 #include "ZCommon/Exceptions/AssertException.h"
 
+#pragma Z_DISABLE_WARNING(4146)
+
 
 ZTEST_SUITE_BEGIN( TimeSpan_TestSuite )
 
@@ -231,9 +233,85 @@ ZTEST_CASE ( Constructor3_AssertionFailsWhenOverflowWithAdditionOccurs_Test )
 #endif // Z_CONFIG_ASSERTSBEHAVIOR_DEFAULT == Z_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
+/// Checks that common values are stored correctly.
+/// </summary>
+ZTEST_CASE ( Constructor4_CommonValuesStoredCorrectly_Test )
+{
+    // [Preparation]
+    const float_z INPUT_VALUE = 123.567;
+    const TimeSpan EXPECTED_VALUE(0, 0, 0, 123, 567, 1, 6); // Lack of precission
+
+	// [Execution]
+    TimeSpan timeSpan(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK(timeSpan == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that very small values are stored correctly.
+/// </summary>
+ZTEST_CASE ( Constructor4_SmallValuesAreStoredCorrectly_Test )
+{
+    // [Preparation]
+    const float_z INPUT_VALUE = 0.000123456;
+    const TimeSpan EXPECTED_VALUE(0, 0, 0, 0, 0, 123, 4);
+
+	// [Execution]
+    TimeSpan timeSpan(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK(timeSpan == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that very big values are stored correctly.
+/// </summary>
+ZTEST_CASE ( Constructor4_BigValuesAreStoredCorrectly_Test )
+{
+    // [Preparation]
+    const float_z INPUT_VALUE = 123456789.0;
+    const TimeSpan EXPECTED_VALUE(1234567948140544ULL); // Lack of precission
+
+	// [Execution]
+    TimeSpan timeSpan(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK(timeSpan == EXPECTED_VALUE);
+}
+
+#if Z_CONFIG_ASSERTSBEHAVIOR_DEFAULT == Z_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks if the assertion inside the constructor fails whith the input value is a negative number.
+/// </summary>
+ZTEST_CASE ( Constructor4_AssertionFailsWhenInputIsNegative_Test )
+{
+    // [Preparation]
+    const float_z NEGATIVE_NUMBER = -1.0;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TimeSpan timeSpan(NEGATIVE_NUMBER);
+    }
+    catch(const AssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif // Z_CONFIG_ASSERTSBEHAVIOR_DEFAULT == Z_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
 /// Checks if copy constructor works properly.
 /// </summary>
-ZTEST_CASE ( Constructor4_TimeSpanIsCopiedCorrectly_Test )
+ZTEST_CASE ( Constructor5_TimeSpanIsCopiedCorrectly_Test )
 {
     // [Preparation]
     const u64_z EXPECTED_VALUE_FOR_TIMESPAN = 150;
@@ -294,8 +372,8 @@ ZTEST_CASE ( AdditionAndAssignmentOperator_AssertionFailsWhenAdditionProvokesOve
 {
     // [Preparation]
     bool bAssertionFailed = false;
-    TimeSpan timeSpanOriginal(-1);
-    TimeSpan timeSpanToAdd(-1);
+    TimeSpan timeSpanOriginal(-1ULL);
+    TimeSpan timeSpanToAdd(-1ULL);
 
 	// [Execution]
     try
@@ -368,8 +446,8 @@ ZTEST_CASE ( AdditionOperator_AssertionFailsWhenAdditionProvokesOverflow_Test )
 {
     // [Preparation]
     bool bAssertionFailed = false;
-    TimeSpan timeSpanOriginal(-1);
-    TimeSpan timeSpanToAdd(-1);
+    TimeSpan timeSpanOriginal(-1ULL);
+    TimeSpan timeSpanToAdd(-1ULL);
 
 	// [Execution]
     try
@@ -785,7 +863,7 @@ ZTEST_CASE ( GetDays_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 0;
-    const TimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+    const TimeSpan MINIMUM_TIMESPAN(scast_z(EXPECTED_VALUE, u64_z));
 
 	// [Execution]
     u32_z uDays = MINIMUM_TIMESPAN.GetDays();
@@ -801,7 +879,7 @@ ZTEST_CASE ( GetDays_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 1428;
-    const TimeSpan COMMON_TIMESPAN(1234567890123456LL);
+    const TimeSpan COMMON_TIMESPAN(1234567890123456ULL);
 
 	// [Execution]
     u32_z uDays = COMMON_TIMESPAN.GetDays();
@@ -817,7 +895,7 @@ ZTEST_CASE ( GetDays_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 21350398;
-    const TimeSpan MAXIMUM_TIMESPAN(-1);
+    const TimeSpan MAXIMUM_TIMESPAN(-1ULL);
 
 	// [Execution]
     u32_z uDays = MAXIMUM_TIMESPAN.GetDays();
@@ -833,7 +911,7 @@ ZTEST_CASE ( GetHours_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 0;
-    const TimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+    const TimeSpan MINIMUM_TIMESPAN(scast_z(EXPECTED_VALUE, u64_z));
 
 	// [Execution]
     u32_z uHours = MINIMUM_TIMESPAN.GetHours();
@@ -849,7 +927,7 @@ ZTEST_CASE ( GetHours_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 342;
-    const TimeSpan COMMON_TIMESPAN(12345678912345LL);
+    const TimeSpan COMMON_TIMESPAN(12345678912345ULL);
 
 	// [Execution]
     u32_z uHours = COMMON_TIMESPAN.GetHours();
@@ -865,7 +943,7 @@ ZTEST_CASE ( GetHours_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 512409557;
-    const TimeSpan MAXIMUM_TIMESPAN(-1);
+    const TimeSpan MAXIMUM_TIMESPAN(-1ULL);
 
 	// [Execution]
     u32_z uHours = MAXIMUM_TIMESPAN.GetHours();
@@ -881,7 +959,7 @@ ZTEST_CASE ( GetMinutes_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 0;
-    const TimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+    const TimeSpan MINIMUM_TIMESPAN(scast_z(EXPECTED_VALUE, u64_z));
 
 	// [Execution]
     u32_z uMinutes = MINIMUM_TIMESPAN.GetMinutes();
@@ -897,7 +975,7 @@ ZTEST_CASE ( GetMinutes_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 20576;
-    const TimeSpan COMMON_TIMESPAN(12345678912345LL);
+    const TimeSpan COMMON_TIMESPAN(12345678912345ULL);
 
 	// [Execution]
     u32_z uMinutes = COMMON_TIMESPAN.GetMinutes();
@@ -913,7 +991,7 @@ ZTEST_CASE ( GetMinutes_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
 {
     // [Preparation]
     const u32_z EXPECTED_VALUE = 679802384;
-    const TimeSpan MAXIMUM_TIMESPAN(-1);
+    const TimeSpan MAXIMUM_TIMESPAN(-1ULL);
 
 	// [Execution]
     u32_z uMinutes = MAXIMUM_TIMESPAN.GetMinutes();
@@ -945,7 +1023,7 @@ ZTEST_CASE ( GetSeconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 {
     // [Preparation]
     const u64_z EXPECTED_VALUE = 1234567LL;
-    const TimeSpan COMMON_TIMESPAN(12345678912345LL);
+    const TimeSpan COMMON_TIMESPAN(12345678912345ULL);
 
 	// [Execution]
     u64_z uSeconds = COMMON_TIMESPAN.GetSeconds();
@@ -960,14 +1038,66 @@ ZTEST_CASE ( GetSeconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 ZTEST_CASE ( GetSeconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
 {
     // [Preparation]
-    const u64_z EXPECTED_VALUE = 1844674407370LL;
-    const TimeSpan MAXIMUM_TIMESPAN(-1);
+    const u64_z EXPECTED_VALUE = 1844674407370ULL;
+    const TimeSpan MAXIMUM_TIMESPAN(-1ULL);
 
 	// [Execution]
     u64_z uSeconds = MAXIMUM_TIMESPAN.GetSeconds();
 
     // [Verification]
     BOOST_CHECK_EQUAL(uSeconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns zero when the time span has its minimum value.
+/// </summary>
+ZTEST_CASE ( GetSecondsAsFloat_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
+{
+    // [Preparation]
+    const float_z EXPECTED_VALUE = 0.0;
+    const TimeSpan MINIMUM_TIMESPAN(scast_z(EXPECTED_VALUE, u64_z));
+
+	// [Execution]
+    float_z fSeconds = MINIMUM_TIMESPAN.GetSecondsAsFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fSeconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a common time span.
+/// </summary>
+ZTEST_CASE ( GetSecondsAsFloat_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
+{
+    // [Preparation]
+#if Z_CONFIG_PRECISION_DEFAULT == Z_CONFIG_PRECISION_SIMPLE
+    const float_z EXPECTED_VALUE = 1234567.88;
+#elif Z_CONFIG_PRECISION_DEFAULT == Z_CONFIG_PRECISION_DOUBLE
+    const float_z EXPECTED_VALUE = 1234567.8912345;
+#endif
+    const TimeSpan COMMON_TIMESPAN(12345678912345ULL);
+
+	// [Execution]
+    float_z fSeconds = COMMON_TIMESPAN.GetSecondsAsFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fSeconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using the maximum time span.
+/// </summary>
+ZTEST_CASE ( GetSecondsAsFloat_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
+{
+    // [Preparation]
+    const float_z EXPECTED_VALUE = 1844674407370.0;
+    const TimeSpan MAXIMUM_TIMESPAN(-1ULL);
+
+	// [Execution]
+    float_z fSeconds = MAXIMUM_TIMESPAN.GetSecondsAsFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fSeconds, EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -992,8 +1122,8 @@ ZTEST_CASE ( GetMilliseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 ZTEST_CASE ( GetMilliseconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 {
     // [Preparation]
-    const u64_z EXPECTED_VALUE = 1234567891LL;
-    const TimeSpan COMMON_TIMESPAN(12345678912345LL);
+    const u64_z EXPECTED_VALUE = 1234567891ULL;
+    const TimeSpan COMMON_TIMESPAN(12345678912345ULL);
 
 	// [Execution]
     u64_z uMilliseconds = COMMON_TIMESPAN.GetMilliseconds();
@@ -1008,8 +1138,8 @@ ZTEST_CASE ( GetMilliseconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 ZTEST_CASE ( GetMilliseconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
 {
     // [Preparation]
-    const u64_z EXPECTED_VALUE = 1844674407370955LL;
-    const TimeSpan MAXIMUM_TIMESPAN(-1);
+    const u64_z EXPECTED_VALUE = 1844674407370955ULL;
+    const TimeSpan MAXIMUM_TIMESPAN(-1ULL);
 
 	// [Execution]
     u64_z uMilliseconds = MAXIMUM_TIMESPAN.GetMilliseconds();
@@ -1040,8 +1170,8 @@ ZTEST_CASE ( GetMicroseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 ZTEST_CASE ( GetMicroseconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 {
     // [Preparation]
-    const u64_z EXPECTED_VALUE = 1234567891234LL;
-    const TimeSpan COMMON_TIMESPAN(12345678912345LL);
+    const u64_z EXPECTED_VALUE = 1234567891234ULL;
+    const TimeSpan COMMON_TIMESPAN(12345678912345ULL);
 
 	// [Execution]
     u64_z uMicroseconds = COMMON_TIMESPAN.GetMicroseconds();
@@ -1056,8 +1186,8 @@ ZTEST_CASE ( GetMicroseconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 ZTEST_CASE ( GetMicroseconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
 {
     // [Preparation]
-    const u64_z EXPECTED_VALUE = 1844674407370955161LL;
-    const TimeSpan MAXIMUM_TIMESPAN(-1);
+    const u64_z EXPECTED_VALUE = 1844674407370955161ULL;
+    const TimeSpan MAXIMUM_TIMESPAN(-1ULL);
 
 	// [Execution]
     u64_z uMicroseconds = MAXIMUM_TIMESPAN.GetMicroseconds();
@@ -1088,8 +1218,8 @@ ZTEST_CASE ( GetHundredsOfNanoseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 ZTEST_CASE ( GetHundredsOfNanoseconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 {
     // [Preparation]
-    const u64_z EXPECTED_VALUE = 12345678912345LL;
-    const TimeSpan COMMON_TIMESPAN(12345678912345LL);
+    const u64_z EXPECTED_VALUE = 12345678912345ULL;
+    const TimeSpan COMMON_TIMESPAN(12345678912345ULL);
 
 	// [Execution]
     u64_z uHundredsOfNanoseconds = COMMON_TIMESPAN.GetHundredsOfNanoseconds();
@@ -1105,7 +1235,7 @@ ZTEST_CASE ( GetHundredsOfNanoseconds_ReturnsExpectedValueWhenUsingMaximumTimeSp
 {
     // [Preparation]
     const u64_z EXPECTED_VALUE = 18446744073709551615ULL;
-    const TimeSpan MAXIMUM_TIMESPAN(-1);
+    const TimeSpan MAXIMUM_TIMESPAN(-1ULL);
 
 	// [Execution]
     u64_z uHundredsOfNanoseconds = MAXIMUM_TIMESPAN.GetHundredsOfNanoseconds();

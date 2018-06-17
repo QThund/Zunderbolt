@@ -4497,7 +4497,7 @@ ZTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenDateIsUndefined_Test )
 {
     // [Preparation]
     const DateTime UNDEFINED_DATETIME = DateTime::GetUndefinedDate();
-    const TimeSpan ANY_TIMESPAN(1);
+    const TimeSpan ANY_TIMESPAN(1ULL);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -4524,7 +4524,7 @@ ZTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenAdditionOverflowsAllow
 {
     // [Preparation]
     const DateTime MAXIMUM_DATETIME = DateTime::GetMaxDateTime();
-    const TimeSpan INPUT_TIMESPAN(1);
+    const TimeSpan INPUT_TIMESPAN(1ULL);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -4680,7 +4680,7 @@ ZTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenDateIsUndefined_Tes
 {
     // [Preparation]
     const DateTime UNDEFINED_DATETIME = DateTime::GetUndefinedDate();
-    const TimeSpan ANY_TIMESPAN(1);
+    const TimeSpan ANY_TIMESPAN(1ULL);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -4707,7 +4707,7 @@ ZTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenSubtractionOverflow
 {
     // [Preparation]
     const DateTime MINIMUM_DATETIME = DateTime::GetMinDateTime();
-    const TimeSpan INPUT_TIMESPAN(1);
+    const TimeSpan INPUT_TIMESPAN(1ULL);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -4842,7 +4842,7 @@ ZTEST_CASE ( OperatorAddition_AssertionFailsWhenDateIsUndefined_Test )
 {
     // [Preparation]
     const DateTime UNDEFINED_DATETIME = DateTime::GetUndefinedDate();
-    const TimeSpan ANY_TIMESPAN(1);
+    const TimeSpan ANY_TIMESPAN(1ULL);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -4868,7 +4868,7 @@ ZTEST_CASE ( OperatorAddition_AssertionFailsWhenAdditionOverflowsAllowedMaximumV
 {
     // [Preparation]
     const DateTime MAXIMUM_DATETIME = DateTime::GetMaxDateTime();
-    const TimeSpan INPUT_TIMESPAN(1);
+    const TimeSpan INPUT_TIMESPAN(1ULL);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -5000,7 +5000,7 @@ ZTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenDateIsUndefined_Test )
 {
     // [Preparation]
     const DateTime UNDEFINED_DATETIME = DateTime::GetUndefinedDate();
-    const TimeSpan ANY_TIMESPAN(1);
+    const TimeSpan ANY_TIMESPAN(1ULL);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -5026,7 +5026,7 @@ ZTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenSubtractionOverflowsAllowedM
 {
     // [Preparation]
     const DateTime MINIMUM_DATETIME = DateTime::GetMinDateTime();
-    const TimeSpan INPUT_TIMESPAN(1);
+    const TimeSpan INPUT_TIMESPAN(1ULL);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -5123,7 +5123,7 @@ ZTEST_CASE ( OperatorSubtraction2_ReturnsZeroWhenOperandsAreEqual_Test )
     // [Preparation]
     const DateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_z);
     const DateTime LEFT_DATETIME(RIGHT_DATETIME);
-    const TimeSpan EXPECTED_TIMESPAN(0);
+    const TimeSpan EXPECTED_TIMESPAN(0ULL);
 
 	// [Execution]
     TimeSpan result = LEFT_DATETIME - RIGHT_DATETIME;
