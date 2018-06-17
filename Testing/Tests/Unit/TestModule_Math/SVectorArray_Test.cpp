@@ -30,7 +30,7 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "ZMath/SPoint.h"
+#include "ZMath/SVectorArray.h"
 #include "ZMath/TransformationMatrix3x3.h"
 #include "ZCommon/DataTypes/SFloat.h"
 #include "ZMath/Vector2.h"
@@ -49,7 +49,7 @@ using namespace boost::unit_test;
 using namespace z::Internals;
 
 
-ZTEST_SUITE_BEGIN( SPoint_TestSuite )
+ZTEST_SUITE_BEGIN( SVectorArray_TestSuite )
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -72,7 +72,7 @@ ZTEST_CASE ( Translate1_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -98,7 +98,7 @@ ZTEST_CASE ( Translate1_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -124,7 +124,7 @@ ZTEST_CASE ( Translate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -152,7 +152,7 @@ ZTEST_CASE ( Translate1_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -186,7 +186,7 @@ ZTEST_CASE ( Translate2_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -212,7 +212,7 @@ ZTEST_CASE ( Translate2_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -238,7 +238,7 @@ ZTEST_CASE ( Translate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -266,7 +266,7 @@ ZTEST_CASE ( Translate2_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -305,7 +305,7 @@ ZTEST_CASE ( Rotate1_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -336,7 +336,7 @@ ZTEST_CASE ( Rotate1_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -367,7 +367,7 @@ ZTEST_CASE ( Rotate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -400,7 +400,7 @@ ZTEST_CASE ( Rotate1_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -434,7 +434,7 @@ ZTEST_CASE ( Scale1_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -460,7 +460,7 @@ ZTEST_CASE ( Scale1_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -486,7 +486,7 @@ ZTEST_CASE ( Scale1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -514,7 +514,7 @@ ZTEST_CASE ( Scale1_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+        SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -548,7 +548,7 @@ ZTEST_CASE ( Scale2_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -574,7 +574,7 @@ ZTEST_CASE ( Scale2_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -600,7 +600,7 @@ ZTEST_CASE ( Scale2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -628,7 +628,7 @@ ZTEST_CASE ( Scale2_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
+        SVectorArray::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -673,7 +673,7 @@ ZTEST_CASE ( Transform1_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -709,7 +709,7 @@ ZTEST_CASE ( Transform1_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -745,7 +745,7 @@ ZTEST_CASE ( Transform1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -783,7 +783,7 @@ ZTEST_CASE ( Transform1_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -817,7 +817,7 @@ ZTEST_CASE ( Translate3_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -843,7 +843,7 @@ ZTEST_CASE ( Translate3_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -869,7 +869,7 @@ ZTEST_CASE ( Translate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -897,7 +897,7 @@ ZTEST_CASE ( Translate3_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -931,7 +931,7 @@ ZTEST_CASE ( Translate4_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -957,7 +957,7 @@ ZTEST_CASE ( Translate4_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -983,7 +983,7 @@ ZTEST_CASE ( Translate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1011,7 +1011,7 @@ ZTEST_CASE ( Translate4_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -1045,7 +1045,7 @@ ZTEST_CASE ( Translate5_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1071,7 +1071,7 @@ ZTEST_CASE ( Translate5_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1097,7 +1097,7 @@ ZTEST_CASE ( Translate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1125,7 +1125,7 @@ ZTEST_CASE ( Translate5_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -1159,7 +1159,7 @@ ZTEST_CASE ( Translate6_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1185,7 +1185,7 @@ ZTEST_CASE ( Translate6_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1211,7 +1211,7 @@ ZTEST_CASE ( Translate6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1239,7 +1239,7 @@ ZTEST_CASE ( Translate6_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -1274,7 +1274,7 @@ ZTEST_CASE ( Translate7_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1301,7 +1301,7 @@ ZTEST_CASE ( Translate7_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1328,7 +1328,7 @@ ZTEST_CASE ( Translate7_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1357,7 +1357,7 @@ ZTEST_CASE ( Translate7_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -1392,7 +1392,7 @@ ZTEST_CASE ( Translate8_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1419,7 +1419,7 @@ ZTEST_CASE ( Translate8_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1446,7 +1446,7 @@ ZTEST_CASE ( Translate8_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1475,7 +1475,7 @@ ZTEST_CASE ( Translate8_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -1510,7 +1510,7 @@ ZTEST_CASE ( Translate9_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1537,7 +1537,7 @@ ZTEST_CASE ( Translate9_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1564,7 +1564,7 @@ ZTEST_CASE ( Translate9_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1593,7 +1593,7 @@ ZTEST_CASE ( Translate9_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -1628,7 +1628,7 @@ ZTEST_CASE ( Translate10_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1655,7 +1655,7 @@ ZTEST_CASE ( Translate10_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1682,7 +1682,7 @@ ZTEST_CASE ( Translate10_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1711,7 +1711,7 @@ ZTEST_CASE ( Translate10_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -1751,7 +1751,7 @@ ZTEST_CASE ( Rotate2_MoreThanOnePointAreTransformedCorrectly_Test )
 
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1782,7 +1782,7 @@ ZTEST_CASE ( Rotate2_OnlyOnePointIsTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1813,7 +1813,7 @@ ZTEST_CASE ( Rotate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const int POINTS_COUNT = 0;
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1847,7 +1847,7 @@ ZTEST_CASE ( Rotate2_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -1887,7 +1887,7 @@ ZTEST_CASE ( Rotate3_MoreThanOnePointAreTransformedCorrectly_Test )
 
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1918,7 +1918,7 @@ ZTEST_CASE ( Rotate3_OnlyOnePointIsTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1949,7 +1949,7 @@ ZTEST_CASE ( Rotate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const int POINTS_COUNT = 0;
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -1983,7 +1983,7 @@ ZTEST_CASE ( Rotate3_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2023,7 +2023,7 @@ ZTEST_CASE ( Rotate4_MoreThanOnePointAreTransformedCorrectly_Test )
 
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2054,7 +2054,7 @@ ZTEST_CASE ( Rotate4_OnlyOnePointIsTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2085,7 +2085,7 @@ ZTEST_CASE ( Rotate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const int POINTS_COUNT = 0;
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2119,7 +2119,7 @@ ZTEST_CASE ( Rotate4_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2159,7 +2159,7 @@ ZTEST_CASE ( Rotate5_MoreThanOnePointAreTransformedCorrectly_Test )
 
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2190,7 +2190,7 @@ ZTEST_CASE ( Rotate5_OnlyOnePointIsTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2221,7 +2221,7 @@ ZTEST_CASE ( Rotate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const int POINTS_COUNT = 0;
 
 	// [Execution]
-    SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2255,7 +2255,7 @@ ZTEST_CASE ( Rotate5_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2289,7 +2289,7 @@ ZTEST_CASE ( Scale3_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2315,7 +2315,7 @@ ZTEST_CASE ( Scale3_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2341,7 +2341,7 @@ ZTEST_CASE ( Scale3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2369,7 +2369,7 @@ ZTEST_CASE ( Scale3_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+        SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2403,7 +2403,7 @@ ZTEST_CASE ( Scale4_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2429,7 +2429,7 @@ ZTEST_CASE ( Scale4_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2455,7 +2455,7 @@ ZTEST_CASE ( Scale4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2483,7 +2483,7 @@ ZTEST_CASE ( Scale4_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+        SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2517,7 +2517,7 @@ ZTEST_CASE ( Scale5_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2543,7 +2543,7 @@ ZTEST_CASE ( Scale5_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2569,7 +2569,7 @@ ZTEST_CASE ( Scale5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2597,7 +2597,7 @@ ZTEST_CASE ( Scale5_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
+        SVectorArray::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2631,7 +2631,7 @@ ZTEST_CASE ( Scale6_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2657,7 +2657,7 @@ ZTEST_CASE ( Scale6_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2683,7 +2683,7 @@ ZTEST_CASE ( Scale6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2711,7 +2711,7 @@ ZTEST_CASE ( Scale6_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
+        SVectorArray::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2745,7 +2745,7 @@ ZTEST_CASE ( Scale7_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2771,7 +2771,7 @@ ZTEST_CASE ( Scale7_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2797,7 +2797,7 @@ ZTEST_CASE ( Scale7_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2825,7 +2825,7 @@ ZTEST_CASE ( Scale7_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+        SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2859,7 +2859,7 @@ ZTEST_CASE ( Scale8_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2885,7 +2885,7 @@ ZTEST_CASE ( Scale8_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2911,7 +2911,7 @@ ZTEST_CASE ( Scale8_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+    SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -2939,7 +2939,7 @@ ZTEST_CASE ( Scale8_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
+        SVectorArray::Scale(SCALE, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -2981,7 +2981,7 @@ ZTEST_CASE ( Transform2_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3014,7 +3014,7 @@ ZTEST_CASE ( Transform2_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3047,7 +3047,7 @@ ZTEST_CASE ( Transform2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3082,7 +3082,7 @@ ZTEST_CASE ( Transform2_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -3124,7 +3124,7 @@ ZTEST_CASE ( Transform3_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3157,7 +3157,7 @@ ZTEST_CASE ( Transform3_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3190,7 +3190,7 @@ ZTEST_CASE ( Transform3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3225,7 +3225,7 @@ ZTEST_CASE ( Transform3_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -3268,7 +3268,7 @@ ZTEST_CASE ( Transform4_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3301,7 +3301,7 @@ ZTEST_CASE ( Transform4_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3334,7 +3334,7 @@ ZTEST_CASE ( Transform4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3369,7 +3369,7 @@ ZTEST_CASE ( Transform4_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -3411,7 +3411,7 @@ ZTEST_CASE ( Transform5_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3444,7 +3444,7 @@ ZTEST_CASE ( Transform5_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3477,7 +3477,7 @@ ZTEST_CASE ( Transform5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3512,7 +3512,7 @@ ZTEST_CASE ( Transform5_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -3550,7 +3550,7 @@ ZTEST_CASE ( Transform6_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3579,7 +3579,7 @@ ZTEST_CASE ( Transform6_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3608,7 +3608,7 @@ ZTEST_CASE ( Transform6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3639,7 +3639,7 @@ ZTEST_CASE ( Transform6_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -3677,7 +3677,7 @@ ZTEST_CASE ( Transform7_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3706,7 +3706,7 @@ ZTEST_CASE ( Transform7_OnlyOnePointIsTransformedCorrectly_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3735,7 +3735,7 @@ ZTEST_CASE ( Transform7_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
 
 	// [Execution]
-    SPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
+    SVectorArray::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3766,7 +3766,7 @@ ZTEST_CASE ( Transform7_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
+        SVectorArray::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -3806,7 +3806,7 @@ ZTEST_CASE ( RotateWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3838,7 +3838,7 @@ ZTEST_CASE ( RotateWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3870,7 +3870,7 @@ ZTEST_CASE ( RotateWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3904,7 +3904,7 @@ ZTEST_CASE ( RotateWithPivot1_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -3939,7 +3939,7 @@ ZTEST_CASE ( ScaleWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3966,7 +3966,7 @@ ZTEST_CASE ( ScaleWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -3993,7 +3993,7 @@ ZTEST_CASE ( ScaleWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4022,7 +4022,7 @@ ZTEST_CASE ( ScaleWithPivot1_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -4057,7 +4057,7 @@ ZTEST_CASE ( ScaleWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4084,7 +4084,7 @@ ZTEST_CASE ( ScaleWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4111,7 +4111,7 @@ ZTEST_CASE ( ScaleWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4140,7 +4140,7 @@ ZTEST_CASE ( ScaleWithPivot2_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -4186,7 +4186,7 @@ ZTEST_CASE ( TransformWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4223,7 +4223,7 @@ ZTEST_CASE ( TransformWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4260,7 +4260,7 @@ ZTEST_CASE ( TransformWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector2 PIVOT(SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4299,7 +4299,7 @@ ZTEST_CASE ( TransformWithPivot1_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -4339,7 +4339,7 @@ ZTEST_CASE ( RotateWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4371,7 +4371,7 @@ ZTEST_CASE ( RotateWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4403,7 +4403,7 @@ ZTEST_CASE ( RotateWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4438,7 +4438,7 @@ ZTEST_CASE ( RotateWithPivot2_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -4478,7 +4478,7 @@ ZTEST_CASE ( RotateWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4510,7 +4510,7 @@ ZTEST_CASE ( RotateWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4542,7 +4542,7 @@ ZTEST_CASE ( RotateWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4577,7 +4577,7 @@ ZTEST_CASE ( RotateWithPivot3_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -4617,7 +4617,7 @@ ZTEST_CASE ( RotateWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4649,7 +4649,7 @@ ZTEST_CASE ( RotateWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector3);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4681,7 +4681,7 @@ ZTEST_CASE ( RotateWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4716,7 +4716,7 @@ ZTEST_CASE ( RotateWithPivot4_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -4756,7 +4756,7 @@ ZTEST_CASE ( RotateWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4788,7 +4788,7 @@ ZTEST_CASE ( RotateWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(Vector4);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4820,7 +4820,7 @@ ZTEST_CASE ( RotateWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4855,7 +4855,7 @@ ZTEST_CASE ( RotateWithPivot5_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -4890,7 +4890,7 @@ ZTEST_CASE ( ScaleWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4917,7 +4917,7 @@ ZTEST_CASE ( ScaleWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4944,7 +4944,7 @@ ZTEST_CASE ( ScaleWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -4973,7 +4973,7 @@ ZTEST_CASE ( ScaleWithPivot3_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -5008,7 +5008,7 @@ ZTEST_CASE ( ScaleWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5035,7 +5035,7 @@ ZTEST_CASE ( ScaleWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5062,7 +5062,7 @@ ZTEST_CASE ( ScaleWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5091,7 +5091,7 @@ ZTEST_CASE ( ScaleWithPivot4_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -5126,7 +5126,7 @@ ZTEST_CASE ( ScaleWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5153,7 +5153,7 @@ ZTEST_CASE ( ScaleWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5180,7 +5180,7 @@ ZTEST_CASE ( ScaleWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5209,7 +5209,7 @@ ZTEST_CASE ( ScaleWithPivot5_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -5244,7 +5244,7 @@ ZTEST_CASE ( ScaleWithPivot6_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5271,7 +5271,7 @@ ZTEST_CASE ( ScaleWithPivot6_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5298,7 +5298,7 @@ ZTEST_CASE ( ScaleWithPivot6_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5327,7 +5327,7 @@ ZTEST_CASE ( ScaleWithPivot6_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -5362,7 +5362,7 @@ ZTEST_CASE ( ScaleWithPivot7_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5389,7 +5389,7 @@ ZTEST_CASE ( ScaleWithPivot7_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5416,7 +5416,7 @@ ZTEST_CASE ( ScaleWithPivot7_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5445,7 +5445,7 @@ ZTEST_CASE ( ScaleWithPivot7_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -5480,7 +5480,7 @@ ZTEST_CASE ( ScaleWithPivot8_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5507,7 +5507,7 @@ ZTEST_CASE ( ScaleWithPivot8_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5534,7 +5534,7 @@ ZTEST_CASE ( ScaleWithPivot8_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5563,7 +5563,7 @@ ZTEST_CASE ( ScaleWithPivot8_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -5607,7 +5607,7 @@ ZTEST_CASE ( TransformWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5641,7 +5641,7 @@ ZTEST_CASE ( TransformWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5675,7 +5675,7 @@ ZTEST_CASE ( TransformWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5711,7 +5711,7 @@ ZTEST_CASE ( TransformWithPivot2_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -5754,7 +5754,7 @@ ZTEST_CASE ( TransformWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5788,7 +5788,7 @@ ZTEST_CASE ( TransformWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5822,7 +5822,7 @@ ZTEST_CASE ( TransformWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5858,7 +5858,7 @@ ZTEST_CASE ( TransformWithPivot3_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -5897,8 +5897,8 @@ ZTEST_CASE ( TransformWithPivot3_WComponentOfPivotDoesNotMatter_Test )
     const Vector4 PIVOT2(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_0);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT1, arInputPoints1, POINTS_COUNT);
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT2, arInputPoints2, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT1, arInputPoints1, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT2, arInputPoints2, POINTS_COUNT);
 
     // [Verification]
     BOOST_CHECK(arInputPoints1[0] == arInputPoints2[0]);
@@ -5934,7 +5934,7 @@ ZTEST_CASE ( TransformWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -5968,7 +5968,7 @@ ZTEST_CASE ( TransformWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -6002,7 +6002,7 @@ ZTEST_CASE ( TransformWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector3 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -6038,7 +6038,7 @@ ZTEST_CASE ( TransformWithPivot4_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -6081,7 +6081,7 @@ ZTEST_CASE ( TransformWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -6115,7 +6115,7 @@ ZTEST_CASE ( TransformWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -6149,7 +6149,7 @@ ZTEST_CASE ( TransformWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const Vector4 PIVOT(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_1);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
     // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
@@ -6185,7 +6185,7 @@ ZTEST_CASE ( TransformWithPivot5_AssertionFailsWhenInputIsNull_Test )
 
     try
     {
-        SPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
+        SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
     }
     catch(const AssertException&)
     {
@@ -6224,12 +6224,12 @@ ZTEST_CASE ( TransformWithPivot5_WComponentOfPivotDoesNotMatter_Test )
     const Vector4 PIVOT2(SFloat::_1, SFloat::_1, SFloat::_1, SFloat::_0);
 
 	// [Execution]
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT1, arInputPoints1, POINTS_COUNT);
-    SPoint::TransformWithPivot(TRANSFORMATION, PIVOT2, arInputPoints2, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT1, arInputPoints1, POINTS_COUNT);
+    SVectorArray::TransformWithPivot(TRANSFORMATION, PIVOT2, arInputPoints2, POINTS_COUNT);
 
     // [Verification]
     BOOST_CHECK(arInputPoints1[0] == arInputPoints2[0]);
 }
 
-// End - Test Suite: SPoint
+// End - Test Suite: SVectorArray
 ZTEST_SUITE_END()

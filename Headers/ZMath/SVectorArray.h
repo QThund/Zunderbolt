@@ -24,8 +24,8 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __SPOINT__
-#define __SPOINT__
+#ifndef __SVECTORARRAY__
+#define __SVECTORARRAY__
 
 #include "ZMath/Vector3.h"
 #include "ZMath/Quaternion.h"
@@ -40,7 +40,7 @@
 namespace z
 {
 
-// Forward declarations
+// FORWARD DECLARATIONS
 // ---------------------
 class Vector2;
 class Vector4;
@@ -52,16 +52,16 @@ class Matrix4x4;
 
 
 /// <summary>
-/// Helper class that will be used to perform transformations related to arrays of points (2D, 3D or 4D).
+/// Helper class that will be used to perform transformations related to arrays of vectors (2D, 3D or 4D).
 /// </summary>
-class Z_MATH_MODULE_SYMBOLS SPoint
+class Z_MATH_MODULE_SYMBOLS SVectorArray
 {
 
     // CONSTRUCTORS
     // ---------------
 private:
 
-    SPoint() { }
+    SVectorArray() { }
 
 
     // METHODS
@@ -778,4 +778,4 @@ private:
 } // namespace z
 
 
-#endif // __SPOINT__
+#endif // __SVECTORARRAY__

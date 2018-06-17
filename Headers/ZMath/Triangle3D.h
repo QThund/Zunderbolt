@@ -33,7 +33,7 @@
 #include "ZMath/Vector4.h"
 #include "ZMath/Quaternion.h"
 #include "Plane.h"
-#include "SPoint.h"
+#include "SVectorArray.h"
 
 
 
@@ -192,7 +192,7 @@ public:
     Triangle3D<VectorT> Translate(const Vector3 &vTranslation) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Translate(vTranslation, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Translate(vTranslation, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -208,7 +208,7 @@ public:
     Triangle3D<VectorT> Translate(const float_z fTranslationX, const float_z fTranslationY, const float_z fTranslationZ) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -222,7 +222,7 @@ public:
     Triangle3D<VectorT> Translate(const TranslationMatrix<Matrix4x3> &translation) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Translate(translation, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Translate(translation, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -236,7 +236,7 @@ public:
     Triangle3D<VectorT> Translate(const TranslationMatrix<Matrix4x4> &translation) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Translate(translation, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Translate(translation, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -251,7 +251,7 @@ public:
     Triangle3D<VectorT> Rotate(const Quaternion &qRotation) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Rotate(qRotation, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Rotate(qRotation, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -265,7 +265,7 @@ public:
     Triangle3D<VectorT> Rotate(const RotationMatrix3x3 &rotation) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Rotate(rotation, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Rotate(rotation, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -281,7 +281,7 @@ public:
     Triangle3D<VectorT> RotateWithPivot(const Quaternion &qRotation, const VectorT &vPivot) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::RotateWithPivot(qRotation, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::RotateWithPivot(qRotation, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -295,7 +295,7 @@ public:
     Triangle3D<VectorT> Scale(const Vector3 &vScale) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Scale(vScale, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Scale(vScale, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -311,7 +311,7 @@ public:
     Triangle3D<VectorT> Scale(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Scale(fScaleX, fScaleY, fScaleZ, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -325,7 +325,7 @@ public:
     Triangle3D<VectorT> Scale(const ScalingMatrix3x3 &scale) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Scale(scale, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Scale(scale, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -341,7 +341,7 @@ public:
     Triangle3D<VectorT> ScaleWithPivot(const Vector3 &vScale, const VectorT &vPivot) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::ScaleWithPivot(vScale, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::ScaleWithPivot(vScale, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -359,7 +359,7 @@ public:
     Triangle3D<VectorT> ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const VectorT& vPivot) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -373,7 +373,7 @@ public:
     Triangle3D<VectorT> Transform(const TransformationMatrix<Matrix4x3> &transformation) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Transform(transformation, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Transform(transformation, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -387,7 +387,7 @@ public:
     Triangle3D<VectorT> Transform(const TransformationMatrix<Matrix4x4> &transformation) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::Transform(transformation, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Transform(transformation, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -403,7 +403,7 @@ public:
     Triangle3D<VectorT> RotateWithPivot(const RotationMatrix3x3 &rotation, const VectorT &vPivot) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::RotateWithPivot(rotation, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::RotateWithPivot(rotation, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -419,7 +419,7 @@ public:
     Triangle3D<VectorT> ScaleWithPivot(const ScalingMatrix3x3 &scale, const VectorT &vPivot) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::ScaleWithPivot(scale, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::ScaleWithPivot(scale, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -438,7 +438,7 @@ public:
     Triangle3D<VectorT> TransformWithPivot(const TransformationMatrix<Matrix4x3> &transformation, const VectorT &vPivot) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::TransformWithPivot(transformation, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::TransformWithPivot(transformation, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -457,7 +457,7 @@ public:
     Triangle3D<VectorT> TransformWithPivot(const TransformationMatrix<Matrix4x4> &transformation, const VectorT &vPivot) const
     {
         Triangle3D<VectorT> auxTriangle = *this;
-        SPoint::TransformWithPivot(transformation, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::TransformWithPivot(transformation, vPivot, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
     
@@ -471,7 +471,7 @@ public:
     Triangle<VectorT> Transform(const SpaceConversionMatrix &spaceConversion) const
     {
         Triangle<VectorT> auxTriangle = *this;
-        SPoint::Transform(spaceConversion, rcast_z(&auxTriangle, VectorT*), 3);
+        SVectorArray::Transform(spaceConversion, rcast_z(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 

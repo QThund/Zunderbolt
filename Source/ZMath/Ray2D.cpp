@@ -28,7 +28,7 @@
 
 #include "ZMath/Triangle.h"
 #include "ZMath/TransformationMatrix3x3.h"
-#include "ZMath/SPoint.h"
+#include "ZMath/SVectorArray.h"
 
 
 
@@ -434,66 +434,66 @@ Ray2D Ray2D::Transform(const z::TransformationMatrix3x3 &transformation) const
 Ray2D Ray2D::Rotate(const float_z fRotationAngle) const
 {
     Ray2D auxRay = *this;
-    SPoint::Rotate(fRotationAngle, rcast_z(&auxRay, Vector2*), 2);
+    SVectorArray::Rotate(fRotationAngle, rcast_z(&auxRay, Vector2*), 2);
     return auxRay;
 }
 
 Ray2D Ray2D::RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot) const
 {
     Ray2D auxRay = *this;
-    SPoint::RotateWithPivot(fRotationAngle, vPivot, &auxRay.Origin, 1);
-    SPoint::Rotate(fRotationAngle, &auxRay.Direction, 1);
+    SVectorArray::RotateWithPivot(fRotationAngle, vPivot, &auxRay.Origin, 1);
+    SVectorArray::Rotate(fRotationAngle, &auxRay.Direction, 1);
     return auxRay;
 }
 
 Ray2D Ray2D::Translate(const Vector2 &vTranslation) const
 {
     Ray2D auxRay = *this;
-    SPoint::Translate(vTranslation, &auxRay.Origin, 1);
+    SVectorArray::Translate(vTranslation, &auxRay.Origin, 1);
     return auxRay;
 }
 
 Ray2D Ray2D::Translate(const float_z fTranslationX, const float_z fTranslationY) const
 {
     Ray2D auxRay = *this;
-    SPoint::Translate(fTranslationX, fTranslationY, &auxRay.Origin, 1);
+    SVectorArray::Translate(fTranslationX, fTranslationY, &auxRay.Origin, 1);
     return auxRay;
 }
 
 Ray2D Ray2D::Scale(const Vector2 &vScale) const
 {
     Ray2D auxRay = *this;
-    SPoint::Scale(vScale, rcast_z(&auxRay, Vector2*), 2);
+    SVectorArray::Scale(vScale, rcast_z(&auxRay, Vector2*), 2);
     return Ray2D(auxRay.Origin, auxRay.Direction.Normalize());
 }
 
 Ray2D Ray2D::Scale(const float_z vScaleX, const float_z vScaleY) const
 {
     Ray2D auxRay = *this;
-    SPoint::Scale(vScaleX, vScaleY, rcast_z(&auxRay, Vector2*), 2);
+    SVectorArray::Scale(vScaleX, vScaleY, rcast_z(&auxRay, Vector2*), 2);
     return Ray2D(auxRay.Origin, auxRay.Direction.Normalize());
 }
 
 Ray2D Ray2D::ScaleWithPivot(const Vector2 &vScale, const Vector2 &vPivot) const
 {
     Ray2D auxRay = *this;
-    SPoint::ScaleWithPivot(vScale, vPivot, &auxRay.Origin, 1);
-    SPoint::Scale(vScale, &auxRay.Direction, 1);
+    SVectorArray::ScaleWithPivot(vScale, vPivot, &auxRay.Origin, 1);
+    SVectorArray::Scale(vScale, &auxRay.Direction, 1);
     return Ray2D(auxRay.Origin, auxRay.Direction.Normalize());
 }
 
 Ray2D Ray2D::ScaleWithPivot(const float_z vScaleX, const float_z vScaleY, const Vector2 &vPivot) const
 {
     Ray2D auxRay = *this;
-    SPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, &auxRay.Origin, 1);
-    SPoint::Scale(vScaleX, vScaleY, &auxRay.Direction, 1);
+    SVectorArray::ScaleWithPivot(vScaleX, vScaleY, vPivot, &auxRay.Origin, 1);
+    SVectorArray::Scale(vScaleX, vScaleY, &auxRay.Direction, 1);
     return Ray2D(auxRay.Origin, auxRay.Direction.Normalize());
 }
 
 Ray2D Ray2D::TransformWithPivot(const z::TransformationMatrix3x3 &transformation, const Vector2 &vPivot) const
 {
     Ray2D auxRay = *this;
-    SPoint::TransformWithPivot(transformation, vPivot, &auxRay.Origin, 1);
+    SVectorArray::TransformWithPivot(transformation, vPivot, &auxRay.Origin, 1);
 
     const float_z NEW_X = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
     const float_z NEW_Y = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];

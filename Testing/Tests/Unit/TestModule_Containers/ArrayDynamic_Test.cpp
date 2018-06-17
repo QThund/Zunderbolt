@@ -1103,7 +1103,7 @@ ZTEST_CASE ( Insert1_CopyConstructorIsCalledForAddedElements_Test )
 /// <summary>
 /// Checks that an assertion fails when the iterator points to the forward end position.
 /// </summary>
-ZTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test )
+ZTEST_CASE ( Insert1_AssertionFailsWhenIteratorSVectorArraysToForwardEndPosition_Test )
 {
     // [Preparation]
     ArrayDynamic<int> arCommonArray;
@@ -1182,7 +1182,7 @@ ZTEST_CASE ( Insert1_ElementIsInsertedIntoEmptyArray_Test )
 /// <summary>
 /// Checks that elements are inserted at the end when the iterator points to the forward end position.
 /// </summary>
-ZTEST_CASE ( Insert1_ElementIsInsertedAtTheEndWhenIteratorsPointsToForwardEndPosition_Test )
+ZTEST_CASE ( Insert1_ElementIsInsertedAtTheEndWhenIteratorSVectorArraysToForwardEndPosition_Test )
 {
     // [Preparation]
     ArrayDynamic<int> arCommonArray;
@@ -1483,7 +1483,7 @@ ZTEST_CASE ( Remove1_DestructorOfElementIsCalled_Test )
 /// <summary>
 /// Checks that an assertion fails when the iterator points to the forward end position.
 /// </summary>
-ZTEST_CASE ( Remove1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test )
+ZTEST_CASE ( Remove1_AssertionFailsWhenIteratorSVectorArraysToForwardEndPosition_Test )
 {
     // [Preparation]
     ArrayDynamic<int> arCommonArray;
@@ -1543,7 +1543,7 @@ ZTEST_CASE ( Remove1_AssertionFailsWhenInteratorIsInvalid_Test )
 /// <summary>
 /// Checks that nothing happens when the iterator points to the forward end position.
 /// </summary>
-ZTEST_CASE ( Remove1_NothingHappensWhenIteratorsPointsToForwardEndPosition_Test )
+ZTEST_CASE ( Remove1_NothingHappensWhenIteratorSVectorArraysToForwardEndPosition_Test )
 {
     // [Preparation]
     ArrayDynamic<int> arCommonArray;

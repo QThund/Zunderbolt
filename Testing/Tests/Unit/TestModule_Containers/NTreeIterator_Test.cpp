@@ -570,7 +570,7 @@ ZTEST_CASE ( OperatorPostIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
 /// <summary>
 /// Checks that the iterator points to the first position and returns the previous state when it was pointing to the end position before the first one, using depth-first pre-order.
 /// </summary>
-ZTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
+ZTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const char FIRST_ELEMENT_VALUE = 'A';
@@ -725,7 +725,7 @@ ZTEST_CASE ( OperatorPostDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
 /// <summary>
 /// Checks that the iterator points to the last position and returns the previous state when it was pointing to the end position after the last one, when using depth-first pre-order.
 /// </summary>
-ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPositionUsingDepthFirstPreOrder_Test )
+ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToLastEndPositionUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const char LAST_ELEMENT_VALUE = 'G';
@@ -880,7 +880,7 @@ ZTEST_CASE ( OperatorPreIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFir
 /// <summary>
 /// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one, when using depth-first pre-order.
 /// </summary>
-ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
+ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const char FIRST_ELEMENT_VALUE = 'A';
@@ -1035,7 +1035,7 @@ ZTEST_CASE ( OperatorPreDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFir
 /// <summary>
 /// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one, when using depth-first pre-order.
 /// </summary>
-ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWasPointingToLastEndPositionUsingDepthFirstPreOrder_Test )
+ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToLastEndPositionUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const char LAST_ELEMENT_VALUE = 'G';
@@ -1332,7 +1332,7 @@ ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIterato
 /// <summary>
 /// Checks that the iterator points to the first position even when it was pointing to the position before the first, using depth-first pre-order.
 /// </summary>
-ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
+ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const NTree<char>* SAMPLE_TREE = GetSampleTree();
@@ -1425,7 +1425,7 @@ ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorW
 /// <summary>
 /// Checks that the iterator points to the last position even when it was pointing to the position before the first, using depth-first pre-order.
 /// </summary>
-ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
+ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const NTree<char>* SAMPLE_TREE = GetSampleTree();

@@ -26,7 +26,7 @@
 
 #include "ZMath/Circle.h"
 
-#include "ZMath/SPoint.h"
+#include "ZMath/SVectorArray.h"
 #include "ZMath/MathDefinitions.h"
 
 namespace z
@@ -77,35 +77,35 @@ Circle& Circle::operator=(const Internals::Orb<Vector2> &orb)
 Circle Circle::Translate(const Vector2 &vTranslation) const
 {
     Circle auxCircle = *this;
-    SPoint::Translate(vTranslation, &auxCircle.Center, 1);
+    SVectorArray::Translate(vTranslation, &auxCircle.Center, 1);
     return auxCircle;
 }
 
 Circle Circle::Translate(const float_z fTranslationX, const float_z fTranslationY) const
 {
     Circle auxCircle = *this;
-    SPoint::Translate(fTranslationX, fTranslationY, &auxCircle.Center, 1);
+    SVectorArray::Translate(fTranslationX, fTranslationY, &auxCircle.Center, 1);
     return auxCircle;
 }
 
 Circle Circle::Rotate(const float_z fRotationAngle) const
 {
     Circle auxCircle = *this;
-    SPoint::Rotate(fRotationAngle, &auxCircle.Center, 1);
+    SVectorArray::Rotate(fRotationAngle, &auxCircle.Center, 1);
     return auxCircle;
 }
 
 Circle Circle::RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot) const
 {
     Circle auxCircle = *this;
-    SPoint::RotateWithPivot(fRotationAngle, vPivot, &auxCircle.Center, 1);
+    SVectorArray::RotateWithPivot(fRotationAngle, vPivot, &auxCircle.Center, 1);
     return auxCircle;
 }
 
 Circle Circle::Scale(const Vector2 &vScale, const float_z fRadiusScale) const
 {
     Circle auxCircle = *this;
-    SPoint::Scale(vScale, &auxCircle.Center, 1);
+    SVectorArray::Scale(vScale, &auxCircle.Center, 1);
     auxCircle.Radius *= fRadiusScale;
     return auxCircle;
 }
@@ -113,7 +113,7 @@ Circle Circle::Scale(const Vector2 &vScale, const float_z fRadiusScale) const
 Circle Circle::Scale(const float_z fScaleX, const float_z fScaleY, const float_z fRadiusScale) const
 {
     Circle auxCircle = *this;
-    SPoint::Scale(fScaleX, fScaleY, &auxCircle.Center, 1);
+    SVectorArray::Scale(fScaleX, fScaleY, &auxCircle.Center, 1);
     auxCircle.Radius *= fRadiusScale;
     return auxCircle;
 }
@@ -121,7 +121,7 @@ Circle Circle::Scale(const float_z fScaleX, const float_z fScaleY, const float_z
 Circle Circle::ScaleWithPivot(const Vector2 &vScale, const float_z fRadiusScale, const Vector2 &vPivot) const
 {
     Circle auxCircle = *this;
-    SPoint::ScaleWithPivot(vScale, vPivot, &auxCircle.Center, 1);
+    SVectorArray::ScaleWithPivot(vScale, vPivot, &auxCircle.Center, 1);
     auxCircle.Radius *= fRadiusScale;
     return auxCircle;
 }
@@ -129,7 +129,7 @@ Circle Circle::ScaleWithPivot(const Vector2 &vScale, const float_z fRadiusScale,
 Circle Circle::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fRadiusScale, const Vector2 &vPivot) const
 {
     Circle auxCircle = *this;
-    SPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &auxCircle.Center, 1);
+    SVectorArray::ScaleWithPivot(fScaleX, fScaleY, vPivot, &auxCircle.Center, 1);
     auxCircle.Radius *= fRadiusScale;
     return auxCircle;
 }
@@ -137,7 +137,7 @@ Circle Circle::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, cons
 Circle Circle::Transform(const TransformationMatrix3x3 &transformation, const float_z fRadiusScale) const
 {
     Circle auxCircle = *this;
-    SPoint::Transform(transformation, &auxCircle.Center, 1);
+    SVectorArray::Transform(transformation, &auxCircle.Center, 1);
     auxCircle.Radius *= fRadiusScale;
     return auxCircle;
 }
@@ -145,7 +145,7 @@ Circle Circle::Transform(const TransformationMatrix3x3 &transformation, const fl
 Circle Circle::TransformWithPivot(const TransformationMatrix3x3 &transformation, const float_z fRadiusScale, const Vector2 &vPivot) const
 {
     Circle auxCircle = *this;
-    SPoint::TransformWithPivot(transformation, vPivot, &auxCircle.Center, 1);
+    SVectorArray::TransformWithPivot(transformation, vPivot, &auxCircle.Center, 1);
     auxCircle.Radius *= fRadiusScale;
     return auxCircle;
 }

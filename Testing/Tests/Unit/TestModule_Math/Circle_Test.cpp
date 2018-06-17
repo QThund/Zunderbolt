@@ -33,7 +33,7 @@ using namespace boost::unit_test;
 #include "ZMath/Circle.h"
 
 #include "ZMath/TransformationMatrix3x3.h"
-#include "ZMath/SPoint.h"
+#include "ZMath/SVectorArray.h"
 #include "ZMath/SAngle.h"
 #include "ZCommon/Exceptions/AssertException.h"
 
@@ -145,7 +145,7 @@ ZTEST_CASE ( Translate1_CircleIsCorrectlyTranslated_Test )
     const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_1;
 
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
-    SPoint::Translate(TRANSLATION_VECTOR, &vExpectedValueForCenter,1);
+    SVectorArray::Translate(TRANSLATION_VECTOR, &vExpectedValueForCenter,1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
@@ -187,7 +187,7 @@ ZTEST_CASE ( Translate2_CircleIsCorrectlyTranslated_Test )
     const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_1;
 
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
-    SPoint::Translate(TRANSLATION_VECTOR, &vExpectedValueForCenter,1);
+    SVectorArray::Translate(TRANSLATION_VECTOR, &vExpectedValueForCenter,1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
@@ -235,7 +235,7 @@ ZTEST_CASE ( Rotate_CircleIsCorrectlyRotated_Test )
     const float_z EXPECTED_VALUE_FOR_RADIUS = SFloat::_1;
 
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
-    SPoint::Rotate(ANGLE, &vExpectedValueForCenter, 1);
+    SVectorArray::Rotate(ANGLE, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
@@ -282,7 +282,7 @@ ZTEST_CASE ( RotateWithPivot_CircleIsCorrectlyRotated_Test )
     const Vector2 PIVOT_POINT = Vector2(SFloat::_6, SFloat::_7);
 
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
-    SPoint::RotateWithPivot(ANGLE, PIVOT_POINT, &vExpectedValueForCenter, 1);
+    SVectorArray::RotateWithPivot(ANGLE, PIVOT_POINT, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
@@ -330,7 +330,7 @@ ZTEST_CASE ( RotateWithPivot_CircleIsCorrectlyRotatedWithPivotInCenter_Test )
     const Vector2 PIVOT_POINT = INIT_CENTER_POS;
 
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
-    SPoint::RotateWithPivot(ANGLE, PIVOT_POINT, &vExpectedValueForCenter, 1);
+    SVectorArray::RotateWithPivot(ANGLE, PIVOT_POINT, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
@@ -356,7 +356,7 @@ ZTEST_CASE ( Scale1_CircleIsCorrectlyScaled_Test )
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
 
     fExpectedValueForRadius *= SCALE_RADIUS; 
-    SPoint::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
+    SVectorArray::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, INIT_RADIUS);
@@ -424,7 +424,7 @@ ZTEST_CASE ( Scale1_CircleWidthZeroRadiusIsCorrectlyScaled_Test )
     const float_z EXPECTED_VALUE_FOR_RADIUS = INIT_RADIUS;
 
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
-    SPoint::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
+    SVectorArray::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, INIT_RADIUS);
@@ -450,7 +450,7 @@ ZTEST_CASE ( Scale2_CircleIsCorrectlyScaled_Test )
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
 
     fExpectedValueForRadius *= SCALE_RADIUS; 
-    SPoint::Scale(SCALE_VECTOR.x, SCALE_VECTOR.y, &vExpectedValueForCenter, 1);
+    SVectorArray::Scale(SCALE_VECTOR.x, SCALE_VECTOR.y, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, INIT_RADIUS);
@@ -518,7 +518,7 @@ ZTEST_CASE ( Scale2_CircleWidthRadiusEqualsToZeroIsCorrectlyScaled_Test )
     const float_z EXPECTED_VALUE_FOR_RADIUS = INIT_RADIUS;
 
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
-    SPoint::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
+    SVectorArray::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, INIT_RADIUS);
@@ -545,7 +545,7 @@ ZTEST_CASE ( ScaleWithPivot1_CircleIsCorrectlyScaled_Test )
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
 
     fExpectedValueForRadius *= SCALE_RADIUS; 
-    SPoint::ScaleWithPivot(SCALE_VECTOR, PIVOT_POINT, &vExpectedValueForCenter, 1);
+    SVectorArray::ScaleWithPivot(SCALE_VECTOR, PIVOT_POINT, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, INIT_RADIUS);
@@ -618,7 +618,7 @@ ZTEST_CASE ( ScaleWithPivot2_CircleIsCorrectlyScaled_Test )
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
 
     fExpectedValueForRadius *= SCALE_RADIUS; 
-    SPoint::ScaleWithPivot(SCALE_VECTOR, PIVOT_POINT, &vExpectedValueForCenter, 1);
+    SVectorArray::ScaleWithPivot(SCALE_VECTOR, PIVOT_POINT, &vExpectedValueForCenter, 1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, INIT_RADIUS);
@@ -699,7 +699,7 @@ ZTEST_CASE ( Transform_CircleIsCorrectlyTransformed_Test )
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
 
     fExpectedValueForRadius *= SCALE_RADIUS; 
-    SPoint::Transform(TRANSFORMATION_MATRIX, &vExpectedValueForCenter,1);
+    SVectorArray::Transform(TRANSFORMATION_MATRIX, &vExpectedValueForCenter,1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, INIT_RADIUS);
@@ -758,7 +758,7 @@ ZTEST_CASE ( TransformWithPivot_CircleIsCorrectlyTransformed_Test )
     Vector2 vExpectedValueForCenter = Vector2(INIT_CENTER_POS);
 
     fExpectedValueForRadius *= SCALE_RADIUS; 
-    SPoint::TransformWithPivot(TRANSFORMATION_MATRIX, PIVOT_POINT, &vExpectedValueForCenter,1);
+    SVectorArray::TransformWithPivot(TRANSFORMATION_MATRIX, PIVOT_POINT, &vExpectedValueForCenter,1);
 
 	// [Execution]
     Circle circleUT= Circle(INIT_CENTER_POS, INIT_RADIUS);

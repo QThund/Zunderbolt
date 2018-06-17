@@ -561,7 +561,7 @@ ZTEST_CASE ( OperatorPostIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
 /// <summary>
 /// Checks that the iterator points to the first position and returns the previous state when it was pointing to the end position before the first one, using depth-first in-order.
 /// </summary>
-ZTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
+ZTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
     const int FIRST_ELEMENT_VALUE = 1;
@@ -716,7 +716,7 @@ ZTEST_CASE ( OperatorPostDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
 /// <summary>
 /// Checks that the iterator points to the last position and returns the previous state when it was pointing to the end position after the last one, when using depth-first in-order.
 /// </summary>
-ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPositionUsingDepthFirstInOrder_Test )
+ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToLastEndPositionUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
     const int LAST_ELEMENT_VALUE = 7;
@@ -870,7 +870,7 @@ ZTEST_CASE ( OperatorPreIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFir
 /// <summary>
 /// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one, when using depth-first in-order.
 /// </summary>
-ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
+ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
     const int FIRST_ELEMENT_VALUE = 1;
@@ -998,7 +998,7 @@ ZTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
 /// <summary>
 /// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one, when using depth-first in-order.
 /// </summary>
-ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWasPointingToLastEndPositionUsingDepthFirstInOrder_Test )
+ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToLastEndPositionUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
     const int LAST_ELEMENT_VALUE = 7;
@@ -1361,7 +1361,7 @@ ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1393,7 +1393,7 @@ ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentTrees_T
 /// <summary>
 /// Checks that it returns False when iterators point to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1499,7 +1499,7 @@ ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1531,7 +1531,7 @@ ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentTrees
 /// <summary>
 /// Checks that it returns True when iterators point to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1637,7 +1637,7 @@ ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1669,7 +1669,7 @@ ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentTree
 /// <summary>
 /// Checks that it returns False when iterators point to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1776,7 +1776,7 @@ ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1810,7 +1810,7 @@ ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_
 /// <summary>
 /// Checks that it returns False when iterators point to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1936,7 +1936,7 @@ ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -1968,7 +1968,7 @@ ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 /// <summary>
 /// Checks that it returns False when iterators point to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -2093,7 +2093,7 @@ ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -2125,7 +2125,7 @@ ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 /// <summary>
 /// Checks that it returns False when iterators point to a different tree.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
+ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorSVectorArrayToDifferentTrees_Test )
 {
     // [Preparation]
     BinarySearchTree<int> TREE_A(3);
@@ -2458,7 +2458,7 @@ ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIterato
 /// <summary>
 /// Checks that the iterator points to the first position even when it was pointing to the position before the first, using depth-first in-order.
 /// </summary>
-ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
+ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
     const BinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
@@ -2582,7 +2582,7 @@ ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorW
 /// <summary>
 /// Checks that the iterator points to the last position even when it was pointing to the position before the first, using depth-first in-order.
 /// </summary>
-ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
+ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
     const BinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();

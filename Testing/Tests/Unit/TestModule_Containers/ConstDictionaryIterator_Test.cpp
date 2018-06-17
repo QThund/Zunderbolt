@@ -401,7 +401,7 @@ ZTEST_CASE ( OperatorPostIncrement_DictionaryIsTraversedInCorrectOrder_Test )
 /// <summary>
 /// Checks that the iterator points to the first position and returns the previous state when it was pointing to the end position before the first one.
 /// </summary>
-ZTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     const string_z FIRST_ELEMENT_KEY("key1");
@@ -553,7 +553,7 @@ ZTEST_CASE ( OperatorPostDecrement_DictionaryIsTraversedInCorrectOrder_Test )
 /// <summary>
 /// Checks that the iterator points to the last position and returns the previous state when it was pointing to the end position after the last one, when using depth-first in-order.
 /// </summary>
-ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPositionUsingDepthFirstInOrder_Test )
+ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToLastEndPositionUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
     const string_z LAST_ELEMENT_KEY("key3");
@@ -704,7 +704,7 @@ ZTEST_CASE ( OperatorPreIncrement_DictionaryIsTraversedInCorrectOrder_Test )
 /// <summary>
 /// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one.
 /// </summary>
-ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWasPointingToPositionBeforeFirstU_Test )
+ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToPositionBeforeFirstU_Test )
 {
     // [Preparation]
     const string_z FIRST_ELEMENT_KEY("key1");
@@ -821,7 +821,7 @@ ZTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
 /// <summary>
 /// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one.
 /// </summary>
-ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWasPointingToLastEndPosition_Test )
+ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToLastEndPosition_Test )
 {
     // [Preparation]
     const string_z LAST_ELEMENT_KEY("key3");
@@ -1085,7 +1085,7 @@ ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A(3);
@@ -1123,7 +1123,7 @@ ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentDiction
 /// <summary>
 /// Checks that it returns False when iterators point to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A(3);
@@ -1199,7 +1199,7 @@ ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A(3);
@@ -1237,7 +1237,7 @@ ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentDicti
 /// <summary>
 /// Checks that it returns True when iterators point to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A(3);
@@ -1313,7 +1313,7 @@ ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A;
@@ -1351,7 +1351,7 @@ ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentDict
 /// <summary>
 /// Checks that it returns False when iterators point to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A;
@@ -1428,7 +1428,7 @@ ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A;
@@ -1467,7 +1467,7 @@ ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentDictio
 /// <summary>
 /// Checks that it returns False when iterators point to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A;
@@ -1566,7 +1566,7 @@ ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A;
@@ -1604,7 +1604,7 @@ ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 /// <summary>
 /// Checks that it returns False when iterators point to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A;
@@ -1702,7 +1702,7 @@ ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowe
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A;
@@ -1740,7 +1740,7 @@ ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 /// <summary>
 /// Checks that it returns False when iterators point to a different dictionary.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
+ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorSVectorArrayToDifferentDictionaries_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY_A;
@@ -1936,7 +1936,7 @@ ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenDictionaryIsNotEmpty_Tes
 /// <summary>
 /// Checks that the iterator points to the first position even when it was pointing to the position before the first.
 /// </summary>
-ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenDictionaryIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenDictionaryIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY;
@@ -2009,7 +2009,7 @@ ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenDictionaryIsNotEmpty_Test 
 /// <summary>
 /// Checks that the iterator points to the last position even when it was pointing to the position before the first.
 /// </summary>
-ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenDictionaryIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenDictionaryIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     Dictionary<string_z, int> DICTIONARY;

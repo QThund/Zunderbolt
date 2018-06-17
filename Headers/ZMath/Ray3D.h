@@ -33,7 +33,7 @@
 #include "ESpaceRelation.h"
 #include "Orb.h"
 #include "Triangle.h"
-#include "SPoint.h"
+#include "SVectorArray.h"
 #include "ZMath/Vector3.h"
 #include "ZMath/Vector4.h"
 #include "TransformationMatrix.h"
@@ -818,8 +818,8 @@ public:
     Ray3D<VectorT> Rotate(const Quaternion &qRotation) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Rotate(qRotation, &auxRay.Origin, 1);
-        SPoint::Rotate(qRotation, &auxRay.Direction, 1);
+        SVectorArray::Rotate(qRotation, &auxRay.Origin, 1);
+        SVectorArray::Rotate(qRotation, &auxRay.Direction, 1);
         return auxRay;
     }
 
@@ -835,8 +835,8 @@ public:
     Ray3D<VectorT> RotateWithPivot(const Quaternion &qRotation, const VectorT &vPivot) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::RotateWithPivot(qRotation, vPivot, &auxRay.Origin, 1);
-        SPoint::Rotate(qRotation, &auxRay.Direction, 1);
+        SVectorArray::RotateWithPivot(qRotation, vPivot, &auxRay.Origin, 1);
+        SVectorArray::Rotate(qRotation, &auxRay.Direction, 1);
         return auxRay;
     }
 
@@ -850,7 +850,7 @@ public:
     Ray3D<VectorT> Translate(const Vector3 &vTranslation) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Translate(vTranslation, &auxRay.Origin, 1);
+        SVectorArray::Translate(vTranslation, &auxRay.Origin, 1);
         return auxRay;
     }
 
@@ -866,7 +866,7 @@ public:
     Ray3D<VectorT> Translate(const float_z fTranslationX, const float_z fTranslationY, const float_z fTranslationZ) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxRay.Origin, 1);
+        SVectorArray::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxRay.Origin, 1);
         return auxRay;
     }
 
@@ -884,8 +884,8 @@ public:
     Ray3D<VectorT> Scale(const Vector3 &vScale) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Scale(vScale, &auxRay.Origin, 1);
-        SPoint::Scale(vScale, &auxRay.Direction, 1);
+        SVectorArray::Scale(vScale, &auxRay.Origin, 1);
+        SVectorArray::Scale(vScale, &auxRay.Direction, 1);
         return Ray3D<VectorT>(auxRay.Origin, auxRay.Direction.Normalize());
     }
 
@@ -905,8 +905,8 @@ public:
     Ray3D<VectorT> Scale(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Origin, 1);
-        SPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Direction, 1);
+        SVectorArray::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Origin, 1);
+        SVectorArray::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Direction, 1);
         return Ray3D<VectorT>(auxRay.Origin, auxRay.Direction.Normalize());
     }
 
@@ -926,8 +926,8 @@ public:
     Ray3D<VectorT> ScaleWithPivot(const Vector3 &vScale, const VectorT &vPivot) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::ScaleWithPivot(vScale, vPivot, &auxRay.Origin, 1);
-        SPoint::Scale(vScale, &auxRay.Direction, 1);
+        SVectorArray::ScaleWithPivot(vScale, vPivot, &auxRay.Origin, 1);
+        SVectorArray::Scale(vScale, &auxRay.Direction, 1);
         return Ray3D<VectorT>(auxRay.Origin, auxRay.Direction.Normalize());
     }
 
@@ -949,8 +949,8 @@ public:
     Ray3D<VectorT> ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const VectorT &vPivot) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, &auxRay.Origin, 1);
-        SPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Direction, 1);
+        SVectorArray::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, &auxRay.Origin, 1);
+        SVectorArray::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Direction, 1);
         return Ray3D<VectorT>(auxRay.Origin, auxRay.Direction.Normalize());
     }
 
@@ -965,8 +965,8 @@ public:
     Ray3D<VectorT> Rotate(const RotationMatrix3x3 &rotation) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Rotate(rotation, &auxRay.Origin, 1);
-        SPoint::Rotate(rotation, &auxRay.Direction, 1);
+        SVectorArray::Rotate(rotation, &auxRay.Origin, 1);
+        SVectorArray::Rotate(rotation, &auxRay.Direction, 1);
         return auxRay;
     }
 
@@ -980,7 +980,7 @@ public:
     Ray3D<VectorT> Translate(const TranslationMatrix<Matrix4x3> &translation) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Translate(translation, &auxRay.Origin, 1);
+        SVectorArray::Translate(translation, &auxRay.Origin, 1);
         return auxRay;
     }
 
@@ -994,7 +994,7 @@ public:
     Ray3D<VectorT> Translate(const TranslationMatrix<Matrix4x4> &translation) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Translate(translation, &auxRay.Origin, 1);
+        SVectorArray::Translate(translation, &auxRay.Origin, 1);
         return auxRay;
     }
 
@@ -1012,8 +1012,8 @@ public:
     Ray3D<VectorT> Scale(const ScalingMatrix3x3 &scale) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Scale(scale, &auxRay.Origin, 1);
-        SPoint::Scale(scale, &auxRay.Direction, 1);
+        SVectorArray::Scale(scale, &auxRay.Origin, 1);
+        SVectorArray::Scale(scale, &auxRay.Direction, 1);
         return Ray3D<VectorT>(auxRay.Origin, auxRay.Direction.Normalize());
     }
 
@@ -1077,8 +1077,8 @@ public:
     Ray3D<VectorT> RotateWithPivot(const RotationMatrix3x3 &rotation, const VectorT &vPivot) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::RotateWithPivot(rotation, vPivot, &auxRay.Origin, 1);
-        SPoint::Rotate(rotation, &auxRay.Direction, 1);
+        SVectorArray::RotateWithPivot(rotation, vPivot, &auxRay.Origin, 1);
+        SVectorArray::Rotate(rotation, &auxRay.Direction, 1);
         return auxRay;
     }
 
@@ -1098,8 +1098,8 @@ public:
     Ray3D<VectorT> ScaleWithPivot(const ScalingMatrix3x3 &scale, const VectorT &vPivot) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::ScaleWithPivot(scale, vPivot, &auxRay.Origin, 1);
-        SPoint::Scale(scale, &auxRay.Direction, 1);
+        SVectorArray::ScaleWithPivot(scale, vPivot, &auxRay.Origin, 1);
+        SVectorArray::Scale(scale, &auxRay.Direction, 1);
         return Ray3D<VectorT>(auxRay.Origin, auxRay.Direction.Normalize());
     }
 
@@ -1301,7 +1301,7 @@ private:
     Ray3D<VectorT> TransformImp(const MatrixT &transformation) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::Transform(transformation, &auxRay.Origin, 1);
+        SVectorArray::Transform(transformation, &auxRay.Origin, 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in Vector3::Transform, except for the translation operations.
@@ -1329,7 +1329,7 @@ private:
     Ray3D<VectorT> TransformWithPivotImp(const MatrixT &transformation, const VectorT &vPivot) const
     {
         Ray3D<VectorT> auxRay = *this;
-        SPoint::TransformWithPivot(transformation, vPivot, &auxRay.Origin, 1);
+        SVectorArray::TransformWithPivot(transformation, vPivot, &auxRay.Origin, 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in Vector3::Transform, except for the translation operations.

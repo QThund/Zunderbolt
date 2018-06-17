@@ -2041,7 +2041,7 @@ ZTEST_CASE ( Substring4_ReturnsEmptyStringWhenBothStartPositionAndLastPositionPo
 /// <summary>
 /// Checks that the start position points to first position when it was pointing to the end position (backward).
 /// </summary>
-ZTEST_CASE ( Substring4_StartPositionPointsToFirstPositionWhenItWasPointingToBackwardEndPosition_Test )
+ZTEST_CASE ( Substring4_StartPositionPointsToFirstPositionWhenItWaSVectorArrayingToBackwardEndPosition_Test )
 {
     // [Preparation]
     const StringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");

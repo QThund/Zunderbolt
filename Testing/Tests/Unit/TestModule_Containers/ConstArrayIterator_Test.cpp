@@ -300,7 +300,7 @@ ZTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsP
 /// <summary>
 /// Checks that the iterator points to the first position and returns the previous state when it was pointing to the end position before the first one.
 /// </summary>
-ZTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     const int FIRST_ELEMENT_VALUE = 1;
@@ -396,7 +396,7 @@ ZTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturns
 /// <summary>
 /// Checks that the iterator points to the last position and returns the previous state when it was pointing to the end position after the last one.
 /// </summary>
-ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPosition_Test )
+ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToLastEndPosition_Test )
 {
     // [Preparation]
     const int LAST_ELEMENT_VALUE = 3;
@@ -493,7 +493,7 @@ ZTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
 /// <summary>
 /// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one.
 /// </summary>
-ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     const int FIRST_ELEMENT_VALUE = 1;
@@ -589,7 +589,7 @@ ZTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
 /// <summary>
 /// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one.
 /// </summary>
-ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWasPointingToLastEndPosition_Test )
+ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToLastEndPosition_Test )
 {
     // [Preparation]
     const int LAST_ELEMENT_VALUE = 3;
@@ -778,7 +778,7 @@ ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -809,7 +809,7 @@ ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentArrays_
 /// <summary>
 /// Checks that it returns False when iterators point to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -870,7 +870,7 @@ ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -901,7 +901,7 @@ ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentArray
 /// <summary>
 /// Checks that it returns True when iterators point to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -962,7 +962,7 @@ ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -993,7 +993,7 @@ ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentArra
 /// <summary>
 /// Checks that it returns False when iterators point to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -1055,7 +1055,7 @@ ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -1087,7 +1087,7 @@ ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentArrays
 /// <summary>
 /// Checks that it returns False when iterators point to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -1167,7 +1167,7 @@ ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -1198,7 +1198,7 @@ ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 /// <summary>
 /// Checks that it returns False when iterators point to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -1278,7 +1278,7 @@ ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowe
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -1309,7 +1309,7 @@ ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 /// <summary>
 /// Checks that it returns False when iterators point to a different array.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentArrays_Test )
+ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorSVectorArrayToDifferentArrays_Test )
 {
     // [Preparation]
     ArrayFixed<int> ARRAY_A(3, 0);
@@ -1470,7 +1470,7 @@ ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmpty_Test )
 /// <summary>
 /// Checks that the iterator points to the first position even when it was pointing to the position before the first.
 /// </summary>
-ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     ArrayFixed<int> SOURCE_ARRAY(3, 0);
@@ -1562,7 +1562,7 @@ ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmpty_Test )
 /// <summary>
 /// Checks that the iterator points to the last position even when it was pointing to the position before the first.
 /// </summary>
-ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     ArrayFixed<int> SOURCE_ARRAY(3, 0);

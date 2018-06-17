@@ -28,7 +28,7 @@
 
 #include "ZCommon/Assertions.h"
 #include "ZMath/TransformationMatrix3x3.h"
-#include "ZMath/SPoint.h"
+#include "ZMath/SVectorArray.h"
 
 
 
@@ -90,14 +90,14 @@ Triangle2D& Triangle2D::operator=(const Triangle<Vector2> &triangle)
 Triangle2D Triangle2D::Transform(const z::TransformationMatrix3x3 &transformation) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::Transform(transformation, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::Transform(transformation, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
 Triangle2D Triangle2D::TransformWithPivot(const z::TransformationMatrix3x3 &transformation, const Vector2 &vPivot) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::TransformWithPivot(transformation, vPivot, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::TransformWithPivot(transformation, vPivot, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
@@ -184,56 +184,56 @@ Vector2 Triangle2D::GetOrthocenter() const
 Triangle2D Triangle2D::Translate(const Vector2 &vTranslation) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::Translate(vTranslation, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::Translate(vTranslation, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
 Triangle2D Triangle2D::Translate(const float_z fTranslationX, const float_z fTranslationY) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::Translate(fTranslationX, fTranslationY, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::Translate(fTranslationX, fTranslationY, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
 Triangle2D Triangle2D::Rotate(const float_z fRotationAngle) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::Rotate(fRotationAngle, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::Rotate(fRotationAngle, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
 Triangle2D Triangle2D::RotateWithPivot(const float_z fRotationAngle, const Vector2 &vPivot) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::RotateWithPivot(fRotationAngle, vPivot, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
 Triangle2D Triangle2D::Scale(const Vector2 &vScale) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::Scale(vScale, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::Scale(vScale, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
 Triangle2D Triangle2D::Scale(const float_z fScaleX, const float_z fScaleY) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::Scale(fScaleX, fScaleY, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::Scale(fScaleX, fScaleY, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
 Triangle2D Triangle2D::ScaleWithPivot(const Vector2 &vScale, const Vector2 &vPivot) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::ScaleWithPivot(vScale, vPivot, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::ScaleWithPivot(vScale, vPivot, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 
 Triangle2D Triangle2D::ScaleWithPivot(const float_z fScaleX, const float_z fScaleY, const Vector2 &vPivot) const
 {
     Triangle2D auxTriangle = *this;
-    SPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_z(&auxTriangle, Vector2*), 3);
+    SVectorArray::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_z(&auxTriangle, Vector2*), 3);
     return auxTriangle;
 }
 

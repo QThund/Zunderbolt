@@ -405,7 +405,7 @@ ZTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturns
 /// <summary>
 /// Checks that the iterator points to the last position and returns the previous state when it was pointing to the end position after the last one.
 /// </summary>
-ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPosition_Test )
+ZTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWaSVectorArrayingToLastEndPosition_Test )
 {
 
     // [Preparation]
@@ -552,7 +552,7 @@ ZTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
 /// <summary>
 /// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one.
 /// </summary>
-ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToPositionBeforeFirst_Test )
 {
 
     // [Preparation]
@@ -697,7 +697,7 @@ ZTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
 /// <summary>
 /// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one.
 /// </summary>
-ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWasPointingToLastEndPosition_Test )
+ZTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWaSVectorArrayingToLastEndPosition_Test )
 {
 
     // [Preparation]
@@ -927,7 +927,7 @@ ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -958,7 +958,7 @@ ZTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentStrings
 /// <summary>
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1061,7 +1061,7 @@ ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1092,7 +1092,7 @@ ZTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentStrin
 /// <summary>
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1195,7 +1195,7 @@ ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1226,7 +1226,7 @@ ZTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentStri
 /// <summary>
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1329,7 +1329,7 @@ ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1360,7 +1360,7 @@ ZTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentString
 /// <summary>
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1463,7 +1463,7 @@ ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1494,7 +1494,7 @@ ZTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 /// <summary>
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1615,7 +1615,7 @@ ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -1646,7 +1646,7 @@ ZTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 /// <summary>
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
-ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
+ZTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorSVectorArrayToDifferentStrings_Test )
 {
     // [Preparation]
     StringUnicode STRING_A("ABCDEFGHIJKMN");
@@ -2032,7 +2032,7 @@ ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmptyAndItera
 /// <summary>
 /// Checks that the iterator points to the first position even when it was pointing to the position before the first.
 /// </summary>
-ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     StringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -2146,7 +2146,7 @@ ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmptyAndIterato
 /// <summary>
 /// Checks that the iterator points to the last position even when it was pointing to the position before the first.
 /// </summary>
-ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
+ZTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmptyAndIteratorWaSVectorArrayingToPositionBeforeFirst_Test )
 {
     // [Preparation]
     StringUnicode SOURCE_STRING("ABC");

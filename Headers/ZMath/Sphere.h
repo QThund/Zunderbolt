@@ -31,7 +31,7 @@
 #include "ZMath/Vector3.h"
 #include "ZMath/Vector4.h"
 #include "ZMath/Quaternion.h"
-#include "ZMath/SPoint.h"
+#include "ZMath/SVectorArray.h"
 #include "ZMath/EIntersections.h"
 #include "ZMath/ESpaceRelation.h"
 #include "ZMath/Plane.h"
@@ -143,7 +143,7 @@ public:
     Sphere<VectorT> Translate(const Vector3 &vTranslation) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Translate(vTranslation, &auxSphere.Center, 1);
+        SVectorArray::Translate(vTranslation, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -159,7 +159,7 @@ public:
     Sphere<VectorT> Translate(const float_z fTranslationX, const float_z fTranslationY, const float_z fTranslationZ) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxSphere.Center, 1);
+        SVectorArray::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -173,7 +173,7 @@ public:
     Sphere<VectorT> Rotate(const Quaternion &qRotation) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Rotate(qRotation, &auxSphere.Center, 1);
+        SVectorArray::Rotate(qRotation, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -188,7 +188,7 @@ public:
     Sphere<VectorT> RotateWithPivot(const Quaternion &qRotation, const VectorT &vPivot) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::RotateWithPivot(qRotation, vPivot, &auxSphere.Center, 1);
+        SVectorArray::RotateWithPivot(qRotation, vPivot, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -203,7 +203,7 @@ public:
     Sphere<VectorT> Scale(const Vector3 &vScale, const float_z fRadiusScale) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Scale(vScale, &auxSphere.Center, 1);
+        SVectorArray::Scale(vScale, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -220,7 +220,7 @@ public:
     Sphere<VectorT> Scale(const float_z fScaleX, const float_z fScaleY, const float_z fScaleZ, const float_z fRadiusScale) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxSphere.Center, 1);
+        SVectorArray::Scale(fScaleX, fScaleY, fScaleZ, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -236,7 +236,7 @@ public:
     Sphere<VectorT> ScaleWithPivot(const Vector3 &vScale, const float_z fRadiusScale, const VectorT &vPivot) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::ScaleWithPivot(vScale, vPivot, &auxSphere.Center, 1);
+        SVectorArray::ScaleWithPivot(vScale, vPivot, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -255,7 +255,7 @@ public:
                                const VectorT &vPivot) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, &auxSphere.Center, 1);
+        SVectorArray::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -270,7 +270,7 @@ public:
     Sphere<VectorT> Rotate(const RotationMatrix3x3 &rotation) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Rotate(rotation, &auxSphere.Center, 1);
+        SVectorArray::Rotate(rotation, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -286,7 +286,7 @@ public:
     Sphere<VectorT> RotateWithPivot(const RotationMatrix3x3 &rotation, const VectorT &vPivot) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::RotateWithPivot(rotation, vPivot, &auxSphere.Center, 1);
+        SVectorArray::RotateWithPivot(rotation, vPivot, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -300,7 +300,7 @@ public:
     Sphere<VectorT> Translate(const TranslationMatrix<Matrix4x3> &translation) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Translate(translation, &auxSphere.Center, 1);
+        SVectorArray::Translate(translation, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -314,7 +314,7 @@ public:
     Sphere<VectorT> Translate(const TranslationMatrix<Matrix4x4> &translation) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Translate(translation, &auxSphere.Center, 1);
+        SVectorArray::Translate(translation, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -329,7 +329,7 @@ public:
     Sphere<VectorT> Scale(const ScalingMatrix3x3 &scale, const float_z fRadiusScale) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Scale(scale, &auxSphere.Center, 1);
+        SVectorArray::Scale(scale, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -346,7 +346,7 @@ public:
     Sphere<VectorT> ScaleWithPivot(const ScalingMatrix3x3 &scale, const float_z fRadiusScale, const VectorT &vPivot) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::ScaleWithPivot(scale, vPivot, &auxSphere.Center, 1);
+        SVectorArray::ScaleWithPivot(scale, vPivot, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -361,7 +361,7 @@ public:
     Sphere<VectorT> Transform(const TransformationMatrix<Matrix4x3> &transformation, const float_z fRadiusScale) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Transform(transformation, &auxSphere.Center, 1);
+        SVectorArray::Transform(transformation, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -376,7 +376,7 @@ public:
     Sphere<VectorT> Transform(const TransformationMatrix<Matrix4x4> &transformation, const float_z fRadiusScale) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Transform(transformation, &auxSphere.Center, 1);
+        SVectorArray::Transform(transformation, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -393,7 +393,7 @@ public:
     Sphere<VectorT> Transform(const SpaceConversionMatrix &spaceConversion) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::Transform(spaceConversion, &auxSphere.Center, 1);
+        SVectorArray::Transform(spaceConversion, &auxSphere.Center, 1);
         return auxSphere;
     }
 
@@ -414,7 +414,7 @@ public:
                                    const VectorT &vPivot) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::TransformWithPivot(transformation, vPivot, &auxSphere.Center, 1);
+        SVectorArray::TransformWithPivot(transformation, vPivot, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
@@ -435,7 +435,7 @@ public:
                                    const VectorT &vPivot) const
     {
         Sphere<VectorT> auxSphere = *this;
-        SPoint::TransformWithPivot(transformation, vPivot, &auxSphere.Center, 1);
+        SVectorArray::TransformWithPivot(transformation, vPivot, &auxSphere.Center, 1);
         return Sphere<VectorT>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 

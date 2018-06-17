@@ -68,9 +68,6 @@
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Sphere_Test.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\SPoint_Test.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TransformationMatrix_Test.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -109,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TestModule_Math.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Ray_Vector4_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\SVectorArray_Test.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>

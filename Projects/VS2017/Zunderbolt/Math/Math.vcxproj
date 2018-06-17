@@ -41,7 +41,7 @@
     <ClInclude Include="..\..\..\..\Headers\ZMath\ScalingMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMath\SpaceConversionMatrix.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMath\Sphere.h" />
-    <ClInclude Include="..\..\..\..\Headers\ZMath\SPoint.h" />
+    <ClInclude Include="..\..\..\..\Headers\ZMath\SVectorArray.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMath\TransformationMatrix.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMath\TransformationMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\Headers\ZMath\TranslationMatrix.h" />
@@ -73,7 +73,7 @@
     <ClCompile Include="..\..\..\..\Source\ZMath\ScalingMatrix3x3.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZMath\SpaceConversionMatrix.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZMath\Sphere.cpp" />
-    <ClCompile Include="..\..\..\..\Source\ZMath\SPoint.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ZMath\SVectorArray.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZMath\TransformationMatrix.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZMath\TransformationMatrix3x3.cpp" />
     <ClCompile Include="..\..\..\..\Source\ZMath\TranslationMatrix.cpp" />

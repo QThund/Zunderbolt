@@ -44,7 +44,7 @@
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\ScalingMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\SpaceConversionMatrix_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\Sphere_Test.cpp" />
-    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\SPoint_Test.cpp" />
+    <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\SVectorArray_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TestModule_Math.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TransformationMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\Tests\Unit\TestModule_Math\TransformationMatrix_Test.cpp" />
